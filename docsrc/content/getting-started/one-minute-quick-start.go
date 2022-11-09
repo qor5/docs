@@ -13,13 +13,13 @@ One of the QOR5 module called ~presets~ that can quickly create admin interface 
 Install the command line tool with:
 
 ~~~
-$ go install github.com/qor5/admin/generator@master
+$ go install github.com/qor5/docs/cmd/qor5@latest
 ~~~
 
 And run:
 
 ~~~
-$ qor5 init
+$ qor5
 ~~~
 
 It will promote you to input a Go package, and create the admin app in current directory.
