@@ -2,7 +2,7 @@
 
 <html>
 <head>
-<title>Introduction - My Document</title>
+<title>Basics - Variant Sub Form - My Document</title>
 
 <meta name='description'>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -23,7 +23,7 @@
 
 <ul class='px-0 mx-0 text-base font-normal list-none text-gray-700'>
 <li>
-<a href='index.html' class='inline-block px-4 truncate break-words w-64 text-blue-500'>Introduction</a>
+<a href='index.html' class='inline-block px-4 truncate break-words w-64 text-gray-700'>Introduction</a>
 </li>
 
 <li class='cursor-default px-4 truncate break-words w-64'>Getting Started</li>
@@ -63,7 +63,7 @@
 </li>
 
 <li>
-<a href='vuetify-components/variant-sub-form.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>Variant Sub Form</a>
+<a href='vuetify-components/variant-sub-form.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-blue-500'>Variant Sub Form</a>
 </li>
 
 <li>
@@ -175,32 +175,21 @@
 </div>
 
 <div id='docMainBox' class='px-16 pb-12 pt-4 overflow-auto'>
-<h1 class='mb-8'>Introduction</h1>
+<h1 class='mb-8'>Variant Sub Form</h1>
 
-<div class='border-t'>
-<img src='/assets/logo.png'>
-<p>QOR5 is yet another Go library to build web applications. We aim to accelerate the development speed and make the website highly customizable.</p>
+<div class='border-t'><p>VSelect changes, the form below it will change to a new form accordingly.</p>
 
-<ul>
-<li>It prefers writing HTML in <a href="/advanced-functions/the-go-html-builder.html" rel="nofollow">static typing Go language</a>, rather than a certain type of template language, Not even go template.</li>
-<li>It try to minify the needs to write any JavaScript/Typescript for building interactive web applications</li>
-<li>It maximize the reusability of Components. since it uses Go to write components, You can abstract component very easy, and use component from a third party Go package is also like using normal Go packages.
-<br></li>
-</ul>
+<p>By use of <code>web.Portal()</code> and <code>VSelect</code>&#39;s <code>OnInput</code></p>
 
-<h2 id='how-is-this-document-organized'>How is this document organized
-<a href='#how-is-this-document-organized' class='anchor'></a>
-</h2>
-<p>Most of latter examples are based on the initial sample project. In another word, we will demonstrate how to build a rich functioned website by this document.</p>
+<highlightjs :language='"go"' :code='"\nimport (\n\t\"github.com/goplaid/web\"\n\t\"github.com/goplaid/x/docs/utils\"\n\t. \"github.com/goplaid/x/vuetify\"\n\th \"github.com/theplant/htmlgo\"\n)\n\ntype myFormValue struct {\n\tType  string\n\tForm1 struct {\n\t\tGender string\n\t}\n\tForm2 struct {\n\t\tFeature1 bool\n\t\tSlider1  int\n\t}\n}\n\nfunc VuetifyVariantSubForm(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\n\tvar fv myFormValue\n\tctx.MustUnmarshalForm(\u0026fv)\n\tif fv.Type == \"\" {\n\t\tfv.Type = \"Type1\"\n\t}\n\tvar verr web.ValidationErrors\n\n\tpr.Body = VContainer(\n\t\tutils.PrettyFormAsJSON(ctx),\n\n\t\tVSelect().\n\t\t\tItems([]string{\n\t\t\t\t\"Type1\",\n\t\t\t\t\"Type2\",\n\t\t\t}).\n\t\t\tValue(fv.Type).\n\t\t\tAttr(\"@change\", web.POST().\n\t\t\t\tFieldValue(\"Type\", web.Var(\"$event\")).\n\t\t\t\tEventFunc(\"switchForm\").\n\t\t\t\tGo()),\n\n\t\tweb.Portal(\n\t\t\th.If(fv.Type == \"Type1\",\n\t\t\t\tform1(ctx, \u0026fv),\n\t\t\t).Else(\n\t\t\t\tform2(ctx, \u0026fv, \u0026verr),\n\t\t\t),\n\t\t).Name(\"subform\"),\n\n\t\tVBtn(\"Submit\").OnClick(\"submit\"),\n\t)\n\treturn\n}\n\nfunc form1(ctx *web.EventContext, fv *myFormValue) h.HTMLComponent {\n\n\treturn VContainer(\n\t\th.H1(\"Form1\"),\n\t\tVRadioGroup(\n\t\t\tVRadio().Value(\"F\").Label(\"Female\"),\n\t\t\tVRadio().Value(\"M\").Label(\"Male\"),\n\t\t).FieldName(\"Form1.Gender\").\n\t\t\tValue(fv.Form1.Gender).\n\t\t\tLabel(\"Gender\"),\n\t)\n}\nfunc form2(ctx *web.EventContext, fv *myFormValue, verr *web.ValidationErrors) h.HTMLComponent {\n\n\treturn VContainer(\n\t\th.H1(\"Form2\"),\n\n\t\tVSwitch().\n\t\t\tFieldName(\"Form2.Feature1\").\n\t\t\tInputValue(fv.Form2.Feature1).\n\t\t\tLabel(\"Feature1\"),\n\n\t\tVSlider().FieldName(\"Form2.Slider1\").\n\t\t\tErrorMessages(verr.GetFieldErrors(\"Slider1\")...).\n\t\t\tValue(fv.Form2.Slider1).\n\t\t\tLabel(\"Slider1\"),\n\t)\n}\n\nfunc submit(ctx *web.EventContext) (r web.EventResponse, err error) {\n\tr.Reload = true\n\treturn\n}\n\nfunc switchForm(ctx *web.EventContext) (r web.EventResponse, err error) {\n\tvar verr web.ValidationErrors\n\n\tvar fv myFormValue\n\tctx.MustUnmarshalForm(\u0026fv)\n\tform := form1(ctx, \u0026fv)\n\tif fv.Type == \"Type2\" {\n\t\tform = form2(ctx, \u0026fv, \u0026verr)\n\t}\n\n\tr.UpdatePortals = append(r.UpdatePortals, \u0026web.PortalUpdate{\n\t\tName: \"subform\",\n\t\tBody: form,\n\t})\n\n\treturn\n}\n\nvar VuetifyVariantSubFormPB = web.Page(VuetifyVariantSubForm).\n\tEventFunc(\"switchForm\", switchForm).\n\tEventFunc(\"submit\", submit)\n\nconst VuetifyVariantSubFormPath = \"/samples/vuetify-variant-sub-form\"\n"'></highlightjs>
 
-<ul>
-<li>First, we will start with a quick sample project that would give you a rough but visual idea of what QOR5 can do.</li>
-<li>Second, we will introduce the basic functions, The sequence is from listing page to editing page. You can find all commonly used Admin website features in this section.</li>
-<li>Third, we will introduce the essentials of QOR5 and advanced functions, You would understand how QOR5 render a page and advanced features like &#34;how to partially refresh a page&#34;.</li>
-<li>At last, the digging deeper part, you would learn how to create new component for QOR5</li>
-</ul>
-
-<p><strong>Join the Discord community</strong>: <a href="https://discord.gg/76YPsVBE4E" rel="nofollow">https://discord.gg/76YPsVBE4E</a></p>
+<div>
+<div class='demo'>
+<a href='/samples/vuetify-variant-sub-form' target='_blank'>Check the demo</a>
+ | 
+<a href='https://github.com/qor5/docs/tree/master/examples/e22_vuetify_variant_sub_form/page.go' target='_blank'>Source on GitHub</a>
+</div>
+</div>
 </div>
 </div>
 </div>

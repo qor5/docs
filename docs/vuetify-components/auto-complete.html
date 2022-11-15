@@ -2,7 +2,7 @@
 
 <html>
 <head>
-<title>Introduction - My Document</title>
+<title>Basics - Auto Complete - My Document</title>
 
 <meta name='description'>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -23,7 +23,7 @@
 
 <ul class='px-0 mx-0 text-base font-normal list-none text-gray-700'>
 <li>
-<a href='index.html' class='inline-block px-4 truncate break-words w-64 text-blue-500'>Introduction</a>
+<a href='index.html' class='inline-block px-4 truncate break-words w-64 text-gray-700'>Introduction</a>
 </li>
 
 <li class='cursor-default px-4 truncate break-words w-64'>Getting Started</li>
@@ -55,7 +55,7 @@
 </li>
 
 <li>
-<a href='vuetify-components/auto-complete.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>Auto Complete</a>
+<a href='vuetify-components/auto-complete.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-blue-500'>Auto Complete</a>
 </li>
 
 <li>
@@ -175,32 +175,26 @@
 </div>
 
 <div id='docMainBox' class='px-16 pb-12 pt-4 overflow-auto'>
-<h1 class='mb-8'>Introduction</h1>
+<h1 class='mb-8'>Auto Complete</h1>
 
-<div class='border-t'>
-<img src='/assets/logo.png'>
-<p>QOR5 is yet another Go library to build web applications. We aim to accelerate the development speed and make the website highly customizable.</p>
-
-<ul>
-<li>It prefers writing HTML in <a href="/advanced-functions/the-go-html-builder.html" rel="nofollow">static typing Go language</a>, rather than a certain type of template language, Not even go template.</li>
-<li>It try to minify the needs to write any JavaScript/Typescript for building interactive web applications</li>
-<li>It maximize the reusability of Components. since it uses Go to write components, You can abstract component very easy, and use component from a third party Go package is also like using normal Go packages.
-<br></li>
-</ul>
-
-<h2 id='how-is-this-document-organized'>How is this document organized
-<a href='#how-is-this-document-organized' class='anchor'></a>
-</h2>
-<p>Most of latter examples are based on the initial sample project. In another word, we will demonstrate how to build a rich functioned website by this document.</p>
+<div class='border-t'><p>AutoComplete is a more advanced component that vuetify provides, We extend it
+So that it can fetch remote options from an event func. here we show these examples:</p>
 
 <ul>
-<li>First, we will start with a quick sample project that would give you a rough but visual idea of what QOR5 can do.</li>
-<li>Second, we will introduce the basic functions, The sequence is from listing page to editing page. You can find all commonly used Admin website features in this section.</li>
-<li>Third, we will introduce the essentials of QOR5 and advanced functions, You would understand how QOR5 render a page and advanced features like &#34;how to partially refresh a page&#34;.</li>
-<li>At last, the digging deeper part, you would learn how to create new component for QOR5</li>
+<li>An auto complete that you can select multiple with static data</li>
+<li>An auto complete that you can select multiple with remote fetched dynamic data</li>
+<li>A static normal select component</li>
 </ul>
 
-<p><strong>Join the Discord community</strong>: <a href="https://discord.gg/76YPsVBE4E" rel="nofollow">https://discord.gg/76YPsVBE4E</a></p>
+<highlightjs :language='"go"' :code='"\nimport (\n\t\"fmt\"\n\n\t\"github.com/goplaid/web\"\n\t\"github.com/goplaid/x/presets\"\n\t\"github.com/goplaid/x/presets/gorm2op\"\n\t. \"github.com/goplaid/x/vuetify\"\n\t\"github.com/goplaid/x/vuetifyx\"\n\th \"github.com/theplant/htmlgo\"\n\t\"gorm.io/driver/sqlite\"\n\t\"gorm.io/gorm\"\n)\n\ntype myFormValue struct {\n\tValues1 []string\n\tValues2 []string\n\tValue3  string\n}\n\ntype User struct {\n\tLogin string\n\tName  string\n}\n\nvar selectedItems1 = []*User{\n\t{Login: \"sam\", Name: \"Sam\"},\n\t{Login: \"charles\", Name: \"Charles\"},\n}\n\nvar options1 = []*User{\n\t{Login: \"sam\", Name: \"Sam\"},\n\t{Login: \"john\", Name: \"John\"},\n\t{Login: \"charles\", Name: \"Charles\"},\n}\n\nvar selectedItems2 = []*User{\n\t{Login: \"charles\", Name: \"Charles\"},\n}\n\nvar selectedItems3 = []*User{\n\t{Login: \"charles\", Name: \"Charles\"},\n}\n\nvar options2 = []*User{\n\t{Login: \"sam\", Name: \"Sam\"},\n\t{Login: \"john\", Name: \"John\"},\n\t{Login: \"charles\", Name: \"Charles\"},\n}\n\nvar globalState = \u0026myFormValue{\n\tValues1: []string{\n\t\t\"sam\",\n\t\t\"charles\",\n\t},\n\tValues2: []string{\n\t\t\"charles\",\n\t},\n\tValue3: \"charles\",\n}\n\ntype Product struct {\n\tID   uint `gorm:\"primarykey\"`\n\tName string\n}\n\nvar loadMoreRes *vuetifyx.AutocompleteDataSource\nvar pagingRes *vuetifyx.AutocompleteDataSource\nvar ExamplePreset *presets.Builder\n\nfunc init() {\n\tdb, err := gorm.Open(sqlite.Open(\"/tmp/my.db\"), \u0026gorm.Config{})\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\n\tdb.AutoMigrate(\u0026Product{})\n\tdb.Where(\"1=1\").Delete(\u0026Product{})\n\n\tfor i := 1; i \u003c 300; i++ {\n\t\tdb.Create(\u0026Product{Name: fmt.Sprintf(\"Product %d\", i)})\n\t}\n\n\tExamplePreset = presets.New()\n\tExamplePreset.URIPrefix(VuetifyAutoCompletePresetPath).DataOperator(gorm2op.DataOperator(db))\n\tlisting := ExamplePreset.Model(\u0026Product{}).Listing()\n\tloadMoreRes = listing.ConfigureAutocompleteDataSource(\n\t\t\u0026presets.AutocompleteDataSourceConfig{\n\t\t\tOptionValue: \"ID\",\n\t\t\tOptionText:  \"Name\",\n\t\t\tKeywordColumns: []string{\n\t\t\t\t\"Name\",\n\t\t\t},\n\t\t\tPerPage: 50,\n\t\t},\n\t\t\"loadMore\",\n\t)\n\n\tpagingRes = listing.ConfigureAutocompleteDataSource(\n\t\t\u0026presets.AutocompleteDataSourceConfig{\n\t\t\tOptionValue: \"ID\",\n\t\t\tOptionText:  \"Name\",\n\t\t\tKeywordColumns: []string{\n\t\t\t\t\"Name\",\n\t\t\t},\n\t\t\tPerPage:  20,\n\t\t\tIsPaging: true,\n\t\t\tOrderBy:  \"Name\",\n\t\t},\n\t\t\"paging\",\n\t)\n\n}\n\nfunc VuetifyAutocomplete(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\tresult := h.Ul()\n\tfor _, v := range globalState.Values1 {\n\t\tresult.AppendChildren(h.Li().Text(v))\n\t}\n\tpr.Body = VContainer(\n\t\th.H1(\"An auto complete that you can select multiple options with static data\"),\n\t\tVAutocomplete().\n\t\t\tItems(options1).\n\t\t\tFieldName(\"Values1\").\n\t\t\tItemText(\"Name\").\n\t\t\tItemValue(\"Login\").\n\t\t\tLabel(\"Static Options\").\n\t\t\tValue(globalState.Values1),\n\t\tresult,\n\n\t\th.H1(\"An auto complete that you can select multiple options from data source by loading more\"),\n\t\tvuetifyx.VXAutocomplete().\n\t\t\tFieldName(\"Values2\").\n\t\t\tLabel(\"Load options from data source\").\n\t\t\tSetDataSource(loadMoreRes),\n\n\t\th.H1(\"An auto complete that you can select multiple options from data source resource by paging\"),\n\t\tvuetifyx.VXAutocomplete().\n\t\t\tFieldName(\"Values2\").\n\t\t\tLabel(\"Load options from data source\").\n\t\t\tSetDataSource(pagingRes),\n\n\t\th.H1(\"VSelect\"),\n\t\tVSelect().\n\t\t\tItems(options1).    // Items is the data source\n\t\t\tItemText(\"Name\").   // ItemText is the value that would be displayed to user. the argument is the corresponding field name in the Items. here is user.Name\n\t\t\tItemValue(\"Login\"). // ItemValue is the value that will be passed with the form. same with ItemText, here is user.Login\n\t\t\tFieldName(\"Value3\").\n\t\t\tSolo(true).\n\t\t\tValue(globalState.Value3),\n\t\th.Pre(globalState.Value3),\n\t\tVBtn(\"Update\").\n\t\t\tColor(\"success\").\n\t\t\tOnClick(\"update\"),\n\t)\n\treturn\n}\n\nfunc update(ctx *web.EventContext) (r web.EventResponse, err error) {\n\tglobalState = \u0026myFormValue{}\n\tctx.MustUnmarshalForm(globalState)\n\n\tselectedItems1 = []*User{}\n\tfor _, login := range globalState.Values1 {\n\t\tfor _, u := range options1 {\n\t\t\tif u.Login == login {\n\t\t\t\tselectedItems1 = append(selectedItems1, u)\n\t\t\t}\n\t\t}\n\t}\n\n\tselectedItems2 = []*User{}\n\tfor _, login := range globalState.Values2 {\n\t\tfor _, u := range options2 {\n\t\t\tif u.Login == login {\n\t\t\t\tselectedItems2 = append(selectedItems2, u)\n\t\t\t}\n\t\t}\n\t}\n\n\tselectedItems3 = []*User{}\n\tfor _, u := range options1 {\n\t\tif u.Login == globalState.Value3 {\n\t\t\tselectedItems3 = append(selectedItems3, u)\n\t\t}\n\t}\n\tr.Reload = true\n\n\treturn\n}\n\nvar VuetifyAutocompletePB = web.Page(VuetifyAutocomplete).\n\tEventFunc(\"update\", update)\n\nconst VuetifyAutoCompletePath = \"/samples/vuetify-auto-complete\"\nconst VuetifyAutoCompletePresetPath = \"/samples/vuetify-auto-complete-preset\"\n"'></highlightjs>
+
+<div>
+<div class='demo'>
+<a href='/samples/vuetify-auto-complete' target='_blank'>Check the demo</a>
+ | 
+<a href='https://github.com/qor5/docs/tree/master/examples/e10_vuetify_autocomplete/page.go' target='_blank'>Source on GitHub</a>
+</div>
+</div>
 </div>
 </div>
 </div>

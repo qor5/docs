@@ -2,7 +2,7 @@
 
 <html>
 <head>
-<title>Introduction - My Document</title>
+<title>Advanced Functions - Page Func and Event Func - My Document</title>
 
 <meta name='description'>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -23,7 +23,7 @@
 
 <ul class='px-0 mx-0 text-base font-normal list-none text-gray-700'>
 <li>
-<a href='index.html' class='inline-block px-4 truncate break-words w-64 text-blue-500'>Introduction</a>
+<a href='index.html' class='inline-block px-4 truncate break-words w-64 text-gray-700'>Introduction</a>
 </li>
 
 <li class='cursor-default px-4 truncate break-words w-64'>Getting Started</li>
@@ -81,7 +81,7 @@
 <li class='cursor-default px-4 truncate break-words w-64'>Advanced Functions</li>
 
 <li>
-<a href='basics/page-func-and-event-func.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>Page Func and Event Func</a>
+<a href='basics/page-func-and-event-func.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-blue-500'>Page Func and Event Func</a>
 </li>
 
 <li>
@@ -175,32 +175,39 @@
 </div>
 
 <div id='docMainBox' class='px-16 pb-12 pt-4 overflow-auto'>
-<h1 class='mb-8'>Introduction</h1>
+<h1 class='mb-8'>Page Func and Event Func</h1>
 
-<div class='border-t'>
-<img src='/assets/logo.png'>
-<p>QOR5 is yet another Go library to build web applications. We aim to accelerate the development speed and make the website highly customizable.</p>
+<div class='border-t'><p><code>PageFunc</code> is used to build a web page, <code>EventFunc</code> is called when user interact with the page, For example button or link clicks.</p>
 
-<ul>
-<li>It prefers writing HTML in <a href="/advanced-functions/the-go-html-builder.html" rel="nofollow">static typing Go language</a>, rather than a certain type of template language, Not even go template.</li>
-<li>It try to minify the needs to write any JavaScript/Typescript for building interactive web applications</li>
-<li>It maximize the reusability of Components. since it uses Go to write components, You can abstract component very easy, and use component from a third party Go package is also like using normal Go packages.
-<br></li>
-</ul>
+<highlightjs :language='"go"' :code='"type PageFunc func(ctx *EventContext) (r PageResponse, err error)\ntype EventFunc func(ctx *EventContext) (r EventResponse, err error)\n"'></highlightjs>
+<p><code>web.Page(...)</code> converts multiple <code>EventFunc</code>s along with one <code>PageFunc</code> to a <code>http.Handler</code>,
+event func needs a name to be used by <code>web.POST().EventFunc(name).Go()</code> to attach to an html element that post http request to call the <code>EventFunc</code> when vue event like <code>@click</code> happens</p>
+<p>Here is a hello world with more interactions. User click the button will reload the page with latest time</p>
 
-<h2 id='how-is-this-document-organized'>How is this document organized
-<a href='#how-is-this-document-organized' class='anchor'></a>
-</h2>
-<p>Most of latter examples are based on the initial sample project. In another word, we will demonstrate how to build a rich functioned website by this document.</p>
+<highlightjs :language='"go"' :code='"import (\n\t\"time\"\n\n\t\"github.com/goplaid/web\"\n\t. \"github.com/theplant/htmlgo\"\n)\n\nfunc HelloWorldReload(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\tpr.Body = Div(\n\t\tH1(\"Hello World\"),\n\t\tText(time.Now().Format(time.RFC3339Nano)),\n\t\tButton(\"Reload Page\").Attr(\"@click\", web.GET().\n\t\t\tEventFunc(reloadEvent).\n\t\t\tGo()),\n\t)\n\treturn\n}\n\nfunc update(ctx *web.EventContext) (er web.EventResponse, err error) {\n\ter.Reload = true\n\treturn\n}\n\nconst reloadEvent = \"reload\"\n\nvar HelloWorldReloadPB = web.Page(HelloWorldReload).\n\tEventFunc(reloadEvent, update)\n\nconst HelloWorldReloadPath = \"/samples/hello_world_reload\"\n"'></highlightjs>
 
-<ul>
-<li>First, we will start with a quick sample project that would give you a rough but visual idea of what QOR5 can do.</li>
-<li>Second, we will introduce the basic functions, The sequence is from listing page to editing page. You can find all commonly used Admin website features in this section.</li>
-<li>Third, we will introduce the essentials of QOR5 and advanced functions, You would understand how QOR5 render a page and advanced features like &#34;how to partially refresh a page&#34;.</li>
-<li>At last, the digging deeper part, you would learn how to create new component for QOR5</li>
-</ul>
+<div>
+<div class='demo'>
+<a href='/samples/hello_world_reload' target='_blank'>Check the demo</a>
+ | 
+<a href='https://github.com/qor5/docs/tree/master/examples/e00_basics/hello-world-reload.go' target='_blank'>Source on GitHub</a>
+</div>
+</div>
+<p>Note that you have to mount the <code>web.Page(...)</code> instance to http.ServeMux with a path to be able to access the <code>PageFunc</code> in your browser, when mounting you can also wrap the <code>PageFunc</code> with middleware, which is <code>func(in PageFunc) (out PageFunc)</code> a func that take a page func and do some wrapping and return a new page func</p>
 
-<p><strong>Join the Discord community</strong>: <a href="https://discord.gg/76YPsVBE4E" rel="nofollow">https://discord.gg/76YPsVBE4E</a></p>
+<highlightjs :language='"go"' :code='"mux.Handle(\n\te00_basics.HelloWorldReloadPath,\n\te00_basics.HelloWorldReloadPB.Wrap(demoLayout),\n)"'></highlightjs>
+<p><code>wb.Page(...)</code> convert any <code>PageFunc</code> into <code>http.Handler</code>, outside you can wrap any middleware that can use on Go standard <code>http.Handler</code>.</p>
+<p>In case you don&#39;t know what is a http.Handler middleware,
+It&#39;s a function that takes http.Handler as input, might also with other parameters,
+And also return a new http.Handler,
+<a href="https://github.com/nytimes/gziphandler" rel="nofollow">gziphandler</a> is an example.</p>
+<p>But What the heck is <code>demoLayout</code> there?
+Well it&#39;s a <code>PageFunc</code> middleware. That takes an <code>PageFunc</code> as input,
+wrap it&#39;s <code>PageResponse</code> with layout html and return a new <code>PageFunc</code>.
+If you follow the code to write your own <code>PageFunc</code>,
+The button click might not work without this.
+Since there is no layout to import needed javascript to make this work.
+continue to next page to checkout how to add necessary javascript, css etc to make the demo work.</p>
 </div>
 </div>
 </div>

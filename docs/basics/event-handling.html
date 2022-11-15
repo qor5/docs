@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<title>Advanced Functions - Event Handling - My Document</title>
+
+<meta name='description'>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<base href='/docs/'>
+
+<link href='index.css' rel='stylesheet' type='text/css'>
+
+<script type='text/javascript' defer src='index.js'></script>
+</head>
+
+<body>
+<div id='app' v-cloak>
+<div v-init-context:vars='{hideAside: false}' class='flex h-screen'>
+<div class='flex-1 flex flex-col overflow-hidden'>
+<div class='flex h-full'>
+<aside v-show='!vars.hideAside' class='flex flex-col w-80 h-full bg-gray-50 border-r border-gray-200 overflow-y-auto'>
+<div class='h-12'><search></search></div>
+
+<ul class='px-0 mx-0 text-base font-normal list-none text-gray-700'>
+<li>
+<a href='index.html' class='inline-block px-4 truncate break-words w-64 text-gray-700'>Introduction</a>
+</li>
+
+<li class='cursor-default px-4 truncate break-words w-64'>Getting Started</li>
+
+<li>
+<a href='getting-started/one-minute-quick-start.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>1 Minute Quick Start</a>
+</li>
+
+<li class='cursor-default px-4 truncate break-words w-64'>Basics</li>
+
+<li>
+<a href='basics/listing.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>Listing Page</a>
+</li>
+
+<li>
+<a href='basics/filter.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>Filters</a>
+</li>
+
+<li>
+<a href='presets-guide/editing-customizations.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>Editing Customizations</a>
+</li>
+
+<li>
+<a href='basics/form-handling.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>Form Handling</a>
+</li>
+
+<li>
+<a href='vuetify-components/basic-inputs.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>Basic Inputs</a>
+</li>
+
+<li>
+<a href='vuetify-components/auto-complete.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>Auto Complete</a>
+</li>
+
+<li>
+<a href='basics/shortcut.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>Keyboard Shortcut</a>
+</li>
+
+<li>
+<a href='vuetify-components/variant-sub-form.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>Variant Sub Form</a>
+</li>
+
+<li>
+<a href='vuetify-components/linkage-select.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>Linkage Select</a>
+</li>
+
+<li>
+<a href='presets-guide/permissions.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>Permissions</a>
+</li>
+
+<li>
+<a href='basics/notification-center.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>Notification Center</a>
+</li>
+
+<li class='cursor-default px-4 truncate break-words w-64'>Advanced Functions</li>
+
+<li>
+<a href='basics/page-func-and-event-func.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>Page Func and Event Func</a>
+</li>
+
+<li>
+<a href='advanced-functions/the-go-html-builder.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>The Go HTML builder</a>
+</li>
+
+<li>
+<a href='vuetify-components/a-taste-of-using-vuetify-in-go.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>A Taste of using Vuetify in Go</a>
+</li>
+
+<li>
+<a href='presets-guide/its-the-whole-house.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>Not just scaffolding, it&#39;s the whole house</a>
+</li>
+
+<li>
+<a href='vuetify-components/navigation-drawer.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>Navigation Drawer</a>
+</li>
+
+<li>
+<a href='vuetify-components/lazy-portals.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>Lazy Portals</a>
+</li>
+
+<li>
+<a href='basics/layout-function-and-page-injector.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>Layout Function and Page Injector</a>
+</li>
+
+<li>
+<a href='basics/switch-pages-with-push-state.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>Switch Pages with Push State</a>
+</li>
+
+<li>
+<a href='basics/reload-page-with-a-flash.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>Reload Page with a Flash</a>
+</li>
+
+<li>
+<a href='basics/partial-refresh-with-portal.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>Partial Refresh with Portal</a>
+</li>
+
+<li>
+<a href='basics/manipulate-page-url-in-event-func.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>Manipulate Page URL in Event Func</a>
+</li>
+
+<li>
+<a href='basics/summary-of-event-response.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>Summary of Event Response</a>
+</li>
+
+<li>
+<a href='basics/scope-component.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>Scope Component</a>
+</li>
+
+<li>
+<a href='basics/event-handling.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-blue-500'>Event Handling</a>
+</li>
+
+<li>
+<a href='presets-guide/detail-page-for-complex-object.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>Detail page for complex object</a>
+</li>
+
+<li class='cursor-default px-4 truncate break-words w-64'>Digging Deeper</li>
+
+<li>
+<a href='components-guide/composite-new-component-with-go.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>Composite new Component With Go</a>
+</li>
+
+<li>
+<a href='components-guide/integrate-a-heavy-vue-component.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>Integrate a heavy Vue Component</a>
+</li>
+
+<li class='cursor-default px-4 truncate break-words w-64'>Appendix</li>
+
+<li>
+<a href='appendix/all-demo-examples.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>All Demo Examples</a>
+</li>
+</ul>
+</aside>
+
+<main class='flex flex-col w-full bg-white overflow-x-hidden overflow-y-auto'>
+<div id='docContentBox' class='flex flex-row w-full'>
+<div class='flex flex-grow flex-col w-2/3'>
+<div class='flex flex-row'>
+<button @click='vars.hideAside = !vars.hideAside' class='w-12 h-12 p-4'>
+<div class='w-4 h-4 fill-current text-gray-300'>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" height="16px" viewBox="0 0 16 16" version="1.1">
+<g id="surface1">
+<path style=" stroke:none;fill-rule:nonzero;fill:rgb(0%,0%,0%);fill-opacity:1;" d="M 2 12 L 2 11 L 14 11 L 14 12 Z M 2 8.5 L 2 7.5 L 14 7.5 L 14 8.5 Z M 2 5 L 2 4 L 14 4 L 14 5 Z M 2 5 "/>
+</g>
+</svg>
+</div>
+</button>
+</div>
+
+<div id='docMainBox' class='px-16 pb-12 pt-4 overflow-auto'>
+<h1 class='mb-8'>Event Handling</h1>
+
+<div class='border-t'><p>We extend vue to support the following types of event handling, so you can simply use go code to implement some complex logic.</p>
+
+<p>Using the <code>Plaid()</code> method will create an event handler that defaults to using the current <code>vars</code> and <code>plaidForm</code>.
+The default http request method is <code>Post</code>, if you want to use the <code>Get</code> method, you can also use the <code>Get()</code> method directly to create an event handler</p>
+
+<h2 id='url'>URL
+<a href='#url' class='anchor'></a>
+</h2>
+<p>Request a page.</p>
+
+<highlightjs :language='"go"' :code='"func EventHandlingURL(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\tpr.Body = Div(\n\t\tVCard(\n\t\t\tVCardTitle(Text(\"URL\")),\n\t\t\tVCardActions(VBtn(\"Go\").Attr(\"@click\", web.GET().URL(EventExamplePagePath).Go())),\n\t\t),\n\t)\n\treturn\n}\n"'></highlightjs>
+
+<div>
+<div class='demo'>
+<a href='/samples/event_handling?api=url' target='_blank'>Check the demo</a>
+ | 
+<a href='https://github.com/qor5/docs/tree/master/examples/e00_basics/event-handling.go#L14-L22' target='_blank'>Source on GitHub</a>
+</div>
+</div>
+
+<h2 id='pushstate'>PushState
+<a href='#pushstate' class='anchor'></a>
+</h2>
+<p>Reqest a page and also changing the window location.</p>
+
+<highlightjs :language='"go"' :code='"func EventHandlingPushState(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\tpr.Body = Div(\n\t\tVCard(\n\t\t\tVCardTitle(Text(\"PushState\")),\n\t\t\tVCardActions(VBtn(\"Go\").Attr(\"@click\", web.GET().URL(EventExamplePagePath).PushState(true).Go())),\n\t\t),\n\t)\n\treturn\n}\n"'></highlightjs>
+
+<div>
+<div class='demo'>
+<a href='/samples/event_handling?api=pushstate' target='_blank'>Check the demo</a>
+ | 
+<a href='https://github.com/qor5/docs/tree/master/examples/e00_basics/event-handling.go#27-L35' target='_blank'>Source on GitHub</a>
+</div>
+</div>
+
+<h2 id='reload'>Reload
+<a href='#reload' class='anchor'></a>
+</h2>
+<p>Refresh page.</p>
+
+<highlightjs :language='"go"' :code='"func EventHandlingReload(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\tpr.Body = Div(\n\t\tVCard(\n\t\t\tVCardTitle(Text(\"Reload\")),\n\t\t\tText(fmt.Sprintf(\"Now: %s\", time.Now().Format(time.RFC3339Nano))),\n\t\t\tVCardActions(VBtn(\"Reload\").Attr(\"@click\", web.POST().Reload().Go())),\n\t\t),\n\t)\n\treturn\n}\n"'></highlightjs>
+
+<div>
+<div class='demo'>
+<a href='/samples/event_handling?api=reload' target='_blank'>Check the demo</a>
+ | 
+<a href='https://github.com/qor5/docs/tree/master/examples/e00_basics/event-handling.go#40-L49' target='_blank'>Source on GitHub</a>
+</div>
+</div>
+
+<h2 id='query'>Query
+<a href='#query' class='anchor'></a>
+</h2>
+<p>Request a page with a query.</p>
+
+<highlightjs :language='"go"' :code='"func EventHandlingQuery(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\tpr.Body = Div(\n\t\tVCard(\n\t\t\tVCardTitle(Text(\"Query\")),\n\t\t\tVCardActions(VBtn(\"Go\").Attr(\"@click\", web.GET().URL(EventExamplePagePath).PushState(true).Query(\"address\", \"tokyo\").Go())),\n\t\t),\n\t)\n\treturn\n}\n"'></highlightjs>
+
+<div>
+<div class='demo'>
+<a href='/samples/event_handling?api=query' target='_blank'>Check the demo</a>
+ | 
+<a href='https://github.com/qor5/docs/tree/master/examples/e00_basics/event-handling.go#L54-L62' target='_blank'>Source on GitHub</a>
+</div>
+</div>
+
+<h2 id='mergequery'>MergeQuery
+<a href='#mergequery' class='anchor'></a>
+</h2>
+<p>Request a page with merging a query.</p>
+
+<highlightjs :language='"go"' :code='"func EventHandlingMergeQuery(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\tpr.Body = Div(\n\t\tVCard(\n\t\t\tVCardTitle(Text(\"MergeQuery\")),\n\t\t\tVCardActions(VBtn(\"Go\").Attr(\"@click\", web.GET().URL(EventExamplePagePath+\"?address=beijing\u0026name=qor5\u0026email=qor5@theplant.jp\").PushState(true).Query(\"address\", \"tokyo\").MergeQuery(true).Go())),\n\t\t),\n\t)\n\treturn\n}\n"'></highlightjs>
+
+<div>
+<div class='demo'>
+<a href='/samples/event_handling?api=merge_query' target='_blank'>Check the demo</a>
+ | 
+<a href='https://github.com/qor5/docs/tree/master/examples/e00_basics/event-handling.go#L67-L75' target='_blank'>Source on GitHub</a>
+</div>
+</div>
+
+<h2 id='clearmergequery'>ClearMergeQuery
+<a href='#clearmergequery' class='anchor'></a>
+</h2>
+<p>Request a page with clearing a query.</p>
+
+<highlightjs :language='"go"' :code='"func EventHandlingClearMergeQueryQuery(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\tpr.Body = Div(\n\t\tVCard(\n\t\t\tVCardTitle(Text(\"ClearMergeQuery\")),\n\t\t\tVCardActions(VBtn(\"Go\").Attr(\"@click\", web.GET().URL(EventExamplePagePath+\"?address=beijing\u0026name=qor5\u0026email=qor5@theplant.jp\").PushState(true).Query(\"address\", \"tokyo\").ClearMergeQuery([]string{\"name\"}).Go())),\n\t\t),\n\t)\n\treturn\n}\n"'></highlightjs>
+
+<div>
+<div class='demo'>
+<a href='/samples/event_handling?api=clear_merge_query' target='_blank'>Check the demo</a>
+ | 
+<a href='https://github.com/qor5/docs/tree/master/examples/e00_basics/event-handling.go#L80-L88' target='_blank'>Source on GitHub</a>
+</div>
+</div>
+
+<h2 id='stringquery'>StringQuery
+<a href='#stringquery' class='anchor'></a>
+</h2>
+<p>Request a page with a query string.</p>
+
+<highlightjs :language='"go"' :code='"func EventHandlingStringQuery(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\tpr.Body = Div(\n\t\tVCard(\n\t\t\tVCardTitle(Text(\"StringQuery\")),\n\t\t\tVCardActions(VBtn(\"Go\").Attr(\"@click\", web.GET().URL(EventExamplePagePath).PushState(true).StringQuery(\"address=tokyo\").Go())),\n\t\t),\n\t)\n\treturn\n}\n"'></highlightjs>
+
+<div>
+<div class='demo'>
+<a href='/samples/event_handling?api=string_query' target='_blank'>Check the demo</a>
+ | 
+<a href='https://github.com/qor5/docs/tree/master/examples/e00_basics/event-handling.go#L93-L101' target='_blank'>Source on GitHub</a>
+</div>
+</div>
+
+<h2 id='queries'>Queries
+<a href='#queries' class='anchor'></a>
+</h2>
+<p>Request a page with url.Values.</p>
+
+<highlightjs :language='"go"' :code='"func EventHandlingQueries(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\tpr.Body = Div(\n\t\tVCard(\n\t\t\tVCardTitle(Text(\"Queries\")),\n\t\t\tVCardActions(VBtn(\"Go\").Attr(\"@click\", web.GET().URL(EventExamplePagePath).PushState(true).Queries(url.Values{\"address\": []string{\"tokyo\"}}).Go())),\n\t\t),\n\t)\n\treturn\n}\n"'></highlightjs>
+
+<div>
+<div class='demo'>
+<a href='/samples/event_handling?api=queries' target='_blank'>Check the demo</a>
+ | 
+<a href='https://github.com/qor5/docs/tree/master/examples/e00_basics/event-handling.go#L106-L114' target='_blank'>Source on GitHub</a>
+</div>
+</div>
+
+<h2 id='pushstateurl'>PushStateURL
+<a href='#pushstateurl' class='anchor'></a>
+</h2>
+<p>Request a page with a url and also changing the window location.</p>
+
+<highlightjs :language='"go"' :code='"func EventHandlingQueries(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\tpr.Body = Div(\n\t\tVCard(\n\t\t\tVCardTitle(Text(\"Queries\")),\n\t\t\tVCardActions(VBtn(\"Go\").Attr(\"@click\", web.GET().URL(EventExamplePagePath).PushState(true).Queries(url.Values{\"address\": []string{\"tokyo\"}}).Go())),\n\t\t),\n\t)\n\treturn\n}\n"'></highlightjs>
+
+<div>
+<div class='demo'>
+<a href='/samples/event_handling?api=pushstateurl' target='_blank'>Check the demo</a>
+ | 
+<a href='https://github.com/qor5/docs/tree/master/examples/e00_basics/event-handling.go#L119-L127' target='_blank'>Source on GitHub</a>
+</div>
+</div>
+
+<h2 id='location'>Location
+<a href='#location' class='anchor'></a>
+</h2>
+<p>Open a page with more options.</p>
+
+<highlightjs :language='"go"' :code='"func EventHandlingLocation(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\tpr.Body = Div(\n\t\tVCard(\n\t\t\tVCardTitle(Text(\"Location\")),\n\t\t\tVCardActions(VBtn(\"Go\").Attr(\"@click\", web.POST().PushState(true).Location(\u0026web.LocationBuilder{MyURL: EventExamplePagePath, MyStringQuery: \"address=test\"}).Go())),\n\t\t),\n\t)\n\treturn\n}\n"'></highlightjs>
+
+<div>
+<div class='demo'>
+<a href='/samples/event_handling?api=location' target='_blank'>Check the demo</a>
+ | 
+<a href='https://github.com/qor5/docs/tree/master/examples/e00_basics/event-handling.go#L132-L140' target='_blank'>Source on GitHub</a>
+</div>
+</div>
+
+<h2 id='fieldvalue'>FieldValue
+<a href='#fieldvalue' class='anchor'></a>
+</h2>
+<p>Fill in a value on form.</p>
+
+<highlightjs :language='"go"' :code='"func EventHandlingFileValue(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\n\tpr.Body = Div(\n\t\tVCard(\n\t\t\tVCardTitle(Text(\"FieldValue\")),\n\t\t\tVCardActions(VBtn(\"Go\").Attr(\"@click\", web.POST().EventFunc(\"form\").FieldValue(\"name\", \"qor5\").Go())),\n\t\t),\n\t)\n\treturn\n}\n"'></highlightjs>
+
+<div>
+<div class='demo'>
+<a href='/samples/event_handling?api=fieldvalue' target='_blank'>Check the demo</a>
+ | 
+<a href='https://github.com/qor5/docs/tree/master/examples/e00_basics/event-handling.go#L145-L153' target='_blank'>Source on GitHub</a>
+</div>
+</div>
+
+<h2 id='formclear'>FormClear
+<a href='#formclear' class='anchor'></a>
+</h2>
+<p>Clear all form data.</p>
+
+<highlightjs :language='"go"' :code='"func EventHandlingFileValue(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\n\tpr.Body = Div(\n\t\tVCard(\n\t\t\tVCardTitle(Text(\"FieldValue\")),\n\t\t\tVCardActions(VBtn(\"Go\").Attr(\"@click\", web.POST().EventFunc(\"form\").FieldValue(\"name\", \"qor5\").Go())),\n\t\t),\n\t)\n\treturn\n}\n"'></highlightjs>
+
+<div>
+<div class='demo'>
+<a href='/samples/event_handling?api=formclear' target='_blank'>Check the demo</a>
+ | 
+<a href='https://github.com/qor5/docs/tree/master/examples/e00_basics/event-handling.go#L165-L178' target='_blank'>Source on GitHub</a>
+</div>
+</div>
+
+<h2 id='eventfunc'>EventFunc
+<a href='#eventfunc' class='anchor'></a>
+</h2>
+<p>Register an event func and call it when the event is triggered.</p>
+
+<highlightjs :language='"go"' :code='"func EventHandlingEventFunc(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\n\tpr.Body = Div(\n\t\tVBtn(\"Go\").Attr(\"@click\", web.POST().EventFunc(\"hello\").Go()),\n\t)\n\treturn\n}\n"'></highlightjs>
+
+<div>
+<div class='demo'>
+<a href='/samples/event_handling?api=eventfunc' target='_blank'>Check the demo</a>
+ | 
+<a href='https://github.com/qor5/docs/tree/master/examples/e00_basics/event-handling.go#L183-L191' target='_blank'>Source on GitHub</a>
+</div>
+</div>
+
+<h2 id='script'>Script
+<a href='#script' class='anchor'></a>
+</h2>
+<p>Run a script code.</p>
+
+<highlightjs :language='"go"' :code='"func EventHandlingScript(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\tpr.Body = Div(\n\t\tVCard(\n\t\t\tVCardTitle(Text(\"Script\")),\n\t\t\tVCardActions(VBtn(\"Go\").Attr(\"@click\", web.POST().ThenScript(`alert(\"this is then script\")`).AfterScript(`alert(\"this is after script\")`).BeforeScript(`alert(\"this is before script\")`).Go())),\n\t\t),\n\t)\n\treturn\n}\n"'></highlightjs>
+
+<div>
+<div class='demo'>
+<a href='/samples/event_handling?api=script' target='_blank'>Check the demo</a>
+ | 
+<a href='https://github.com/qor5/docs/tree/master/examples/e00_basics/event-handling.go#L196-L204' target='_blank'>Source on GitHub</a>
+</div>
+</div>
+
+<h2 id='raw'>Raw
+<a href='#raw' class='anchor'></a>
+</h2>
+<p>Directly call the js method</p>
+
+<highlightjs :language='"go"' :code='"func EventHandlingRaw(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\tpr.Body = Div(\n\t\tVCard(\n\t\t\tVCardTitle(Text(\"Raw\")),\n\t\t\tVCardActions(VBtn(\"Go\").Attr(\"@click\", web.POST().Raw(`pushStateURL(\"/samples/event_handling/example\")`).Go())),\n\t\t),\n\t)\n\treturn\n}\n"'></highlightjs>
+
+<div>
+<div class='demo'>
+<a href='/samples/event_handling?api=raw' target='_blank'>Check the demo</a>
+ | 
+<a href='https://github.com/qor5/docs/tree/master/examples/e00_basics/event-handling.go#L209-L217' target='_blank'>Source on GitHub</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class='font-medium text-base hidden xl:block text-gray-600 pt-4'>
+<div class='sticky top-4 w-52'>On This Page<toc></toc></div>
+</div>
+</div>
+<search-result></search-result></main>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

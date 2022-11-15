@@ -1,8 +1,6 @@
 package content
 
 import (
-	"embed"
-
 	"github.com/qor5/docs/docsrc/utils"
 	. "github.com/theplant/docgo"
 	. "github.com/theplant/htmlgo"
@@ -29,6 +27,3 @@ Most of latter examples are based on the initial sample project. In another word
 **Join the Discord community**: https://discord.gg/76YPsVBE4E
 `)).Title("Introduction").
 	Slug("/")
-
-//go:embed assets/**.*
-var Assets embed.FS
