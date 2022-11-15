@@ -2,7 +2,7 @@
 
 <html>
 <head>
-<title>Introduction - My Document</title>
+<title>Advanced Functions - Partial Refresh with Portal - My Document</title>
 
 <meta name='description'>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -23,7 +23,7 @@
 
 <ul class='px-0 mx-0 text-base font-normal list-none text-gray-700'>
 <li>
-<a href='index.html' class='inline-block px-4 truncate break-words w-64 text-blue-500'>Introduction</a>
+<a href='index.html' class='inline-block px-4 truncate break-words w-64 text-gray-700'>Introduction</a>
 </li>
 
 <li class='cursor-default px-4 truncate break-words w-64'>Getting Started</li>
@@ -117,7 +117,7 @@
 </li>
 
 <li>
-<a href='basics/partial-refresh-with-portal.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>Partial Refresh with Portal</a>
+<a href='basics/partial-refresh-with-portal.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-blue-500'>Partial Refresh with Portal</a>
 </li>
 
 <li>
@@ -175,32 +175,50 @@
 </div>
 
 <div id='docMainBox' class='px-16 pb-12 pt-4 overflow-auto'>
-<h1 class='mb-8'>Introduction</h1>
+<h1 class='mb-8'>Partial Refresh with Portal</h1>
 
-<div class='border-t'>
-<img src='/assets/logo.png'>
-<p>QOR5 is yet another Go library to build web applications. We aim to accelerate the development speed and make the website highly customizable.</p>
+<div class='border-t'><p>As said before, The results of an <code>web.EventFunc</code> could be:</p>
 
 <ul>
-<li>It prefers writing HTML in <a href="/advanced-functions/the-go-html-builder.html" rel="nofollow">static typing Go language</a>, rather than a certain type of template language, Not even go template.</li>
-<li>It try to minify the needs to write any JavaScript/Typescript for building interactive web applications</li>
-<li>It maximize the reusability of Components. since it uses Go to write components, You can abstract component very easy, and use component from a third party Go package is also like using normal Go packages.
-<br></li>
+<li>Go to a new page</li>
+<li>Reload the whole current page</li>
+<li>Refresh part of the current page</li>
 </ul>
 
-<h2 id='how-is-this-document-organized'>How is this document organized
-<a href='#how-is-this-document-organized' class='anchor'></a>
+<p>We have covered two. Now let&#39;s demonstrate refresh part of the current page:</p>
+
+<highlightjs :language='"go"' :code='"import (\n\t\"time\"\n\n\t\"github.com/goplaid/web\"\n\t. \"github.com/theplant/htmlgo\"\n)\n\nfunc PartialUpdatePage(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\tpr.Body = Div(\n\t\tH1(\"Partial Update\"),\n\t\tA().Text(\"Edit\").Href(\"javascript:;\").\n\t\t\tAttr(\"@click\", web.POST().EventFunc(\"edit1\").Go()),\n\t\tweb.Portal(\n\t\t\tText(\"original portal content here\"),\n\t\t).Name(\"part1\"),\n\t\tDiv().Text(time.Now().Format(time.RFC3339Nano)),\n\t)\n\treturn\n}\n\nfunc edit1(ctx *web.EventContext) (er web.EventResponse, err error) {\n\ter.UpdatePortals = append(er.UpdatePortals, \u0026web.PortalUpdate{\n\t\tName: \"part1\",\n\t\tBody: Div(\n\t\t\tFieldset(\n\t\t\t\tLegend(\"Input value\"),\n\t\t\t\tDiv(\n\t\t\t\t\tLabel(\"Title\"),\n\t\t\t\t\tInput(\"\").Type(\"text\"),\n\t\t\t\t),\n\n\t\t\t\tDiv(\n\t\t\t\t\tLabel(\"Date\"),\n\t\t\t\t\tInput(\"\").Type(\"date\"),\n\t\t\t\t),\n\t\t\t),\n\t\t\tButton(\"Update\").\n\t\t\t\tAttr(\"@click\", web.POST().EventFunc(\"reload2\").Go()),\n\t\t),\n\t})\n\treturn\n}\n\nfunc reload2(ctx *web.EventContext) (er web.EventResponse, err error) {\n\ter.Reload = true\n\treturn\n}\n\nvar PartialUpdatePagePB = web.Page(PartialUpdatePage).\n\tEventFunc(\"edit1\", edit1).\n\tEventFunc(\"reload2\", reload2)\n\nconst PartialUpdatePagePath = \"/samples/partial_update\"\n"'></highlightjs>
+
+<div>
+<div class='demo'>
+<a href='/samples/partial_update' target='_blank'>Check the demo</a>
+ | 
+<a href='https://github.com/qor5/docs/tree/master/examples/e00_basics/partial-update.go' target='_blank'>Source on GitHub</a>
+</div>
+</div>
+<p><code>web.Portal().Name(&#34;part1&#34;)</code> Place a placeholder inside you page, and append <code>web.PortalUpdate</code> to <code>er.UpdatePortals</code> to update the portal with that name.
+Multiple portal can be updated at the same time.</p>
+
+<h2 id='load-portal-in-separate-ajax-request'>Load Portal in separate AJAX request
+<a href='#load-portal-in-separate-ajax-request' class='anchor'></a>
 </h2>
-<p>Most of latter examples are based on the initial sample project. In another word, we will demonstrate how to build a rich functioned website by this document.</p>
+<p>With <code>web.Portal</code>, We can also load the portal with a separate AJAX request after page load.
+It is useful for the type of the content is not that important to the page, But load them are
+quite heavy. Like related products of a product detail page of a ECommerce site.</p>
 
-<ul>
-<li>First, we will start with a quick sample project that would give you a rough but visual idea of what QOR5 can do.</li>
-<li>Second, we will introduce the basic functions, The sequence is from listing page to editing page. You can find all commonly used Admin website features in this section.</li>
-<li>Third, we will introduce the essentials of QOR5 and advanced functions, You would understand how QOR5 render a page and advanced features like &#34;how to partially refresh a page&#34;.</li>
-<li>At last, the digging deeper part, you would learn how to create new component for QOR5</li>
-</ul>
+<highlightjs :language='"go"' :code='"import (\n\t\"fmt\"\n\t\"time\"\n\n\t\"github.com/goplaid/web\"\n\t. \"github.com/theplant/htmlgo\"\n)\n\nfunc PartialReloadPage(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\treloadCount = 0\n\n\tctx.Injector.HeadHTML(`\n\u003cstyle\u003e\n.rp {\n\tfloat: left;\n\twidth: 200px;\n\theight: 200px;\n\tmargin-right: 20px;\n\tbackground-color: orange;\n}\n\u003c/style\u003e\n`,\n\t)\n\tpr.Body = Div(\n\t\tH1(\"Portal Reload Automatically\"),\n\n\t\tweb.Scope(\n\t\t\tweb.Portal().Loader(web.POST().EventFunc(\"autoReload\")).AutoReloadInterval(\"locals.interval\"),\n\t\t\tButton(\"stop\").Attr(\"@click\", \"locals.interval = 0\"),\n\t\t).Init(`{interval: 2000}`).VSlot(\"{ locals }\"),\n\n\t\tH1(\"Load Data Only\"),\n\n\t\tweb.Scope(\n\t\t\tUl(\n\t\t\t\tLi(\n\t\t\t\t\tText(\"{{item}}\"),\n\t\t\t\t).Attr(\"v-for\", \"item in locals.items\"),\n\t\t\t),\n\t\t\tButton(\"Fetch Data\").Attr(\"@click\", web.GET().EventFunc(\"loadData\").ThenScript(`locals.items = r.data`).Go()),\n\t\t).VSlot(\"{ locals }\").Init(\"{ items: []}\"),\n\n\t\tH1(\"Partial Load and Reload\"),\n\t\tDiv(\n\t\t\tH2(\"Product 1\"),\n\t\t).Style(\"height: 200px; background-color: grey;\"),\n\t\tH2(\"Related Products\"),\n\t\tweb.Portal().Name(\"related_products\").Loader(web.POST().EventFunc(\"related\").Query(\"productCode\", \"AH123\")),\n\t\tA().Href(\"javascript:;\").Text(\"Reload Related Products\").\n\t\t\tAttr(\"@click\", web.POST().EventFunc(\"reload3\").Go()),\n\t)\n\treturn\n}\n\nfunc related(ctx *web.EventContext) (er web.EventResponse, err error) {\n\tcode := ctx.R.FormValue(\"productCode\")\n\ter.Body = Div(\n\n\t\tDiv(\n\t\t\tH3(\"Product A (related products of \"+code+\")\"),\n\t\t\tDiv().Text(time.Now().Format(time.RFC3339Nano)),\n\t\t).Class(\"rp\"),\n\t\tDiv(\n\t\t\tH3(\"Product B\"),\n\t\t\tDiv().Text(time.Now().Format(time.RFC3339Nano)),\n\t\t).Class(\"rp\"),\n\t\tDiv(\n\t\t\tH3(\"Product C\"),\n\t\t\tDiv().Text(time.Now().Format(time.RFC3339Nano)),\n\t\t).Class(\"rp\"),\n\t)\n\treturn\n}\n\nfunc reload3(ctx *web.EventContext) (er web.EventResponse, err error) {\n\ter.ReloadPortals = []string{\"related_products\"}\n\treturn\n}\n\nvar reloadCount = 1\n\nfunc autoReload(ctx *web.EventContext) (er web.EventResponse, err error) {\n\ter.Body = Span(time.Now().String())\n\treloadCount++\n\n\tif reloadCount \u003e 5 {\n\t\ter.VarsScript = `vars.interval = 0;`\n\t}\n\treturn\n}\n\nfunc loadData(ctx *web.EventContext) (er web.EventResponse, err error) {\n\tvar r []string\n\tfor i := 0; i \u003c 10; i++ {\n\t\tr = append(r, fmt.Sprintf(\"%d-%d\", i, time.Now().Nanosecond()))\n\t}\n\ter.Data = r\n\treturn\n}\n\nvar PartialReloadPagePB = web.Page(PartialReloadPage).\n\tEventFunc(\"related\", related).\n\tEventFunc(\"reload3\", reload3).\n\tEventFunc(\"autoReload\", autoReload).\n\tEventFunc(\"loadData\", loadData)\n\nconst PartialReloadPagePath = \"/samples/partial_reload\"\n"'></highlightjs>
 
-<p><strong>Join the Discord community</strong>: <a href="https://discord.gg/76YPsVBE4E" rel="nofollow">https://discord.gg/76YPsVBE4E</a></p>
+<div>
+<div class='demo'>
+<a href='/samples/partial_reload' target='_blank'>Check the demo</a>
+ | 
+<a href='https://github.com/qor5/docs/tree/master/examples/e00_basics/partial-reload.go' target='_blank'>Source on GitHub</a>
+</div>
+</div>
+<p>It is not only load the portal in separate AJAX request, Also you can reload it with ease <code>er.ReloadPortals = []string{&#34;related_products&#34;}</code> in an event func.</p>
+
+<p>Under the hood, We use Vue&#39;s <a href="https://vuejs.org/v2/guide/components-dynamic-async.html" rel="nofollow">Dynamic &amp; Async Components</a>, to load Go generated html (vue runtime templates)
+from the server and mount those vue components into the page. It works the same way for reload the whole page, push state page switch, and refresh part of the current page.</p>
 </div>
 </div>
 </div>

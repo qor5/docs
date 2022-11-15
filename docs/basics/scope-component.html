@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<title>Advanced Functions - Scope Component - My Document</title>
+
+<meta name='description'>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<base href='/docs/'>
+
+<link href='index.css' rel='stylesheet' type='text/css'>
+
+<script type='text/javascript' defer src='index.js'></script>
+</head>
+
+<body>
+<div id='app' v-cloak>
+<div v-init-context:vars='{hideAside: false}' class='flex h-screen'>
+<div class='flex-1 flex flex-col overflow-hidden'>
+<div class='flex h-full'>
+<aside v-show='!vars.hideAside' class='flex flex-col w-80 h-full bg-gray-50 border-r border-gray-200 overflow-y-auto'>
+<div class='h-12'><search></search></div>
+
+<ul class='px-0 mx-0 text-base font-normal list-none text-gray-700'>
+<li>
+<a href='index.html' class='inline-block px-4 truncate break-words w-64 text-gray-700'>Introduction</a>
+</li>
+
+<li class='cursor-default px-4 truncate break-words w-64'>Getting Started</li>
+
+<li>
+<a href='getting-started/one-minute-quick-start.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>1 Minute Quick Start</a>
+</li>
+
+<li class='cursor-default px-4 truncate break-words w-64'>Basics</li>
+
+<li>
+<a href='basics/listing.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>Listing Page</a>
+</li>
+
+<li>
+<a href='basics/filter.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>Filters</a>
+</li>
+
+<li>
+<a href='presets-guide/editing-customizations.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>Editing Customizations</a>
+</li>
+
+<li>
+<a href='basics/form-handling.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>Form Handling</a>
+</li>
+
+<li>
+<a href='vuetify-components/basic-inputs.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>Basic Inputs</a>
+</li>
+
+<li>
+<a href='vuetify-components/auto-complete.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>Auto Complete</a>
+</li>
+
+<li>
+<a href='basics/shortcut.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>Keyboard Shortcut</a>
+</li>
+
+<li>
+<a href='vuetify-components/variant-sub-form.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>Variant Sub Form</a>
+</li>
+
+<li>
+<a href='vuetify-components/linkage-select.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>Linkage Select</a>
+</li>
+
+<li>
+<a href='presets-guide/permissions.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>Permissions</a>
+</li>
+
+<li>
+<a href='basics/notification-center.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>Notification Center</a>
+</li>
+
+<li class='cursor-default px-4 truncate break-words w-64'>Advanced Functions</li>
+
+<li>
+<a href='basics/page-func-and-event-func.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>Page Func and Event Func</a>
+</li>
+
+<li>
+<a href='advanced-functions/the-go-html-builder.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>The Go HTML builder</a>
+</li>
+
+<li>
+<a href='vuetify-components/a-taste-of-using-vuetify-in-go.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>A Taste of using Vuetify in Go</a>
+</li>
+
+<li>
+<a href='presets-guide/its-the-whole-house.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>Not just scaffolding, it&#39;s the whole house</a>
+</li>
+
+<li>
+<a href='vuetify-components/navigation-drawer.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>Navigation Drawer</a>
+</li>
+
+<li>
+<a href='vuetify-components/lazy-portals.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>Lazy Portals</a>
+</li>
+
+<li>
+<a href='basics/layout-function-and-page-injector.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>Layout Function and Page Injector</a>
+</li>
+
+<li>
+<a href='basics/switch-pages-with-push-state.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>Switch Pages with Push State</a>
+</li>
+
+<li>
+<a href='basics/reload-page-with-a-flash.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>Reload Page with a Flash</a>
+</li>
+
+<li>
+<a href='basics/partial-refresh-with-portal.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>Partial Refresh with Portal</a>
+</li>
+
+<li>
+<a href='basics/manipulate-page-url-in-event-func.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>Manipulate Page URL in Event Func</a>
+</li>
+
+<li>
+<a href='basics/summary-of-event-response.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>Summary of Event Response</a>
+</li>
+
+<li>
+<a href='basics/scope-component.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-blue-500'>Scope Component</a>
+</li>
+
+<li>
+<a href='basics/event-handling.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>Event Handling</a>
+</li>
+
+<li>
+<a href='presets-guide/detail-page-for-complex-object.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>Detail page for complex object</a>
+</li>
+
+<li class='cursor-default px-4 truncate break-words w-64'>Digging Deeper</li>
+
+<li>
+<a href='components-guide/composite-new-component-with-go.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>Composite new Component With Go</a>
+</li>
+
+<li>
+<a href='components-guide/integrate-a-heavy-vue-component.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>Integrate a heavy Vue Component</a>
+</li>
+
+<li class='cursor-default px-4 truncate break-words w-64'>Appendix</li>
+
+<li>
+<a href='appendix/all-demo-examples.html' class='inline-block pl-10 pr-4 truncate break-words w-64 text-gray-700'>All Demo Examples</a>
+</li>
+</ul>
+</aside>
+
+<main class='flex flex-col w-full bg-white overflow-x-hidden overflow-y-auto'>
+<div id='docContentBox' class='flex flex-row w-full'>
+<div class='flex flex-grow flex-col w-2/3'>
+<div class='flex flex-row'>
+<button @click='vars.hideAside = !vars.hideAside' class='w-12 h-12 p-4'>
+<div class='w-4 h-4 fill-current text-gray-300'>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" height="16px" viewBox="0 0 16 16" version="1.1">
+<g id="surface1">
+<path style=" stroke:none;fill-rule:nonzero;fill:rgb(0%,0%,0%);fill-opacity:1;" d="M 2 12 L 2 11 L 14 11 L 14 12 Z M 2 8.5 L 2 7.5 L 14 7.5 L 14 8.5 Z M 2 5 L 2 4 L 14 4 L 14 5 Z M 2 5 "/>
+</g>
+</svg>
+</div>
+</button>
+</div>
+
+<div id='docMainBox' class='px-16 pb-12 pt-4 overflow-auto'>
+<h1 class='mb-8'>Scope Component</h1>
+
+<div class='border-t'><h3><a name="use-locals-to-init-vue-variables" class="anchor" href="#use-locals-to-init-vue-variables" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Use Locals to init vue variables</h3>
+
+<p>There is a concept of reactive object in vue. Reactive object can trigger view updates, and <a href="https://vuejs.org/v2/api/#Vue-set" rel="nofollow">Vue cannot detect normal property additions (e.g. this.myObject.newProperty = &#39;hi&#39;)</a>.
+We pre-set the &#34;locals&#34; object as a reactive object, and then we can initialize various types of values and slot it into &#34;locals&#34;. And the valid scopes of these values are all inside web.Scope().</p>
+
+<p>For example:</p>
+
+<highlightjs :language='"go"' :code='"func UseLocals(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\tpr.Body = VCard(\n\t\tVBtn(\"Test Can Not Change Other Scope\").Attr(\"@click\", `locals.btnLabel = \"YES\"`),\n\t\tweb.Scope(\n\t\t\tVCard(\n\t\t\t\tVBtn(\"\").\n\t\t\t\t\tAttr(\"v-text\", \"locals.btnLabel\").\n\t\t\t\t\tAttr(\"@click\", `\nif (locals.btnLabel == \"Add\") {\n\tlocals.items.push({text: \"B\", icon: \"done\"}); \n\tlocals.btnLabel = \"Remove\";\n} else {\n\tlocals.items.pop(); \n\tlocals.btnLabel = \"Add\";\n}`),\n\n\t\t\t\tVList(\n\t\t\t\t\tVSubheader(\n\t\t\t\t\t\tText(\"REPORTS\"),\n\t\t\t\t\t),\n\t\t\t\t\tVListItemGroup(\n\t\t\t\t\t\tVListItem(\n\t\t\t\t\t\t\tVListItemIcon(\n\t\t\t\t\t\t\t\tVIcon(\"\").Attr(\"v-text\", \"item.icon\"),\n\t\t\t\t\t\t\t),\n\t\t\t\t\t\t\tVListItemContent(\n\t\t\t\t\t\t\t\tVListItemTitle().Attr(\"v-text\", \"item.text\"),\n\t\t\t\t\t\t\t),\n\t\t\t\t\t\t).Attr(\"v-for\", \"(item, i) in locals.items\").\n\t\t\t\t\t\t\tAttr(\"x-bind:key\", \"i\"),\n\t\t\t\t\t).Attr(\"v-model\", \"locals.selectedItem\").\n\t\t\t\t\t\tAttr(\"color\", \"primary\"),\n\t\t\t\t).Attr(\"dense\", \"\"),\n\t\t\t).Class(\"mx-auto\").\n\t\t\t\tAttr(\"max-width\", \"300\").\n\t\t\t\tAttr(\"tile\", \"\"),\n\t\t).Init(`{ selectedItem: 1, btnLabel:\"Add\", items: [{text: \"A\", icon: \"clock\"}]}`).\n\t\t\tVSlot(\"{ locals }\"),\n\t)\n\treturn\n}\n\nvar UseLocalsPB = web.Page(UseLocals)\n"'></highlightjs>
+
+<div>
+<div class='demo'>
+<a href='/samples/web-scope-use-locals' target='_blank'>Check the demo</a>
+ | 
+<a href='https://github.com/qor5/docs/tree/master/examples/e00_basics/web-scope.go' target='_blank'>Source on GitHub</a>
+</div>
+</div>
+<p>Use <code>web.Scope()</code> to determine the effective scope of the variable, then use <code>.Init(...).VSlot(&#34;{ locals }&#34;)</code> to initialize the variable and slot it into the <code>locals</code> object.</p>
+
+<p>In <code>VBtn(&#34;&#34;)</code>, you can use the <code>click</code> event to change the variable value in <code>locals</code> to achieve the effect that the page changes with the click.</p>
+
+<p>In <code>VBtn(&#34;Test Can Not Change Other Scope&#34;)</code>, values in <code>locals</code> will not change with the click, because the button is not in <code>web.Scope()</code>.</p>
+
+<p>Video Tutorial (<a href="https://www.youtube.com/watch?v=UPuBvVRhUr0" rel="nofollow">https://www.youtube.com/watch?v=UPuBvVRhUr0</a>)</p>
+<h3><a name="use-plaidform" class="anchor" href="#use-plaidform" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Use PlaidForm</h3>
+
+<p>The main use of PlaidForm is to submit one form which is inside another form, and the two forms are completely independent forms.</p>
+
+<p>In the following example, each color represents a completely separate form. The <code>Material Form</code> contains the <code>Raw Material Form</code>. You can submit the <code>Raw Material Form</code> to the server first. After receiving it, server will save the <code>Raw Material data</code> and return the <code>ID</code>.
+In this way, you can submit <code>Raw Material ID</code> directly in the <code>Material Form</code>.</p>
+
+<p>For example:</p>
+
+<highlightjs :language='"go"' :code='"var materialID, materialName, rawMaterialID, rawMaterialName, countryID, countryName, productName string\n\nfunc UsePlaidForm(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\n\tpr.Body = Div(\n\t\tH3(\"Form Content\"),\n\t\tutils.PrettyFormAsJSON(ctx),\n\n\t\tDiv(\n\t\t\tDiv(\n\t\t\t\tFieldset(\n\t\t\t\t\tLegend(\"Product Form\"),\n\t\t\t\t\tDiv(\n\t\t\t\t\t\tLabel(\"Product Name\"),\n\t\t\t\t\t\tInput(\"\").Value(productName).Type(\"text\").Attr(web.VFieldName(\"ProductName\")...),\n\t\t\t\t\t),\n\t\t\t\t\tDiv(\n\t\t\t\t\t\tLabel(\"Material ID\"),\n\t\t\t\t\t\tInput(\"\").Value(materialID).Type(\"text\").Disabled(true).Attr(web.VFieldName(\"MaterialID\")...),\n\t\t\t\t\t),\n\n\t\t\t\t\tweb.Scope(\n\t\t\t\t\t\tFieldset(\n\t\t\t\t\t\t\tLegend(\"Material Form\"),\n\n\t\t\t\t\t\t\tDiv(\n\t\t\t\t\t\t\t\tLabel(\"Material Name\"),\n\t\t\t\t\t\t\t\tInput(\"\").Value(materialName).Type(\"text\").Attr(web.VFieldName(\"MaterialName\")...),\n\t\t\t\t\t\t\t),\n\t\t\t\t\t\t\tDiv(\n\t\t\t\t\t\t\t\tLabel(\"Raw Material ID\"),\n\t\t\t\t\t\t\t\tInput(\"\").Value(rawMaterialID).Type(\"text\").Disabled(true).Attr(web.VFieldName(\"RawMaterialID\")...),\n\t\t\t\t\t\t\t),\n\t\t\t\t\t\t\tweb.Scope(\n\t\t\t\t\t\t\t\tFieldset(\n\t\t\t\t\t\t\t\t\tLegend(\"Raw Material Form\"),\n\n\t\t\t\t\t\t\t\t\tDiv(\n\t\t\t\t\t\t\t\t\t\tLabel(\"Raw Material Name\"),\n\t\t\t\t\t\t\t\t\t\tInput(\"\").Value(rawMaterialName).Type(\"text\").Attr(web.VFieldName(\"RawMaterialName\")...),\n\t\t\t\t\t\t\t\t\t),\n\n\t\t\t\t\t\t\t\t\tButton(\"Send\").Style(`background: orange;`).Attr(\"@click\", web.POST().EventFunc(\"updateValue\").Go()),\n\t\t\t\t\t\t\t\t).Style(`background: orange;`),\n\t\t\t\t\t\t\t).VSlot(\"{ plaidForm }\"),\n\n\t\t\t\t\t\t\tButton(\"Send\").Style(`background: brown;`).Attr(\"@click\", web.POST().EventFunc(\"updateValue\").Go()),\n\t\t\t\t\t\t).Style(`background: brown;`),\n\t\t\t\t\t).VSlot(\"{ plaidForm }\"),\n\n\t\t\t\t\tDiv(\n\t\t\t\t\t\tLabel(\"Country ID\"),\n\t\t\t\t\t\tInput(\"\").Value(countryID).Type(\"text\").Disabled(true).Attr(web.VFieldName(\"CountryID\")...),\n\t\t\t\t\t),\n\n\t\t\t\t\tweb.Scope(\n\t\t\t\t\t\tFieldset(\n\t\t\t\t\t\t\tLegend(\"Country Of Origin Form\"),\n\n\t\t\t\t\t\t\tDiv(\n\t\t\t\t\t\t\t\tLabel(\"Country Name\"),\n\t\t\t\t\t\t\t\tInput(\"\").Value(countryName).Type(\"text\").Attr(web.VFieldName(\"CountryName\")...),\n\t\t\t\t\t\t\t),\n\n\t\t\t\t\t\t\tButton(\"Send\").Style(`background: red;`).Attr(\"@click\", web.POST().EventFunc(\"updateValue\").Go()),\n\t\t\t\t\t\t).Style(`background: red;`),\n\t\t\t\t\t).VSlot(\"{ plaidForm }\"),\n\n\t\t\t\t\tDiv(\n\t\t\t\t\t\tButton(\"Send\").Style(`background: grey;`).Attr(\"@click\", web.POST().EventFunc(\"updateValue\").Go())),\n\t\t\t\t).Style(`background: grey;`)),\n\t\t).Style(`width:600px;`),\n\t)\n\n\treturn\n}\n\nfunc updateValue(ctx *web.EventContext) (er web.EventResponse, err error) {\n\tctx.R.ParseForm()\n\tif v := ctx.R.Form.Get(\"ProductName\"); v != \"\" {\n\t\tproductName = v\n\t}\n\tif v := ctx.R.Form.Get(\"MaterialName\"); v != \"\" {\n\t\tmaterialName = v\n\t\tmaterialID = \"66\"\n\t}\n\tif v := ctx.R.Form.Get(\"RawMaterialName\"); v != \"\" {\n\t\trawMaterialName = v\n\t\trawMaterialID = \"88\"\n\t}\n\tif v := ctx.R.Form.Get(\"CountryName\"); v != \"\" {\n\t\tcountryName = v\n\t\tcountryID = \"99\"\n\t}\n\ter.Reload = true\n\treturn\n}\n\nvar UsePlaidFormPB = web.Page(UsePlaidForm).\n\tEventFunc(\"updateValue\", updateValue)\n"'></highlightjs>
+
+<div>
+<div class='demo'>
+<a href='/samples/web-scope-use-plaid-form' target='_blank'>Check the demo</a>
+ | 
+<a href='https://github.com/qor5/docs/tree/master/examples/e00_basics/web-scope.go' target='_blank'>Source on GitHub</a>
+</div>
+</div>
+<p>Use <code>web.Scope().VSlot(&#34;{ plaidForm }&#34;)</code> to determine the scope of a form.</p>
+</div>
+</div>
+</div>
+
+<div class='font-medium text-base hidden xl:block text-gray-600 pt-4'>
+<div class='sticky top-4 w-52'>On This Page<toc></toc></div>
+</div>
+</div>
+<search-result></search-result></main>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
