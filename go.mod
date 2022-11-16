@@ -12,7 +12,7 @@ require (
 	github.com/qor5/x v1.2.1-0.20221109065533-3e5f9b440cb3
 	github.com/shurcooL/sanitized_anchor_name v1.0.0
 	github.com/sunfmin/reflectutils v1.0.3
-	github.com/theplant/docgo v0.0.13
+	github.com/theplant/docgo v0.0.14
 	github.com/theplant/htmlgo v1.0.3
 	github.com/yosssi/gohtml v0.0.0-20201013000340-ee4748c638f4
 	golang.org/x/text v0.4.0

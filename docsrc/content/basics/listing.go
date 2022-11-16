@@ -97,5 +97,5 @@ rmn.RowMenuItem("Show").ComponentFunc(func(obj interface{}, id string, ctx *web.
 `),
 	ch.Code(examples.PresetsListingSample).Language("go"),
 	utils.Demo("Presets Listing Customization Fields", example_basics.ListingSamplePath+"/posts", "example_basics/listing.go"),
-).Title("Listing Page").
+).Title("Listing").
 	Slug("basics/listing")

@@ -2,7 +2,7 @@
 
 <html>
 <head>
-<title>UI Components - Linkage Select - My Document</title>
+<title>Building Admin - Menu - My Document</title>
 
 <meta name='description'>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -51,7 +51,7 @@
 </li>
 
 <li class='m-0'>
-<a href='basics/menu.html' id='basics/menu.html' onclick='window.storeMenuState("basics/menu.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Menu</a>
+<a href='basics/menu.html' id='basics/menu.html' onclick='window.storeMenuState("basics/menu.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-blue-500'>Menu</a>
 </li>
 
 <li class='m-0'>
@@ -135,7 +135,7 @@
 </li>
 
 <li class='m-0'>
-<a href='vuetify-components/linkage-select.html' id='vuetify-components/linkage-select.html' onclick='window.storeMenuState("vuetify-components/linkage-select.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-blue-500'>Linkage Select</a>
+<a href='vuetify-components/linkage-select.html' id='vuetify-components/linkage-select.html' onclick='window.storeMenuState("vuetify-components/linkage-select.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Linkage Select</a>
 </li>
 
 <li class='m-0'>
@@ -175,30 +175,10 @@
 </div>
 
 <div id='docMainBox' class='px-16 pb-12 pt-4 overflow-auto'>
-<h1 class='mb-8'>Linkage Select</h1>
+<h1 class='mb-8'>Menu</h1>
 
-<div class='border-t'><p>LinkageSelect is a component for multi-level linkage select.</p>
-
-<highlightjs :language='"go"' :code='"\nimport (\n\t\"github.com/goplaid/web\"\n\t. \"github.com/goplaid/x/vuetify\"\n\tvx \"github.com/goplaid/x/vuetifyx\"\n\t\"github.com/theplant/htmlgo\"\n)\n\nfunc VuetifyComponentsLinkageSelect(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\tlabels := []string{\n\t\t\"Province\",\n\t\t\"City\",\n\t\t\"District\",\n\t}\n\titems := [][]*vx.LinkageSelectItem{\n\t\t{\n\t\t\t{ID: \"1\", Name: \"浙江\", ChildrenIDs: []string{\"1\", \"2\"}},\n\t\t\t{ID: \"2\", Name: \"江苏\", ChildrenIDs: []string{\"3\", \"4\"}},\n\t\t},\n\t\t{\n\t\t\t{ID: \"1\", Name: \"杭州\", ChildrenIDs: []string{\"1\", \"2\"}},\n\t\t\t{ID: \"2\", Name: \"宁波\", ChildrenIDs: []string{\"3\", \"4\"}},\n\t\t\t{ID: \"3\", Name: \"南京\", ChildrenIDs: []string{\"5\", \"6\"}},\n\t\t\t{ID: \"4\", Name: \"苏州\", ChildrenIDs: []string{\"7\", \"8\"}},\n\t\t},\n\t\t{\n\t\t\t{ID: \"1\", Name: \"拱墅区\"},\n\t\t\t{ID: \"2\", Name: \"西湖区\"},\n\t\t\t{ID: \"3\", Name: \"镇海区\"},\n\t\t\t{ID: \"4\", Name: \"鄞州区\"},\n\t\t\t{ID: \"5\", Name: \"鼓楼区\"},\n\t\t\t{ID: \"6\", Name: \"玄武区\"},\n\t\t\t{ID: \"7\", Name: \"常熟区\"},\n\t\t\t{ID: \"8\", Name: \"吴江区\"},\n\t\t},\n\t}\n\n\tpr.Body = VContainer(\n\t\thtmlgo.H3(\"Basic\"),\n\t\tvx.VXLinkageSelect().Items(items...).Labels(labels...),\n\t\thtmlgo.H3(\"SelectOutOfOrder\"),\n\t\tvx.VXLinkageSelect().Items(items...).Labels(labels...).SelectOutOfOrder(true),\n\t\thtmlgo.H3(\"Chips\"),\n\t\tvx.VXLinkageSelect().Items(items...).Labels(labels...).Chips(true),\n\t\thtmlgo.H3(\"Row\"),\n\t\tvx.VXLinkageSelect().Items(items...).Labels(labels...).Row(true),\n\t)\n\n\treturn pr, nil\n}\n\nvar VuetifyComponentsLinkageSelectPB = web.Page(VuetifyComponentsLinkageSelect)\n\nconst VuetifyComponentsLinkageSelectPath = \"/samples/vuetify-components-linkage-select\"\n"'></highlightjs>
-
-<div>
-<div class='demo'>
-<a href='/samples/vuetify-components-linkage-select' target='_blank'>Check the demo</a>
- | 
-<a href='https://github.com/qor5/docs/tree/master/examples/e24_vuetify_components_linkage_select/page.go' target='_blank'>Source on GitHub</a>
-</div>
-</div>
-<h3><a name="filter-intergation" class="anchor" href="#filter-intergation" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Filter intergation</h3>
-
-<highlightjs :language='"go"' :code='"import (\n\t\"github.com/goplaid/web\"\n\t\"github.com/goplaid/x/presets\"\n\t\"github.com/goplaid/x/presets/gorm2op\"\n\tvx \"github.com/goplaid/x/vuetifyx\"\n\th \"github.com/theplant/htmlgo\"\n)\n\nfunc PresetsLinkageSelectFilterItem(b *presets.Builder) {\n\tb.URIPrefix(PresetsLinkageSelectFilterItemPath).\n\t\tDataOperator(gorm2op.DataOperator(DB))\n\n\tmb := b.Model(\u0026Address{})\n\n\teb := mb.Editing(\"ProvinceCityDistrict\")\n\n\teb.Field(\"ProvinceCityDistrict\").ComponentFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) h.HTMLComponent {\n\t\tm := obj.(*Address)\n\n\t\treturn vx.VXLinkageSelect().\n\t\t\tFieldName(field.Name).\n\t\t\tItems(getLinkageProvinceCityDistrictItems()...).\n\t\t\tLabels(getLinkageProvinceCityDistrictLabels()...).\n\t\t\tSelectedIDs(m.Province, m.City, m.District)\n\t}).SetterFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) (err error) {\n\t\tvs := ctx.R.Form[\"ProvinceCityDistrict\"]\n\t\tm := obj.(*Address)\n\t\tm.Province = vs[0]\n\t\tm.City = vs[1]\n\t\tm.District = vs[2]\n\t\treturn nil\n\t})\n\n\tlb := mb.Listing()\n\n\tlb.FilterDataFunc(func(ctx *web.EventContext) vx.FilterData {\n\t\treturn []*vx.FilterItem{\n\t\t\t{\n\t\t\t\tKey:      \"province_city_district\",\n\t\t\t\tLabel:    \"Province\u0026City\u0026District\",\n\t\t\t\tItemType: vx.ItemTypeLinkageSelect,\n\t\t\t\tLinkageSelectData: vx.FilterLinkageSelectData{\n\t\t\t\t\tItems:            getLinkageProvinceCityDistrictItems(),\n\t\t\t\t\tLabels:           getLinkageProvinceCityDistrictLabels(),\n\t\t\t\t\tSelectOutOfOrder: false,\n\t\t\t\t\tSQLConditions:    []string{\"province = ?\", \"city = ?\", \"district = ?\"},\n\t\t\t\t},\n\t\t\t},\n\t\t}\n\t})\n}\n\nfunc getLinkageProvinceCityDistrictLabels() []string {\n\treturn []string{\"Province\", \"City\", \"District\"}\n}\n\nfunc getLinkageProvinceCityDistrictItems() [][]*vx.LinkageSelectItem {\n\treturn [][]*vx.LinkageSelectItem{\n\t\t{\n\t\t\t// use ID as Name if Name is empty\n\t\t\t{ID: \"浙江\", ChildrenIDs: []string{\"杭州\", \"宁波\"}},\n\t\t\t{ID: \"江苏\", ChildrenIDs: []string{\"南京\", \"苏州\"}},\n\t\t},\n\t\t{\n\t\t\t{ID: \"杭州\", ChildrenIDs: []string{\"拱墅区\", \"西湖区\"}},\n\t\t\t{ID: \"宁波\", ChildrenIDs: []string{\"镇海区\", \"鄞州区\"}},\n\t\t\t{ID: \"南京\", ChildrenIDs: []string{\"鼓楼区\", \"玄武区\"}},\n\t\t\t{ID: \"苏州\", ChildrenIDs: []string{\"常熟区\", \"吴江区\"}},\n\t\t},\n\t\t{\n\t\t\t{ID: \"拱墅区\"},\n\t\t\t{ID: \"西湖区\"},\n\t\t\t{ID: \"镇海区\"},\n\t\t\t{ID: \"鄞州区\"},\n\t\t\t{ID: \"鼓楼区\"},\n\t\t\t{ID: \"玄武区\"},\n\t\t\t{ID: \"常熟区\"},\n\t\t\t{ID: \"吴江区\"},\n\t\t},\n\t}\n}\n"'></highlightjs>
-
-<div>
-<div class='demo'>
-<a href='/samples/linkage_select_filter_item/addresses' target='_blank'>Check the demo</a>
- | 
-<a href='https://github.com/qor5/docs/tree/master/examples/e21_presents/linkage_select_filter_item.go' target='_blank'>Source on GitHub</a>
-</div>
-</div>
+<div class='border-t'><pre><code>TODO
+</code></pre>
 </div>
 </div>
 </div>
