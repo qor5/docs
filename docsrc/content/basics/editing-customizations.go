@@ -58,5 +58,5 @@ and set the ~web.ValidationErrors~ result:
 - If the error happens, If will show below the field
 
 `),
-).Title("Editing Customizations").
+).Title("Editing").
 	Slug("presets-guide/editing-customizations")

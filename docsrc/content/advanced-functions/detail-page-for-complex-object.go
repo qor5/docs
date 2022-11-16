@@ -51,5 +51,5 @@ A ~stripeui.DataTable~ component is very featured rich, Here check out the row e
 - ~cc.Editing~ setup the fields when edit
 - ~cc.Creating~ setup the fields when create
 `),
-).Title("Detail page for complex object").
+).Title("Detailing").
 	Slug("presets-guide/detail-page-for-complex-object")

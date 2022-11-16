@@ -19,30 +19,32 @@ var DocTree = []interface{}{
 		},
 	},
 	&docgo.DocsGroup{
-		Title: "Basics",
+		Title: "Building Admin",
 		Docs: []*docgo.DocBuilder{
+			// listing
 			basics.Listing,
 			basics.Filter,
+			// editing
 			basics.EditingCustomizations,
-			basics.FormHandling,
-			basics.BasicInputs,
-			basics.AutoComplete,
-			basics.ShortCut,
-			basics.VariantSubForm,
-			basics.LinkageSelect,
+			// brand
+			basics.Brand,
+			// menu
+			basics.ManageMenu,
+			advanced_functions.DetailPageForComplexObject,
+			// pemission
 			basics.Permissions,
+			// other basics
 			basics.NotificationCenter,
+			basics.ShortCut,
 		},
 	},
 
 	&docgo.DocsGroup{
-		Title: "Advanced Functions",
+		Title: "Web Application",
 		Docs: []*docgo.DocBuilder{
 			advanced_functions.PageFuncAndEventFunc,
 			advanced_functions.TheGoHTMLBuilder,
-			advanced_functions.ATasteOfUsingVuetifyInGo,
 			advanced_functions.ItsTheWholeHouse,
-			advanced_functions.NavigationDrawer,
 			advanced_functions.LazyPortalsAndReload,
 			advanced_functions.LayoutFunctionAndPageInjector,
 			advanced_functions.SwitchPagesWithPushState,
@@ -52,16 +54,25 @@ var DocTree = []interface{}{
 			advanced_functions.SummaryOfEventResponse,
 			advanced_functions.WebScope,
 			advanced_functions.EventHandling,
-			advanced_functions.DetailPageForComplexObject,
+			basics.FormHandling,
 		},
 	},
+
 	&docgo.DocsGroup{
-		Title: "Digging Deeper",
+		Title: "UI Components",
 		Docs: []*docgo.DocBuilder{
+			// TODO: move BasicInputs to ATasteOfUsingVuetifyInGo
+			basics.BasicInputs,
+			advanced_functions.ATasteOfUsingVuetifyInGo,
+			// vuetifyx
+			basics.LinkageSelect,
+			basics.AutoComplete,
+			// build ui component
 			digging_deeper.CompositeNewComponentWithGo,
 			digging_deeper.IntegrateAHeavyVueComponent,
 		},
 	},
+
 	&docgo.DocsGroup{
 		Title: "Appendix",
 		Docs: []*docgo.DocBuilder{
