@@ -1,4 +1,4 @@
-snippetgo -pkg=docsrc -dir=../ > ./examples-generated.go
+snippetgo -pkg=generated -dir=../../ > ./generated/examples-generated.go
 
 go run ./build/main.go
 

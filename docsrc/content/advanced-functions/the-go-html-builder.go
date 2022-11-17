@@ -1,8 +1,8 @@
 package advanced_functions
 
 import (
-	"github.com/qor5/docs/docsrc/examples"
 	"github.com/qor5/docs/docsrc/examples/e00_basics"
+	"github.com/qor5/docs/docsrc/generated"
 	"github.com/qor5/docs/docsrc/utils"
 	. "github.com/theplant/docgo"
 	"github.com/theplant/docgo/ch"
@@ -26,7 +26,7 @@ But it can also do quite well.
 
 Consider the following code:
 `),
-	ch.Code(examples.TypeSafeBuilderSample).Language("go"),
+	ch.Code(generated.TypeSafeBuilderSample).Language("go"),
 	Markdown(`
 It's basically assembled what Kotlin can do, Also is legitimate Go code.
 `),

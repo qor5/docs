@@ -1,7 +1,7 @@
 package advanced_functions
 
 import (
-	"github.com/qor5/docs/docsrc/examples"
+	"github.com/qor5/docs/docsrc/generated"
 	"github.com/qor5/docs/docsrc/utils"
 	. "github.com/theplant/docgo"
 	"github.com/theplant/docgo/ch"
@@ -10,7 +10,7 @@ import (
 
 var LayoutFunctionAndPageInjector = Doc(
 	Markdown("Read this code first, Guess what it does."),
-	ch.Code(examples.DemoLayoutSample).Language("go"),
+	ch.Code(generated.DemoLayoutSample).Language("go"),
 	Markdown(`
 ~ctx.Injector~ is for inject html into default layout's html head, and bottom of body.
 html head normally for page title, keywords etc all kinds meta data, and css styles,
@@ -18,7 +18,7 @@ javascript libraries etc. You can see we put vue.js into head, but put main.js i
 
 Next part describe about these asset references:
 `),
-	ch.Code(examples.ComponentsPackSample).Language("go"),
+	ch.Code(generated.ComponentsPackSample).Language("go"),
 
 	Markdown(`
 ~web.JSComponentsPack~ is the production version of QOR5 core javascript code.
@@ -29,7 +29,7 @@ Provide basic event functions that call to server, and manage push state
 
 the javascript or css code are packed by using [embed](https://pkg.go.dev/embed).
 `),
-	ch.Code(examples.PackrSample).Language("go"),
+	ch.Code(generated.PackrSample).Language("go"),
 	Markdown(`
 And with ~web.PacksHandler~, You can merge multiple javascript or css assets together into one url.
 So that browser only need to request them one time. and cache them. The cache is set to the start

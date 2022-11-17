@@ -1,8 +1,8 @@
 package basics
 
 import (
-	"github.com/qor5/docs/docsrc/examples"
 	"github.com/qor5/docs/docsrc/examples/e21_presents"
+	"github.com/qor5/docs/docsrc/generated"
 	"github.com/qor5/docs/docsrc/utils"
 	. "github.com/theplant/docgo"
 	"github.com/theplant/docgo/ch"
@@ -19,7 +19,7 @@ columns rarely fit the needs for any real application.
 	Markdown(`
 Here is how do we change the columns of the list and how to we change the content display of a columns.
 `),
-	ch.Code(examples.PresetsListingCustomizationFieldsSample).Language("go"),
+	ch.Code(generated.PresetsListingCustomizationFieldsSample).Language("go"),
 	utils.Demo("Presets Listing Customization Fields", e21_presents.PresetsListingCustomizationFieldsPath+"/customers", "e21_presents/listing.go"),
 	Markdown(`
 What we did with above code:
@@ -37,7 +37,7 @@ What we did with above code:
 	Markdown(`
 Here we continue to add filters for the list
 `),
-	ch.Code(examples.PresetsListingCustomizationFiltersSample).Language("go"),
+	ch.Code(generated.PresetsListingCustomizationFiltersSample).Language("go"),
 	utils.Demo("Presets Listing Filters", e21_presents.PresetsListingCustomizationFiltersPath+"/customers", "e21_presents/listing.go"),
 	Markdown(`
 ~FilterDataFunc~ of ~presets.ListingBuilder~ setup to have the filter menu or not.
@@ -60,7 +60,7 @@ Filter tabs is based on Filters configuration. But display as tabs above the lis
 You can think it as a short cut that used very frequently to filter something instead of
 use the pop up panel of filter.
 `),
-	ch.Code(examples.PresetsListingCustomizationTabsSample).Language("go"),
+	ch.Code(generated.PresetsListingCustomizationTabsSample).Language("go"),
 	utils.Demo("Presets Listing Filter Tabs", e21_presents.PresetsListingCustomizationTabsPath+"/customers", "e21_presents/listing.go"),
 	Markdown(`
 ~Query~ string name must be from the Filter's item configuration key field.
@@ -73,7 +73,7 @@ Later do an bulk update data for all of them.
 
 Here is how to use it:
 `),
-	ch.Code(examples.PresetsListingCustomizationBulkActionsSample).Language("go"),
+	ch.Code(generated.PresetsListingCustomizationBulkActionsSample).Language("go"),
 	utils.Demo("Presets Listing Bulk Actions", e21_presents.PresetsListingCustomizationBulkActionsPath+"/customers", "e21_presents/listing.go"),
 	Markdown(`
 - ~ComponentFunc~ of the bulk action configure the component that will show to user to input after user clicked the bulk action button

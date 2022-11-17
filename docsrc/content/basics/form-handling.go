@@ -1,8 +1,8 @@
 package basics
 
 import (
-	"github.com/qor5/docs/docsrc/examples"
 	"github.com/qor5/docs/docsrc/examples/e00_basics"
+	"github.com/qor5/docs/docsrc/generated"
 	"github.com/qor5/docs/docsrc/utils"
 	. "github.com/theplant/docgo"
 	"github.com/theplant/docgo/ch"
@@ -16,7 +16,7 @@ is just to give an input a name.
 
 For example:
 `),
-	ch.Code(examples.FormHandlingSample).Language("go"),
+	ch.Code(generated.FormHandlingSample).Language("go"),
 	utils.Demo("Form Handling", e00_basics.FormHandlingPagePath, "e00_basics/form-handling.go"),
 	Markdown(`
 Use ~.Attr(web.VFieldName("Abc")...)~ to set the field name, make the name matches your data struct field name.
