@@ -31,7 +31,7 @@ var DocTree = []interface{}{
 			// menu
 			basics.ManageMenu,
 			advanced_functions.DetailPageForComplexObject,
-			// pemission
+			// permission
 			basics.Permissions,
 			// other basics
 			basics.NotificationCenter,

@@ -668,10 +668,16 @@ func SamplesHandler(prefix string) http.Handler {
 
 	c16 := presets.New().AssetFunc(addGA)
 	example_basics.ListingSample(c16)
-
 	mux.Handle(
 		example_basics.ListingSamplePath+"/",
 		c16,
+	)
+
+	c17 := presets.New().AssetFunc(addGA)
+	e21_presents.PresetsBrand(c17)
+	mux.Handle(
+		e21_presents.PresetsBrandPath+"/",
+		c17,
 	)
 
 	return mux
