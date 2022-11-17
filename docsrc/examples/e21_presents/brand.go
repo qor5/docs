@@ -16,7 +16,7 @@ func PresetsBrand(b *presets.Builder) {
 	b.URIPrefix(PresetsBrandPath).DataOperator(gorm2op.DataOperator(db)).
 		BrandFunc(func(ctx *web.EventContext) h.HTMLComponent {
 			return vuetify.VCardText(
-				h.H1("Admin").Style("color:red;"),
+				h.H1("Admin").Style("color: red;"),
 			).Class("pa-0")
 		})
 	// @snippet_end

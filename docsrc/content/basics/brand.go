@@ -26,5 +26,13 @@ When you opt-in to full brand customization, you can use ~BrandFunc~ to be respo
 
 	ch.Code(examples.BrandSample).Language("go"),
 	utils.Demo("Brand", e21_presents.PresetsBrandPath+"/pages", "e21_presents/brand.go"),
+
+	Markdown(`
+## Profile
+Profile is below the brand area, where you can put the current user's information or others. We provide ~ProfileFunc~ to customize it.
+`),
+
+	ch.Code(examples.ProfileSample).Language("go"),
+	utils.Demo("Profile", e21_presents.PresetsProfilePath+"/pages", "e21_presents/profile.go"),
 ).Title("Brand").
 	Slug("basics/brand")
