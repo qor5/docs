@@ -1,8 +1,8 @@
 package digging_deeper
 
 import (
-	"github.com/qor5/docs/docsrc/examples"
 	"github.com/qor5/docs/docsrc/examples/e00_basics"
+	"github.com/qor5/docs/docsrc/generated"
 	"github.com/qor5/docs/docsrc/utils"
 	. "github.com/theplant/docgo"
 	"github.com/theplant/docgo/ch"
@@ -16,7 +16,7 @@ They can be composite into a new component very easy.
 
 This example is ported from [Bootstrap4 Navbar](https://getbootstrap.com/docs/4.3/components/navbar/):
 `),
-	ch.Code(examples.CompositeComponentSample1).Language("go"),
+	ch.Code(generated.CompositeComponentSample1).Language("go"),
 	utils.Demo("Composite New Component With Go", e00_basics.CompositeComponentSample1PagePath, "e00_basics/composite-components.go"),
 	Markdown(`
 You can see from the example, We have created ~Navbar~ and ~Carousel~ components by
@@ -28,7 +28,7 @@ The ~Navbar~ is a responsive navigation header, Resizing your window, the nav ba
 
 For this ~Navbar~ component to work, I have to import Bootstrap assets in this new layout function:
 `),
-	ch.Code(examples.DemoBootstrapLayoutSample).Language("go"),
+	ch.Code(generated.DemoBootstrapLayoutSample).Language("go"),
 
 	Markdown(`
 You can utilize the command line tool [html2go](https://github.com/sunfmin/html2go) to convert existing html code to htmlgo code.

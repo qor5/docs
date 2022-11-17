@@ -1,9 +1,9 @@
 package advanced_functions
 
 import (
-	"github.com/qor5/docs/docsrc/examples"
 	"github.com/qor5/docs/docsrc/examples/e13_vuetify_list"
 	"github.com/qor5/docs/docsrc/examples/e14_vuetify_menu"
+	"github.com/qor5/docs/docsrc/generated"
 	"github.com/qor5/docs/docsrc/utils"
 	. "github.com/theplant/docgo"
 	"github.com/theplant/docgo/ch"
@@ -21,7 +21,7 @@ other go package.
 	Markdown(`
 This example is purely render, we didn't integrate any interaction (event func) to it.
 `),
-	ch.Code(examples.VuetifyListSample).Language("go"),
+	ch.Code(generated.VuetifyListSample).Language("go"),
 	utils.Demo("Vuetify List", e13_vuetify_list.HelloVuetifyListPath, "e13_vuetify_list/page.go"),
 
 	utils.Anchor(H2(""), "Use menu, card, list, etc"),
@@ -29,7 +29,7 @@ This example is purely render, we didn't integrate any interaction (event func) 
 This example uses the menu popup, card, list component. and some interactions of clicking
 buttons on the menu popup.
 `),
-	ch.Code(examples.VuetifyMenuSample).Language("go"),
+	ch.Code(generated.VuetifyMenuSample).Language("go"),
 	Markdown(`
 ~.Attr(web.InitContextVars, "{myMenuShow: false}")~ is a special vue directive that
 we created to initialize vue context component data variables. It will initialize

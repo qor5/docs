@@ -1,8 +1,8 @@
 package basics
 
 import (
-	"github.com/qor5/docs/docsrc/examples"
 	"github.com/qor5/docs/docsrc/examples/e21_presents"
+	"github.com/qor5/docs/docsrc/generated"
 	"github.com/qor5/docs/docsrc/utils"
 	. "github.com/theplant/docgo"
 	"github.com/theplant/docgo/ch"
@@ -21,7 +21,7 @@ of component that is used to do the editing.
 Use a customized component is as simple as add the extra asset to the preset instance.
 And configure the component func on the field:
 `),
-	ch.Code(examples.PresetsEditingCustomizationDescriptionSample).Language("go"),
+	ch.Code(generated.PresetsEditingCustomizationDescriptionSample).Language("go"),
 	utils.Demo("Presets Editing Customization Description Field", e21_presents.PresetsEditingCustomizationDescriptionPath+"/customers", "e21_presents/editing.go"),
 	Markdown(`
 - Added the tiptap javascript and css component pack as an extra asset
@@ -32,7 +32,7 @@ And configure the component func on the field:
 	Markdown(`
 Set a global field type to component func like the following:
 `),
-	ch.Code(examples.PresetsEditingCustomizationFileTypeSample).Language("go"),
+	ch.Code(generated.PresetsEditingCustomizationFileTypeSample).Language("go"),
 	utils.Demo("Presets Editing Customization File Type", e21_presents.PresetsEditingCustomizationFileTypePath+"/products", "e21_presents/editing.go"),
 	Markdown(`
 - We define ~MyFile~ to actually be a string
@@ -51,7 +51,7 @@ of how to display the edit controls, and How to save the object.
 Field level validation and display on field can be added by implement ~ValidateFunc~,
 and set the ~web.ValidationErrors~ result:
 `),
-	ch.Code(examples.PresetsEditingCustomizationValidationSample).Language("go"),
+	ch.Code(generated.PresetsEditingCustomizationValidationSample).Language("go"),
 	utils.Demo("Presets Editing Customization Validation", e21_presents.PresetsEditingCustomizationValidationPath+"/customers", "e21_presents/editing.go"),
 	Markdown(`
 - We validate the ~Name~ of the customer must be longer than 10
