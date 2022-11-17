@@ -29,7 +29,7 @@ func Demo(title string, demoPath string, sourcePath string) HTMLComponent {
 	ex := &Example{
 		Title:      title,
 		DemoPath:   demoPath,
-		SourcePath: fmt.Sprintf("https://github.com/qor5/docs/tree/master/examples/%s", sourcePath),
+		SourcePath: fmt.Sprintf("https://github.com/qor5/docs/tree/main/docsrc/examples/%s", sourcePath),
 	}
 
 	LiveExamples = append(LiveExamples, ex)
