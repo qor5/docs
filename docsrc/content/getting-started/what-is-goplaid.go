@@ -1,8 +1,8 @@
 package getting_started
 
 import (
-	"github.com/qor5/docs/docsrc/examples"
 	"github.com/qor5/docs/docsrc/examples/e00_basics"
+	"github.com/qor5/docs/docsrc/generated"
 	"github.com/qor5/docs/docsrc/utils"
 	. "github.com/theplant/docgo"
 	"github.com/theplant/docgo/ch"
@@ -32,15 +32,15 @@ QOR5 is opinionated in several ways:
 	Markdown(`
 Here is the most sample hello world, that show the header with Hello World.
 `),
-	ch.Code(examples.HelloWorldSample).Language("go"),
+	ch.Code(generated.HelloWorldSample).Language("go"),
 	Markdown(`
 ~H1("Hello World")~ is actually a simple component. it renders h1 html tag. and been set to page body.
 
 The above is the code you mostly writing. the following is the boilerplate code that needs to write one time.
 `),
-	ch.Code(examples.HelloWorldMuxSample1).Language("go"),
-	ch.Code(examples.HelloWorldMuxSample2).Language("go"),
-	ch.Code(examples.HelloWorldMainSample).Language("go"),
+	ch.Code(generated.HelloWorldMuxSample1).Language("go"),
+	ch.Code(generated.HelloWorldMuxSample2).Language("go"),
+	ch.Code(generated.HelloWorldMainSample).Language("go"),
 	utils.Demo("Hello World", e00_basics.HelloWorldPath, "e00_basics/hello-world.go"),
 
 	Markdown(`

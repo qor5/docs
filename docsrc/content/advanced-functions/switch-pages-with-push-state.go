@@ -1,8 +1,8 @@
 package advanced_functions
 
 import (
-	"github.com/qor5/docs/docsrc/examples"
 	"github.com/qor5/docs/docsrc/examples/e00_basics"
+	"github.com/qor5/docs/docsrc/generated"
 	"github.com/qor5/docs/docsrc/utils"
 	. "github.com/theplant/docgo"
 	"github.com/theplant/docgo/ch"
@@ -23,7 +23,7 @@ Inside ~web.EventFunc~, two ways go to a new page:
 
 This example demonstrated the above:
 `),
-	ch.Code(examples.PageTransitionSample).Language("go"),
+	ch.Code(generated.PageTransitionSample).Language("go"),
 	utils.Demo("Switch Pages With Push State", e00_basics.Page1Path, "e00_basics/page-transition.go"),
 	Markdown(`
 When running the above demo, If you check Chrome Developer Tools about Network requests,

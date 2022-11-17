@@ -1,8 +1,8 @@
 package advanced_functions
 
 import (
-	"github.com/qor5/docs/docsrc/examples"
 	"github.com/qor5/docs/docsrc/examples/e21_presents"
+	"github.com/qor5/docs/docsrc/generated"
 	"github.com/qor5/docs/docsrc/utils"
 	. "github.com/theplant/docgo"
 	"github.com/theplant/docgo/ch"
@@ -16,7 +16,7 @@ It's for simple objects. But for a complicated object with a lots of relationshi
 and as the main data model of your system, It's better to have detail page for them. In there
 You can add all kinds of operations conveniently.
 `),
-	ch.Code(examples.PresetsDetailPageTopNotesSample).Language("go"),
+	ch.Code(generated.PresetsDetailPageTopNotesSample).Language("go"),
 	utils.Demo("Presets Detail Page Top Notes", e21_presents.PresetsDetailPageTopNotesPath+"/customers", "e21_presents/detailing.go"),
 	Markdown(`
 - The name of detailing fields are just a place holder for decide ordering
@@ -32,7 +32,7 @@ You can add all kinds of operations conveniently.
 A ~stripeui.DetailInfo~ component is used for display main detail field of the model.
 And you can add any actions to the detail page with ease:
 `),
-	ch.Code(examples.PresetsDetailPageDetailsSample).Language("go"),
+	ch.Code(generated.PresetsDetailPageDetailsSample).Language("go"),
 	utils.Demo("Presets Detail Page Details", e21_presents.PresetsDetailPageDetailsPath+"/customers", "e21_presents/detailing.go"),
 	Markdown(`
 - The ~stripui.Card~ Actions links to two event functions: Agree Terms, and Update Details
@@ -44,7 +44,7 @@ And you can add any actions to the detail page with ease:
 	Markdown(`
 A ~stripeui.DataTable~ component is very featured rich, Here check out the row expandable example:
 `),
-	ch.Code(examples.PresetsDetailPageCardsSample).Language("go"),
+	ch.Code(generated.PresetsDetailPageCardsSample).Language("go"),
 	utils.Demo("Presets Detail Page Credit Cards", e21_presents.PresetsDetailPageCardsPath+"/customers", "e21_presents/detailing.go"),
 	Markdown(`
 - ~RowExpandFunc~ config the content when data table row expand

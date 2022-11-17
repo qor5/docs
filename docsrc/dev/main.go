@@ -13,9 +13,11 @@ func main() {
 	if len(port) == 0 {
 		port = "8800"
 	}
+	// @snippet_begin(HelloWorldMainSample)
 	fmt.Println("Starting docs at :" + port)
 	err := http.ListenAndServe(":"+port, docsrc.Mux("/"))
 	if err != nil {
 		panic(err)
 	}
+	// @snippet_end
 }

@@ -1,8 +1,8 @@
 package advanced_functions
 
 import (
-	"github.com/qor5/docs/docsrc/examples"
 	"github.com/qor5/docs/docsrc/examples/e21_presents"
+	"github.com/qor5/docs/docsrc/generated"
 	"github.com/qor5/docs/docsrc/utils"
 	. "github.com/theplant/docgo"
 	"github.com/theplant/docgo/ch"
@@ -15,12 +15,12 @@ It's not a scaffolding to generate source code. But provide more abstract and
 flexible API to enrich features along the way.
 
 `),
-	ch.Code(examples.PresetHelloWorldSample).Language("go"),
+	ch.Code(generated.PresetHelloWorldSample).Language("go"),
 	Markdown(`
 And this ~*presets.Builder~ instance is actually also a ~http.Handler~, So that we can mount it
 to the http serve mux directly like this:
 `),
-	ch.Code(examples.MountPresetHelloWorldSample).Language("go"),
+	ch.Code(generated.MountPresetHelloWorldSample).Language("go"),
 	utils.Demo("Presets Hello World", e21_presents.PresetsHelloWorldPath+"/customers", "e21_presents/listing.go"),
 	Markdown(`
 With ~r.Model(&Customer{})~:

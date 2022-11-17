@@ -1,7 +1,7 @@
 package advanced_functions
 
 import (
-	"github.com/qor5/docs/docsrc/examples"
+	"github.com/qor5/docs/docsrc/generated"
 	. "github.com/theplant/docgo"
 	"github.com/theplant/docgo/ch"
 )
@@ -10,7 +10,7 @@ var SummaryOfEventResponse = Doc(
 	Markdown(`
 The behaviour of ~web.EventFunc~ is controlled by it's return type ~web.EventResponse~
 `),
-	ch.Code(examples.EventResponseDefinition).Language("go"),
+	ch.Code(generated.EventResponseDefinition).Language("go"),
 	Markdown(`
 - ~PageTitle~ set the html head title, It not only set when render html page directly which is
   request the url directly from the browser. Also use javascript to set the page title when you do
