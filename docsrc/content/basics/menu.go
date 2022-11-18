@@ -19,12 +19,8 @@ Menu refers to the list on the left side of the page, such as the menu of the De
 ## Menu order
 Sorting menus is very simple, use ~MenuOrder~ to sort menus as you want by **slug name** .
 `),
-	ch.Code(`pb = presets.New()
-pb.MenuOrder(
-	"videos",
-	"musics",
-	"books",
-)`).Language("go"),
+	ch.Code(generated.MenuOrderSample).Language("go"),
+	utils.Demo("Menu Order", e21_presents.PresetsMenuOrderPath+"/books", "e21_presents/menu.go"),
 	Markdown(`
 ## Menu group and icon
 ~MenuGroup~ can merge multiple items into one group, as shown in the following code.
@@ -33,7 +29,7 @@ Use ~MenuIcon~ on ~ModelBuilder~ can set the item icon, and set menu group icon 
 
 Icon strings can be found at <https://fonts.google.com/icons>.
 `),
-	ch.Code(generated.MenuSample).Language("go"),
-	utils.Demo("Menu", e21_presents.PresetsMenuPath+"/videos", "e21_presents/menu.go"),
+	ch.Code(generated.MenuGroupSample).Language("go"),
+	utils.Demo("Menu Group", e21_presents.PresetsMenuGroupPath+"/videos", "e21_presents/menu.go"),
 ).Title("Menu").
 	Slug("basics/menu")

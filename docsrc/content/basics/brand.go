@@ -16,16 +16,16 @@ Brand refers to the top area of the left menu bar, we provide two functions ~Bra
 If you want only to change the brand string, you can use ~BrandTitle~ to set the string, the string will be displayed in the brand area with ~<H1>~ tag.
 `),
 
-	ch.Code(`b = presets.New()
-b.URIPrefix("/admin").BrandTitle("Admin")`).Language("go"),
+	ch.Code(generated.BrandTitleSample).Language("go"),
+	utils.Demo("Brand Title", e21_presents.PresetsBrandTitlePath+"/pages", "e21_presents/brand.go"),
 
 	Markdown(`
 ## Full customization
 When you opt-in to full brand customization, you can use ~BrandFunc~ to be responsible for drawing for the entire brand area, such as you can put your own logo image in it.
 `),
 
-	ch.Code(generated.BrandSample).Language("go"),
-	utils.Demo("Brand", e21_presents.PresetsBrandPath+"/pages", "e21_presents/brand.go"),
+	ch.Code(generated.BrandFuncSample).Language("go"),
+	utils.Demo("Brand Func", e21_presents.PresetsBrandFuncPath+"/pages", "e21_presents/brand.go"),
 
 	Markdown(`
 ## Profile
