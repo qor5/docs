@@ -177,8 +177,47 @@
 <div id='docMainBox' class='px-16 pb-12 pt-4 overflow-auto'>
 <h1 class='mb-8'>Brand</h1>
 
-<div class='border-t'><pre><code>TODO
-</code></pre>
+<div class='border-t'><p>Brand refers to the top area of the left menu bar, we provide two functions <code>BrandTitle</code> and <code>BrandFunc</code> to customize it.</p>
+<h2><a name="simple-customization" class="anchor" href="#simple-customization" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+Simple customization</h2>
+
+<p>If you want only to change the brand string, you can use <code>BrandTitle</code> to set the string, the string will be displayed in the brand area with <code>&lt;H1&gt;</code> tag.</p>
+
+<highlightjs :language='"go"' :code='"b.URIPrefix(PresetsBrandTitlePath).\n\tBrandTitle(\"QOR5 Admin\")"'></highlightjs>
+
+<div>
+<div class='demo'>
+<a href='/samples/brand_title/pages' target='_blank'>Check the demo</a>
+ | 
+<a href='https://github.com/qor5/docs/tree/main/docsrc/examples/e21_presents/brand.go' target='_blank'>Source on GitHub</a>
+</div>
+</div>
+<h2><a name="full-customization" class="anchor" href="#full-customization" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Full customization</h2>
+
+<p>When you opt-in to full brand customization, you can use <code>BrandFunc</code> to be responsible for drawing for the entire brand area, such as you can put your own logo image in it.</p>
+
+<highlightjs :language='"go"' :code='"b.URIPrefix(PresetsBrandFuncPath).\n\tBrandFunc(func(ctx *web.EventContext) h.HTMLComponent {\n\t\treturn vuetify.VCardText(\n\t\t\th.H1(\"Admin\").Style(\"color: red;\"),\n\t\t).Class(\"pa-0\")\n\t})"'></highlightjs>
+
+<div>
+<div class='demo'>
+<a href='/samples/brand_func/pages' target='_blank'>Check the demo</a>
+ | 
+<a href='https://github.com/qor5/docs/tree/main/docsrc/examples/e21_presents/brand.go' target='_blank'>Source on GitHub</a>
+</div>
+</div>
+<h2><a name="profile" class="anchor" href="#profile" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Profile</h2>
+
+<p>Profile is below the brand area, where you can put the current user&#39;s information or others. We provide <code>ProfileFunc</code> to customize it.</p>
+
+<highlightjs :language='"go"' :code='"b.URIPrefix(PresetsProfilePath).BrandTitle(\"Admin\").\n\tProfileFunc(func(ctx *web.EventContext) h.HTMLComponent {\n\t\t// Demo\n\t\tlogoutURL := \".\"\n\t\tname := \"QOR5\"\n\t\taccount := \"hello@getqor.com\"\n\t\troles := []string{\"Developer\"}\n\n\t\treturn VMenu().OffsetY(true).Children(\n\t\t\th.Template().Attr(\"v-slot:activator\", \"{on, attrs}\").Children(\n\t\t\t\tVList(\n\t\t\t\t\tVListItem(\n\t\t\t\t\t\tVListItemAvatar(\n\t\t\t\t\t\t\tVAvatar().Class(\"ml-1\").Color(\"secondary\").Size(40).Children(\n\t\t\t\t\t\t\t\th.Span(string(name[0])).Class(\"white--text text-h5\"),\n\t\t\t\t\t\t\t),\n\t\t\t\t\t\t),\n\t\t\t\t\t\tVListItemContent(\n\t\t\t\t\t\t\tVListItemTitle(h.Text(name)),\n\t\t\t\t\t\t\th.Br(),\n\t\t\t\t\t\t\tVListItemSubtitle(h.Text(strings.Join(roles, \", \"))),\n\t\t\t\t\t\t),\n\t\t\t\t\t).Class(\"pa-0 mb-2\"),\n\t\t\t\t\tVListItem(\n\t\t\t\t\t\tVListItemContent(\n\t\t\t\t\t\t\tVListItemTitle(h.Text(account)),\n\t\t\t\t\t\t),\n\t\t\t\t\t\tVListItemIcon(\n\t\t\t\t\t\t\tVIcon(\"logout\").Small(true).Attr(\"@click\", web.Plaid().URL(logoutURL).Go()),\n\t\t\t\t\t\t),\n\t\t\t\t\t).Class(\"pa-0 my-n4 ml-1\").Dense(true),\n\t\t\t\t).Class(\"pa-0 ma-n4\"),\n\t\t\t),\n\t\t)\n\t})"'></highlightjs>
+
+<div>
+<div class='demo'>
+<a href='/samples/profile/pages' target='_blank'>Check the demo</a>
+ | 
+<a href='https://github.com/qor5/docs/tree/main/docsrc/examples/e21_presents/profile.go' target='_blank'>Source on GitHub</a>
+</div>
+</div>
 </div>
 </div>
 </div>
