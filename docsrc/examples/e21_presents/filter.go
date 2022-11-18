@@ -32,7 +32,7 @@ func PresetsBasicFilter(b *presets.Builder) {
 				Label:    "Status",
 				ItemType: vuetifyx.ItemTypeString,
 				// %s is the condition. e.g. >, >=, =, <, <=, like，
-				// ？ is the value of of selected option
+				// ? is the value of selected option
 				SQLCondition: `status %s ?`,
 				Options:      options,
 			},

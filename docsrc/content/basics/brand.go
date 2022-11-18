@@ -1,8 +1,8 @@
 package basics
 
 import (
-	"github.com/qor5/docs/docsrc/examples"
 	"github.com/qor5/docs/docsrc/examples/e21_presents"
+	"github.com/qor5/docs/docsrc/generated"
 	"github.com/qor5/docs/docsrc/utils"
 	. "github.com/theplant/docgo"
 	"github.com/theplant/docgo/ch"
@@ -17,14 +17,14 @@ If you want only to change the brand string, you can use ~BrandTitle~ to set the
 `),
 
 	ch.Code(`b = presets.New()
-b.URIPrefix("/admin").BrandTitle("Admin")`),
+b.URIPrefix("/admin").BrandTitle("Admin")`).Language("go"),
 
 	Markdown(`
 ## Full customization
 When you opt-in to full brand customization, you can use ~BrandFunc~ to be responsible for drawing for the entire brand area, such as you can put your own logo image in it.
 `),
 
-	ch.Code(examples.BrandSample).Language("go"),
+	ch.Code(generated.BrandSample).Language("go"),
 	utils.Demo("Brand", e21_presents.PresetsBrandPath+"/pages", "e21_presents/brand.go"),
 
 	Markdown(`
@@ -32,7 +32,7 @@ When you opt-in to full brand customization, you can use ~BrandFunc~ to be respo
 Profile is below the brand area, where you can put the current user's information or others. We provide ~ProfileFunc~ to customize it.
 `),
 
-	ch.Code(examples.ProfileSample).Language("go"),
+	ch.Code(generated.ProfileSample).Language("go"),
 	utils.Demo("Profile", e21_presents.PresetsProfilePath+"/pages", "e21_presents/profile.go"),
 ).Title("Brand").
 	Slug("basics/brand")

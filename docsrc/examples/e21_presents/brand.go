@@ -1,6 +1,5 @@
 package e21_presents
 
-// @snippet_begin(BrandSample)
 import (
 	"github.com/qor5/admin/presets"
 	"github.com/qor5/admin/presets/gorm2op"

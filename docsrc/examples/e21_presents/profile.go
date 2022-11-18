@@ -1,6 +1,5 @@
 package e21_presents
 
-// @snippet_begin(BrandSample)
 import (
 	"strings"
 
@@ -12,7 +11,7 @@ import (
 
 func PresetsProfile(b *presets.Builder) {
 	// @snippet_begin(ProfileSample)
-	b.URIPrefix(PresetsBrandPath).BrandTitle("Admin").
+	b.URIPrefix(PresetsProfilePath).BrandTitle("Admin").
 		ProfileFunc(func(ctx *web.EventContext) h.HTMLComponent {
 			// Demo
 			logoutURL := "."

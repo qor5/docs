@@ -177,8 +177,39 @@
 <div id='docMainBox' class='px-16 pb-12 pt-4 overflow-auto'>
 <h1 class='mb-8'>Menu</h1>
 
-<div class='border-t'><pre><code>TODO
-</code></pre>
+<div class='border-t'><p>Menu refers to the list on the left side of the page, such as the menu of the Demo below contains Customers and Companies.</p>
+
+<br>
+
+<div>
+<div class='demo'>
+<a href='/samples/presets-detail-page-cards/customers' target='_blank'>Check the demo</a>
+ | 
+<a href='https://github.com/qor5/docs/tree/main/docsrc/examples/e21_presents/detailing.go' target='_blank'>Source on GitHub</a>
+</div>
+</div>
+<h2><a name="menu-order" class="anchor" href="#menu-order" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Menu order</h2>
+
+<p>Sorting menus is very simple, use <code>MenuOrder</code> to sort menus as you want by <strong>slug name</strong> .</p>
+
+<highlightjs :language='"go"' :code='"pb = presets.New()\npb.MenuOrder(\n\t\"videos\",\n\t\"musics\",\n\t\"books\",\n)"'></highlightjs>
+<h2><a name="menu-group-and-icon" class="anchor" href="#menu-group-and-icon" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Menu group and icon</h2>
+
+<p><code>MenuGroup</code> can merge multiple items into one group, as shown in the following code.</p>
+
+<p>Use <code>MenuIcon</code> on <code>ModelBuilder</code> can set the item icon, and set menu group icon by <code>Icon</code> following <code>MenuGroup</code>.</p>
+
+<p>Icon strings can be found at <a href="https://fonts.google.com/icons" rel="nofollow">https://fonts.google.com/icons</a>.</p>
+
+<highlightjs :language='"go"' :code='"mb := b.Model(\u0026book{}).MenuIcon(\"book\")\n\nmb.Listing().PageFunc(func(ctx *web.EventContext) (r web.PageResponse, err error) {\n\tr.Body = vuetify.VContainer(\n\t\th.Div(\n\t\t\th.H1(\"book\"),\n\t\t).Class(\"text-center mt-8\"),\n\t)\n\treturn\n})\n\nb.MenuOrder(\n\t\"books\",\n\tb.MenuGroup(\"Media\").SubItems(\n\t\t\"videos\",\n\t\t\"musics\",\n\t).Icon(\"perm_media\"),\n)"'></highlightjs>
+
+<div>
+<div class='demo'>
+<a href='/samples/menu/videos' target='_blank'>Check the demo</a>
+ | 
+<a href='https://github.com/qor5/docs/tree/main/docsrc/examples/e21_presents/menu.go' target='_blank'>Source on GitHub</a>
+</div>
+</div>
 </div>
 </div>
 </div>
