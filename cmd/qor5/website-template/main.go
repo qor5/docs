@@ -5,12 +5,11 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/qor5/docs/cmd/qor5/admintemplate/admin"
+	"github.com/qor5/docs/cmd/qor5/website-template/admin"
 )
 
 func main() {
-	// Setup project
-	mux := admin.Initialize()
+	mux := admin.InitApp()
 
 	port := os.Getenv("PORT")
 	if port == "" {
@@ -20,8 +19,7 @@ func main() {
 	fmt.Println("Served at http://localhost:" + port + "/admin")
 
 	http.Handle("/", mux)
-	err := http.ListenAndServe(":"+port, nil)
-	if err != nil {
+	if err := http.ListenAndServe(":"+port, nil); err != nil {
 		panic(err)
 	}
 }
