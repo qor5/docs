@@ -2,12 +2,12 @@ package admin
 
 import (
 	"net/http"
-
-	"github.com/qor5/admin/presets"
 )
 
-func SetupRouter(b *presets.Builder) (mux *http.ServeMux) {
+func SetupRouter(c Config) (mux *http.ServeMux) {
 	mux = http.NewServeMux()
-	mux.Handle("/", b)
+	mux.Handle("/", c.pb)
+	mux.Handle("/admin/page_builder/", c.pageBuilder)
+
 	return
 }
