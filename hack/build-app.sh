@@ -10,3 +10,4 @@ source hack/get-tools.sh
 plantbuild push ./plantbuild/build.jsonnet -l false
 
 echo "now please MANUALLY fill the image tag in the provisioning repo..."
+
