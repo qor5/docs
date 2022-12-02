@@ -119,6 +119,9 @@ func newPB() Config {
 		"media-library",
 	)
 
+	initMediaLibraryData(db)
+	initWebsiteData(db)
+
 	return Config{
 		pb:          b,
 		pageBuilder: pageBuilder,

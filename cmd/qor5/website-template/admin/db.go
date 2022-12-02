@@ -19,8 +19,34 @@ func ConnectDB() (db *gorm.DB) {
 
 	db.Logger = db.Logger.LogMode(logger.Info)
 
-	if err = db.AutoMigrate(); err != nil {
+	return
+}
+
+func initWebsiteData(db *gorm.DB) {
+	var cnt int64
+	if err := db.Table("page_builder_pages").Count(&cnt).Error; err != nil {
 		panic(err)
+	}
+
+	if cnt == 0 {
+		if err := db.Exec(initWebsiteSQL).Error; err != nil {
+			panic(err)
+		}
+	}
+
+	return
+}
+
+func initMediaLibraryData(db *gorm.DB) {
+	var cnt int64
+	if err := db.Table("media_libraries").Count(&cnt).Error; err != nil {
+		panic(err)
+	}
+
+	if cnt == 0 {
+		if err := db.Exec(initMediaLibrarySQL).Error; err != nil {
+			panic(err)
+		}
 	}
 
 	return

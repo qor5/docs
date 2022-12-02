@@ -62,9 +62,9 @@ func main() {
 	templateSel := promptui.Select{
 		Label: "Select a template",
 		Items: []string{
-			"Admin: Deep Customizable Database CRUD UI",
+			"Admin: Content Management System",
+			"Website: Content Management System with Website Examples",
 			"Bare: Simplest Workable Web App",
-			"Website: The Plant Website",
 		},
 	}
 
