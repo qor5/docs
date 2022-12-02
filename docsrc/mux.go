@@ -407,7 +407,7 @@ func Mux(prefix string) http.Handler {
 	)
 
 	mux.Handle("/", docgo.New().
-		MainPageTitle("My Document").
+		MainPageTitle("QOR5 Document").
 		Assets("/assets/", Assets).
 		DocTree(DocTree...).
 		Build(),
