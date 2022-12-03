@@ -4,10 +4,10 @@ import (
 	"net/http"
 
 	"github.com/biter777/countries"
+	"github.com/qor/oss/filesystem"
 	"github.com/qor5/admin/activity"
 	"github.com/qor5/admin/l10n"
 	l10n_view "github.com/qor5/admin/l10n/views"
-	"github.com/qor5/admin/media/oss"
 	media_view "github.com/qor5/admin/media/views"
 	"github.com/qor5/admin/pagebuilder"
 	"github.com/qor5/admin/pagebuilder/example"
@@ -22,6 +22,10 @@ import (
 	"github.com/qor5/x/perm"
 	h "github.com/theplant/htmlgo"
 	"golang.org/x/text/language"
+)
+
+const (
+	PublishDir = "./publish"
 )
 
 type Config struct {
@@ -91,7 +95,8 @@ func newPB() Config {
 	ab := activity.New(b, db).SetCreatorContextKey(login.UserKey)
 	ab.RegisterModels(pm, tm, cm)
 
-	publisher := publish.New(db, oss.Storage).WithPageBuilder(pageBuilder)
+	storage := filesystem.New(PublishDir)
+	publisher := publish.New(db, storage).WithPageBuilder(pageBuilder)
 	publish_view.Configure(b, db, ab, publisher, pm)
 
 	l10nBuilder := l10n.New()
