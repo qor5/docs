@@ -83,13 +83,13 @@ func main() {
 		fmt.Println(TIPS)
 		color.Magenta("cd %s && docker-compose up -d && source dev_env && go run main.go\n", dir)
 	case 1:
-		copyAndReplaceFiles(bareBox, dir, "bare-template", pkg)
-		fmt.Println(TIPS)
-		color.Magenta("cd %s && go run main.go\n", dir)
-	case 2:
 		copyAndReplaceFiles(websiteBox, dir, "website-template", pkg)
 		fmt.Println(TIPS)
 		color.Magenta("cd %s && docker-compose up -d && source dev_env && go run main.go\n", dir)
+	case 2:
+		copyAndReplaceFiles(bareBox, dir, "bare-template", pkg)
+		fmt.Println(TIPS)
+		color.Magenta("cd %s && go run main.go\n", dir)
 	default:
 		panic(fmt.Errorf("wrong option"))
 	}
