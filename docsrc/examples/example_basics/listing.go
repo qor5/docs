@@ -46,6 +46,7 @@ type Post struct {
 	Body      string
 	UpdatedAt time.Time
 	CreatedAt time.Time
+	Disabled  bool
 
 	CategoryID uint
 }
@@ -70,7 +71,7 @@ func ListingSample(b *presets.Builder) {
 	postModelBuilder.Listing("ID", "Title", "Body", "CategoryID", "VirtualField")
 
 	postModelBuilder.Listing().Searcher = func(model interface{}, params *presets.SearchParams, ctx *web.EventContext) (r interface{}, totalCount int, err error) {
-		qdb := db.Where("category_id != 0")
+		qdb := db.Where("disabled != true")
 		return gorm2op.DataOperator(qdb).Search(model, params, ctx)
 	}
 
