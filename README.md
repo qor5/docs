@@ -10,4 +10,4 @@ First please make sure these packages of QOR5 are in the same directory
 
 Then go to `docsrc/` run `./dev.sh`
 
-Visit localhost:9800 you will see the doc in local
+Visit localhost:8800 you will see the doc in local
