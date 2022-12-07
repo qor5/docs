@@ -3,7 +3,6 @@ package admin
 import (
 	"os"
 
-	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
