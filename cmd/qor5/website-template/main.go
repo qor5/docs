@@ -17,11 +17,11 @@ func main() {
 		port = "9000"
 	}
 	cmsMux := admin.InitApp()
-	server := &http.Server{
+	cmsServer := &http.Server{
 		Addr:    ":" + port,
 		Handler: cmsMux,
 	}
-	go server.ListenAndServe()
+	go cmsServer.ListenAndServe()
 	fmt.Println("CMS Served at http://localhost:" + port + "/admin")
 
 	// Publish server
@@ -31,12 +31,10 @@ func main() {
 		publishPort = "9001"
 	}
 	publishMux := http.FileServer(http.Dir(admin.PublishDir))
-	server = &http.Server{
+	publishServer := &http.Server{
 		Addr:    ":" + publishPort,
 		Handler: publishMux,
 	}
-	go server.ListenAndServe()
 	fmt.Println("Publish Served at http://localhost:" + publishPort)
-
-	log.Fatal(server.ListenAndServe())
+	log.Fatal(publishServer.ListenAndServe())
 }
