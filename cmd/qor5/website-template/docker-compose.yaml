@@ -2,8 +2,8 @@ services:
   postgres:
     image: postgres
     environment:
-      - "POSTGRES_USER=QOR5PackageName"
+      - "POSTGRES_USER=website"
       - "POSTGRES_PASSWORD=123"
-      - "POSTGRES_DB=QOR5PackageName_dev"
+      - "POSTGRES_DB=website_dev"
     ports:
       - "6432:5432"

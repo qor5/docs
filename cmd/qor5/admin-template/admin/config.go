@@ -5,7 +5,7 @@ import (
 
 	"github.com/qor5/admin/presets"
 	"github.com/qor5/admin/presets/gorm2op"
-	"github.com/qor5/docs/cmd/qor5/admintemplate/models"
+	"github.com/qor5/docs/cmd/qor5/admin-template/models"
 	"github.com/qor5/ui/vuetify"
 	"github.com/qor5/web"
 	h "github.com/theplant/htmlgo"
@@ -24,9 +24,9 @@ func initializeProject() (b *presets.Builder) {
 	// Initialize the builder of QOR5
 	b = presets.New()
 
-	// Setup the project name, ORM and Homepage
+	// Set up the project name, ORM and Homepage
 	b.URIPrefix("/admin").
-		BrandTitle("QOR5PackageName").
+		BrandTitle("Admin").
 		DataOperator(gorm2op.DataOperator(db)).
 		HomePageFunc(func(ctx *web.EventContext) (r web.PageResponse, err error) {
 			r.Body = vuetify.VContainer(

@@ -4,20 +4,25 @@ import (
 	"embed"
 	"fmt"
 	"io/fs"
-	"io/ioutil"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"strings"
 
+	"github.com/fatih/color"
 	"github.com/manifoldco/promptui"
 )
 
-//go:embed admintemplate
+//go:embed admin-template
 var adminBox embed.FS
 
-//go:embed baretemplate
+//go:embed bare-template
 var bareBox embed.FS
+
+//go:embed website-template
+var websiteBox embed.FS
+
+const TIPS = "\nRun the following command to start your App:"
 
 func main() {
 	validateFileExists := func(input string) error {
@@ -57,7 +62,8 @@ func main() {
 	templateSel := promptui.Select{
 		Label: "Select a template",
 		Items: []string{
-			"Admin: Deep Customizable Database CRUD UI",
+			"Admin: Content Management System",
+			"Website: Content Management System with Website Examples",
 			"Bare: Simplest Workable Web App",
 		},
 	}
@@ -71,13 +77,24 @@ func main() {
 		panic(err)
 	}
 
-	if result == 0 {
-		copyAndReplaceFiles(adminBox, dir, "admintemplate", pkg)
-		fmt.Printf("\ncd %s && docker-compose up -d && source dev_env && go run main.go\nto start your project\n", dir)
-	} else {
-		copyAndReplaceFiles(bareBox, dir, "baretemplate", pkg)
-		fmt.Printf("\ncd %s && go run main.go\nto start your project\n", dir)
+	switch result {
+	case 0:
+		copyAndReplaceFiles(adminBox, dir, "admin-template", pkg)
+		fmt.Println(TIPS)
+		color.Magenta("cd %s && docker-compose up -d && source dev_env && go run main.go\n", dir)
+	case 1:
+		copyAndReplaceFiles(websiteBox, dir, "website-template", pkg)
+		fmt.Println(TIPS)
+		color.Magenta("cd %s && docker-compose up -d && source dev_env && go run main.go\n", dir)
+	case 2:
+		copyAndReplaceFiles(bareBox, dir, "bare-template", pkg)
+		fmt.Println(TIPS)
+		color.Magenta("cd %s && go run main.go\n", dir)
+	default:
+		panic(fmt.Errorf("wrong option"))
 	}
+
+	return
 }
 
 func copyAndReplaceFiles(box embed.FS, dir string, template string, pkg string) {
@@ -104,7 +121,7 @@ func copyAndReplaceFiles(box embed.FS, dir string, template string, pkg string) 
 			panic(err)
 		}
 
-		err = ioutil.WriteFile(fp, []byte(content), 0644)
+		err = os.WriteFile(fp, []byte(content), 0644)
 		if err != nil {
 			panic(err)
 		}
@@ -154,7 +171,7 @@ func replaceInFiles(baseDir string, from, to string) {
 }
 
 func replaceInFile(filepath, from, to string) {
-	read, err := ioutil.ReadFile(filepath)
+	read, err := os.ReadFile(filepath)
 	if err != nil {
 		panic(err)
 	}
@@ -163,7 +180,7 @@ func replaceInFile(filepath, from, to string) {
 
 	// fmt.Println(newContents)
 
-	err = ioutil.WriteFile(filepath, []byte(newContents), 0)
+	err = os.WriteFile(filepath, []byte(newContents), 0)
 	if err != nil {
 		panic(err)
 	}
