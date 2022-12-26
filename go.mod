@@ -6,8 +6,8 @@ require (
 	github.com/biter777/countries v1.5.6
 	github.com/fatih/color v1.13.0
 	github.com/go-chi/chi v1.5.4
-	github.com/jinzhu/gorm v1.9.16
 	github.com/manifoldco/promptui v0.9.0
+	github.com/qor/oss v0.0.0-20210412121326-3c5583a62015
 	github.com/qor5/admin v0.0.0-20221128020357-adb551f97fa2
 	github.com/qor5/ui v1.0.0
 	github.com/qor5/web v1.2.4-0.20221109035751-adf9bf246c1e
@@ -67,7 +67,6 @@ require (
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/pquerna/otp v1.3.0 // indirect
-	github.com/qor/oss v0.0.0-20210412121326-3c5583a62015 // indirect
 	github.com/rainycape/unidecode v0.0.0-20150907023854-cb7f23ec59be // indirect
 	github.com/rogpeppe/go-internal v1.9.0 // indirect
 	github.com/rs/xid v1.4.0 // indirect

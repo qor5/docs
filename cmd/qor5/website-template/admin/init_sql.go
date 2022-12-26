@@ -6,18 +6,11 @@ const (
 -- Data for Name: media_libraries; Type: TABLE DATA; Schema: public; Owner: website
 --
 
-INSERT INTO public.media_libraries VALUES (34, '2022-02-23 08:25:33.489193+00', '2022-07-13 07:38:11.277717+00', NULL, 'image', '{"FileName":"3110-cocacola.png","Url":"//qor5-test.s3.ap-northeast-1.amazonaws.com/system/media_libraries/34/file.png","Width":460,"Height":267,"FileSizes":{"@qor_preview":35552,"default":18409,"main":168736,"original":18409,"thumb":11169},"Sizes":{"main":{"Width":800,"Height":500,"Padding":false},"thumb":{"Width":100,"Height":100,"Padding":false}},"Video":"","SelectedType":"","Description":""}');
-INSERT INTO public.media_libraries VALUES (1, '2021-12-23 02:57:17.133754+00', '2021-12-30 07:33:43.592359+00', NULL, 'image', '{"FileName":"demo image.jpeg","Url":"//qor5-test.s3.ap-northeast-1.amazonaws.com/system/media_libraries/1/file.jpeg","CropOptions":{"main":{"X":139,"Y":682,"Width":498,"Height":311}},"Width":750,"Height":1000,"FileSizes":{"@qor_preview":8917,"default":326350,"main":94913,"og":123973,"original":326350,"thumb":21199,"twitter-large":117784,"twitter-small":77615},"Sizes":{"@qor_preview":{"Width":200,"Height":200,"Padding":false},"main":{"Width":800,"Height":500,"Padding":false},"og":{"Width":1200,"Height":630,"Padding":false},"thumb":{"Width":400,"Height":300,"Padding":false},"twitter-large":{"Width":1200,"Height":600,"Padding":false},"twitter-small":{"Width":630,"Height":630,"Padding":false}},"Video":"","SelectedType":"","Description":""}');
-INSERT INTO public.media_libraries VALUES (67, '2022-10-17 05:32:18.820807+00', '2022-10-17 05:32:18.820807+00', NULL, 'image', '{"FileName":"55224394.jpeg","Url":"//qor5-test.s3.ap-northeast-1.amazonaws.com/system/media_libraries/67/file.jpeg","Width":400,"Height":400,"FileSizes":{"@qor_preview":27548,"default":33862,"original":33862},"Video":"","SelectedType":"","Description":""}');
-INSERT INTO public.media_libraries VALUES (36, '2022-02-23 08:28:11.915673+00', '2022-02-23 08:28:49.534394+00', NULL, 'image', '{"FileName":"1454.png","Url":"//qor5-test.s3.ap-northeast-1.amazonaws.com/system/media_libraries/36/file.png","Width":460,"Height":269,"FileSizes":{"@qor_preview":88862,"default":54193,"original":54193,"thumb":24615},"Sizes":{"thumb":{"Width":100,"Height":100,"Padding":false}},"Video":"","SelectedType":"","Description":""}');
 INSERT INTO public.media_libraries VALUES (100, '2022-10-18 02:38:42.573383+00', '2022-10-18 02:38:42.573383+00', NULL, 'image', '{"FileName":"mob.jpg","Url":"//qor5-test.s3.ap-northeast-1.amazonaws.com/system/media_libraries/100/file.jpg","Width":1536,"Height":2876,"FileSizes":{"@qor_preview":33140,"default":465542,"original":465542},"Video":"","SelectedType":"","Description":""}');
 INSERT INTO public.media_libraries VALUES (101, '2022-10-18 02:38:43.751395+00', '2022-10-18 02:38:43.751395+00', NULL, 'image', '{"FileName":"pc.jpg","Url":"//qor5-test.s3.ap-northeast-1.amazonaws.com/system/media_libraries/101/file.jpg","Width":2560,"Height":1440,"FileSizes":{"@qor_preview":33019,"default":646542,"original":646542},"Video":"","SelectedType":"","Description":""}');
-INSERT INTO public.media_libraries VALUES (37, '2022-02-23 08:30:59.292894+00', '2022-02-23 08:31:02.868106+00', NULL, 'image', '{"FileName":"1453.png","Url":"//qor5-test.s3.ap-northeast-1.amazonaws.com/system/media_libraries/37/file.png","Width":460,"Height":274,"FileSizes":{"@qor_preview":84820,"default":52453,"original":52453,"thumb":23763},"Sizes":{"thumb":{"Width":100,"Height":100,"Padding":false}},"Video":"","SelectedType":"","Description":""}');
 INSERT INTO public.media_libraries VALUES (102, '2022-10-18 02:38:47.446265+00', '2022-10-18 02:38:47.446265+00', NULL, 'video', '{"FileName":"theplant-mob.mov","Url":"","Video":"","SelectedType":"","Description":""}');
-INSERT INTO public.media_libraries VALUES (35, '2022-02-23 08:26:33.158649+00', '2022-02-23 08:26:35.492783+00', NULL, 'image', '{"FileName":"8626-hottea.png","Url":"//qor5-test.s3.ap-northeast-1.amazonaws.com/system/media_libraries/35/file.png","Width":460,"Height":182,"FileSizes":{"@qor_preview":67470,"default":18403,"original":18403,"thumb":20030},"Sizes":{"thumb":{"Width":100,"Height":100,"Padding":false}},"Video":"","SelectedType":"","Description":""}');
 INSERT INTO public.media_libraries VALUES (103, '2022-10-18 02:41:48.408478+00', '2022-10-18 02:41:48.408478+00', NULL, 'video', '{"FileName":"theplant.mov","Url":"","Video":"","SelectedType":"","Description":""}');
 INSERT INTO public.media_libraries VALUES (104, '2022-10-18 02:41:48.878436+00', '2022-10-18 02:41:48.878436+00', NULL, 'video', '{"FileName":"theplant.mov","Url":"","Video":"","SelectedType":"","Description":""}');
-INSERT INTO public.media_libraries VALUES (38, '2022-02-23 08:53:38.956188+00', '2022-02-23 08:53:43.383132+00', NULL, 'image', '{"FileName":"webptest.jpg","Url":"//qor5-test.s3.ap-northeast-1.amazonaws.com/system/media_libraries/38/file.jpg","Width":600,"Height":356,"FileSizes":{"@qor_preview":19914,"default":32566,"original":32566,"thumb":6776},"Sizes":{"thumb":{"Width":100,"Height":100,"Padding":false}},"Video":"","SelectedType":"","Description":""}');
 INSERT INTO public.media_libraries VALUES (105, '2022-10-18 02:48:39.735858+00', '2022-10-18 02:48:39.735858+00', NULL, 'image', '{"FileName":"nhk.png","Url":"//qor5-test.s3.ap-northeast-1.amazonaws.com/system/media_libraries/105/file.png","Width":202,"Height":84,"FileSizes":{"@qor_preview":14500,"default":2066,"original":2066},"Video":"","SelectedType":"","Description":""}');
 INSERT INTO public.media_libraries VALUES (106, '2022-10-18 02:48:41.752078+00', '2022-10-18 02:48:41.752078+00', NULL, 'image', '{"FileName":"aigle.png","Url":"//qor5-test.s3.ap-northeast-1.amazonaws.com/system/media_libraries/106/file.png","Width":320,"Height":84,"FileSizes":{"@qor_preview":17065,"default":3159,"original":3159},"Video":"","SelectedType":"","Description":""}');
 INSERT INTO public.media_libraries VALUES (107, '2022-10-18 02:48:41.925661+00', '2022-10-18 02:48:41.925661+00', NULL, 'image', '{"FileName":"lacoste.png","Url":"//qor5-test.s3.ap-northeast-1.amazonaws.com/system/media_libraries/107/file.png","Width":470,"Height":84,"FileSizes":{"@qor_preview":11839,"default":4714,"original":4714},"Video":"","SelectedType":"","Description":""}');
@@ -29,6 +22,8 @@ INSERT INTO public.media_libraries VALUES (111, '2022-12-02 16:45:18.407+00', '2
 INSERT INTO public.media_libraries VALUES (112, '2022-12-02 17:05:56.482+00', '2022-12-02 17:05:57.98+00', NULL, 'image', '{"FileName":"image.png","Url":"//the-plant.com/system/media_libraries/283/file.20211006224452.jpg","Width":2880,"Height":720,"FileSizes":{"@qor_preview":41622,"default":227103,"original":227103},"Video":"","SelectedType":"","Description":""}');
 INSERT INTO public.media_libraries VALUES (114, '2022-12-02 17:29:44.724+00', '2022-12-02 17:29:45.911+00', NULL, 'image', '{"FileName":"image.png","Url":"//the-plant.com/system/media_libraries/5/file.20211007042131.png","Width":2880,"Height":720,"FileSizes":{"@qor_preview":41622,"default":227103,"original":227103},"Video":"","SelectedType":"","Description":""}');
 INSERT INTO public.media_libraries VALUES (115, '2022-12-02 17:29:55.023+00', '2022-12-02 17:29:56.141+00', NULL, 'image', '{"FileName":"image.png","Url":"//the-plant.com/system/media_libraries/6/file.20211007042027.png","Width":2880,"Height":720,"FileSizes":{"@qor_preview":41622,"default":227103,"original":227103},"Video":"","SelectedType":"","Description":""}');
+
+ALTER SEQUENCE media_libraries_id_seq RESTART WITH 116;
 `
 
 	initWebsiteSQL = `
@@ -181,5 +176,21 @@ INSERT INTO public.page_builder_pages VALUES (3, '2022-12-02 12:36:27.993435+00'
 --
 
 INSERT INTO public.page_builder_templates VALUES (1, '2022-12-02 11:13:51.284891+00', '2022-12-02 11:13:51.284891+00', NULL, 'Hello', '');
+
+ALTER SEQUENCE container_brand_grids_id_seq RESTART WITH 2;
+ALTER SEQUENCE container_contact_form_id_seq RESTART WITH 2;
+ALTER SEQUENCE container_footers_id_seq RESTART WITH 4;
+ALTER SEQUENCE container_headers_id_seq RESTART WITH 2;
+ALTER SEQUENCE container_headings_id_seq RESTART WITH 5;
+ALTER SEQUENCE container_images_id_seq RESTART WITH 2;
+ALTER SEQUENCE container_in_numbers_id_seq RESTART WITH 2;
+ALTER SEQUENCE container_list_content_id_seq RESTART WITH 3;
+ALTER SEQUENCE container_list_content_lite_id_seq RESTART WITH 3;
+ALTER SEQUENCE container_list_content_with_image_id_seq RESTART WITH 2;
+ALTER SEQUENCE container_page_title_id_seq RESTART WITH 4;
+ALTER SEQUENCE container_video_banners_id_seq RESTART WITH 2;
+ALTER SEQUENCE page_builder_containers_id_seq RESTART WITH 24;
+ALTER SEQUENCE page_builder_pages_id_seq RESTART WITH 4;
+ALTER SEQUENCE page_builder_templates_id_seq RESTART WITH 2;
 `
 )
