@@ -47,6 +47,10 @@ func PresetsProfile(b *presets.Builder) {
 			)
 		})
 	// @snippet_end
+	b.Model(&brand{}).Listing().PageFunc(func(ctx *web.EventContext) (r web.PageResponse, err error) {
+		r.Body = VContainer()
+		return
+	})
 }
 
 const PresetsProfilePath = "/samples/profile"

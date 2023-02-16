@@ -48,6 +48,8 @@ type Post struct {
 	CreatedAt time.Time
 	Disabled  bool
 
+	Status string
+
 	CategoryID uint
 }
 

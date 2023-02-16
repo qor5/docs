@@ -7,11 +7,17 @@ import (
 	h "github.com/theplant/htmlgo"
 )
 
+type brand struct{}
+
 func PresetsBrandTitle(b *presets.Builder) {
 	// @snippet_begin(BrandTitleSample)
 	b.URIPrefix(PresetsBrandTitlePath).
 		BrandTitle("QOR5 Admin")
 	// @snippet_end
+	b.Model(&brand{}).Listing().PageFunc(func(ctx *web.EventContext) (r web.PageResponse, err error) {
+		r.Body = vuetify.VContainer()
+		return
+	})
 }
 
 func PresetsBrandFunc(b *presets.Builder) {
@@ -23,6 +29,10 @@ func PresetsBrandFunc(b *presets.Builder) {
 			).Class("pa-0")
 		})
 	// @snippet_end
+	b.Model(&brand{}).Listing().PageFunc(func(ctx *web.EventContext) (r web.PageResponse, err error) {
+		r.Body = vuetify.VContainer()
+		return
+	})
 }
 
 const PresetsBrandTitlePath = "/samples/brand_title"
