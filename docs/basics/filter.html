@@ -188,9 +188,11 @@
 <a href='https://github.com/qor5/docs/tree/main/docsrc/examples/e21_presents/filter.go' target='_blank'>Source on GitHub</a>
 </div>
 </div>
-<h3><a name="qor5-now-supports-8-types-of-filter-option" class="anchor" href="#qor5-now-supports-8-types-of-filter-option" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>QOR5 now supports 8 types of filter option.</h3>
-<h2><a name="filter-by-string" class="anchor" href="#filter-by-string" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
-Filter by String</h2>
+<h3><a name="qor5-now-supports-7-types-of-filter-option" class="anchor" href="#qor5-now-supports-7-types-of-filter-option" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>QOR5 now supports 7 types of filter option.</h3>
+
+<p>PLEASE NOTE THAT all below sample are required you to provide the <code>SQLCondition</code> you want to perform.</p>
+<h2><a name="1-filter-by-string" class="anchor" href="#1-filter-by-string" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+1. Filter by String</h2>
 
 <p>Set the <code>ItemType</code> as <code>vuetifyx.ItemTypeString</code>. No <code>Options</code> needed.
 Under this mode, the filter would work in 2 ways,</p>
@@ -199,8 +201,8 @@ Under this mode, the filter would work in 2 ways,</p>
 <li>the target value equal to the input string</li>
 <li>the target value contains the input string</li>
 </ol>
-<h2><a name="filter-by-number" class="anchor" href="#filter-by-number" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
-Filter by Number</h2>
+<h2><a name="2-filter-by-number" class="anchor" href="#2-filter-by-number" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+2. Filter by Number</h2>
 
 <p>Set the <code>ItemType</code> as <code>vuetifyx.ItemTypeNumber</code>. No <code>Options</code> needed.
 Under this mode, the filter would work in 4 ways</p>
@@ -211,16 +213,26 @@ Under this mode, the filter would work in 4 ways</p>
 <li>the target value is greater than the input number</li>
 <li>the target value is less than the input number</li>
 </ol>
+<h2><a name="3-filter-by-date" class="anchor" href="#3-filter-by-date" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>3. Filter by Date</h2>
 
-<p>TODO:</p>
+<p>Set the <code>ItemType</code> as <code>vuetifyx.ItemTypeDate</code>. No <code>Options</code> needed.
+Under this mode, the filter would render a date picker for users to select.</p>
+<h2><a name="4-filter-by-date-range" class="anchor" href="#4-filter-by-date-range" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>4. Filter by Date Range</h2>
 
-<pre><code>3. SelectItem
-4. DateItem
-5. DateRangeItem
-6. DatetimeRangeItem
-7. MultipleSelectItem
-8. LinkageSelectItem
-</code></pre>
+<p>Set the <code>ItemType</code> as <code>vuetifyx.ItemTypeDateRange</code>. No <code>Options</code> needed.
+Under this mode, the filter would render 2 date pickers, &#34;from&#34; and &#34;to&#34; for users to select.</p>
+<h2><a name="5-filter-by-datetime-range" class="anchor" href="#5-filter-by-datetime-range" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>5. Filter by Datetime Range</h2>
+
+<p>Set the <code>ItemType</code> as <code>vuetifyx.ItemTypeDatetimeRange</code>. No <code>Options</code> needed.
+Under this mode, the filter would render 2 <em>date time</em> pickers, &#34;from&#34; and &#34;to&#34; for users to select.</p>
+<h2><a name="6-filter-by-selectable-items" class="anchor" href="#6-filter-by-selectable-items" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>6. Filter by Selectable Items</h2>
+
+<p>Set the <code>ItemType</code> as <code>vuetifyx.ItemTypeSelect</code>. You need to provide <code>Options</code> like this. The <code>Text</code> is the text users can see in the selector, the <code>Value</code> is the value of the selector.</p>
+
+<highlightjs :language='"go"' :code='"Options: []*vuetifyx.SelectItem{\n\t\t{Text: \"Active\", Value: \"active\"},\n\t\t{Text: \"Inactive\", Value: \"inactive\"},\n\t},"'></highlightjs>
+<h2><a name="7-filter-by-multiple-select" class="anchor" href="#7-filter-by-multiple-select" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>7. Filter by Multiple Select</h2>
+
+<p>Set the <code>ItemType</code> as <code>vuetifyx.ItemTypeMultipleSelect</code>. You need to provide <code>Options</code> like above &#34;Selectable Items&#34;. But in this mode, the filter would render the options as multi-selectable checkboxes and the query of this filter becomes <code>IN</code> and <code>NOT IN</code>.</p>
 </div>
 </div>
 </div>
