@@ -3,8 +3,8 @@ package e20_vuetify_expansion_panels
 import (
 	"time"
 
-	s "github.com/qor5/ui/stripeui"
 	. "github.com/qor5/ui/vuetify"
+	vx "github.com/qor5/ui/vuetifyx"
 	"github.com/qor5/web"
 	h "github.com/theplant/htmlgo"
 )
@@ -28,14 +28,14 @@ func ExpansionPanelDemo(ctx *web.EventContext) (pr web.PageResponse, err error) 
 					).DisableIconRotate(true),
 					VExpansionPanelContent(
 						VDivider(),
-						s.DetailInfo(
-							s.DetailColumn(
-								s.DetailField(s.OptionalText("FENGMIN SUN").ZeroLabel("No Name")).Label("Name"),
-								s.DetailField(s.OptionalText("•••• 4242").ZeroLabel("No Number")).Label("Number"),
-								s.DetailField(s.OptionalText("QlfGjXhL3I1xfKVV").ZeroLabel("No Fingerprint")).Label("Fingerprint"),
-								s.DetailField(s.OptionalText("11 / 2028").ZeroLabel("No Expires")).Label("Expires"),
-								s.DetailField(s.OptionalText("Visa credit card").ZeroLabel("No Type")).Label("Type"),
-								s.DetailField(s.OptionalText("card_1EJtLGAqkzzGorqLeFb6h2YV").ZeroLabel("No Type")).Label("ID"),
+						vx.DetailInfo(
+							vx.DetailColumn(
+								vx.DetailField(vx.OptionalText("FENGMIN SUN").ZeroLabel("No Name")).Label("Name"),
+								vx.DetailField(vx.OptionalText("•••• 4242").ZeroLabel("No Number")).Label("Number"),
+								vx.DetailField(vx.OptionalText("QlfGjXhL3I1xfKVV").ZeroLabel("No Fingerprint")).Label("Fingerprint"),
+								vx.DetailField(vx.OptionalText("11 / 2028").ZeroLabel("No Expires")).Label("Expires"),
+								vx.DetailField(vx.OptionalText("Visa credit card").ZeroLabel("No Type")).Label("Type"),
+								vx.DetailField(vx.OptionalText("card_1EJtLGAqkzzGorqLeFb6h2YV").ZeroLabel("No Type")).Label("ID"),
 							),
 						).Class("pa-0"),
 					),
@@ -47,14 +47,14 @@ func ExpansionPanelDemo(ctx *web.EventContext) (pr web.PageResponse, err error) 
 					),
 					VExpansionPanelContent(
 						VDivider(),
-						s.DetailInfo(
-							s.DetailColumn(
-								s.DetailField(s.OptionalText("FENGMIN SUN").ZeroLabel("No Name")).Label("Name"),
-								s.DetailField(s.OptionalText("•••• 4242").ZeroLabel("No Number")).Label("Number"),
-								s.DetailField(s.OptionalText("QlfGjXhL3I1xfKVV").ZeroLabel("No Fingerprint")).Label("Fingerprint"),
-								s.DetailField(s.OptionalText("11 / 2028").ZeroLabel("No Expires")).Label("Expires"),
-								s.DetailField(s.OptionalText("Visa credit card").ZeroLabel("No Type")).Label("Type"),
-								s.DetailField(s.OptionalText("card_1EJtLGAqkzzGorqLeFb6h2YV").ZeroLabel("No Type")).Label("ID"),
+						vx.DetailInfo(
+							vx.DetailColumn(
+								vx.DetailField(vx.OptionalText("FENGMIN SUN").ZeroLabel("No Name")).Label("Name"),
+								vx.DetailField(vx.OptionalText("•••• 4242").ZeroLabel("No Number")).Label("Number"),
+								vx.DetailField(vx.OptionalText("QlfGjXhL3I1xfKVV").ZeroLabel("No Fingerprint")).Label("Fingerprint"),
+								vx.DetailField(vx.OptionalText("11 / 2028").ZeroLabel("No Expires")).Label("Expires"),
+								vx.DetailField(vx.OptionalText("Visa credit card").ZeroLabel("No Type")).Label("Type"),
+								vx.DetailField(vx.OptionalText("card_1EJtLGAqkzzGorqLeFb6h2YV").ZeroLabel("No Type")).Label("ID"),
 							),
 						).Class("pa-0"),
 					),
