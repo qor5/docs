@@ -7,8 +7,8 @@ import (
 
 	"github.com/qor5/admin/presets"
 	"github.com/qor5/admin/presets/actions"
-	"github.com/qor5/ui/stripeui"
 	. "github.com/qor5/ui/vuetify"
+	vx "github.com/qor5/ui/vuetifyx"
 	"github.com/qor5/web"
 	h "github.com/theplant/htmlgo"
 	"gorm.io/gorm"
@@ -58,7 +58,7 @@ func PresetsDetailPageTopNotes(b *presets.Builder) (
 			panic(err)
 		}
 
-		dt := stripeui.DataTable(notes).WithoutHeader(true).LoadMoreAt(2, "Show More")
+		dt := vx.DataTable(notes).WithoutHeader(true).LoadMoreAt(2, "Show More")
 
 		dt.Column("Content").CellComponentFunc(func(obj interface{}, fieldName string, ctx *web.EventContext) h.HTMLComponent {
 			n := obj.(*Note)
@@ -77,7 +77,7 @@ func PresetsDetailPageTopNotes(b *presets.Builder) (
 		cusID := fmt.Sprint(cu.ID)
 		dt.RowMenuItemFuncs(presets.EditDeleteRowMenuItemFuncs(mi, mi.PresetsPrefix()+"/notes", url.Values{"model": []string{"Customer"}, "model_id": []string{cusID}})...)
 
-		return stripeui.Card(
+		return vx.Card(
 			dt,
 		).HeaderTitle(title).
 			Actions(
@@ -134,20 +134,20 @@ func PresetsDetailPageDetails(b *presets.Builder) (
 			termAgreed = cu.TermAgreedAt.Format("Jan 02,15:04 PM")
 		}
 
-		detail := stripeui.DetailInfo(
-			stripeui.DetailColumn(
-				stripeui.DetailField(stripeui.OptionalText(cu.Name).ZeroLabel("No Name")).Label("Name"),
-				stripeui.DetailField(stripeui.OptionalText(cu.Email).ZeroLabel("No Email")).Label("Email"),
-				stripeui.DetailField(stripeui.OptionalText(cusID).ZeroLabel("No ID")).Label("ID"),
-				stripeui.DetailField(stripeui.OptionalText(cu.CreatedAt.Format("Jan 02,15:04 PM")).ZeroLabel("")).Label("Created"),
-				stripeui.DetailField(stripeui.OptionalText(termAgreed).ZeroLabel("Not Agreed Yet")).Label("Terms Agreed"),
+		detail := vx.DetailInfo(
+			vx.DetailColumn(
+				vx.DetailField(vx.OptionalText(cu.Name).ZeroLabel("No Name")).Label("Name"),
+				vx.DetailField(vx.OptionalText(cu.Email).ZeroLabel("No Email")).Label("Email"),
+				vx.DetailField(vx.OptionalText(cusID).ZeroLabel("No ID")).Label("ID"),
+				vx.DetailField(vx.OptionalText(cu.CreatedAt.Format("Jan 02,15:04 PM")).ZeroLabel("")).Label("Created"),
+				vx.DetailField(vx.OptionalText(termAgreed).ZeroLabel("Not Agreed Yet")).Label("Terms Agreed"),
 			).Header("ACCOUNT INFORMATION"),
-			stripeui.DetailColumn(
-				stripeui.DetailField(h.RawHTML(cu.Description)).Label("Description"),
+			vx.DetailColumn(
+				vx.DetailField(h.RawHTML(cu.Description)).Label("Description"),
 			).Header("DETAILS"),
 		)
 
-		return stripeui.Card(detail).HeaderTitle("Details").
+		return vx.Card(detail).HeaderTitle("Details").
 			Actions(
 				VBtn("Agree Terms").
 					Depressed(true).Class("mr-2").
@@ -170,7 +170,7 @@ func PresetsDetailPageDetails(b *presets.Builder) (
 			).Class("mb-4")
 	})
 
-	dp.Action("AgreeTerms").UpdateFunc(func(selectedIds []string, ctx *web.EventContext) (err error) {
+	dp.Action("AgreeTerms").UpdateFunc(func(id string, ctx *web.EventContext) (err error) {
 		if ctx.R.FormValue("Agree") != "true" {
 			ve := &web.ValidationErrors{}
 			ve.GlobalError("You must agree the terms")
@@ -178,11 +178,11 @@ func PresetsDetailPageDetails(b *presets.Builder) (
 			return
 		}
 
-		err = db.Model(&Customer{}).Where("id = ?", selectedIds[0]).
+		err = db.Model(&Customer{}).Where("id = ?", id).
 			Updates(map[string]interface{}{"term_agreed_at": time.Now()}).Error
 
 		return
-	}).ComponentFunc(func(selectedIds []string, ctx *web.EventContext) h.HTMLComponent {
+	}).ComponentFunc(func(id string, ctx *web.EventContext) h.HTMLComponent {
 		var alert h.HTMLComponent
 
 		if ve, ok := ctx.Flash.(*web.ValidationErrors); ok {
@@ -243,18 +243,18 @@ func PresetsDetailPageCards(b *presets.Builder) (
 			panic(err)
 		}
 
-		dt := stripeui.DataTable(cards).
+		dt := vx.DataTable(cards).
 			WithoutHeader(true).
 			RowExpandFunc(func(obj interface{}, ctx *web.EventContext) h.HTMLComponent {
 				card := obj.(*CreditCard)
-				return stripeui.DetailInfo(
-					stripeui.DetailColumn(
-						stripeui.DetailField(stripeui.OptionalText(card.Name).ZeroLabel("No Name")).Label("Name"),
-						stripeui.DetailField(stripeui.OptionalText(card.Number).ZeroLabel("No Number")).Label("Number"),
-						stripeui.DetailField(stripeui.OptionalText(card.ExpireYearMonth).ZeroLabel("No Expires")).Label("Expires"),
-						stripeui.DetailField(stripeui.OptionalText(card.Type).ZeroLabel("No Type")).Label("Type"),
-						stripeui.DetailField(stripeui.OptionalText(card.Phone).ZeroLabel("No phone provided")).Label("Phone"),
-						stripeui.DetailField(stripeui.OptionalText(card.Email).ZeroLabel("No email provided")).Label("Email"),
+				return vx.DetailInfo(
+					vx.DetailColumn(
+						vx.DetailField(vx.OptionalText(card.Name).ZeroLabel("No Name")).Label("Name"),
+						vx.DetailField(vx.OptionalText(card.Number).ZeroLabel("No Number")).Label("Number"),
+						vx.DetailField(vx.OptionalText(card.ExpireYearMonth).ZeroLabel("No Expires")).Label("Expires"),
+						vx.DetailField(vx.OptionalText(card.Type).ZeroLabel("No Type")).Label("Type"),
+						vx.DetailField(vx.OptionalText(card.Phone).ZeroLabel("No phone provided")).Label("Phone"),
+						vx.DetailField(vx.OptionalText(card.Email).ZeroLabel("No email provided")).Label("Email"),
 					),
 				)
 			}).RowMenuItemFuncs(presets.EditDeleteRowMenuItemFuncs(mi, mi.PresetsPrefix()+"/credit-cards", url.Values{"customerID": []string{cusID}})...)
@@ -263,7 +263,7 @@ func PresetsDetailPageCards(b *presets.Builder) (
 		dt.Column("Number")
 		dt.Column("ExpireYearMonth")
 
-		return stripeui.Card(dt).HeaderTitle("Cards").
+		return vx.Card(dt).HeaderTitle("Cards").
 			Actions(
 				VBtn("Add Card").
 					Depressed(true).

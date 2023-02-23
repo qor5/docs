@@ -21,15 +21,14 @@ You can add all kinds of operations conveniently.
 	Markdown(`
 - The name of detailing fields are just a place holder for decide ordering
 - ~CellComponentFunc~ customize how the cell display
-- ~stripeui~ package create basic components that similar to [Stripe Dashboard](https://dashboard.stripe.com)
-- ~stripeui.DataTable~ create a data table, Which the Listing page uses the same component
+- ~vx.DataTable~ create a data table, Which the Listing page uses the same component
 - ~LoadMoreAt~ will only show for example 2 rows of data, and you can click load more to display all
-- ~stripeui.Card~ display a card with toolbar you can setup action buttons
+- ~vx.Card~ display a card with toolbar you can setup action buttons
 - We reference the new form drawer that ~b.Model(&Note{})~ creates, but hide notes in the menu
 `),
 	utils.Anchor(H2(""), "Details Info components and actions"),
 	Markdown(`
-A ~stripeui.DetailInfo~ component is used for display main detail field of the model.
+A ~vx.DetailInfo~ component is used for display main detail field of the model.
 And you can add any actions to the detail page with ease:
 `),
 	ch.Code(generated.PresetsDetailPageDetailsSample).Language("go"),
@@ -42,7 +41,7 @@ And you can add any actions to the detail page with ease:
 
 	utils.Anchor(H2(""), "More Usage for Data Table"),
 	Markdown(`
-A ~stripeui.DataTable~ component is very featured rich, Here check out the row expandable example:
+A ~vx.DataTable~ component is very featured rich, Here check out the row expandable example:
 `),
 	ch.Code(generated.PresetsDetailPageCardsSample).Language("go"),
 	utils.Demo("Presets Detail Page Credit Cards", e21_presents.PresetsDetailPageCardsPath+"/customers", "e21_presents/detailing.go"),
