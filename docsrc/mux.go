@@ -708,5 +708,12 @@ func SamplesHandler(prefix string) http.Handler {
 		c21,
 	)
 
+	c22 := presets.New().AssetFunc(addGA)
+	example_basics.PresetsConfirmDialog(c22)
+	mux.Handle(
+		example_basics.PresetsConfirmDialogPath+"/",
+		c22,
+	)
+
 	return mux
 }

@@ -36,6 +36,7 @@ var DocTree = []interface{}{
 			// other basics
 			basics.NotificationCenter,
 			basics.ShortCut,
+			basics.ConfirmDialog,
 		},
 	},
 
