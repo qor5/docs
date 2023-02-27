@@ -298,6 +298,10 @@ github.com/qor5/admin v0.0.0-20221128020357-adb551f97fa2 h1:075GoxMrB2/VY6pYRAPL
 github.com/qor5/admin v0.0.0-20221128020357-adb551f97fa2/go.mod h1:uymLUBdFzCae2QFwN+MW/4gnJDhKSqqhuID+fVkmkyY=
 github.com/qor5/admin v0.0.0-20230222060239-323b09795d83 h1:ys1C3onPFAZRZoL/l+TQTIwhT9VvQZoPIZp/duge85s=
 github.com/qor5/admin v0.0.0-20230222060239-323b09795d83/go.mod h1:UhmKyOUDo/2iNxVu2y9+8IGSgLj9HvxTfSsSC/VkgnM=
+github.com/qor5/admin v0.0.0-20230224100402-af6e5e15c108 h1:PwvBGGV6JXMvRhRKr2XcTZ+CweYzlQ79gzoAIzU3IPE=
+github.com/qor5/admin v0.0.0-20230224100402-af6e5e15c108/go.mod h1:UhmKyOUDo/2iNxVu2y9+8IGSgLj9HvxTfSsSC/VkgnM=
+github.com/qor5/admin v0.0.0-20230227013111-715f9fd3421a h1:nL6kJnmkmNc3Ryw3tPShuiVReN/B9XMGGHUjeqZKcGQ=
+github.com/qor5/admin v0.0.0-20230227013111-715f9fd3421a/go.mod h1:UhmKyOUDo/2iNxVu2y9+8IGSgLj9HvxTfSsSC/VkgnM=
 github.com/qor5/ui v1.0.0 h1:9npS/FvnlR2j7Z8uGW69511oLbHad+LOLDNob7jJj2Y=
 github.com/qor5/ui v1.0.0/go.mod h1:bgBqjIytHRdfTsiZea8df/ltAcyQyuHiLbecgo8Iwgw=
 github.com/qor5/ui v1.0.1-0.20221212071205-e794612c1e84/go.mod h1:bgBqjIytHRdfTsiZea8df/ltAcyQyuHiLbecgo8Iwgw=
