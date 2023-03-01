@@ -8,16 +8,16 @@ require (
 	github.com/go-chi/chi v1.5.4
 	github.com/manifoldco/promptui v0.9.0
 	github.com/qor/oss v0.0.0-20210412121326-3c5583a62015
-	github.com/qor5/admin v0.0.0-20221128020357-adb551f97fa2
-	github.com/qor5/ui v1.0.0
+	github.com/qor5/admin v0.0.0-20230227013111-715f9fd3421a
+	github.com/qor5/ui v1.0.1-0.20221212071205-e794612c1e84
 	github.com/qor5/web v1.2.4-0.20221109035751-adf9bf246c1e
-	github.com/qor5/x v1.2.1-0.20221109065533-3e5f9b440cb3
+	github.com/qor5/x v1.2.1-0.20230215023713-a028537191cc
 	github.com/shurcooL/sanitized_anchor_name v1.0.0
 	github.com/sunfmin/reflectutils v1.0.3
 	github.com/theplant/docgo v0.0.15
 	github.com/theplant/htmlgo v1.0.3
 	github.com/yosssi/gohtml v0.0.0-20201013000340-ee4748c638f4
-	golang.org/x/text v0.4.0
+	golang.org/x/text v0.6.0
 	gorm.io/driver/postgres v1.4.5
 	gorm.io/driver/sqlite v1.4.3
 	gorm.io/gorm v1.24.2
@@ -85,11 +85,11 @@ require (
 	go.uber.org/multierr v1.8.0 // indirect
 	go.uber.org/zap v1.24.0 // indirect
 	goji.io v2.0.2+incompatible // indirect
-	golang.org/x/crypto v0.3.0 // indirect
-	golang.org/x/image v0.0.0-20200927104501-e162460cd6b5 // indirect
-	golang.org/x/net v0.2.0 // indirect
+	golang.org/x/crypto v0.5.0 // indirect
+	golang.org/x/image v0.0.0-20220902085622-e7cb96979f69 // indirect
+	golang.org/x/net v0.5.0 // indirect
 	golang.org/x/oauth2 v0.0.0-20200902213428-5d25da1a8d43 // indirect
-	golang.org/x/sys v0.2.0 // indirect
+	golang.org/x/sys v0.4.0 // indirect
 	google.golang.org/appengine v1.6.6 // indirect
 	google.golang.org/protobuf v1.26.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect

@@ -395,7 +395,10 @@ func Mux(prefix string) http.Handler {
 	)
 	// @snippet_end
 
-	mux.Handle("/favicon.ico", http.NotFoundHandler())
+	mux.HandleFunc("/favicon.ico", func(w http.ResponseWriter, r *http.Request) {
+		w.Write(favicon)
+		return
+	})
 
 	samplesMux := SamplesHandler(prefix)
 	mux.Handle("/samples/",
@@ -706,6 +709,13 @@ func SamplesHandler(prefix string) http.Handler {
 	mux.Handle(
 		e21_presents.PresetsMenuGroupPath+"/",
 		c21,
+	)
+
+	c22 := presets.New().AssetFunc(addGA)
+	example_basics.PresetsConfirmDialog(c22)
+	mux.Handle(
+		example_basics.PresetsConfirmDialogPath+"/",
+		c22,
 	)
 
 	return mux
