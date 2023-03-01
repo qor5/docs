@@ -395,7 +395,10 @@ func Mux(prefix string) http.Handler {
 	)
 	// @snippet_end
 
-	mux.Handle("/favicon.ico", http.NotFoundHandler())
+	mux.HandleFunc("/favicon.ico", func(w http.ResponseWriter, r *http.Request) {
+		w.Write(favicon)
+		return
+	})
 
 	samplesMux := SamplesHandler(prefix)
 	mux.Handle("/samples/",
