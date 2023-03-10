@@ -38,7 +38,8 @@ presets has a list of actions:
 And you can define other specific actions if needed.
 ## Something - Resource
 An arbitrary unique resource name.  
-For example %s represents the user record with id 1.  
+The presets builtin resource format is %s.  
+For example %s represents the user record with id 1 under uri user_management.  
 Use %s as wildcard.
 ## Context - Condition
 Optional.  
@@ -52,7 +53,8 @@ Use %s to set the context:
 		strings.TrimRight(generated.PermissionPermCreate, ","),
 		strings.TrimRight(generated.PermissionPermUpdate, ","),
 		strings.TrimRight(generated.PermissionPermDelete, ","),
-		"`:presets:users:1:`",
+		"`:presets:mg_menu_group:uri:resource_rn:f_field:`",
+		"`:presets:user_management:users:1:`",
 		"`*`",
 		"`ContextFunc`",
 	)),
@@ -89,7 +91,7 @@ Finally, add policy
 prints permission logs which is very helpful for debugging the permission policies:
     `),
 	ch.Code(`
-have permission: true, req: &ladon.Request{Resource:":presets:menu:articles:", Action:"presets:list", Subject:"viewer", Context:ladon.Context(nil)}
+have permission: true, req: &ladon.Request{Resource:":presets:articles:", Action:"presets:list", Subject:"viewer", Context:ladon.Context(nil)}
 have permission: true, req: &ladon.Request{Resource:":presets:articles:articles:1:", Action:"presets:update", Subject:"viewer", Context:ladon.Context(nil)}
 have permission: false, req: &ladon.Request{Resource:":presets:articles:articles:2:", Action:"presets:update", Subject:"viewer", Context:ladon.Context(nil)}
     `).Language("plain"),

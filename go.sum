@@ -261,6 +261,7 @@ github.com/manifoldco/promptui v0.9.0/go.mod h1:ka04sppxSGFAtxX0qhlYQjISsg9mR4GW
 github.com/markbates/going v1.0.0/go.mod h1:I6mnB4BPnEeqo85ynXIx1ZFLLbtiLHNXVgWeFO9OGOA=
 github.com/markbates/goth v1.75.1 h1:x+0vP1GBBj+Si6ChLTMW1sF7FDn8myLVJYMoS+9+cHk=
 github.com/markbates/goth v1.75.1/go.mod h1:X6xdNgpapSENS0O35iTBBcMHoJDQDfI9bJl+APCkYMc=
+github.com/markbates/goth v1.76.0/go.mod h1:X6xdNgpapSENS0O35iTBBcMHoJDQDfI9bJl+APCkYMc=
 github.com/mattn/go-colorable v0.1.1/go.mod h1:FuOcm+DKB9mbwrcAfNl7/TZVBZ6rcnceauSikq3lYCQ=
 github.com/mattn/go-colorable v0.1.6/go.mod h1:u6P/XSegPjTcexA+o6vUJrdnUu04hMope9wVRipJSqc=
 github.com/mattn/go-colorable v0.1.9 h1:sqDoxXbdeALODt0DAeJCVp38ps9ZogZEAXjus69YV3U=
@@ -302,6 +303,8 @@ github.com/qor5/admin v0.0.0-20230224100402-af6e5e15c108 h1:PwvBGGV6JXMvRhRKr2Xc
 github.com/qor5/admin v0.0.0-20230224100402-af6e5e15c108/go.mod h1:UhmKyOUDo/2iNxVu2y9+8IGSgLj9HvxTfSsSC/VkgnM=
 github.com/qor5/admin v0.0.0-20230227013111-715f9fd3421a h1:nL6kJnmkmNc3Ryw3tPShuiVReN/B9XMGGHUjeqZKcGQ=
 github.com/qor5/admin v0.0.0-20230227013111-715f9fd3421a/go.mod h1:UhmKyOUDo/2iNxVu2y9+8IGSgLj9HvxTfSsSC/VkgnM=
+github.com/qor5/admin v0.0.0-20230309055501-c8d08dc6944b h1:j9wGiuweDoSAVxBH/+zAKS3wrkijmVWODnvpCIKnYJE=
+github.com/qor5/admin v0.0.0-20230309055501-c8d08dc6944b/go.mod h1:cTtdZJvUGLNTGFfe53xT1H5noFgawFbfHsBLJyKEZYs=
 github.com/qor5/ui v1.0.0 h1:9npS/FvnlR2j7Z8uGW69511oLbHad+LOLDNob7jJj2Y=
 github.com/qor5/ui v1.0.0/go.mod h1:bgBqjIytHRdfTsiZea8df/ltAcyQyuHiLbecgo8Iwgw=
 github.com/qor5/ui v1.0.1-0.20221212071205-e794612c1e84/go.mod h1:bgBqjIytHRdfTsiZea8df/ltAcyQyuHiLbecgo8Iwgw=
@@ -310,6 +313,7 @@ github.com/qor5/web v1.2.4-0.20221109035751-adf9bf246c1e/go.mod h1:gwAoUC1cQ9y5V
 github.com/qor5/x v1.2.1-0.20221109065533-3e5f9b440cb3 h1:4W5ix5ep3JJQSJwBMjyXLskaOHUy2vfd1aPDt4xtVU0=
 github.com/qor5/x v1.2.1-0.20221109065533-3e5f9b440cb3/go.mod h1:pqE7TSENrUKHlwzDSdaww0pk3E9X1ffoqAfCHzoZrJk=
 github.com/qor5/x v1.2.1-0.20230215023713-a028537191cc/go.mod h1:pqE7TSENrUKHlwzDSdaww0pk3E9X1ffoqAfCHzoZrJk=
+github.com/qor5/x v1.2.1-0.20230308023320-5dd0a2f09c49/go.mod h1:pqE7TSENrUKHlwzDSdaww0pk3E9X1ffoqAfCHzoZrJk=
 github.com/rainycape/unidecode v0.0.0-20150907023854-cb7f23ec59be h1:ta7tUOvsPHVHGom5hKW5VXNc2xZIkfCKP8iaqOyYtUQ=
 github.com/rainycape/unidecode v0.0.0-20150907023854-cb7f23ec59be/go.mod h1:MIDFMn7db1kT65GmV94GzpX9Qdi7N/pQlwb+AN8wh+Q=
 github.com/rogpeppe/go-internal v1.3.0/go.mod h1:M8bDsm7K2OlrFYOpmOWEs/qY81heoFRclV5y23lUDJ4=
