@@ -116,7 +116,7 @@ func permissionPieces() {
 	var r *http.Request
 	var user interface{}
 	// @snippet_begin(PermissionNewVerifier)
-	verifier := perm.NewVerifier("users", presetsBuilder.GetPermission())
+	verifier := perm.NewVerifier("module_users", presetsBuilder.GetPermission())
 	// @snippet_end
 	// @snippet_begin(PermissionVerifierCheck)
 	if verifier.Do("ban").ObjectOn(user).WithReq(r).IsAllowed() == nil {
@@ -125,6 +125,6 @@ func permissionPieces() {
 	}
 	// @snippet_end
 	// @snippet_begin(PermissionAddCustomPolicy)
-	perm.PolicyFor("super_admin").WhoAre(perm.Allowed).ToDo("ban").On(":users:*")
+	perm.PolicyFor("super_admin").WhoAre(perm.Allowed).ToDo("ban").On(":module_users:*")
 	// @snippet_end
 }
