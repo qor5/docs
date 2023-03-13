@@ -11,7 +11,7 @@ import (
 
 var WhatIsQOR5 = Doc(
 	Markdown(`
-QOR5 is yet another Go library to build web applications.
+QOR5 is a Go library to build web applications.
 different from other MVC frameworks. the concepts in QOR5 is **Page**, **Event**, **Component**.
 and doesn't include Model.
 
