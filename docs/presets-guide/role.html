@@ -2,7 +2,7 @@
 
 <html>
 <head>
-<title>Getting Started - 1 Minute Quick Start - QOR5 Document</title>
+<title>Building Admin - Role - QOR5 Document</title>
 
 <meta name='description'>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -29,7 +29,7 @@
 <li class='cursor-default px-4 py-1 truncate break-words w-64 m-0'>Getting Started</li>
 
 <li class='m-0'>
-<a href='getting-started/one-minute-quick-start.html' id='getting-started/one-minute-quick-start.html' onclick='window.storeMenuState("getting-started/one-minute-quick-start.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-blue-500'>1 Minute Quick Start</a>
+<a href='getting-started/one-minute-quick-start.html' id='getting-started/one-minute-quick-start.html' onclick='window.storeMenuState("getting-started/one-minute-quick-start.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>1 Minute Quick Start</a>
 </li>
 
 <li class='cursor-default px-4 py-1 truncate break-words w-64 m-0'>Building Admin</li>
@@ -63,7 +63,7 @@
 </li>
 
 <li class='m-0'>
-<a href='presets-guide/role.html' id='presets-guide/role.html' onclick='window.storeMenuState("presets-guide/role.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Role</a>
+<a href='presets-guide/role.html' id='presets-guide/role.html' onclick='window.storeMenuState("presets-guide/role.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-blue-500'>Role</a>
 </li>
 
 <li class='m-0'>
@@ -183,26 +183,26 @@
 </div>
 
 <div id='docMainBox' class='px-16 pb-12 pt-4 overflow-auto'>
-<h1 class='mb-8'>1 Minute Quick Start</h1>
+<h1 class='mb-8'>Role</h1>
 
-<div class='border-t'><p>This article try to let you use the shortest time to get a taste of how powerful QOR5 is.</p>
+<div class='border-t'><p><strong>Role</strong> provides a UI interface to manage roles(subjects) and their permissions.</p>
 
-<p>One of the QOR5 module called <code>presets</code> that can quickly create admin interface like <a href="/samples/presets-detail-page-cards/customers" rel="nofollow">these</a>:</p>
+<p>1.  enable permission DBPolicy</p>
 
-<p>Install the command line tool with:</p>
+<highlightjs :language='"go"' :code='"perm.New().\n\tPolicies(\n\t// static policies\n\t).\n\tDBPolicy(perm.NewDBPolicy(db))"'></highlightjs>
+<p>2. configure role<br>
+set resources that you want to manage on interface</p>
 
-<pre><code>$ go install github.com/qor5/docs/cmd/qor5@latest
-</code></pre>
+<highlightjs :language='"go"' :code='"rb := role.New(db).\n\tResources([]*vuetify.DefaultOptionItem{\n\t\t{Text: \"All\", Value: \"*\"},\n\t\t{Text: \"Posts\", Value: \"*:posts:*\"},\n\t\t{Text: \"Customers\", Value: \"*:customers:*\"},\n\t\t{Text: \"Products\", Value: \"*:products:*\"},\n\t})"'></highlightjs>
+<p>(optional) set actions, the default value is the following</p>
 
-<p>And run:</p>
+<highlightjs :language='"go"' :code='"// default value\nrb.Actions([]*vuetify.DefaultOptionItem{\n\t{Text: \"All\", Value: \"*\"},\n\t{Text: \"List\", Value: presets.PermList},\n\t{Text: \"Get\", Value: presets.PermGet},\n\t{Text: \"Create\", Value: presets.PermCreate},\n\t{Text: \"Update\", Value: presets.PermUpdate},\n\t{Text: \"Delete\", Value: presets.PermDelete},\n})"'></highlightjs>
+<p>(optional) set editor subject to set who can edit <strong>Role</strong></p>
 
-<pre><code>$ qor5
-</code></pre>
+<highlightjs :language='"go"' :code='"rb.EditorSubject(\"RoleEditor\")"'></highlightjs>
+<p>attach role to presets builder</p>
 
-<p>It will promote you to input a Go package, and create the admin app in current directory.</p>
-
-<p>Change to the created package directory, and use <code>docker-compose up</code> to start the database, and then
-Use a new terminal to run <code>source dev_env &amp;&amp; go run main.go</code> to start the admin app</p>
+<highlightjs :language='"go"' :code='"rb.Configure(presetsBuilder)"'></highlightjs>
 </div>
 </div>
 </div>

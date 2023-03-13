@@ -33,6 +33,7 @@ var DocTree = []interface{}{
 			advanced_functions.DetailPageForComplexObject,
 			// permission
 			basics.Permissions,
+			basics.Role,
 			// other basics
 			basics.NotificationCenter,
 			basics.ShortCut,
