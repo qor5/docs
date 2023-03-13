@@ -86,7 +86,7 @@ require (
 	go.uber.org/zap v1.24.0 // indirect
 	goji.io v2.0.2+incompatible // indirect
 	golang.org/x/crypto v0.5.0 // indirect
-	golang.org/x/image v0.0.0-20220902085622-e7cb96979f69 // indirect
+	golang.org/x/image v0.5.0 // indirect
 	golang.org/x/net v0.8.0 // indirect
 	golang.org/x/oauth2 v0.0.0-20200902213428-5d25da1a8d43 // indirect
 	golang.org/x/sys v0.6.0 // indirect
