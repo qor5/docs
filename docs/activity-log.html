@@ -2,7 +2,7 @@
 
 <html>
 <head>
-<title>Web Application - Layout Function and Page Injector - QOR5 Document</title>
+<title>Building Admin - Activity Log - QOR5 Document</title>
 
 <meta name='description'>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -87,7 +87,7 @@
 </li>
 
 <li class='m-0'>
-<a href='activity-log.html' id='activity-log.html' onclick='window.storeMenuState("activity-log.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Activity Log</a>
+<a href='activity-log.html' id='activity-log.html' onclick='window.storeMenuState("activity-log.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-blue-500'>Activity Log</a>
 </li>
 
 <li class='cursor-default px-4 py-1 truncate break-words w-64 m-0'>Web Application</li>
@@ -109,7 +109,7 @@
 </li>
 
 <li class='m-0'>
-<a href='basics/layout-function-and-page-injector.html' id='basics/layout-function-and-page-injector.html' onclick='window.storeMenuState("basics/layout-function-and-page-injector.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-blue-500'>Layout Function and Page Injector</a>
+<a href='basics/layout-function-and-page-injector.html' id='basics/layout-function-and-page-injector.html' onclick='window.storeMenuState("basics/layout-function-and-page-injector.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Layout Function and Page Injector</a>
 </li>
 
 <li class='m-0'>
@@ -195,42 +195,49 @@
 </div>
 
 <div id='docMainBox' class='px-16 pb-12 pt-4 overflow-auto'>
-<h1 class='mb-8'>Layout Function and Page Injector</h1>
+<h1 class='mb-8'>Activity Log</h1>
 
-<div class='border-t'><p>Read this code first, Guess what it does.</p>
-
-<highlightjs :language='"go"' :code='"func demoLayout(in web.PageFunc) (out web.PageFunc) {\n\treturn func(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\t\taddGA(ctx)\n\n\t\tctx.Injector.HeadHTML(`\n\t\t\t\u003cscript src=&#39;/assets/vue.js&#39;\u003e\u003c/script\u003e\n\t\t`)\n\n\t\tctx.Injector.TailHTML(coreJSTags)\n\t\tctx.Injector.HeadHTML(`\n\t\t\u003cstyle\u003e\n\t\t\t[v-cloak] {\n\t\t\t\tdisplay: none;\n\t\t\t}\n\t\t\u003c/style\u003e\n\t\t`)\n\n\t\tvar innerPr web.PageResponse\n\t\tinnerPr, err = in(ctx)\n\t\tif err != nil {\n\t\t\tpanic(err)\n\t\t}\n\n\t\tpr.Body = innerPr.Body\n\n\t\treturn\n\t}\n}\n"'></highlightjs>
-<p><code>ctx.Injector</code> is for inject html into default layout&#39;s html head, and bottom of body.
-html head normally for page title, keywords etc all kinds meta data, and css styles,
-javascript libraries etc. You can see we put vue.js into head, but put main.js into the bottom of body.</p>
-
-<p>Next part describe about these asset references:</p>
-
-<highlightjs :language='"go"' :code='"mux.Handle(\"/assets/main.js\",\n\tweb.PacksHandler(\"text/javascript\",\n\t\tweb.JSComponentsPack(),\n\t),\n)\n\nmux.Handle(\"/assets/vue.js\",\n\tweb.PacksHandler(\"text/javascript\",\n\t\tweb.JSVueComponentsPack(),\n\t),\n)\n"'></highlightjs>
-<p><code>web.JSComponentsPack</code> is the production version of QOR5 core javascript code.
-Created by using <a href="https://cli.vuejs.org/guide/creating-a-project.html" rel="nofollow">@vue/cli</a>,
-It does the basic functions like render server side returned html as vue templates.
-Provide basic event functions that call to server, and manage push state
-(change browser address urls before or after do ajax requests). do page partial refresh etc.</p>
-
-<p>the javascript or css code are packed by using <a href="https://pkg.go.dev/embed" rel="nofollow">embed</a>.</p>
-
-<highlightjs :language='"go"' :code='"import (\n\t\"embed\"\n)\n\n//go:embed corejs/dist/*.js\nvar box embed.FS\n\nfunc JSComponentsPack() ComponentsPack {\n\tv, err := box.ReadFile(\"corejs/dist/core.umd.min.js\")\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\n\treturn ComponentsPack(v)\n}\n\nfunc JSVueComponentsPack() ComponentsPack {\n\tv, err := box.ReadFile(\"corejs/dist/vue.min.js\")\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\n\treturn ComponentsPack(v)\n}\n"'></highlightjs>
-<p>And with <code>web.PacksHandler</code>, You can merge multiple javascript or css assets together into one url.
-So that browser only need to request them one time. and cache them. The cache is set to the start
-time of the process. So next time the app restarts, it invalid the cache.</p>
-
-<h2 id='summary'>Summary
-<a href='#summary' class='anchor'></a>
-</h2>
-<p>For a new project:</p>
+<div class='border-t'><p>As an admin user of CMS, You may need to record some important operations and these records should be easily queried and audited,
+so QOR5 provides a built-in activity module to record the operation of the model and support the following features:</p>
 
 <ul>
-<li>Use <a href="https://cli.vuejs.org/guide/creating-a-project.html" rel="nofollow">@vue/cli</a> to create an asset project that manage your javascript and css. and compile them for production use</li>
-<li>Use <a href="https://pkg.go.dev/embed" rel="nofollow">embed</a> to pack them into Go code as <code>ComponentPack</code>, which is a string</li>
-<li>Use <code>PacksHandler</code> to mount them as available http urls</li>
-<li>Write Layout function to reference them inside head, or bottom of body</li>
+<li>Support recording very detailed changes when a model data is changed.</li>
+<li>Support adding ignore fields when diffing a modified data, such as the update time.</li>
+<li>Support customizing how to diff a complex field type, such as the time.Time type.</li>
+<li>Support customizing the keys to indentify the current model data.</li>
+<li>Support both automatic recording and manual recording the CRUD operation.</li>
+<li>Support customizing the action about what the current operation is.</li>
+<li>Support querying the activity log from admin page.</li>
 </ul>
+<h2><a name="initialize-the-activity" class="anchor" href="#initialize-the-activity" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+Initialize the activity</h2>
+
+<highlightjs :language='"go"' :code='"presetsBuilder := presets.New()\ndb, err := gorm.Open(sqlite.Open(\"/tmp/activity.db\"), \u0026gorm.Config{})\nif err != nil {\n\tpanic(err)\n}\nactivity.New(presetsBuilder, db)"'></highlightjs>
+<ul>
+<li>The above code will create a new activity instance with the default configuration.</li>
+<li>If you already have a key to fetch the current user from the context, you can use <code>SetCreatorContextKey</code> method to set it.</li>
+<li>If you want to fetch the DB from the context, you can use <code>SetDBContextKey</code> method to set it.</li>
+<li>If you want to customize the text that displayed on the model edit page, you can use <code>SetTabHeading</code> method to customized it.</li>
+</ul>
+<h2><a name="register-the-preset-models" class="anchor" href="#register-the-preset-models" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+Register the preset models</h2>
+
+<highlightjs :language='"go"' :code='"presetsBuilder := presets.New()\ndb, err := gorm.Open(sqlite.Open(\"/tmp/activity.db\"), \u0026gorm.Config{})\nif err != nil {\n\tpanic(err)\n}\n\ntype Product struct {\n\tTitle string\n\tCode  string\n\tPrice float64\n}\n\nproductModel := presetsBuilder.Model(\u0026Product{})\nactivityBuilder := activity.New(presetsBuilder, db)\nactivityBuilder.RegisterModel(productModel).UseDefaultTab().AddKeys(\"Title\").AddIgnoredFields(\"Code\").SkipDelete()"'></highlightjs>
+<ul>
+<li>The above code will register the product model into activity and the product model will be recorded when it is created, updated or deleted automatically.</li>
+<li>By default, the activity will use the <code>primary</code> field as the key to indentify the current model data. You also can use <code>SetKeys</code> and <code>AddKeys</code> methods to customize the keys.</li>
+<li>By default, the activity will ignore the <code>ID</code>, <code>CreatedAt</code>, <code>UpdatedAt</code>, <code>DeletedAt</code> fields when diffing a modified data. You also can use <code>AddIgnoredFields</code> and <code>SetIgnoredFields</code> methods to customize the ignore fields.</li>
+<li>The activity already handle some special field types, such as the time.Time and media_library.MediaBox, you also can use <code>AddTypeHanders</code> methods to add more type handles.</li>
+<li>If you want to skip the automatic recording, you can use <code>SkipCreate</code>, <code>SkipUpdate</code> and <code>SkipDelete</code> methods to skip the automatic recording.</li>
+<li>If you want to display the related activity log on the model edit page, you can use <code>UseDefaultTab</code> method to enable it.</li>
+<li>If you want to display the link of which the model page is changed, you can use <code>SetLink</code> method to set it.</li>
+</ul>
+<h2><a name="record-the-activity-log-manually" class="anchor" href="#record-the-activity-log-manually" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+Record the activity log manually</h2>
+
+<p>If you register a preset model into the activity, the activity will record the activity log automatically for the CRUD operation of the model. But if you want to record the activity log manually for some other operations or you want to register a model that is not a preset model, you can use the following sample to record the activity log manually.</p>
+
+<highlightjs :language='"go"' :code='"presetsBuilder := presets.New()\ndb, err := gorm.Open(sqlite.Open(\"/tmp/activity.db\"), \u0026gorm.Config{})\nif err != nil {\n\tpanic(err)\n}\n\ntype Product struct {\n\tTitle string\n\tCode  string\n\tPrice float64\n}\n\nactivityBuilder := activity.New(presetsBuilder, db)\nactivityBuilder.RegisterModel(\u0026Product{})\n\n// if you can fetch the user infromation from the current context, you can use the following code to record the user\ncurrentCtx := context.WithValue(context.Background(), activity.CreatorContextKey, \"user1\")\nactivityBuilder.AddRecords(\"Publish\", currentCtx, \u0026Product{Title: \"Product 1\", Code: \"P1\", Price: 100}) // custmize the action name\nactivityBuilder.AddRecords(\"Update Price\", currentCtx, \u0026Product{Title: \"Product 1\", Code: \"P1\", Price: 200})\n"'></highlightjs>
 </div>
 </div>
 </div>
