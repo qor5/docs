@@ -725,5 +725,12 @@ func SamplesHandler(prefix string) http.Handler {
 		c23,
 	)
 
+	c24 := presets.New().AssetFunc(addGA)
+	example_basics.ActionWorkerExampleMock(c24)
+	mux.Handle(
+		example_basics.ActionWorkerExamplePath+"/",
+		c24,
+	)
+
 	return mux
 }
