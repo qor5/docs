@@ -1,5 +1,6 @@
 package example_basics
 
+// @snippet_begin(L10nFullExample)
 import (
 	"fmt"
 	"net/http"
@@ -11,7 +12,6 @@ import (
 	"github.com/qor5/admin/presets/gorm2op"
 )
 
-// @snippet_begin(L10nFullExample)
 // @snippet_begin(L10nModelExample)
 type L10nModel struct {
 	ID    uint
