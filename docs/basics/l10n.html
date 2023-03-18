@@ -2,7 +2,7 @@
 
 <html>
 <head>
-<title>Web Application - Form Handling - QOR5 Document</title>
+<title>Building Admin - Localization - QOR5 Document</title>
 
 <meta name='description'>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -83,7 +83,7 @@
 </li>
 
 <li class='m-0'>
-<a href='basics/l10n.html' id='basics/l10n.html' onclick='window.storeMenuState("basics/l10n.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Localization</a>
+<a href='basics/l10n.html' id='basics/l10n.html' onclick='window.storeMenuState("basics/l10n.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-blue-500'>Localization</a>
 </li>
 
 <li class='cursor-default px-4 py-1 truncate break-words w-64 m-0'>Web Application</li>
@@ -137,7 +137,7 @@
 </li>
 
 <li class='m-0'>
-<a href='basics/form-handling.html' id='basics/form-handling.html' onclick='window.storeMenuState("basics/form-handling.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-blue-500'>Form Handling</a>
+<a href='basics/form-handling.html' id='basics/form-handling.html' onclick='window.storeMenuState("basics/form-handling.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Form Handling</a>
 </li>
 
 <li class='cursor-default px-4 py-1 truncate break-words w-64 m-0'>UI Components</li>
@@ -191,29 +191,46 @@
 </div>
 
 <div id='docMainBox' class='px-16 pb-12 pt-4 overflow-auto'>
-<h1 class='mb-8'>Form Handling</h1>
+<h1 class='mb-8'>Localization</h1>
 
-<div class='border-t'><p>Form handling is an important part of web development. to make handling form easy,
-we have a global form that always be submitted with any event func. What you need to do
-is just to give an input a name.</p>
+<div class='border-t'><p>L10n gives your models the ability to localize for different Locales.<br>
+It can be a catalyst for the adaptation of a product, application, or document content to meet the language, cultural, and other requirements of a specific target market.</p>
+<h2><a name="define-a-struct" class="anchor" href="#define-a-struct" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Define a struct</h2>
 
-<p>For example:</p>
+<p>Define a struct that requires embed <code>l10n.Locale</code>.<br>
+Also this struct must implement <code>PrimarySlug() string</code> and <code>PrimaryColumnValuesBySlug(slug string) map[string]string</code></p>
 
-<highlightjs :language='"go"' :code='"import (\n\t\"fmt\"\n\t\"io\"\n\t\"mime/multipart\"\n\n\t\"github.com/qor5/docs/docsrc/utils\"\n\t\"github.com/qor5/web\"\n\t. \"github.com/theplant/htmlgo\"\n)\n\ntype MyData struct {\n\tText1          string\n\tCheckbox1      string\n\tColor1         string\n\tEmail1         string\n\tRadio1         string\n\tRange1         int\n\tUrl1           string\n\tTel1           string\n\tMonth1         string\n\tTime1          string\n\tWeek1          string\n\tDatetimeLocal1 string\n\tFile1          []*multipart.FileHeader\n\tHiddenValue1   string\n}\n\nfunc FormHandlingPage(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\n\tvar fv MyData\n\terr = ctx.UnmarshalForm(\u0026fv)\n\tif fv.Text1 == \"\" {\n\t\tfv.Text1 = `Hello &#39;1\nWorld`\n\t}\n\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\n\tpr.Body = Div(\n\t\tH1(\"Form Handling\"),\n\t\tH3(\"Form Content\"),\n\t\tutils.PrettyFormAsJSON(ctx),\n\t\tH3(\"File1 Content\"),\n\t\tPre(fv.File1Bytes()).Style(\"width: 400px; white-space: pre-wrap;\"),\n\t\tDiv(\n\t\t\tLabel(\"Text1\"),\n\t\t\tInput(\"\").Type(\"text\").Value(fv.Text1).Attr(web.VFieldName(\"Text1\")...),\n\t\t),\n\t\tDiv(\n\t\t\tLabel(\"Checkbox1\"),\n\t\t\tInput(\"\").Type(\"checkbox\").Value(\"1\").Checked(fv.Checkbox1 == \"1\").Attr(web.VFieldName(\"Checkbox1\")...),\n\t\t),\n\n\t\tweb.Scope(\n\t\t\tFieldset(\n\t\t\t\tLegend(\"Nested Form\"),\n\n\t\t\t\tDiv(\n\t\t\t\t\tLabel(\"Color1\"),\n\t\t\t\t\tInput(\"\").Type(\"color\").\n\t\t\t\t\t\tValue(fv.Color1).\n\t\t\t\t\t\tAttr(web.VFieldName(\"Color1\")...),\n\t\t\t\t),\n\t\t\t\tDiv(\n\t\t\t\t\tLabel(\"Email1\"),\n\t\t\t\t\tInput(\"\").Type(\"email\").Value(fv.Email1).Attr(web.VFieldName(\"Email1\")...),\n\t\t\t\t),\n\n\t\t\t\tInput(\"\").Type(\"checkbox\").\n\t\t\t\t\tAttr(\"v-model\", \"locals.checked\").\n\t\t\t\t\tAttr(web.VFieldName(\"Checked123\")...),\n\n\t\t\t\tButton(\"Uncheck it\").Attr(\"@click\", \"locals.checked = false\"),\n\t\t\t\tHr(),\n\t\t\t\tButton(\"Send\").Attr(\"@click\", web.POST().\n\t\t\t\t\tEventFunc(\"checkvalue\").\n\t\t\t\t\tQuery(\"id\", 123).\n\t\t\t\t\tFieldValue(\"name\", \"azuma\").\n\t\t\t\t\tGo()),\n\t\t\t),\n\t\t).VSlot(\"{ plaidForm, locals }\").Init(\"{checked: true}\"),\n\t\tweb.Scope(\n\t\t\tFieldset(\n\t\t\t\tLegend(\"Nested Form 2\"),\n\n\t\t\t\tDiv(\n\t\t\t\t\tLabel(\"Email1\"),\n\t\t\t\t\tInput(\"\").Type(\"email\").Value(fv.Email1).Attr(web.VFieldName(\"Email1\")...),\n\t\t\t\t),\n\n\t\t\t\tButton(\"Send\").Attr(\"@click\", web.POST().\n\t\t\t\t\tEventFunc(\"checkvalue\").\n\t\t\t\t\tGo()),\n\t\t\t),\n\t\t).VSlot(\"{ plaidForm, locals }\").Init(\"{checked: true}\"),\n\t\tDiv(\n\t\t\tFieldset(\n\t\t\t\tLegend(\"Radio\"),\n\t\t\t\tLabel(\"Radio Value 1\"),\n\t\t\t\tInput(\"Radio1\").Type(\"radio\").\n\t\t\t\t\tValue(\"1\").Checked(fv.Radio1 == \"1\").Attr(web.VFieldName(\"Radio1\")...),\n\t\t\t\tLabel(\"Radio Value 2\"),\n\t\t\t\tInput(\"Radio1\").Type(\"radio\").\n\t\t\t\t\tValue(\"2\").Checked(fv.Radio1 == \"2\").Attr(web.VFieldName(\"Radio1\")...),\n\t\t\t),\n\t\t),\n\t\tDiv(\n\t\t\tLabel(\"Range1\"),\n\t\t\tInput(\"\").Type(\"range\").Value(fmt.Sprint(fv.Range1)).Attr(web.VFieldName(\"Range1\")...),\n\t\t),\n\n\t\tweb.Scope(\n\t\t\tDiv(\n\t\t\t\tLabel(\"Url1\"),\n\t\t\t\tInput(\"\").Type(\"url\").Value(fv.Url1).Attr(web.VFieldName(\"Url1\")...),\n\t\t\t),\n\t\t\tDiv(\n\t\t\t\tLabel(\"Tel1\"),\n\t\t\t\tInput(\"\").Type(\"tel\").Value(fv.Tel1).Attr(web.VFieldName(\"Tel1\")...),\n\t\t\t),\n\t\t\tDiv(\n\t\t\t\tLabel(\"Month1\"),\n\t\t\t\tInput(\"\").Type(\"month\").Value(fv.Month1).Attr(web.VFieldName(\"Month1\")...),\n\t\t\t),\n\t\t).VSlot(\"{ locals }\"),\n\n\t\tDiv(\n\t\t\tLabel(\"Time1\"),\n\t\t\tInput(\"\").Type(\"time\").Value(fv.Time1).Attr(web.VFieldName(\"Time1\")...),\n\t\t),\n\t\tDiv(\n\t\t\tLabel(\"Week1\"),\n\t\t\tInput(\"\").Type(\"week\").Value(fv.Week1).Attr(web.VFieldName(\"Week1\")...),\n\t\t),\n\t\tDiv(\n\t\t\tLabel(\"DatetimeLocal1\"),\n\t\t\tInput(\"\").Type(\"datetime-local\").Value(fv.DatetimeLocal1).Attr(web.VFieldName(\"DatetimeLocal1\")...),\n\t\t),\n\t\tDiv(\n\t\t\tLabel(\"File1\"),\n\t\t\tInput(\"\").Type(\"file\").Value(\"\").Attr(web.VFieldName(\"File1\")...),\n\t\t),\n\t\tDiv(\n\t\t\tLabel(\"Hidden values with default\"),\n\t\t\tInput(\"\").Type(\"hidden\").Value(`hidden value\n&#39;123`).Attr(web.VFieldName(\"HiddenValue1\")...),\n\t\t),\n\t\tDiv(\n\t\t\tButton(\"Submit\").Attr(\"@click\", web.POST().EventFunc(\"checkvalue\").Go()),\n\t\t),\n\t)\n\treturn\n}\n\nfunc checkvalue(ctx *web.EventContext) (er web.EventResponse, err error) {\n\ter.Reload = true\n\treturn\n}\n\nfunc (m *MyData) File1Bytes() string {\n\tif m.File1 == nil || len(m.File1) == 0 {\n\t\treturn \"\"\n\t}\n\tf, err := m.File1[0].Open()\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\tvar b = make([]byte, 200)\n\t_, err = io.ReadFull(f, b)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\treturn fmt.Sprintf(\"%+v ...\", b)\n}\n\nvar FormHandlingPagePB = web.Page(FormHandlingPage).\n\tEventFunc(\"checkvalue\", checkvalue)\n\nconst FormHandlingPagePath = \"/samples/form_handling\"\n"'></highlightjs>
+<highlightjs :language='"go"' :code='"type L10nModel struct {\n\tID    uint\n\tTitle string\n\n\tl10n.Locale\n}\n\nfunc (lm *L10nModel) PrimarySlug() string {\n\treturn fmt.Sprintf(\"%v_%v\", lm.ID, lm.LocaleCode)\n}\n\nfunc (lm *L10nModel) PrimaryColumnValuesBySlug(slug string) map[string]string {\n\tsegs := strings.Split(slug, \"_\")\n\tif len(segs) != 2 {\n\t\tpanic(\"wrong slug\")\n\t}\n\n\treturn map[string]string{\n\t\t\"id\":          segs[0],\n\t\t\"locale_code\": segs[1],\n\t}\n}\n"'></highlightjs>
+<h2><a name="init-a-l10n-builder" class="anchor" href="#init-a-l10n-builder" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Init a l10n builder</h2>
+
+<p>Register locales here.<br>
+You can use <code>GetSupportLocaleCodesFromRequestFunc</code> to determine which roles can use which locales.</p>
+
+<highlightjs :language='"go"' :code='"l10nBuilder := l10n.New()\nl10nBuilder.\n\tRegisterLocales(\"International\", \"international\", \"International\").\n\tRegisterLocales(\"China\", \"cn\", \"China\").\n\tRegisterLocales(\"Japan\", \"jp\", \"Japan\").\n\tGetSupportLocaleCodesFromRequestFunc(func(R *http.Request) []string {\n\t\treturn l10nBuilder.GetSupportLocaleCodes()[:]\n\t})"'></highlightjs>
+<h2><a name="configure-the-model-builder" class="anchor" href="#configure-the-model-builder" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Configure the model builder</h2>
+
+<p>Use <code>l10n_view.Configure()</code> func to configure l10n view.<br>
+The <code>Switch Locale</code> ui will appear below the <code>Brand</code>.<br>
+The <code>Localize</code> ui will appear in the <code>RowMenuItem</code> under the <code>Edit</code> and the <code>Delete</code>.<br>
+<code>Localize</code> button is used to copy a piece of data from locale a to locale b.</p>
+
+<highlightjs :language='"go"' :code='"mb := b.Model(\u0026L10nModel{}).URIName(\"l10n-models\")\nl10n_view.Configure(b, DB, l10nBuilder, nil, mb)"'></highlightjs>
+<h2><a name="configure-the-model-builder" class="anchor" href="#configure-the-model-builder" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Configure the model builder</h2>
+
+<p>Use <code>l10n_view.Configure()</code> func to configure l10n view.<br>
+The <code>Switch Locale</code> ui will appear below the <code>Brand</code>.<br>
+The <code>Localize</code> ui will appear in the <code>RowMenuItem</code> under the <code>Edit</code> and the <code>Delete</code>.<br>
+<code>Localize</code> button is used to copy a piece of data from locale a to locale b.</p>
+
+<highlightjs :language='"go"' :code='"mb := b.Model(\u0026L10nModel{}).URIName(\"l10n-models\")\nl10n_view.Configure(b, DB, l10nBuilder, nil, mb)"'></highlightjs>
 
 <div>
 <div class='demo'>
-<a href='/samples/form_handling' target='_blank'>Check the demo</a>
+<a href='/samples/l10n/l10n-models' target='_blank'>Check the demo</a>
  | 
-<a href='https://github.com/qor5/docs/tree/main/docsrc/examples/e00_basics/form-handling.go' target='_blank'>Source on GitHub</a>
+<a href='https://github.com/qor5/docs/tree/main/docsrc/examples/example_basics/localization.go' target='_blank'>Source on GitHub</a>
 </div>
 </div>
-<p>Use <code>.Attr(web.VFieldName(&#34;Abc&#34;)...)</code> to set the field name, make the name matches your data struct field name.
-So that you can <code>ctx.UnmarshalForm(&amp;fv)</code> to set the values to data object. value of input must be set manually to set the initial value of form field.</p>
-
-<p>The fields which are bind with <code>.Attr(web.VFieldName(&#34;Abc&#34;)...)</code> are always submitted with every event func. A browser refresh, new page load will clear the form value.</p>
-
-<p><code>web.Scope(...).VSlot(&#34;{ plaidForm }&#34;)</code> to nest a new form inside outside form, EventFunc inside will only post form values inside the scope.</p>
 </div>
 </div>
 </div>
