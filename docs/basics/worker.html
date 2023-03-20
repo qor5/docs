@@ -2,7 +2,7 @@
 
 <html>
 <head>
-<title>Web Application - Event Handling - QOR5 Document</title>
+<title>Building Admin - Worker - QOR5 Document</title>
 
 <meta name='description'>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -91,7 +91,7 @@
 </li>
 
 <li class='m-0'>
-<a href='basics/worker.html' id='basics/worker.html' onclick='window.storeMenuState("basics/worker.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Worker</a>
+<a href='basics/worker.html' id='basics/worker.html' onclick='window.storeMenuState("basics/worker.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-blue-500'>Worker</a>
 </li>
 
 <li class='cursor-default px-4 py-1 truncate break-words w-64 m-0'>Web Application</li>
@@ -141,7 +141,7 @@
 </li>
 
 <li class='m-0'>
-<a href='basics/event-handling.html' id='basics/event-handling.html' onclick='window.storeMenuState("basics/event-handling.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-blue-500'>Event Handling</a>
+<a href='basics/event-handling.html' id='basics/event-handling.html' onclick='window.storeMenuState("basics/event-handling.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Event Handling</a>
 </li>
 
 <li class='m-0'>
@@ -199,235 +199,48 @@
 </div>
 
 <div id='docMainBox' class='px-16 pb-12 pt-4 overflow-auto'>
-<h1 class='mb-8'>Event Handling</h1>
+<h1 class='mb-8'>Worker</h1>
 
-<div class='border-t'><p>We extend vue to support the following types of event handling, so you can simply use go code to implement some complex logic.</p>
+<div class='border-t'><p>Worker runs a single Job in the background, it can do so immediately or at a scheduled time.<br>
+Once registered with QOR Admin, Worker will provide a Workers section in the navigation tree, containing pages for listing and managing the following aspects of Workers:</p>
 
-<p>Using the <code>Plaid()</code> method will create an event handler that defaults to using the current <code>vars</code> and <code>plaidForm</code>.
-The default http request method is <code>Post</code>, if you want to use the <code>Get</code> method, you can also use the <code>Get()</code> method directly to create an event handler</p>
+<ul>
+<li>All Jobs.</li>
+<li>Running: Jobs that are currently running.</li>
+<li>Scheduled: Jobs which have been scheduled to run at a time in the future.</li>
+<li>Done: finished Jobs.</li>
+<li>Errors: any errors output from any Workers that have been run.</li>
+</ul>
+<h2><a name="note" class="anchor" href="#note" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+Note</h2>
 
-<h2 id='url'>URL
-<a href='#url' class='anchor'></a>
-</h2>
-<p>Request a page.</p>
+<ul>
+<li>The default que GoQueQueue(<a href="https://github.com/tnclong/go-que" rel="nofollow">https://github.com/tnclong/go-que</a>) only supports postgres for now.</li>
+<li>To make a job abortable, you need to check <code>ctx.Done()</code> channel in job handler and stop the handler func.
+<br></li>
+</ul>
+<h2><a name="example" class="anchor" href="#example" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example</h2>
 
-<highlightjs :language='"go"' :code='"func EventHandlingURL(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\tpr.Body = Div(\n\t\tVCard(\n\t\t\tVCardTitle(Text(\"URL\")),\n\t\t\tVCardActions(VBtn(\"Go\").Attr(\"@click\", web.GET().URL(EventExamplePagePath).Go())),\n\t\t),\n\t)\n\treturn\n}\n"'></highlightjs>
-
-<div>
-<div class='demo'>
-<a href='/samples/event_handling?api=url' target='_blank'>Check the demo</a>
- | 
-<a href='https://github.com/qor5/docs/tree/main/docsrc/examples/e00_basics/event-handling.go#L14-L22' target='_blank'>Source on GitHub</a>
-</div>
-</div>
-
-<h2 id='pushstate'>PushState
-<a href='#pushstate' class='anchor'></a>
-</h2>
-<p>Reqest a page and also changing the window location.</p>
-
-<highlightjs :language='"go"' :code='"func EventHandlingPushState(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\tpr.Body = Div(\n\t\tVCard(\n\t\t\tVCardTitle(Text(\"PushState\")),\n\t\t\tVCardActions(VBtn(\"Go\").Attr(\"@click\", web.GET().URL(EventExamplePagePath).PushState(true).Go())),\n\t\t),\n\t)\n\treturn\n}\n"'></highlightjs>
+<highlightjs :language='"go"' :code='"import (\n\t\"context\"\n\t\"errors\"\n\t\"fmt\"\n\t\"time\"\n\n\t\"github.com/qor5/admin/presets\"\n\t\"github.com/qor5/admin/worker\"\n)\n\nfunc MountWorker(b *presets.Builder) {\n\twb := worker.New(DB)\n\twb.Configure(b)\n\tdefer wb.Listen()\n\n\taddJobs(wb)\n}\n\nfunc addJobs(w *worker.Builder) {\n\tw.NewJob(\"noArgJob\").\n\t\tHandler(func(ctx context.Context, job worker.QorJobInterface) error {\n\t\t\tjob.AddLog(\"hoho1\")\n\t\t\tjob.AddLog(\"hoho2\")\n\t\t\tjob.AddLog(\"hoho3\")\n\t\t\treturn nil\n\t\t})\n\n\ttype ArgJobResource struct {\n\t\tF1 string\n\t\tF2 int\n\t\tF3 bool\n\t}\n\targJb := w.NewJob(\"argJob\").\n\t\tResource(\u0026ArgJobResource{}).\n\t\tHandler(func(ctx context.Context, job worker.QorJobInterface) error {\n\t\t\tjobInfo, _ := job.GetJobInfo()\n\t\t\tjob.AddLog(fmt.Sprintf(\"Argument %#+v\", jobInfo.Argument))\n\t\t\treturn nil\n\t\t})\n\t// you can to customize the resource Editing via GetResourceBuilder()\n\targJb.GetResourceBuilder().Editing()\n\n\tw.NewJob(\"progressTextJob\").\n\t\tHandler(func(ctx context.Context, job worker.QorJobInterface) error {\n\t\t\tjob.AddLog(\"hoho1\")\n\t\t\tjob.AddLog(\"hoho2\")\n\t\t\tjob.AddLog(\"hoho3\")\n\t\t\tjob.SetProgressText(`\u003ca href=\"https://www.google.com\"\u003eDownload users\u003c/a\u003e`)\n\t\t\treturn nil\n\t\t})\n\n\t// check ctx.Done() to stop the handler\n\tw.NewJob(\"longRunningJob\").\n\t\tHandler(func(ctx context.Context, job worker.QorJobInterface) error {\n\t\t\tfor i := 1; i \u003c= 5; i++ {\n\t\t\t\tselect {\n\t\t\t\tcase \u003c-ctx.Done():\n\t\t\t\t\tjob.AddLog(\"job aborted\")\n\t\t\t\t\treturn nil\n\t\t\t\tdefault:\n\t\t\t\t\tjob.AddLog(fmt.Sprintf(\"%v\", i))\n\t\t\t\t\tjob.SetProgress(uint(i * 20))\n\t\t\t\t\ttime.Sleep(time.Second)\n\t\t\t\t}\n\t\t\t}\n\t\t\treturn nil\n\t\t})\n\n\t// insert worker.Schedule to resource to make a job schedulable\n\ttype ScheduleJobResource struct {\n\t\tF1 string\n\t\tworker.Schedule\n\t}\n\tw.NewJob(\"scheduleJob\").\n\t\tResource(\u0026ScheduleJobResource{}).\n\t\tHandler(func(ctx context.Context, job worker.QorJobInterface) error {\n\t\t\tjobInfo, _ := job.GetJobInfo()\n\t\t\tjob.AddLog(fmt.Sprintf(\"%#+v\", jobInfo.Argument))\n\t\t\treturn nil\n\t\t})\n\n\tw.NewJob(\"errorJob\").\n\t\tHandler(func(ctx context.Context, job worker.QorJobInterface) error {\n\t\t\tjob.AddLog(\"=====perform error job\")\n\t\t\treturn errors.New(\"imError\")\n\t\t})\n\n\tw.NewJob(\"panicJob\").\n\t\tHandler(func(ctx context.Context, job worker.QorJobInterface) error {\n\t\t\tjob.AddLog(\"=====perform panic job\")\n\t\t\tpanic(\"letsPanic\")\n\t\t})\n}\n"'></highlightjs>
 
 <div>
 <div class='demo'>
-<a href='/samples/event_handling?api=pushstate' target='_blank'>Check the demo</a>
+<a href='/samples/worker/workers' target='_blank'>Check the demo</a>
  | 
-<a href='https://github.com/qor5/docs/tree/main/docsrc/examples/e00_basics/event-handling.go#27-L35' target='_blank'>Source on GitHub</a>
+<a href='https://github.com/qor5/docs/tree/main/docsrc/examples/example_basics/worker.go' target='_blank'>Source on GitHub</a>
 </div>
 </div>
+<h2><a name="action-worker" class="anchor" href="#action-worker" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Action Worker</h2>
 
-<h2 id='reload'>Reload
-<a href='#reload' class='anchor'></a>
-</h2>
-<p>Refresh page.</p>
+<p>Action Worker is used to visualize the progress of long-running actions.</p>
 
-<highlightjs :language='"go"' :code='"func EventHandlingReload(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\tpr.Body = Div(\n\t\tVCard(\n\t\t\tVCardTitle(Text(\"Reload\")),\n\t\t\tText(fmt.Sprintf(\"Now: %s\", time.Now().Format(time.RFC3339Nano))),\n\t\t\tVCardActions(VBtn(\"Reload\").Attr(\"@click\", web.POST().Reload().Go())),\n\t\t),\n\t)\n\treturn\n}\n"'></highlightjs>
+<highlightjs :language='"go"' :code='"import (\n\t\"context\"\n\t\"fmt\"\n\t\"time\"\n\n\t\"github.com/qor5/admin/presets\"\n\t\"github.com/qor5/admin/worker\"\n\t\"github.com/qor5/ui/vuetify\"\n\t\"github.com/qor5/web\"\n\th \"github.com/theplant/htmlgo\"\n\t\"gorm.io/gorm\"\n)\n\ntype ExampleResource struct {\n\tgorm.Model\n\tName string\n}\n\nfunc MountActionWorker(b *presets.Builder) {\n\tmb := b.Model(\u0026ExampleResource{})\n\tmb.Listing().ActionsAsMenu(true)\n\n\twb := worker.New(DB)\n\twb.Configure(b)\n\tdefer wb.Listen()\n\n\taddActionJobs(mb, wb)\n}\n\nfunc addActionJobs(mb *presets.ModelBuilder, wb *worker.Builder) {\n\tlb := mb.Listing()\n\n\tnoParametersJob := wb.ActionJob(\n\t\t\"No parameters\",\n\t\tmb,\n\t\tfunc(ctx context.Context, job worker.QorJobInterface) error {\n\t\t\tfor i := 1; i \u003c= 10; i++ {\n\t\t\t\tselect {\n\t\t\t\tcase \u003c-ctx.Done():\n\t\t\t\t\tjob.AddLog(\"job aborted\")\n\t\t\t\t\treturn nil\n\t\t\t\tdefault:\n\t\t\t\t\tjob.SetProgress(uint(i * 10))\n\t\t\t\t\ttime.Sleep(time.Second)\n\t\t\t\t}\n\t\t\t}\n\t\t\tjob.SetProgressText(`\u003ca href=\"https://qor5-test.s3.ap-northeast-1.amazonaws.com/system/media_libraries/37/file.@qor_preview.png\"\u003ePlease download this file\u003c/a\u003e`)\n\t\t\treturn nil\n\t\t},\n\t).Description(\"This test demo is used to show that an no parameter job can be executed\")\n\n\tparametersBoxJob := wb.ActionJob(\n\t\t\"Parameter input box\",\n\t\tmb,\n\t\tfunc(ctx context.Context, job worker.QorJobInterface) error {\n\t\t\tfor i := 1; i \u003c= 10; i++ {\n\t\t\t\tselect {\n\t\t\t\tcase \u003c-ctx.Done():\n\t\t\t\t\tjob.AddLog(\"job aborted\")\n\t\t\t\t\treturn nil\n\t\t\t\tdefault:\n\t\t\t\t\tjob.SetProgress(uint(i * 10))\n\t\t\t\t\ttime.Sleep(time.Second)\n\t\t\t\t}\n\t\t\t}\n\t\t\tjob.SetProgressText(`\u003ca href=\"https://qor5-test.s3.ap-northeast-1.amazonaws.com/system/media_libraries/37/file.@qor_preview.png\"\u003ePlease download this file\u003c/a\u003e`)\n\t\t\treturn nil\n\t\t},\n\t).Description(\"This test demo is used to show that an input box when there are parameters\").\n\t\tParams(\u0026struct{ Name string }{})\n\n\tdisplayLogJob := wb.ActionJob(\n\t\t\"Display log\",\n\t\tmb,\n\t\tfunc(ctx context.Context, job worker.QorJobInterface) error {\n\t\t\tfor i := 1; i \u003c= 10; i++ {\n\t\t\t\tselect {\n\t\t\t\tcase \u003c-ctx.Done():\n\t\t\t\t\tjob.AddLog(\"job aborted\")\n\t\t\t\t\treturn nil\n\t\t\t\tdefault:\n\t\t\t\t\tjob.SetProgress(uint(i * 10))\n\t\t\t\t\tjob.AddLog(fmt.Sprintf(\"%v\", i))\n\t\t\t\t\ttime.Sleep(time.Second)\n\t\t\t\t}\n\t\t\t}\n\t\t\tjob.SetProgressText(`\u003ca href=\"https://qor5-test.s3.ap-northeast-1.amazonaws.com/system/media_libraries/37/file.@qor_preview.png\"\u003ePlease download this file\u003c/a\u003e`)\n\t\t\treturn nil\n\t\t},\n\t).Description(\"This test demo is used to show the log section of this job\").\n\t\tParams(\u0026struct{ Name string }{}).\n\t\tDisplayLog(true).\n\t\tProgressingInterval(4000)\n\n\tgetArgsJob := wb.ActionJob(\n\t\t\"Get Args\",\n\t\tmb,\n\t\tfunc(ctx context.Context, job worker.QorJobInterface) error {\n\t\t\tjobInfo, err := job.GetJobInfo()\n\t\t\tif err != nil {\n\t\t\t\treturn err\n\t\t\t}\n\n\t\t\tjob.AddLog(fmt.Sprintf(\"Action Params Name is  %#+v\", jobInfo.Argument.(*struct{ Name string }).Name))\n\t\t\tjob.AddLog(fmt.Sprintf(\"Origina Context AuthInfo is  %#+v\", jobInfo.Context[\"AuthInfo\"]))\n\t\t\tjob.AddLog(fmt.Sprintf(\"Origina Context URL is  %#+v\", jobInfo.Context[\"URL\"]))\n\n\t\t\tfor i := 1; i \u003c= 10; i++ {\n\t\t\t\tselect {\n\t\t\t\tcase \u003c-ctx.Done():\n\t\t\t\t\treturn nil\n\t\t\t\tdefault:\n\t\t\t\t\tjob.SetProgress(uint(i * 10))\n\t\t\t\t\ttime.Sleep(time.Second)\n\t\t\t\t}\n\t\t\t}\n\t\t\tjob.SetProgressText(`\u003ca href=\"https://qor5-test.s3.ap-northeast-1.amazonaws.com/system/media_libraries/37/file.@qor_preview.png\"\u003ePlease download this file\u003c/a\u003e`)\n\t\t\treturn nil\n\t\t},\n\t).Description(\"This test demo is used to show how to get the action&#39;s arguments and original page context\").\n\t\tParams(\u0026struct{ Name string }{}).\n\t\tDisplayLog(true).\n\t\tContextHandler(func(ctx *web.EventContext) map[string]interface{} {\n\t\t\tauth, err := ctx.R.Cookie(\"auth\")\n\t\t\tif err == nil {\n\t\t\t\treturn map[string]interface{}{\"AuthInfo\": auth.Value}\n\t\t\t}\n\t\t\treturn nil\n\t\t})\n\n\tlb.Action(\"Action Job - No parameters\").\n\t\tButtonCompFunc(\n\t\t\tfunc(ctx *web.EventContext) h.HTMLComponent {\n\t\t\t\treturn vuetify.VBtn(\"Action Job - No parameters\").Color(\"secondary\").Depressed(true).Class(\"ml-2\").\n\t\t\t\t\tAttr(\"@click\", noParametersJob.URL())\n\t\t\t})\n\n\tlb.Action(\"Action Job - Parameter input box\").\n\t\tButtonCompFunc(\n\t\t\tfunc(ctx *web.EventContext) h.HTMLComponent {\n\t\t\t\treturn vuetify.VBtn(\"Action Job - Parameter input box\").Color(\"secondary\").Depressed(true).Class(\"ml-2\").\n\t\t\t\t\tAttr(\"@click\", parametersBoxJob.URL())\n\t\t\t})\n\tlb.Action(\"Action Job - Display log\").\n\t\tButtonCompFunc(\n\t\t\tfunc(ctx *web.EventContext) h.HTMLComponent {\n\t\t\t\treturn vuetify.VBtn(\"Action Job - Display log\").Color(\"secondary\").Depressed(true).Class(\"ml-2\").\n\t\t\t\t\tAttr(\"@click\", displayLogJob.URL())\n\t\t\t})\n\n\tlb.Action(\"Action Job - Get Args\").\n\t\tButtonCompFunc(\n\t\t\tfunc(ctx *web.EventContext) h.HTMLComponent {\n\t\t\t\treturn vuetify.VBtn(\"Action Job - Get Args\").Color(\"secondary\").Depressed(true).Class(\"ml-2\").\n\t\t\t\t\tAttr(\"@click\", getArgsJob.URL())\n\t\t\t})\n}\n"'></highlightjs>
 
 <div>
 <div class='demo'>
-<a href='/samples/event_handling?api=reload' target='_blank'>Check the demo</a>
+<a href='/samples/action_worker/example-resources' target='_blank'>Check the demo</a>
  | 
-<a href='https://github.com/qor5/docs/tree/main/docsrc/examples/e00_basics/event-handling.go#40-L49' target='_blank'>Source on GitHub</a>
-</div>
-</div>
-
-<h2 id='query'>Query
-<a href='#query' class='anchor'></a>
-</h2>
-<p>Request a page with a query.</p>
-
-<highlightjs :language='"go"' :code='"func EventHandlingQuery(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\tpr.Body = Div(\n\t\tVCard(\n\t\t\tVCardTitle(Text(\"Query\")),\n\t\t\tVCardActions(VBtn(\"Go\").Attr(\"@click\", web.GET().URL(EventExamplePagePath).PushState(true).Query(\"address\", \"tokyo\").Go())),\n\t\t),\n\t)\n\treturn\n}\n"'></highlightjs>
-
-<div>
-<div class='demo'>
-<a href='/samples/event_handling?api=query' target='_blank'>Check the demo</a>
- | 
-<a href='https://github.com/qor5/docs/tree/main/docsrc/examples/e00_basics/event-handling.go#L54-L62' target='_blank'>Source on GitHub</a>
-</div>
-</div>
-
-<h2 id='mergequery'>MergeQuery
-<a href='#mergequery' class='anchor'></a>
-</h2>
-<p>Request a page with merging a query.</p>
-
-<highlightjs :language='"go"' :code='"func EventHandlingMergeQuery(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\tpr.Body = Div(\n\t\tVCard(\n\t\t\tVCardTitle(Text(\"MergeQuery\")),\n\t\t\tVCardActions(VBtn(\"Go\").Attr(\"@click\", web.GET().URL(EventExamplePagePath+\"?address=beijing\u0026name=qor5\u0026email=qor5@theplant.jp\").PushState(true).Query(\"address\", \"tokyo\").MergeQuery(true).Go())),\n\t\t),\n\t)\n\treturn\n}\n"'></highlightjs>
-
-<div>
-<div class='demo'>
-<a href='/samples/event_handling?api=merge_query' target='_blank'>Check the demo</a>
- | 
-<a href='https://github.com/qor5/docs/tree/main/docsrc/examples/e00_basics/event-handling.go#L67-L75' target='_blank'>Source on GitHub</a>
-</div>
-</div>
-
-<h2 id='clearmergequery'>ClearMergeQuery
-<a href='#clearmergequery' class='anchor'></a>
-</h2>
-<p>Request a page with clearing a query.</p>
-
-<highlightjs :language='"go"' :code='"func EventHandlingClearMergeQueryQuery(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\tpr.Body = Div(\n\t\tVCard(\n\t\t\tVCardTitle(Text(\"ClearMergeQuery\")),\n\t\t\tVCardActions(VBtn(\"Go\").Attr(\"@click\", web.GET().URL(EventExamplePagePath+\"?address=beijing\u0026name=qor5\u0026email=qor5@theplant.jp\").PushState(true).Query(\"address\", \"tokyo\").ClearMergeQuery([]string{\"name\"}).Go())),\n\t\t),\n\t)\n\treturn\n}\n"'></highlightjs>
-
-<div>
-<div class='demo'>
-<a href='/samples/event_handling?api=clear_merge_query' target='_blank'>Check the demo</a>
- | 
-<a href='https://github.com/qor5/docs/tree/main/docsrc/examples/e00_basics/event-handling.go#L80-L88' target='_blank'>Source on GitHub</a>
-</div>
-</div>
-
-<h2 id='stringquery'>StringQuery
-<a href='#stringquery' class='anchor'></a>
-</h2>
-<p>Request a page with a query string.</p>
-
-<highlightjs :language='"go"' :code='"func EventHandlingStringQuery(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\tpr.Body = Div(\n\t\tVCard(\n\t\t\tVCardTitle(Text(\"StringQuery\")),\n\t\t\tVCardActions(VBtn(\"Go\").Attr(\"@click\", web.GET().URL(EventExamplePagePath).PushState(true).StringQuery(\"address=tokyo\").Go())),\n\t\t),\n\t)\n\treturn\n}\n"'></highlightjs>
-
-<div>
-<div class='demo'>
-<a href='/samples/event_handling?api=string_query' target='_blank'>Check the demo</a>
- | 
-<a href='https://github.com/qor5/docs/tree/main/docsrc/examples/e00_basics/event-handling.go#L93-L101' target='_blank'>Source on GitHub</a>
-</div>
-</div>
-
-<h2 id='queries'>Queries
-<a href='#queries' class='anchor'></a>
-</h2>
-<p>Request a page with url.Values.</p>
-
-<highlightjs :language='"go"' :code='"func EventHandlingQueries(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\tpr.Body = Div(\n\t\tVCard(\n\t\t\tVCardTitle(Text(\"Queries\")),\n\t\t\tVCardActions(VBtn(\"Go\").Attr(\"@click\", web.GET().URL(EventExamplePagePath).PushState(true).Queries(url.Values{\"address\": []string{\"tokyo\"}}).Go())),\n\t\t),\n\t)\n\treturn\n}\n"'></highlightjs>
-
-<div>
-<div class='demo'>
-<a href='/samples/event_handling?api=queries' target='_blank'>Check the demo</a>
- | 
-<a href='https://github.com/qor5/docs/tree/main/docsrc/examples/e00_basics/event-handling.go#L106-L114' target='_blank'>Source on GitHub</a>
-</div>
-</div>
-
-<h2 id='pushstateurl'>PushStateURL
-<a href='#pushstateurl' class='anchor'></a>
-</h2>
-<p>Request a page with a url and also changing the window location.</p>
-
-<highlightjs :language='"go"' :code='"func EventHandlingQueries(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\tpr.Body = Div(\n\t\tVCard(\n\t\t\tVCardTitle(Text(\"Queries\")),\n\t\t\tVCardActions(VBtn(\"Go\").Attr(\"@click\", web.GET().URL(EventExamplePagePath).PushState(true).Queries(url.Values{\"address\": []string{\"tokyo\"}}).Go())),\n\t\t),\n\t)\n\treturn\n}\n"'></highlightjs>
-
-<div>
-<div class='demo'>
-<a href='/samples/event_handling?api=pushstateurl' target='_blank'>Check the demo</a>
- | 
-<a href='https://github.com/qor5/docs/tree/main/docsrc/examples/e00_basics/event-handling.go#L119-L127' target='_blank'>Source on GitHub</a>
-</div>
-</div>
-
-<h2 id='location'>Location
-<a href='#location' class='anchor'></a>
-</h2>
-<p>Open a page with more options.</p>
-
-<highlightjs :language='"go"' :code='"func EventHandlingLocation(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\tpr.Body = Div(\n\t\tVCard(\n\t\t\tVCardTitle(Text(\"Location\")),\n\t\t\tVCardActions(VBtn(\"Go\").Attr(\"@click\", web.POST().PushState(true).Location(\u0026web.LocationBuilder{MyURL: EventExamplePagePath, MyStringQuery: \"address=test\"}).Go())),\n\t\t),\n\t)\n\treturn\n}\n"'></highlightjs>
-
-<div>
-<div class='demo'>
-<a href='/samples/event_handling?api=location' target='_blank'>Check the demo</a>
- | 
-<a href='https://github.com/qor5/docs/tree/main/docsrc/examples/e00_basics/event-handling.go#L132-L140' target='_blank'>Source on GitHub</a>
-</div>
-</div>
-
-<h2 id='fieldvalue'>FieldValue
-<a href='#fieldvalue' class='anchor'></a>
-</h2>
-<p>Fill in a value on form.</p>
-
-<highlightjs :language='"go"' :code='"func EventHandlingFileValue(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\n\tpr.Body = Div(\n\t\tVCard(\n\t\t\tVCardTitle(Text(\"FieldValue\")),\n\t\t\tVCardActions(VBtn(\"Go\").Attr(\"@click\", web.POST().EventFunc(\"form\").FieldValue(\"name\", \"qor5\").Go())),\n\t\t),\n\t)\n\treturn\n}\n"'></highlightjs>
-
-<div>
-<div class='demo'>
-<a href='/samples/event_handling?api=fieldvalue' target='_blank'>Check the demo</a>
- | 
-<a href='https://github.com/qor5/docs/tree/main/docsrc/examples/e00_basics/event-handling.go#L145-L153' target='_blank'>Source on GitHub</a>
-</div>
-</div>
-
-<h2 id='formclear'>FormClear
-<a href='#formclear' class='anchor'></a>
-</h2>
-<p>Clear all form data.</p>
-
-<highlightjs :language='"go"' :code='"func EventHandlingFileValue(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\n\tpr.Body = Div(\n\t\tVCard(\n\t\t\tVCardTitle(Text(\"FieldValue\")),\n\t\t\tVCardActions(VBtn(\"Go\").Attr(\"@click\", web.POST().EventFunc(\"form\").FieldValue(\"name\", \"qor5\").Go())),\n\t\t),\n\t)\n\treturn\n}\n"'></highlightjs>
-
-<div>
-<div class='demo'>
-<a href='/samples/event_handling?api=formclear' target='_blank'>Check the demo</a>
- | 
-<a href='https://github.com/qor5/docs/tree/main/docsrc/examples/e00_basics/event-handling.go#L165-L178' target='_blank'>Source on GitHub</a>
-</div>
-</div>
-
-<h2 id='eventfunc'>EventFunc
-<a href='#eventfunc' class='anchor'></a>
-</h2>
-<p>Register an event func and call it when the event is triggered.</p>
-
-<highlightjs :language='"go"' :code='"func EventHandlingEventFunc(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\n\tpr.Body = Div(\n\t\tVBtn(\"Go\").Attr(\"@click\", web.POST().EventFunc(\"hello\").Go()),\n\t)\n\treturn\n}\n"'></highlightjs>
-
-<div>
-<div class='demo'>
-<a href='/samples/event_handling?api=eventfunc' target='_blank'>Check the demo</a>
- | 
-<a href='https://github.com/qor5/docs/tree/main/docsrc/examples/e00_basics/event-handling.go#L183-L191' target='_blank'>Source on GitHub</a>
-</div>
-</div>
-
-<h2 id='script'>Script
-<a href='#script' class='anchor'></a>
-</h2>
-<p>Run a script code.</p>
-
-<highlightjs :language='"go"' :code='"func EventHandlingScript(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\tpr.Body = Div(\n\t\tVCard(\n\t\t\tVCardTitle(Text(\"Script\")),\n\t\t\tVCardActions(VBtn(\"Go\").Attr(\"@click\", web.POST().ThenScript(`alert(\"this is then script\")`).AfterScript(`alert(\"this is after script\")`).BeforeScript(`alert(\"this is before script\")`).Go())),\n\t\t),\n\t)\n\treturn\n}\n"'></highlightjs>
-
-<div>
-<div class='demo'>
-<a href='/samples/event_handling?api=script' target='_blank'>Check the demo</a>
- | 
-<a href='https://github.com/qor5/docs/tree/main/docsrc/examples/e00_basics/event-handling.go#L196-L204' target='_blank'>Source on GitHub</a>
-</div>
-</div>
-
-<h2 id='raw'>Raw
-<a href='#raw' class='anchor'></a>
-</h2>
-<p>Directly call the js method</p>
-
-<highlightjs :language='"go"' :code='"func EventHandlingRaw(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\tpr.Body = Div(\n\t\tVCard(\n\t\t\tVCardTitle(Text(\"Raw\")),\n\t\t\tVCardActions(VBtn(\"Go\").Attr(\"@click\", web.POST().Raw(`pushStateURL(\"/samples/event_handling/example\")`).Go())),\n\t\t),\n\t)\n\treturn\n}\n"'></highlightjs>
-
-<div>
-<div class='demo'>
-<a href='/samples/event_handling?api=raw' target='_blank'>Check the demo</a>
- | 
-<a href='https://github.com/qor5/docs/tree/main/docsrc/examples/e00_basics/event-handling.go#L209-L217' target='_blank'>Source on GitHub</a>
+<a href='https://github.com/qor5/docs/tree/main/docsrc/examples/example_basics/action_worker.go' target='_blank'>Source on GitHub</a>
 </div>
 </div>
 </div>

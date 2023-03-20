@@ -90,6 +90,10 @@
 <a href='activity-log.html' id='activity-log.html' onclick='window.storeMenuState("activity-log.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-blue-500'>Activity Log</a>
 </li>
 
+<li class='m-0'>
+<a href='basics/worker.html' id='basics/worker.html' onclick='window.storeMenuState("basics/worker.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Worker</a>
+</li>
+
 <li class='cursor-default px-4 py-1 truncate break-words w-64 m-0'>Web Application</li>
 
 <li class='m-0'>
@@ -237,7 +241,7 @@ Record the activity log manually</h2>
 
 <p>If you register a preset model into the activity, the activity will record the activity log automatically for the CRUD operation of the model. But if you want to record the activity log manually for some other operations or you want to register a model that is not a preset model, you can use the following sample to record the activity log manually.</p>
 
-<highlightjs :language='"go"' :code='"presetsBuilder := presets.New()\ndb, err := gorm.Open(sqlite.Open(\"/tmp/activity.db\"), \u0026gorm.Config{})\nif err != nil {\n\tpanic(err)\n}\n\ntype Product struct {\n\tTitle string\n\tCode  string\n\tPrice float64\n}\n\nactivityBuilder := activity.New(presetsBuilder, db)\nactivityBuilder.RegisterModel(\u0026Product{})\n\n// if you can fetch the user infromation from the current context, you can use the following code to record the user\ncurrentCtx := context.WithValue(context.Background(), activity.CreatorContextKey, \"user1\")\nactivityBuilder.AddRecords(\"Publish\", currentCtx, \u0026Product{Title: \"Product 1\", Code: \"P1\", Price: 100}) // custmize the action name\nactivityBuilder.AddRecords(\"Update Price\", currentCtx, \u0026Product{Title: \"Product 1\", Code: \"P1\", Price: 200})\n"'></highlightjs>
+<highlightjs :language='"go"' :code='"presetsBuilder := presets.New()\ndb, err := gorm.Open(sqlite.Open(\"/tmp/activity.db\"), \u0026gorm.Config{})\nif err != nil {\n\tpanic(err)\n}\n\ntype Product struct {\n\tTitle string\n\tCode  string\n\tPrice float64\n}\n\nactivityBuilder := activity.New(presetsBuilder, db)\nactivityBuilder.RegisterModel(\u0026Product{})\ncurrentCtx := context.WithValue(context.Background(), activity.CreatorContextKey, \"user1\")\nactivityBuilder.AddRecords(\"Publish\", currentCtx, \u0026Product{Title: \"Product 1\", Code: \"P1\", Price: 100}) // custmize the action name\nactivityBuilder.AddRecords(\"Update Price\", currentCtx, \u0026Product{Title: \"Product 1\", Code: \"P1\", Price: 200})\n"'></highlightjs>
 </div>
 </div>
 </div>

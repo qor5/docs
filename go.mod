@@ -7,17 +7,18 @@ require (
 	github.com/fatih/color v1.13.0
 	github.com/go-chi/chi v1.5.4
 	github.com/manifoldco/promptui v0.9.0
+	github.com/ory/ladon v1.2.0
 	github.com/qor/oss v0.0.0-20210412121326-3c5583a62015
 	github.com/qor5/admin v0.0.0-20230309055501-c8d08dc6944b
 	github.com/qor5/ui v1.0.1-0.20221212071205-e794612c1e84
-	github.com/qor5/web v1.2.4-0.20221109035751-adf9bf246c1e
+	github.com/qor5/web v1.2.4
 	github.com/qor5/x v1.2.1-0.20230308023320-5dd0a2f09c49
 	github.com/shurcooL/sanitized_anchor_name v1.0.0
 	github.com/sunfmin/reflectutils v1.0.3
 	github.com/theplant/docgo v0.0.15
 	github.com/theplant/htmlgo v1.0.3
 	github.com/yosssi/gohtml v0.0.0-20201013000340-ee4748c638f4
-	golang.org/x/text v0.6.0
+	golang.org/x/text v0.8.0
 	gorm.io/driver/postgres v1.4.5
 	gorm.io/driver/sqlite v1.4.3
 	gorm.io/gorm v1.24.2
@@ -60,8 +61,7 @@ require (
 	github.com/mattn/go-colorable v0.1.9 // indirect
 	github.com/mattn/go-isatty v0.0.14 // indirect
 	github.com/mattn/go-sqlite3 v1.14.16 // indirect
-	github.com/microcosm-cc/bluemonday v1.0.21 // indirect
-	github.com/ory/ladon v1.2.0 // indirect
+	github.com/microcosm-cc/bluemonday v1.0.23 // indirect
 	github.com/ory/pagination v0.0.1 // indirect
 	github.com/pborman/uuid v1.2.1 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
@@ -81,16 +81,20 @@ require (
 	github.com/stretchr/testify v1.8.1 // indirect
 	github.com/theplant/sliceutils v0.0.0-20200406042209-89153d988eb1 // indirect
 	github.com/thoas/go-funk v0.9.2 // indirect
+	github.com/tnclong/go-que v0.0.0-20201111043106-1fc5fa2b9761 // indirect
 	go.uber.org/atomic v1.10.0 // indirect
 	go.uber.org/multierr v1.8.0 // indirect
 	go.uber.org/zap v1.24.0 // indirect
 	goji.io v2.0.2+incompatible // indirect
 	golang.org/x/crypto v0.5.0 // indirect
-	golang.org/x/image v0.0.0-20220902085622-e7cb96979f69 // indirect
-	golang.org/x/net v0.5.0 // indirect
+	golang.org/x/image v0.6.0 // indirect
+	golang.org/x/net v0.8.0 // indirect
 	golang.org/x/oauth2 v0.0.0-20200902213428-5d25da1a8d43 // indirect
-	golang.org/x/sys v0.4.0 // indirect
+	golang.org/x/sys v0.6.0 // indirect
+	golang.org/x/time v0.0.0-20200416051211-89c76fbcd5d1 // indirect
 	google.golang.org/appengine v1.6.6 // indirect
 	google.golang.org/protobuf v1.26.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
+
+// replace github.com/qor5/web => ../web
