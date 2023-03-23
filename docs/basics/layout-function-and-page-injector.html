@@ -211,7 +211,7 @@ Provide basic event functions that call to server, and manage push state
 
 <p>the javascript or css code are packed by using <a href="https://pkg.go.dev/embed" rel="nofollow">embed</a>.</p>
 
-<highlightjs :language='"go"' :code='"import (\n\t\"embed\"\n)\n\n//go:embed corejs/dist/*.js\nvar box embed.FS\n\nfunc JSComponentsPack() ComponentsPack {\n\tv, err := box.ReadFile(\"corejs/dist/core.umd.min.js\")\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\n\treturn ComponentsPack(v)\n}\n\nfunc JSVueComponentsPack() ComponentsPack {\n\tv, err := box.ReadFile(\"corejs/dist/vue.min.js\")\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\n\treturn ComponentsPack(v)\n}\n"'></highlightjs>
+<highlightjs :language='"go"' :code='"import (\n\t\"embed\"\n\t\"github.com/qor5/web\"\n)\n\n//go:embed tiptapjs/dist\nvar box embed.FS\n\nfunc JSComponentsPack() web.ComponentsPack {\n\tv, err := box.ReadFile(\"tiptapjs/dist/tiptap.umd.min.js\")\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\n\treturn web.ComponentsPack(v)\n}\n\nfunc CSSComponentsPack() web.ComponentsPack {\n\tv, err := box.ReadFile(\"tiptapjs/dist/tiptap.css\")\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\n\treturn web.ComponentsPack(v)\n}\n"'></highlightjs>
 <p>And with <code>web.PacksHandler</code>, You can merge multiple javascript or css assets together into one url.
 So that browser only need to request them one time. and cache them. The cache is set to the start
 time of the process. So next time the app restarts, it invalid the cache.</p>
