@@ -2,7 +2,7 @@
 
 <html>
 <head>
-<title>Web Application - Switch Pages with Push State - QOR5 Document</title>
+<title>Building Admin - Layout - QOR5 Document</title>
 
 <meta name='description'>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -59,7 +59,7 @@
 </li>
 
 <li class='m-0'>
-<a href='basics/layout.html' id='basics/layout.html' onclick='window.storeMenuState("basics/layout.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Layout</a>
+<a href='basics/layout.html' id='basics/layout.html' onclick='window.storeMenuState("basics/layout.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-blue-500'>Layout</a>
 </li>
 
 <li class='m-0'>
@@ -109,7 +109,7 @@
 </li>
 
 <li class='m-0'>
-<a href='basics/switch-pages-with-push-state.html' id='basics/switch-pages-with-push-state.html' onclick='window.storeMenuState("basics/switch-pages-with-push-state.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-blue-500'>Switch Pages with Push State</a>
+<a href='basics/switch-pages-with-push-state.html' id='basics/switch-pages-with-push-state.html' onclick='window.storeMenuState("basics/switch-pages-with-push-state.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Switch Pages with Push State</a>
 </li>
 
 <li class='m-0'>
@@ -191,65 +191,38 @@
 </div>
 
 <div id='docMainBox' class='px-16 pb-12 pt-4 overflow-auto'>
-<h1 class='mb-8'>Switch Pages with Push State</h1>
+<h1 class='mb-8'>Layout</h1>
 
-<div class='border-t'><p>Ways that page transition (between <code>web.PageFunc</code>) in QOR5 web app:</p>
+<div class='border-t'><p>Presets comes with a built-in layout that works out of the box.<br>
+And there are some ways to customzie the layout/theme.</p>
+<h2><a name="theme" class="anchor" href="#theme" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+Theme</h2>
 
-<ul>
-<li>Use a traditional link to a new page by url</li>
-<li>Use a push state link to a new page that only change the current page body to new page body and browser url</li>
-<li>Use a button etc to trigger post to an <code>web.EventFunc</code> that do some logic, then go to a new page</li>
-</ul>
+<p>Presets UI is based on <a href="https://v2.vuetifyjs.com/en/" rel="nofollow">Vuetify</a>, you can modify the Admin theme by configuring the <a href="https://v2.vuetifyjs.com/en/features/presets/#default-preset" rel="nofollow">Vuetify options</a></p>
 
-<p>Inside <code>web.EventFunc</code>, two ways go to a new page:</p>
+<highlightjs :language='"go"' :code='"presetsBuilder.VuetifyOptions(`\n       {\n           icons: {\n               iconfont: &#39;md&#39;,\n           },\n           theme: {\n               themes: {\n                   light: {\n                       primary: \"#673ab7\",\n                       secondary: \"#009688\",\n                       accent: \"#ff5722\",\n                       error: \"#f44336\",\n                       warning: \"#ff9800\",\n                       info: \"#8bc34a\",\n                       success: \"#4caf50\"\n                   },\n               },\n           },\n       }\n   `)"'></highlightjs>
+<h2><a name="assets" class="anchor" href="#assets" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Assets</h2>
 
-<ul>
-<li>Use <a href="https://developer.mozilla.org/en-US/docs/Web/API/History_API#Examples" rel="nofollow">push state</a> to only reload the body of the new page, This won&#39;t reload javascript and css assets.</li>
-<li>Use redirect url to reload the whole new page, This will reload target new page&#39;s javascript and css assets.</li>
-</ul>
+<p>If you need third-party front-end libraries to achieve some functions,
+you can inject them via the <em>ExtraAsset</em> method, and they will be automatically served.</p>
 
-<p>This example demonstrated the above:</p>
+<highlightjs :language='"go"' :code='"presetsBuilder.ExtraAsset(\"/redactor.js\", \"text/javascript\", richeditor.JSComponentsPack())\npresetsBuilder.ExtraAsset(\"/redactor.css\", \"text/css\", richeditor.CSSComponentsPack())"'></highlightjs>
+<p>you can also call Injector in AssetFunc to add meta, add custom HTML in HEAD and TAIL.</p>
 
-<highlightjs :language='"go"' :code='"\nconst Page1Path = \"/samples/page_1\"\nconst Page2Path = \"/samples/page_2\"\n\nfunc Page1(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\tpr.Body = Div(\n\t\tH1(page1Title),\n\t\tUl(\n\t\t\tLi(\n\t\t\t\tA().Href(Page2Path).\n\t\t\t\t\tText(\"To Page 2 With Normal Link\"),\n\t\t\t),\n\t\t\tLi(\n\t\t\t\tA().Href(\"javascript:;\").\n\t\t\t\t\tText(\"To Page 2 With Push State Link\").\n\t\t\t\t\tAttr(\"@click\", web.POST().PushStateURL(Page2Path).Go()),\n\t\t\t),\n\t\t),\n\t\tfromParam(ctx),\n\t).Style(\"color: green; font-size: 24px;\")\n\treturn\n}\n\nfunc Page2(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\n\tpr.Body = Div(\n\t\tH1(\"Page 2\"),\n\t\tUl(\n\t\t\tLi(\n\t\t\t\tA().Href(\"javascript:;\").\n\t\t\t\t\tText(\"To Page 1 With Normal Link\").\n\t\t\t\t\tAttr(\"@click\", web.POST().\n\t\t\t\t\t\tPushStateURL(Page1Path).\n\t\t\t\t\t\tQueries(url.Values{\"from\": []string{\"page 2 link 1\"}}).\n\t\t\t\t\t\tGo()),\n\t\t\t),\n\t\t\tLi(\n\t\t\t\tButton(\"Do an action then go to Page 1 with push state and parameters\").\n\t\t\t\t\tAttr(\"@click\", web.POST().EventFunc(\"doAction2\").Query(\"id\", \"42\").Go()),\n\t\t\t),\n\t\t\tLi(\n\t\t\t\tButton(\"Do an action then go to Page 1 with redirect url\").\n\t\t\t\t\tAttr(\"@click\", web.POST().EventFunc(\"doAction1\").Query(\"id\", \"41\").Go()),\n\t\t\t),\n\t\t),\n\t).Style(\"color: orange; font-size: 24px;\")\n\treturn\n}\n\nfunc fromParam(ctx *web.EventContext) HTMLComponent {\n\tvar from HTMLComponent\n\tval := ctx.R.FormValue(\"from\")\n\tif len(val) \u003e 0 {\n\t\tfrom = Components(\n\t\t\tB(\"from:\"),\n\t\t\tText(val),\n\t\t)\n\t}\n\treturn from\n}\n\nfunc doAction1(ctx *web.EventContext) (er web.EventResponse, err error) {\n\tupdateDatabase(ctx.QueryAsInt(\"id\"))\n\ter.RedirectURL = Page1Path + \"?\" + url.Values{\"from\": []string{\"page2 with redirect\"}}.Encode()\n\treturn\n}\n\nfunc doAction2(ctx *web.EventContext) (er web.EventResponse, err error) {\n\tupdateDatabase(ctx.QueryAsInt(\"id\"))\n\ter.PushState = web.Location(url.Values{\"from\": []string{\"page2\"}}).\n\t\tURL(Page1Path)\n\treturn\n}\n\nvar Page1PB = web.Page(Page1)\n\nvar Page2PB = web.Page(Page2).\n\tEventFunc(\"doAction1\", doAction1).\n\tEventFunc(\"doAction2\", doAction2)\n"'></highlightjs>
+<highlightjs :language='"go"' :code='"presetsBuilder.AssetFunc(func(ctx *web.EventContext) {\n\tctx.Injector.Meta(web.MetaKey(\"charset\"), \"charset\", \"utf8\")\n\tctx.Injector.HeadHTML(`\u003cscript src=\"https://cdn.example.com/hello.js\"\u003e\u003c/script\u003e`)\n})"'></highlightjs>
+<h2><a name="layout" class="anchor" href="#layout" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Layout</h2>
 
-<div>
-<div class='demo'>
-<a href='/samples/page_1' target='_blank'>Check the demo</a>
- | 
-<a href='https://github.com/qor5/docs/tree/main/docsrc/examples/e00_basics/page-transition.go' target='_blank'>Source on GitHub</a>
-</div>
-</div>
-<p>When running the above demo, If you check Chrome Developer Tools about Network requests,
-You will see that the Location link and the Button is actually doing an AJAX request to the other page.</p>
+<p>You can change the entire layout via <em>LayoutFunc</em>. The default layout is <a href="https://github.com/qor5/admin/blob/1e97c0dd45615fb7593245575ab0fea4f98c58b3/presets/presets.go#L860-L969" rel="nofollow">https://github.com/qor5/admin/blob/1e97c0dd45615fb7593245575ab0fea4f98c58b3/presets/presets.go#L860-L969</a></p>
+<h3><a name="layout-options" class="anchor" href="#layout-options" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+Layout Options</h3>
 
-<p>Look like this:</p>
+<p>We also provide some options to tweak the layout</p>
 
-<pre><code>POST /samples/page_2?__execute_event__=__reload__ HTTP/1.1
-</code></pre>
+<highlightjs :language='"go"' :code='"modelBuilder.LayoutConfig(\u0026presets.LayoutConfig{\n\tSearchBoxInvisible:          true,\n\tNotificationCenterInvisible: true,\n})"'></highlightjs>
+<h3><a name="plain-layout" class="anchor" href="#plain-layout" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Plain Layout</h3>
 
-<p>The result is an JSON object with page&#39;s html inside.
-<code>__reload__</code> is another <code>web.EventFunc</code> that is the same as <code>doAction2</code>,
-But it is default added to every <code>web.PageFunc</code>. So that the web page can
-both respond to normal HTTP request from Browser, Search Engine, Or from
-other pages in the same web app that can do push state link.</p>
-
-<h2 id='summary'>Summary
-<a href='#summary' class='anchor'></a>
-</h2>
-<ul>
-<li>Write once with PageFunc, you get both normal html page render, and AJAX JSON page render</li>
-<li>EventFunc is always called with AJAX request, and you can return to a different page, or rerender the current page,</li>
-<li>EventFunc is not wrapped with layout function.</li>
-<li>EventFunc is used to do data operations, triggered by page&#39;s html element. and it&#39;s result can be:
-
-<ol>
-<li>Go to a new page</li>
-<li>Reload the whole current page</li>
-<li>Update partial of the current page</li>
-</ol></li>
-</ul>
-
-<p>Next we will talk about how to reload the whole current page, and update partial of the current page.</p>
+<p>And We provide <a href="https://github.com/qor5/admin/blob/1e97c0dd45615fb7593245575ab0fea4f98c58b3/presets/presets.go#L972" rel="nofollow">PlainLayout</a> which has no UI content except necessary assets.
+It will be helpful when there are some pages completely independent of Presets layout but still need to be consistent with the Presets theme.</p>
 </div>
 </div>
 </div>
