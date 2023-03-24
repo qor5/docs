@@ -1,4 +1,22 @@
-snippetgo -pkg=generated -dir=../../ > ./generated/examples-generated.go
+goModPath(){
+    echo $GOPATH/pkg/mod/$(grep "\t$1" ../go.mod | awk -F ' ' '{print $1"@"$2}')
+}
+
+snippetDirs=(
+  ../
+  $(goModPath github.com/qor5/web)
+  $(goModPath github.com/qor5/x)
+  $(goModPath github.com/qor5/ui)
+  $(goModPath github.com/qor5/admin)
+)
+
+rm -rf ./generated/*
+gi=1
+for d in "${snippetDirs[@]}"
+do
+  snippetgo -pkg=generated -dir=$d > ./generated/g${gi}.go
+  gi=$((gi+1))
+done
 
 go run ./build/main.go
 
