@@ -29,7 +29,7 @@ Provide basic event functions that call to server, and manage push state
 
 the javascript or css code are packed by using [embed](https://pkg.go.dev/embed).
 `),
-	ch.Code(generated.TipTapPackrSample).Language("go"),
+	ch.Code(generated.PackrSample).Language("go"),
 	Markdown(`
 And with ~web.PacksHandler~, You can merge multiple javascript or css assets together into one url.
 So that browser only need to request them one time. and cache them. The cache is set to the start
