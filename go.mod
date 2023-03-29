@@ -10,7 +10,7 @@ require (
 	github.com/ory/ladon v1.2.0
 	github.com/qor/oss v0.0.0-20210412121326-3c5583a62015
 	github.com/qor5/admin v0.0.0-20230309055501-c8d08dc6944b
-	github.com/qor5/ui v1.0.1-0.20221212071205-e794612c1e84
+	github.com/qor5/ui v1.0.1-0.20230323061917-a88f4521ec30
 	github.com/qor5/web v1.2.4
 	github.com/qor5/x v1.2.1-0.20230308023320-5dd0a2f09c49
 	github.com/shurcooL/sanitized_anchor_name v1.0.0
@@ -98,3 +98,4 @@ require (
 )
 
 // replace github.com/qor5/web => ../web
+// replace github.com/qor5/ui => ../ui
