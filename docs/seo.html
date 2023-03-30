@@ -239,6 +239,16 @@ collection.RemoveSEO(&#34;Not Found&#34;)
 </code></pre>
 <h2><a name="configuration" class="anchor" href="#configuration" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
 Configuration</h2>
+<h3><a name="change-the-default-global-seo-name" class="anchor" href="#change-the-default-global-seo-name" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+Change the default global SEO name</h3>
+
+<div class="highlight highlight-go"><pre>collection.SetGlobalName(&#34;My Global SEO&#34;)
+</pre></div>
+<h3><a name="change-the-default-context-db-key" class="anchor" href="#change-the-default-context-db-key" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+Change the default context db key</h3>
+
+<div class="highlight highlight-go"><pre>collection.SetDBContextKey(&#34;My DB&#34;)
+</pre></div>
 <h3><a name="change-the-default-seo-name" class="anchor" href="#change-the-default-seo-name" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
 Change the default SEO name</h3>
 
@@ -280,6 +290,19 @@ Customization</h2>
 <p>You can customize your SEO settings by implementing the interface and adding functions such as l10n and publish.</p>
 
 <highlightjs :language='"go"' :code='"type QorSEOSettingInterface interface {\n\tGetName() string\n\tSetName(string)\n\tGetSEOSetting() Setting\n\tSetSEOSetting(Setting)\n\tGetVariables() Variables\n\tSetVariables(Variables)\n\tGetTitle() string\n\tGetDescription() string\n\tGetKeywords() string\n\tGetOpenGraphURL() string\n\tGetOpenGraphType() string\n\tGetOpenGraphImageURL() string\n\tGetOpenGraphImageFromMediaLibrary() media_library.MediaBox\n\tGetOpenGraphMetadata() []OpenGraphMetadata\n}\n"'></highlightjs>
+<p>Suppose <code>QorSEOSetting</code> implemented the above interface</p>
+
+<div class="highlight highlight-go"><pre>type MySEOSetting struct{
+		QorSEOSetting
+		// publish
+		// l10n
+}
+</pre></div>
+
+<p>Use <code>SetSettingModel</code> function to set it</p>
+
+<div class="highlight highlight-go"><pre>collection.SetSettingModel(&amp;MySEOSetting{})
+</pre></div>
 
 <h2>Example</h2>
 

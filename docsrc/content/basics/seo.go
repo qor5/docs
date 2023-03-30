@@ -43,6 +43,17 @@ collection.RemoveSEO("Not Found")
 
 ## Configuration
 
+### Change the default global SEO name
+~~~go
+collection.SetGlobalName("My Global SEO")
+~~~
+
+
+### Change the default context db key
+~~~go
+collection.SetDBContextKey("My DB")
+~~~
+
 ### Change the default SEO name
 ~~~go
 collection.RegisterSEO(&Product{}).SetName("My Product")
@@ -85,6 +96,21 @@ collection.Render(Product{}, request)
 	Markdown(`
 You can customize your SEO settings by implementing the interface and adding functions such as l10n and publish.`),
 	ch.Code(generated.QorSEOSettingInterface).Language("go"),
+
+	Markdown(`
+Suppose ~~MySEOSetting~~ implemented the above interface
+~~~go
+type MySEOSetting struct{
+		QorSEOSetting
+		// publish
+		// l10n
+}
+~~~
+
+Use ~~SetSettingModel~~ function to set it
+~~~go
+collection.SetSettingModel(&MySEOSetting{})
+~~~`),
 
 	htmlgo.H2("Example"),
 	ch.Code(generated.SeoExample).Language("go"),
