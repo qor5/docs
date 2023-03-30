@@ -23,7 +23,7 @@ go run ./build/main.go
 function docsRestart() {
   echo "=================>"
   killall docgodocs
-  go build -o /tmp/docgodocs ./dev/main.go && /tmp/docgodocs
+  go build -o /tmp/docgodocs ./server/main.go && /tmp/docgodocs
 }
 
 export -f docsRestart
