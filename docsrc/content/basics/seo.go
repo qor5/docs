@@ -8,48 +8,22 @@ import (
 )
 
 var SEO = Doc(
-	htmlgo.Text("The SEO library allows for the management and injection of dynamic data into HTML tags for the purpose of Search Engine Optimisation."),
-	htmlgo.H2("Definition"),
-	htmlgo.H5(`Collection is used to manage all SEO and render seo setting to html data.`),
-	ch.Code(generated.SeoCollectionDefinition).Language("go"),
-	htmlgo.H5(`SEO is used to provide system-level default page matadata.`),
-	ch.Code(generated.SeoDefinition).Language("go"),
-	htmlgo.H5(`You can use seo setting at the model level, but you need to register the model to the system SEO`),
-	ch.Code(generated.SeoModelExample).Language("go"),
-	ch.Code(`collection.RegisterSEO(&Product{})`).Language("go"),
-	htmlgo.H5(`Support customizing your own seo setting when you need more functions such as l10n, publish. Only need to implement this interface.`),
-	ch.Code(generated.QorSEOSettingInterface).Language("go"),
 	Markdown(`
+The SEO library facilitates the optimization of Search Engine results by managing and injecting dynamic data into HTML tags.
+
 ## Usage
-- Create a SEO collection
+Initialize a ~~Collection~~ instance. The ~~Collection~~ manages all the registered models and hold global seo settings
 ~~~go
-// Create a collection and register global seo by default
 collection := seo.NewCollection()
-
-// Change the default global name
-collection.SetGlobalName("My Global SEO")
-
-// Change the default context db key
-collection.SetDBContextKey("My DB")
-
-// Change the default seo model setting
-type MySEOSetting struct{
-	QorSEOSetting
-	publish
-	l10n
-}
-collection.SetSettingModel(&MySEOSetting{})
 
 // Turn off the default inherit the upper level SEO data when the current SEO data is missing
 collection.SetInherited(false)
-
 ~~~
 
-- Register and remove SEO
-
+### Register models to SEO
 ~~~go
 // Register mutiple SEO by name
-collection.RegisterSEOByNames("Not Found", "Internal Server Error")
+collection.RegisterSEOByNames("Product", "Announcement")
 
 // Register a SEO by model
 type Product struct{
@@ -57,47 +31,73 @@ type Product struct{
 	Setting Setting
 }
 collection.RegisterSEO(&Product{})
-
-// Remove a SEO
-collection.RemoveSEO(&Product{}).RemoveSEO("Not Found")
 ~~~
 
-- Configure SEO
+### Remove models from SEO
+~~~
+// Remove by struct
+collection.RemoveSEO(&Product{})
+// Remove by name
+collection.RemoveSEO("Not Found")
+~~~
 
+## Configuration
+
+### Change the default SEO name
 ~~~go
-// Change the default SEO name when register a SEO by model
-
 collection.RegisterSEO(&Product{}).SetName("My Product")
-
-// Register a context Variable
-collection.RegisterSEO(&Product{}).
-			RegisterContextVariables("og:image", func(obj interface{}, _ *Setting, _ *http.Request) string {
-						return obj.image.url
-					}).
-			RegisterContextVariables("Name", func(obj interface{}, _ *Setting, _ *http.Request) string {
-						return obj.Name
-					})
-
-
-// Register setting variable
-collection.RegisterSEO(&Product{}).
-			RegisterSettingVaribles(struct{ProductTag string}{})
 ~~~
 
-- Render SEO html data
+### Register customized variables
+~~~go
+collection.RegisterSEO(&Product{}).
+	RegisterContextVariables("og:image", func(obj interface{}, _ *Setting, _ *http.Request) string {
+		// this will render "og:image" with the value of the object in the current request
+		return obj.image.url
+	}).
+	RegisterContextVariables("Name", func(obj interface{}, _ *Setting, _ *http.Request) string {
+		return obj.Name
+	})
+~~~
+
+### Register setting variable
+~~~go
+collection.RegisterSEO(&Product{}).RegisterSettingVaribles(struct{ProductTag string}{})
+~~~
+
+### Render SEO html data
 
 ~~~go
 // Render Global SEO
 collection.RenderGlobal(request)
 
-// Render SEO by a name
+// Render SEO by name
 collection.Render("product", request)
 
-// Render SEO by a model
+// Render SEO by model
 collection.Render(Product{}, request)
 ~~~
 
+## Customization
 `),
+	Markdown(`
+You can customize your SEO settings by implementing the interface and adding functions such as l10n and publish.`),
+	ch.Code(generated.QorSEOSettingInterface).Language("go"),
+
 	htmlgo.H2("Example"),
 	ch.Code(generated.SeoExample).Language("go"),
+
+	Markdown(`
+## Definition
+~~Collection~~ manages all the registered models and hold global seo settings.`),
+	ch.Code(generated.SeoCollectionDefinition).Language("go"),
+
+	Markdown(`
+~~SEO~~ provides system-level default page matadata.`),
+	ch.Code(generated.SeoDefinition).Language("go"),
+
+	Markdown(`
+You can use seo setting at the model level, but you need to register the model to the system SEO`),
+	ch.Code(generated.SeoModelExample).Language("go"),
+	ch.Code(`collection.RegisterSEO(&Product{})`).Language("go"),
 ).Title("SEO")
