@@ -61,6 +61,8 @@ collection.RegisterSEO(&Product{}).
 ~~~
 
 ### Register setting variable
+This variable will be saved in the database and available as a global variable while editing SEO settings.
+
 ~~~go
 collection.RegisterSEO(&Product{}).RegisterSettingVaribles(struct{ProductTag string}{})
 ~~~

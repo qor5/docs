@@ -205,11 +205,11 @@
 <div id='docMainBox' class='px-16 pb-12 pt-4 overflow-auto'>
 <h1 class='mb-8'>Slug</h1>
 
-<div class='border-t'><p>Slug provides an easy way to create a pretty URL for your model.</p>
+<div class='border-t'><p>Slug provides an easy way to create pretty URLs for your model.</p>
 <h2><a name="usage" class="anchor" href="#usage" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
 Usage</h2>
 
-<p>Use <code>slug.Slug</code> as your field type with the same name as the benefactor field, from which the slug&#39;s value should be dynamically derived, and prepended with <code>WithSlug</code>, for example:</p>
+<p>If the source field called <code>Name</code>, then use <code>*WithSlug</code> which is <code>NameWithSlug</code> as the slug field name, the field type should be <code>slug.Slug</code></p>
 
 <div class="highlight highlight-go"><pre>
 type User struct {
