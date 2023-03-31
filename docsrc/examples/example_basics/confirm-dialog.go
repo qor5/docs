@@ -51,4 +51,4 @@ func PresetsConfirmDialog(b *presets.Builder) {
 	})
 }
 
-const PresetsConfirmDialogPath = "/samples"
+const PresetsConfirmDialogPath = "/samples/confirm_dialog"

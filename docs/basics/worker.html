@@ -2,7 +2,7 @@
 
 <html>
 <head>
-<title>Building Admin - Brand - QOR5 Document</title>
+<title>Building Admin - Worker - QOR5 Document</title>
 
 <meta name='description'>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -47,7 +47,7 @@
 </li>
 
 <li class='m-0'>
-<a href='basics/brand.html' id='basics/brand.html' onclick='window.storeMenuState("basics/brand.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-blue-500'>Brand</a>
+<a href='basics/brand.html' id='basics/brand.html' onclick='window.storeMenuState("basics/brand.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Brand</a>
 </li>
 
 <li class='m-0'>
@@ -95,7 +95,7 @@
 </li>
 
 <li class='m-0'>
-<a href='basics/worker.html' id='basics/worker.html' onclick='window.storeMenuState("basics/worker.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Worker</a>
+<a href='basics/worker.html' id='basics/worker.html' onclick='window.storeMenuState("basics/worker.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-blue-500'>Worker</a>
 </li>
 
 <li class='cursor-default px-4 py-1 truncate break-words w-64 m-0'>Web Application</li>
@@ -203,47 +203,48 @@
 </div>
 
 <div id='docMainBox' class='px-16 pb-12 pt-4 overflow-auto'>
-<h1 class='mb-8'>Brand</h1>
+<h1 class='mb-8'>Worker</h1>
 
-<div class='border-t'><p>Brand refers to the top area of the left menu bar, we provide two functions <code>BrandTitle</code> and <code>BrandFunc</code> to customize it.</p>
-<h2><a name="simple-customization" class="anchor" href="#simple-customization" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
-Simple customization</h2>
+<div class='border-t'><p>Worker runs a single Job in the background, it can do so immediately or at a scheduled time.<br>
+Once registered with QOR Admin, Worker will provide a Workers section in the navigation tree, containing pages for listing and managing the following aspects of Workers:</p>
 
-<p>If you want only to change the brand string, you can use <code>BrandTitle</code> to set the string, the string will be displayed in the brand area with <code>&lt;H1&gt;</code> tag.</p>
+<ul>
+<li>All Jobs.</li>
+<li>Running: Jobs that are currently running.</li>
+<li>Scheduled: Jobs which have been scheduled to run at a time in the future.</li>
+<li>Done: finished Jobs.</li>
+<li>Errors: any errors output from any Workers that have been run.</li>
+</ul>
+<h2><a name="note" class="anchor" href="#note" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+Note</h2>
 
-<highlightjs :language='"go"' :code='"b.URIPrefix(PresetsBrandTitlePath).\n\tBrandTitle(\"QOR5 Admin\")"'></highlightjs>
+<ul>
+<li>The default que GoQueQueue(<a href="https://github.com/tnclong/go-que" rel="nofollow">https://github.com/tnclong/go-que</a>) only supports postgres for now.</li>
+<li>To make a job abortable, you need to check <code>ctx.Done()</code> channel in job handler and stop the handler func.
+<br></li>
+</ul>
+<h2><a name="example" class="anchor" href="#example" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example</h2>
 
-<div>
-<div class='demo'>
-<a href='/samples/brand_title/brands' target='_blank'>Check the demo</a>
- | 
-<a href='https://github.com/qor5/docs/tree/main/docsrc/examples/e21_presents/brand.go' target='_blank'>Source on GitHub</a>
-</div>
-</div>
-<h2><a name="full-customization" class="anchor" href="#full-customization" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Full customization</h2>
-
-<p>When you opt-in to full brand customization, you can use <code>BrandFunc</code> to be responsible for drawing for the entire brand area, such as you can put your own logo image in it.</p>
-
-<highlightjs :language='"go"' :code='"b.URIPrefix(PresetsBrandFuncPath).\n\tBrandFunc(func(ctx *web.EventContext) h.HTMLComponent {\n\t\treturn vuetify.VCardText(\n\t\t\th.H1(\"Admin\").Style(\"color: red;\"),\n\t\t).Class(\"pa-0\")\n\t})"'></highlightjs>
-
-<div>
-<div class='demo'>
-<a href='/samples/brand_func/brands' target='_blank'>Check the demo</a>
- | 
-<a href='https://github.com/qor5/docs/tree/main/docsrc/examples/e21_presents/brand.go' target='_blank'>Source on GitHub</a>
-</div>
-</div>
-<h2><a name="profile" class="anchor" href="#profile" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Profile</h2>
-
-<p>Profile is below the brand area, where you can put the current user&#39;s information or others. We provide <code>ProfileFunc</code> to customize it.</p>
-
-<highlightjs :language='"go"' :code='"b.URIPrefix(PresetsProfilePath).BrandTitle(\"Admin\").\n\tProfileFunc(func(ctx *web.EventContext) h.HTMLComponent {\n\t\t// Demo\n\t\tlogoutURL := \".\"\n\t\tname := \"QOR5\"\n\t\taccount := \"hello@getqor.com\"\n\t\troles := []string{\"Developer\"}\n\n\t\treturn VMenu().OffsetY(true).Children(\n\t\t\th.Template().Attr(\"v-slot:activator\", \"{on, attrs}\").Children(\n\t\t\t\tVList(\n\t\t\t\t\tVListItem(\n\t\t\t\t\t\tVListItemAvatar(\n\t\t\t\t\t\t\tVAvatar().Class(\"ml-1\").Color(\"secondary\").Size(40).Children(\n\t\t\t\t\t\t\t\th.Span(string(name[0])).Class(\"white--text text-h5\"),\n\t\t\t\t\t\t\t),\n\t\t\t\t\t\t),\n\t\t\t\t\t\tVListItemContent(\n\t\t\t\t\t\t\tVListItemTitle(h.Text(name)),\n\t\t\t\t\t\t\th.Br(),\n\t\t\t\t\t\t\tVListItemSubtitle(h.Text(strings.Join(roles, \", \"))),\n\t\t\t\t\t\t),\n\t\t\t\t\t).Class(\"pa-0 mb-2\"),\n\t\t\t\t\tVListItem(\n\t\t\t\t\t\tVListItemContent(\n\t\t\t\t\t\t\tVListItemTitle(h.Text(account)),\n\t\t\t\t\t\t),\n\t\t\t\t\t\tVListItemIcon(\n\t\t\t\t\t\t\tVIcon(\"logout\").Small(true).Attr(\"@click\", web.Plaid().URL(logoutURL).Go()),\n\t\t\t\t\t\t),\n\t\t\t\t\t).Class(\"pa-0 my-n4 ml-1\").Dense(true),\n\t\t\t\t).Class(\"pa-0 ma-n4\"),\n\t\t\t),\n\t\t)\n\t})"'></highlightjs>
+<highlightjs :language='"go"' :code='"import (\n\t\"context\"\n\t\"errors\"\n\t\"fmt\"\n\t\"time\"\n\n\t\"github.com/qor5/admin/presets\"\n\t\"github.com/qor5/admin/worker\"\n)\n\nfunc MountWorker(b *presets.Builder) {\n\twb := worker.New(DB)\n\twb.Configure(b)\n\tdefer wb.Listen()\n\n\taddJobs(wb)\n}\n\nfunc addJobs(w *worker.Builder) {\n\tw.NewJob(\"noArgJob\").\n\t\tHandler(func(ctx context.Context, job worker.QorJobInterface) error {\n\t\t\tjob.AddLog(\"hoho1\")\n\t\t\tjob.AddLog(\"hoho2\")\n\t\t\tjob.AddLog(\"hoho3\")\n\t\t\treturn nil\n\t\t})\n\n\ttype ArgJobResource struct {\n\t\tF1 string\n\t\tF2 int\n\t\tF3 bool\n\t}\n\targJb := w.NewJob(\"argJob\").\n\t\tResource(\u0026ArgJobResource{}).\n\t\tHandler(func(ctx context.Context, job worker.QorJobInterface) error {\n\t\t\tjobInfo, _ := job.GetJobInfo()\n\t\t\tjob.AddLog(fmt.Sprintf(\"Argument %#+v\", jobInfo.Argument))\n\t\t\treturn nil\n\t\t})\n\t// you can to customize the resource Editing via GetResourceBuilder()\n\targJb.GetResourceBuilder().Editing()\n\n\tw.NewJob(\"progressTextJob\").\n\t\tHandler(func(ctx context.Context, job worker.QorJobInterface) error {\n\t\t\tjob.AddLog(\"hoho1\")\n\t\t\tjob.AddLog(\"hoho2\")\n\t\t\tjob.AddLog(\"hoho3\")\n\t\t\tjob.SetProgressText(`\u003ca href=\"https://www.google.com\"\u003eDownload users\u003c/a\u003e`)\n\t\t\treturn nil\n\t\t})\n\n\t// check ctx.Done() to stop the handler\n\tw.NewJob(\"longRunningJob\").\n\t\tHandler(func(ctx context.Context, job worker.QorJobInterface) error {\n\t\t\tfor i := 1; i \u003c= 5; i++ {\n\t\t\t\tselect {\n\t\t\t\tcase \u003c-ctx.Done():\n\t\t\t\t\tjob.AddLog(\"job aborted\")\n\t\t\t\t\treturn nil\n\t\t\t\tdefault:\n\t\t\t\t\tjob.AddLog(fmt.Sprintf(\"%v\", i))\n\t\t\t\t\tjob.SetProgress(uint(i * 20))\n\t\t\t\t\ttime.Sleep(time.Second)\n\t\t\t\t}\n\t\t\t}\n\t\t\treturn nil\n\t\t})\n\n\t// insert worker.Schedule to resource to make a job schedulable\n\ttype ScheduleJobResource struct {\n\t\tF1 string\n\t\tworker.Schedule\n\t}\n\tw.NewJob(\"scheduleJob\").\n\t\tResource(\u0026ScheduleJobResource{}).\n\t\tHandler(func(ctx context.Context, job worker.QorJobInterface) error {\n\t\t\tjobInfo, _ := job.GetJobInfo()\n\t\t\tjob.AddLog(fmt.Sprintf(\"%#+v\", jobInfo.Argument))\n\t\t\treturn nil\n\t\t})\n\n\tw.NewJob(\"errorJob\").\n\t\tHandler(func(ctx context.Context, job worker.QorJobInterface) error {\n\t\t\tjob.AddLog(\"=====perform error job\")\n\t\t\treturn errors.New(\"imError\")\n\t\t})\n\n\tw.NewJob(\"panicJob\").\n\t\tHandler(func(ctx context.Context, job worker.QorJobInterface) error {\n\t\t\tjob.AddLog(\"=====perform panic job\")\n\t\t\tpanic(\"letsPanic\")\n\t\t})\n}\n"'></highlightjs>
 
 <div>
 <div class='demo'>
-<a href='/samples/profile/brands' target='_blank'>Check the demo</a>
+<a href='/samples/worker/workers' target='_blank'>Check the demo</a>
  | 
-<a href='https://github.com/qor5/docs/tree/main/docsrc/examples/e21_presents/profile.go' target='_blank'>Source on GitHub</a>
+<a href='https://github.com/qor5/docs/tree/main/docsrc/examples/example_basics/worker.go' target='_blank'>Source on GitHub</a>
+</div>
+</div>
+<h2><a name="action-worker" class="anchor" href="#action-worker" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Action Worker</h2>
+
+<p>Action Worker is used to visualize the progress of long-running actions.</p>
+
+<highlightjs :language='"go"' :code='"import (\n\t\"context\"\n\t\"fmt\"\n\t\"time\"\n\n\t\"github.com/qor5/admin/presets\"\n\t\"github.com/qor5/admin/worker\"\n\t\"github.com/qor5/ui/vuetify\"\n\t\"github.com/qor5/web\"\n\th \"github.com/theplant/htmlgo\"\n\t\"gorm.io/gorm\"\n)\n\ntype ExampleResource struct {\n\tgorm.Model\n\tName string\n}\n\nfunc MountActionWorker(b *presets.Builder) {\n\tmb := b.Model(\u0026ExampleResource{})\n\tmb.Listing().ActionsAsMenu(true)\n\n\twb := worker.New(DB)\n\twb.Configure(b)\n\tdefer wb.Listen()\n\n\taddActionJobs(mb, wb)\n}\n\nfunc addActionJobs(mb *presets.ModelBuilder, wb *worker.Builder) {\n\tlb := mb.Listing()\n\n\tnoParametersJob := wb.ActionJob(\n\t\t\"No parameters\",\n\t\tmb,\n\t\tfunc(ctx context.Context, job worker.QorJobInterface) error {\n\t\t\tfor i := 1; i \u003c= 10; i++ {\n\t\t\t\tselect {\n\t\t\t\tcase \u003c-ctx.Done():\n\t\t\t\t\tjob.AddLog(\"job aborted\")\n\t\t\t\t\treturn nil\n\t\t\t\tdefault:\n\t\t\t\t\tjob.SetProgress(uint(i * 10))\n\t\t\t\t\ttime.Sleep(time.Second)\n\t\t\t\t}\n\t\t\t}\n\t\t\tjob.SetProgressText(`\u003ca href=\"https://qor5-test.s3.ap-northeast-1.amazonaws.com/system/media_libraries/37/file.@qor_preview.png\"\u003ePlease download this file\u003c/a\u003e`)\n\t\t\treturn nil\n\t\t},\n\t).Description(\"This test demo is used to show that an no parameter job can be executed\")\n\n\tparametersBoxJob := wb.ActionJob(\n\t\t\"Parameter input box\",\n\t\tmb,\n\t\tfunc(ctx context.Context, job worker.QorJobInterface) error {\n\t\t\tfor i := 1; i \u003c= 10; i++ {\n\t\t\t\tselect {\n\t\t\t\tcase \u003c-ctx.Done():\n\t\t\t\t\tjob.AddLog(\"job aborted\")\n\t\t\t\t\treturn nil\n\t\t\t\tdefault:\n\t\t\t\t\tjob.SetProgress(uint(i * 10))\n\t\t\t\t\ttime.Sleep(time.Second)\n\t\t\t\t}\n\t\t\t}\n\t\t\tjob.SetProgressText(`\u003ca href=\"https://qor5-test.s3.ap-northeast-1.amazonaws.com/system/media_libraries/37/file.@qor_preview.png\"\u003ePlease download this file\u003c/a\u003e`)\n\t\t\treturn nil\n\t\t},\n\t).Description(\"This test demo is used to show that an input box when there are parameters\").\n\t\tParams(\u0026struct{ Name string }{})\n\n\tdisplayLogJob := wb.ActionJob(\n\t\t\"Display log\",\n\t\tmb,\n\t\tfunc(ctx context.Context, job worker.QorJobInterface) error {\n\t\t\tfor i := 1; i \u003c= 10; i++ {\n\t\t\t\tselect {\n\t\t\t\tcase \u003c-ctx.Done():\n\t\t\t\t\tjob.AddLog(\"job aborted\")\n\t\t\t\t\treturn nil\n\t\t\t\tdefault:\n\t\t\t\t\tjob.SetProgress(uint(i * 10))\n\t\t\t\t\tjob.AddLog(fmt.Sprintf(\"%v\", i))\n\t\t\t\t\ttime.Sleep(time.Second)\n\t\t\t\t}\n\t\t\t}\n\t\t\tjob.SetProgressText(`\u003ca href=\"https://qor5-test.s3.ap-northeast-1.amazonaws.com/system/media_libraries/37/file.@qor_preview.png\"\u003ePlease download this file\u003c/a\u003e`)\n\t\t\treturn nil\n\t\t},\n\t).Description(\"This test demo is used to show the log section of this job\").\n\t\tParams(\u0026struct{ Name string }{}).\n\t\tDisplayLog(true).\n\t\tProgressingInterval(4000)\n\n\tgetArgsJob := wb.ActionJob(\n\t\t\"Get Args\",\n\t\tmb,\n\t\tfunc(ctx context.Context, job worker.QorJobInterface) error {\n\t\t\tjobInfo, err := job.GetJobInfo()\n\t\t\tif err != nil {\n\t\t\t\treturn err\n\t\t\t}\n\n\t\t\tjob.AddLog(fmt.Sprintf(\"Action Params Name is  %#+v\", jobInfo.Argument.(*struct{ Name string }).Name))\n\t\t\tjob.AddLog(fmt.Sprintf(\"Origina Context AuthInfo is  %#+v\", jobInfo.Context[\"AuthInfo\"]))\n\t\t\tjob.AddLog(fmt.Sprintf(\"Origina Context URL is  %#+v\", jobInfo.Context[\"URL\"]))\n\n\t\t\tfor i := 1; i \u003c= 10; i++ {\n\t\t\t\tselect {\n\t\t\t\tcase \u003c-ctx.Done():\n\t\t\t\t\treturn nil\n\t\t\t\tdefault:\n\t\t\t\t\tjob.SetProgress(uint(i * 10))\n\t\t\t\t\ttime.Sleep(time.Second)\n\t\t\t\t}\n\t\t\t}\n\t\t\tjob.SetProgressText(`\u003ca href=\"https://qor5-test.s3.ap-northeast-1.amazonaws.com/system/media_libraries/37/file.@qor_preview.png\"\u003ePlease download this file\u003c/a\u003e`)\n\t\t\treturn nil\n\t\t},\n\t).Description(\"This test demo is used to show how to get the action&#39;s arguments and original page context\").\n\t\tParams(\u0026struct{ Name string }{}).\n\t\tDisplayLog(true).\n\t\tContextHandler(func(ctx *web.EventContext) map[string]interface{} {\n\t\t\tauth, err := ctx.R.Cookie(\"auth\")\n\t\t\tif err == nil {\n\t\t\t\treturn map[string]interface{}{\"AuthInfo\": auth.Value}\n\t\t\t}\n\t\t\treturn nil\n\t\t})\n\n\tlb.Action(\"Action Job - No parameters\").\n\t\tButtonCompFunc(\n\t\t\tfunc(ctx *web.EventContext) h.HTMLComponent {\n\t\t\t\treturn vuetify.VBtn(\"Action Job - No parameters\").Color(\"secondary\").Depressed(true).Class(\"ml-2\").\n\t\t\t\t\tAttr(\"@click\", noParametersJob.URL())\n\t\t\t})\n\n\tlb.Action(\"Action Job - Parameter input box\").\n\t\tButtonCompFunc(\n\t\t\tfunc(ctx *web.EventContext) h.HTMLComponent {\n\t\t\t\treturn vuetify.VBtn(\"Action Job - Parameter input box\").Color(\"secondary\").Depressed(true).Class(\"ml-2\").\n\t\t\t\t\tAttr(\"@click\", parametersBoxJob.URL())\n\t\t\t})\n\tlb.Action(\"Action Job - Display log\").\n\t\tButtonCompFunc(\n\t\t\tfunc(ctx *web.EventContext) h.HTMLComponent {\n\t\t\t\treturn vuetify.VBtn(\"Action Job - Display log\").Color(\"secondary\").Depressed(true).Class(\"ml-2\").\n\t\t\t\t\tAttr(\"@click\", displayLogJob.URL())\n\t\t\t})\n\n\tlb.Action(\"Action Job - Get Args\").\n\t\tButtonCompFunc(\n\t\t\tfunc(ctx *web.EventContext) h.HTMLComponent {\n\t\t\t\treturn vuetify.VBtn(\"Action Job - Get Args\").Color(\"secondary\").Depressed(true).Class(\"ml-2\").\n\t\t\t\t\tAttr(\"@click\", getArgsJob.URL())\n\t\t\t})\n}\n"'></highlightjs>
+
+<div>
+<div class='demo'>
+<a href='/samples/action_worker/example-resources' target='_blank'>Check the demo</a>
+ | 
+<a href='https://github.com/qor5/docs/tree/main/docsrc/examples/example_basics/action_worker.go' target='_blank'>Source on GitHub</a>
 </div>
 </div>
 </div>

@@ -2,7 +2,7 @@
 
 <html>
 <head>
-<title>Building Admin - Brand - QOR5 Document</title>
+<title>Building Admin - SEO - QOR5 Document</title>
 
 <meta name='description'>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -47,7 +47,7 @@
 </li>
 
 <li class='m-0'>
-<a href='basics/brand.html' id='basics/brand.html' onclick='window.storeMenuState("basics/brand.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-blue-500'>Brand</a>
+<a href='basics/brand.html' id='basics/brand.html' onclick='window.storeMenuState("basics/brand.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Brand</a>
 </li>
 
 <li class='m-0'>
@@ -87,7 +87,7 @@
 </li>
 
 <li class='m-0'>
-<a href='seo.html' id='seo.html' onclick='window.storeMenuState("seo.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>SEO</a>
+<a href='seo.html' id='seo.html' onclick='window.storeMenuState("seo.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-blue-500'>SEO</a>
 </li>
 
 <li class='m-0'>
@@ -203,49 +203,123 @@
 </div>
 
 <div id='docMainBox' class='px-16 pb-12 pt-4 overflow-auto'>
-<h1 class='mb-8'>Brand</h1>
+<h1 class='mb-8'>SEO</h1>
 
-<div class='border-t'><p>Brand refers to the top area of the left menu bar, we provide two functions <code>BrandTitle</code> and <code>BrandFunc</code> to customize it.</p>
-<h2><a name="simple-customization" class="anchor" href="#simple-customization" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
-Simple customization</h2>
+<div class='border-t'><p>The SEO library facilitates the optimization of Search Engine results by managing and injecting dynamic data into HTML tags.</p>
+<h2><a name="usage" class="anchor" href="#usage" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+Usage</h2>
 
-<p>If you want only to change the brand string, you can use <code>BrandTitle</code> to set the string, the string will be displayed in the brand area with <code>&lt;H1&gt;</code> tag.</p>
+<p>Initialize a <code>Collection</code> instance. The <code>Collection</code> manages all the registered models and hold global seo settings</p>
 
-<highlightjs :language='"go"' :code='"b.URIPrefix(PresetsBrandTitlePath).\n\tBrandTitle(\"QOR5 Admin\")"'></highlightjs>
+<div class="highlight highlight-go"><pre>collection := seo.NewCollection()
 
-<div>
-<div class='demo'>
-<a href='/samples/brand_title/brands' target='_blank'>Check the demo</a>
- | 
-<a href='https://github.com/qor5/docs/tree/main/docsrc/examples/e21_presents/brand.go' target='_blank'>Source on GitHub</a>
-</div>
-</div>
-<h2><a name="full-customization" class="anchor" href="#full-customization" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Full customization</h2>
+// Turn off the default inherit the upper level SEO data when the current SEO data is missing
+collection.SetInherited(false)
+</pre></div>
+<h3><a name="register-models-to-seo" class="anchor" href="#register-models-to-seo" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+Register models to SEO</h3>
 
-<p>When you opt-in to full brand customization, you can use <code>BrandFunc</code> to be responsible for drawing for the entire brand area, such as you can put your own logo image in it.</p>
+<div class="highlight highlight-go"><pre>// Register mutiple SEO by name
+collection.RegisterSEOByNames(&#34;Product&#34;, &#34;Announcement&#34;)
 
-<highlightjs :language='"go"' :code='"b.URIPrefix(PresetsBrandFuncPath).\n\tBrandFunc(func(ctx *web.EventContext) h.HTMLComponent {\n\t\treturn vuetify.VCardText(\n\t\t\th.H1(\"Admin\").Style(\"color: red;\"),\n\t\t).Class(\"pa-0\")\n\t})"'></highlightjs>
+// Register a SEO by model
+type Product struct{
+	Name  string
+	Setting Setting
+}
+collection.RegisterSEO(&amp;Product{})
+</pre></div>
+<h3><a name="remove-models-from-seo" class="anchor" href="#remove-models-from-seo" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+Remove models from SEO</h3>
 
-<div>
-<div class='demo'>
-<a href='/samples/brand_func/brands' target='_blank'>Check the demo</a>
- | 
-<a href='https://github.com/qor5/docs/tree/main/docsrc/examples/e21_presents/brand.go' target='_blank'>Source on GitHub</a>
-</div>
-</div>
-<h2><a name="profile" class="anchor" href="#profile" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Profile</h2>
+<pre><code>// Remove by struct
+collection.RemoveSEO(&amp;Product{})
+// Remove by name
+collection.RemoveSEO(&#34;Not Found&#34;)
+</code></pre>
+<h2><a name="configuration" class="anchor" href="#configuration" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+Configuration</h2>
+<h3><a name="change-the-default-global-seo-name" class="anchor" href="#change-the-default-global-seo-name" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+Change the default global SEO name</h3>
 
-<p>Profile is below the brand area, where you can put the current user&#39;s information or others. We provide <code>ProfileFunc</code> to customize it.</p>
+<div class="highlight highlight-go"><pre>collection.SetGlobalName(&#34;My Global SEO&#34;)
+</pre></div>
+<h3><a name="change-the-default-context-db-key" class="anchor" href="#change-the-default-context-db-key" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+Change the default context db key</h3>
 
-<highlightjs :language='"go"' :code='"b.URIPrefix(PresetsProfilePath).BrandTitle(\"Admin\").\n\tProfileFunc(func(ctx *web.EventContext) h.HTMLComponent {\n\t\t// Demo\n\t\tlogoutURL := \".\"\n\t\tname := \"QOR5\"\n\t\taccount := \"hello@getqor.com\"\n\t\troles := []string{\"Developer\"}\n\n\t\treturn VMenu().OffsetY(true).Children(\n\t\t\th.Template().Attr(\"v-slot:activator\", \"{on, attrs}\").Children(\n\t\t\t\tVList(\n\t\t\t\t\tVListItem(\n\t\t\t\t\t\tVListItemAvatar(\n\t\t\t\t\t\t\tVAvatar().Class(\"ml-1\").Color(\"secondary\").Size(40).Children(\n\t\t\t\t\t\t\t\th.Span(string(name[0])).Class(\"white--text text-h5\"),\n\t\t\t\t\t\t\t),\n\t\t\t\t\t\t),\n\t\t\t\t\t\tVListItemContent(\n\t\t\t\t\t\t\tVListItemTitle(h.Text(name)),\n\t\t\t\t\t\t\th.Br(),\n\t\t\t\t\t\t\tVListItemSubtitle(h.Text(strings.Join(roles, \", \"))),\n\t\t\t\t\t\t),\n\t\t\t\t\t).Class(\"pa-0 mb-2\"),\n\t\t\t\t\tVListItem(\n\t\t\t\t\t\tVListItemContent(\n\t\t\t\t\t\t\tVListItemTitle(h.Text(account)),\n\t\t\t\t\t\t),\n\t\t\t\t\t\tVListItemIcon(\n\t\t\t\t\t\t\tVIcon(\"logout\").Small(true).Attr(\"@click\", web.Plaid().URL(logoutURL).Go()),\n\t\t\t\t\t\t),\n\t\t\t\t\t).Class(\"pa-0 my-n4 ml-1\").Dense(true),\n\t\t\t\t).Class(\"pa-0 ma-n4\"),\n\t\t\t),\n\t\t)\n\t})"'></highlightjs>
+<div class="highlight highlight-go"><pre>collection.SetDBContextKey(&#34;My DB&#34;)
+</pre></div>
+<h3><a name="change-the-default-seo-name" class="anchor" href="#change-the-default-seo-name" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+Change the default SEO name</h3>
 
-<div>
-<div class='demo'>
-<a href='/samples/profile/brands' target='_blank'>Check the demo</a>
- | 
-<a href='https://github.com/qor5/docs/tree/main/docsrc/examples/e21_presents/profile.go' target='_blank'>Source on GitHub</a>
-</div>
-</div>
+<div class="highlight highlight-go"><pre>collection.RegisterSEO(&amp;Product{}).SetName(&#34;My Product&#34;)
+</pre></div>
+<h3><a name="register-customized-variables" class="anchor" href="#register-customized-variables" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+Register customized variables</h3>
+
+<div class="highlight highlight-go"><pre>collection.RegisterSEO(&amp;Product{}).
+	RegisterContextVariables(&#34;og:image&#34;, func(obj interface{}, _ *Setting, _ *http.Request) string {
+		// this will render &#34;og:image&#34; with the value of the object in the current request
+		return obj.image.url
+	}).
+	RegisterContextVariables(&#34;Name&#34;, func(obj interface{}, _ *Setting, _ *http.Request) string {
+		return obj.Name
+	})
+</pre></div>
+<h3><a name="register-setting-variable" class="anchor" href="#register-setting-variable" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+Register setting variable</h3>
+
+<p>This variable will be saved in the database and available as a global variable while editing SEO settings.</p>
+
+<div class="highlight highlight-go"><pre>collection.RegisterSEO(&amp;Product{}).RegisterSettingVaribles(struct{ProductTag string}{})
+</pre></div>
+<h3><a name="render-seo-html-data" class="anchor" href="#render-seo-html-data" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+Render SEO html data</h3>
+
+<div class="highlight highlight-go"><pre>// Render Global SEO
+collection.RenderGlobal(request)
+
+// Render SEO by name
+collection.Render(&#34;product&#34;, request)
+
+// Render SEO by model
+collection.Render(Product{}, request)
+</pre></div>
+<h2><a name="customization" class="anchor" href="#customization" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+Customization</h2>
+<p>You can customize your SEO settings by implementing the interface and adding functions such as l10n and publish.</p>
+
+<highlightjs :language='"go"' :code='"type QorSEOSettingInterface interface {\n\tGetName() string\n\tSetName(string)\n\tGetSEOSetting() Setting\n\tSetSEOSetting(Setting)\n\tGetVariables() Variables\n\tSetVariables(Variables)\n\tGetTitle() string\n\tGetDescription() string\n\tGetKeywords() string\n\tGetOpenGraphURL() string\n\tGetOpenGraphType() string\n\tGetOpenGraphImageURL() string\n\tGetOpenGraphImageFromMediaLibrary() media_library.MediaBox\n\tGetOpenGraphMetadata() []OpenGraphMetadata\n}\n"'></highlightjs>
+<p>Suppose <code>QorSEOSetting</code> implemented the above interface</p>
+
+<div class="highlight highlight-go"><pre>type MySEOSetting struct{
+		QorSEOSetting
+		// publish
+		// l10n
+}
+</pre></div>
+
+<p>Use <code>SetSettingModel</code> function to set it</p>
+
+<div class="highlight highlight-go"><pre>collection.SetSettingModel(&amp;MySEOSetting{})
+</pre></div>
+
+<h2>Example</h2>
+
+<highlightjs :language='"go"' :code='"var SeoCollection *seo.Collection\n\nfunc ConfigureSeo(b *presets.Builder, db *gorm.DB) {\n\tSeoCollection = seo.NewCollection()\n\tSeoCollection.RegisterSEO(\u0026models.Post{}).RegisterContextVariables(\n\t\t\"Title\",\n\t\tfunc(object interface{}, _ *seo.Setting, _ *http.Request) string {\n\t\t\tif article, ok := object.(models.Post); ok {\n\t\t\t\treturn article.Title\n\t\t\t}\n\t\t\treturn \"\"\n\t\t},\n\t).RegisterSettingVaribles(struct{ Test string }{})\n\tSeoCollection.RegisterSEOByNames(\"Not Found\", \"Internal Server Error\")\n\tSeoCollection.Configure(b, db)\n}\n"'></highlightjs>
+<h2><a name="definition" class="anchor" href="#definition" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Definition</h2>
+
+<p><code>Collection</code> manages all the registered models and hold global seo settings.</p>
+
+<highlightjs :language='"go"' :code='"type Collection struct {\n\tregisteredSEO []*SEO\n\tglobalName    string      //default name is GlobalSEO\n\tinherited     bool        //default is true. the order is model seo setting, system seo setting, global seo setting\n\tdbContextKey  interface{} // get db from context\n\tsettingModel  interface{} // db model\n}\n"'></highlightjs>
+<p><code>SEO</code> provides system-level default page matadata.</p>
+
+<highlightjs :language='"go"' :code='"type SEO struct {\n\tname             string\n\tmodelTyp         reflect.Type\n\tcontextVariables map[string]contextVariablesFunc // fetch context variables from request\n\tsettingVariables interface{}                     // fetch setting variables from db\n}\n"'></highlightjs>
+<p>You can use seo setting at the model level, but you need to register the model to the system SEO</p>
+
+<highlightjs :language='"go"' :code='"type Product struct {\n\tName string\n\tSEO  Setting\n}\n"'></highlightjs>
+
+<highlightjs :language='"go"' :code='"collection.RegisterSEO(\u0026Product{})"'></highlightjs>
 </div>
 </div>
 </div>
