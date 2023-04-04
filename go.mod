@@ -3,7 +3,6 @@ module github.com/qor5/docs
 go 1.19
 
 require (
-	github.com/biter777/countries v1.5.6
 	github.com/fatih/color v1.13.0
 	github.com/go-chi/chi v1.5.4
 	github.com/manifoldco/promptui v0.9.0
