@@ -2,7 +2,7 @@
 
 <html>
 <head>
-<title>Web Application - Summary of Event Response - QOR5 Document</title>
+<title>Building Admin - Internationalization - QOR5 Document</title>
 
 <meta name='description'>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -99,7 +99,7 @@
 </li>
 
 <li class='m-0'>
-<a href='basics/i18n.html' id='basics/i18n.html' onclick='window.storeMenuState("basics/i18n.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Internationalization</a>
+<a href='basics/i18n.html' id='basics/i18n.html' onclick='window.storeMenuState("basics/i18n.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-blue-500'>Internationalization</a>
 </li>
 
 <li class='cursor-default px-4 py-1 truncate break-words w-64 m-0'>Web Application</li>
@@ -141,7 +141,7 @@
 </li>
 
 <li class='m-0'>
-<a href='basics/summary-of-event-response.html' id='basics/summary-of-event-response.html' onclick='window.storeMenuState("basics/summary-of-event-response.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-blue-500'>Summary of Event Response</a>
+<a href='basics/summary-of-event-response.html' id='basics/summary-of-event-response.html' onclick='window.storeMenuState("basics/summary-of-event-response.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Summary of Event Response</a>
 </li>
 
 <li class='m-0'>
@@ -207,29 +207,81 @@
 </div>
 
 <div id='docMainBox' class='px-16 pb-12 pt-4 overflow-auto'>
-<h1 class='mb-8'>Summary of Event Response</h1>
+<h1 class='mb-8'>Internationalization</h1>
 
-<div class='border-t'><p>The behaviour of <code>web.EventFunc</code> is controlled by it&#39;s return type <code>web.EventResponse</code></p>
+<div class='border-t'><p>The <a href="https://github.com/qor5/x/tree/master/i18n" rel="nofollow">i18n package</a> provides support for internationalization (i18n) in Go applications.
+It allows you to define and load messages in multiple languages, and provides a mechanism
+for selecting the appropriate language for a given user request.</p>
+<h2><a name="getting-started" class="anchor" href="#getting-started" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Getting Started</h2>
 
-<highlightjs :language='"go"' :code='"type EventResponse struct {\n\tPageTitle     string           `json:\"pageTitle,omitempty\"`\n\tBody          h.HTMLComponent  `json:\"body,omitempty\"`\n\tReload        bool             `json:\"reload,omitempty\"`\n\tPushState     *LocationBuilder `json:\"pushState\"`             // This we don&#39;t omitempty, So that {} can be kept when use url.Values{}\n\tRedirectURL   string           `json:\"redirectURL,omitempty\"` // change window url without push state\n\tReloadPortals []string         `json:\"reloadPortals,omitempty\"`\n\tUpdatePortals []*PortalUpdate  `json:\"updatePortals,omitempty\"`\n\tData          interface{}      `json:\"data,omitempty\"`       // used for return collection data like TagsInput data source\n\tVarsScript    string           `json:\"varsScript,omitempty\"` // used with InitContextVars to set values for example vars.show to used by v-model\n}\n"'></highlightjs>
-<ul>
-<li><code>PageTitle</code> set the html head title, It not only set when render html page directly which is
-request the url directly from the browser. Also use javascript to set the page title when you do
-push state AJAX request to load the page</li>
-<li><code>Body</code> is the set to <code>web.PageResponse</code>&#39;s body when <code>Reload = true</code> is set, Or set to the partial
-html component when using <code>ReloadPortals</code> together with <code>web.Portal().EventFunc(&#34;related&#34;)</code></li>
-<li><code>Reload</code> is to reload the <code>web.PageFunc</code>, before reload, you can set <code>ctx.Flash</code> object to let the
-event func render the page differently (flash message, validation errors, etc)</li>
-<li><code>Location</code> is to change the browser url with push state, and AJAX load the page of that url</li>
-<li><code>RedirectURL</code> is to change the browser url without AJAX, reload the whole page html includes it&#39;s
-head script, css assets</li>
-<li><code>ReloadPortals</code> is for reload the portal that uses <code>web.Portal().EventFunc(&#34;related&#34;)</code></li>
-<li><code>UpdatePortals</code> update the portal specified by the name <code>web.Portal().Name(&#34;hello&#34;)</code>, <code>pu.AfterLoaded</code>
-set the javascript function that execute after the portal is updated, for example:
-<code>VarsScript: &#34;setTimeout(function(){ comp.vars.drawer2 = true }, 100)&#34;</code></li>
-<li><code>Data</code> is for any AJAX call that want pure JSON, you can set <code>er.Data = myobj</code> to any object that
-will marshals to JSON, and on the client side use javascript to utilize them</li>
-</ul>
+<p>To use the i18n package, you first need to import it into your Go application:</p>
+
+<highlightjs :language='"go"' :code='"import \"github.com/qor5/x/i18n\""'></highlightjs>
+<p>Next, create a new <code>Builder</code> instance using the <code>New()</code> function.
+If you want to use it in QOR5, use the <code>I18n()</code> on <code>presets.Builder</code>:</p>
+
+<highlightjs :language='"go"' :code='"i18nB := b.I18n()"'></highlightjs>
+<p>The <code>Builder</code> struct is the central point of the i18n package.
+It holds the supported languages, the messages for each module in each language,
+and the configuration for retrieving the language preference.</p>
+<h2><a name="supporting-languages" class="anchor" href="#supporting-languages" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Supporting Languages</h2>
+
+<p>To support multiple languages in your web application, you need to define the languages that you support.
+You can do this by calling the <code>SupportLanguages</code> function on the <code>Builder</code> struct:</p>
+
+<highlightjs :language='"go"' :code='"i18nB.\n\tSupportLanguages(language.English, language.SimplifiedChinese, language.Japanese)."'></highlightjs>
+<p>By default, the <code>Builder</code> struct only supports the English language.
+You can add more languages by calling the <code>SupportLanguages</code> function and passing in the language tags.</p>
+<h2><a name="registering-module-messages" class="anchor" href="#registering-module-messages" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Registering Module Messages</h2>
+
+<p>Once you have defined the languages that you support, you need to register messages for each module in each language.
+You can do this by calling the <code>RegisterForModule</code> function on the <code>Builder</code> struct:</p>
+
+<highlightjs :language='"go"' :code='"RegisterForModule(language.SimplifiedChinese, presets.ModelsI18nModuleKey, Messages_zh_CN_ModelsI18nModuleKey).\nRegisterForModule(language.Japanese, presets.ModelsI18nModuleKey, Messages_ja_JP_ModelsI18nModuleKey).\nRegisterForModule(language.English, I18nExampleKey, Messages_en_US).\nRegisterForModule(language.Japanese, I18nExampleKey, Messages_ja_JP).\nRegisterForModule(language.SimplifiedChinese, I18nExampleKey, Messages_zh_CN).\nGetSupportLanguagesFromRequestFunc(func(r *http.Request) []language.Tag {\n\treturn b.I18n().GetSupportLanguages()\n})"'></highlightjs>
+<p>The <code>RegisterForModule</code> function takes three arguments: the language tag, the module name,
+and a pointer to a struct that implements the Messages interface.
+The Messages interface is an empty interface that you can use to define your own messages.</p>
+
+<p>Such a struct might look like this:</p>
+
+<highlightjs :language='"go"' :code='"const I18nExampleKey i18n.ModuleKey = \"I18nExampleKey\"\n\ntype Messages struct {\n\tAdmin   string\n\tWelcome string\n}\n\nvar Messages_en_US = \u0026Messages{\n\tAdmin:   \"Admin\",\n\tWelcome: \"Welcome\",\n}\nvar Messages_zh_CN = \u0026Messages{\n\tAdmin:   \"管理系统\",\n\tWelcome: \"欢迎\",\n}\nvar Messages_ja_JP = \u0026Messages{\n\tAdmin:   \"管理システム\",\n\tWelcome: \"ようこそ\",\n}\n"'></highlightjs>
+<p>The <code>GetSupportLanguagesFromRequestFunc</code> is a method of the <code>Builder</code> struct in the i18n package.
+It allows you to set a function that retrieves the list of supported languages
+from an HTTP request, which can be useful in scenarios where the list of supported
+languages varies based on the request context.</p>
+
+<p>The <code>EnsureLanguage</code> function is an HTTP middleware that ensures the request&#39;s language
+is properly set and stored. It does this by first checking the query parameters for
+a language value, and if found, setting a cookie with that value. If no language
+value is present in the query parameters, it looks for the language value in the cookie.</p>
+
+<p>The middleware then determines the best-matching language from the supported languages
+based on the &#34;Accept-Language&#34; header of the request. If no match is found,
+it defaults to the first supported language. It then sets the language context for
+the request, which can be retrieved later by calling the <code>MustGetModuleMessages</code> function.</p>
+<h2><a name="retrieving-messages" class="anchor" href="#retrieving-messages" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Retrieving Messages</h2>
+
+<p>To retrieve module messages in your HTTP handler, you can use the <code>MustGetModuleMessages</code> function:</p>
+
+<highlightjs :language='"go"' :code='"msgr := i18n.MustGetModuleMessages(ctx.R, I18nExampleKey, Messages_en_US).(*Messages)\nr.Body = v.VContainer(\n\th.Div(\n\t\th.H1(msgr.Welcome),\n\t).Class(\"text-center mt-8\"),\n)"'></highlightjs>
+<p>The <code>MustGetModuleMessages</code> function takes three arguments:
+the HTTP request, the module name, and a pointer to a struct
+that implements the Messages interface. The function retrieves the messages
+for the specified module in the language set by the i18n middleware.</p>
+<h2><a name="conclusion" class="anchor" href="#conclusion" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Conclusion</h2>
+
+<p>The i18n package provides a simple and efficient way to build multilingual
+web applications in Go. With the package, you can support multiple languages,
+register messages for each module in each language, and serve multilingual content
+based on the user&#39;s preferences.</p>
+
+<div>
+<div class='demo'>
+<a href='/samples/i18n/home' target='_blank'>Check the demo</a>
+ | 
+<a href='https://github.com/qor5/docs/tree/main/docsrc/examples/example_basics/internationalization.go' target='_blank'>Source on GitHub</a>
+</div>
+</div>
 </div>
 </div>
 </div>
