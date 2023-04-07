@@ -36,19 +36,29 @@ var Messages_ja_JP = &Messages{
 
 // @snippet_end
 
+// @snippet_begin(I18nPresetsMessagesExample)
+
 type Messages_ModelsI18nModuleKey struct {
-	Homes  string
-	Videos string
+	Homes             string
+	Videos            string
+	VideosName        string
+	VideosDescription string
 }
 
 var Messages_zh_CN_ModelsI18nModuleKey = &Messages_ModelsI18nModuleKey{
-	Homes:  "主页",
-	Videos: "视频",
+	Homes:             "主页",
+	Videos:            "视频",
+	VideosName:        "视频名称",
+	VideosDescription: "视频描述",
 }
 var Messages_ja_JP_ModelsI18nModuleKey = &Messages_ModelsI18nModuleKey{
-	Homes:  "ホーム",
-	Videos: "ビデオ",
+	Homes:             "ホーム",
+	Videos:            "ビデオ",
+	VideosName:        "ビデオの名前",
+	VideosDescription: "ビデオの説明",
 }
+
+// @snippet_end
 
 type video struct {
 	gorm.Model
@@ -91,10 +101,10 @@ func InternationalizationExample(b *presets.Builder) {
 	// @snippet_end
 
 	// @snippet_begin(I18nSupportLanguages)
+	i18nB.SupportLanguages(language.English, language.SimplifiedChinese, language.Japanese)
+	// @snippet_end
+	// @snippet_begin(I18nRegisterForModule)
 	i18nB.
-		SupportLanguages(language.English, language.SimplifiedChinese, language.Japanese).
-		// @snippet_end
-		// @snippet_begin(I18nRegisterForModule)
 		RegisterForModule(language.SimplifiedChinese, presets.ModelsI18nModuleKey, Messages_zh_CN_ModelsI18nModuleKey).
 		RegisterForModule(language.Japanese, presets.ModelsI18nModuleKey, Messages_ja_JP_ModelsI18nModuleKey).
 		RegisterForModule(language.English, I18nExampleKey, Messages_en_US).
