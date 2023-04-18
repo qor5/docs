@@ -290,7 +290,7 @@ Customization</h2>
 <p>You can customize your SEO settings by implementing the interface and adding functions such as l10n and publish.</p>
 
 <highlightjs :language='"go"' :code='"type QorSEOSettingInterface interface {\n\tGetName() string\n\tSetName(string)\n\tGetSEOSetting() Setting\n\tSetSEOSetting(Setting)\n\tGetVariables() Variables\n\tSetVariables(Variables)\n\tGetTitle() string\n\tGetDescription() string\n\tGetKeywords() string\n\tGetOpenGraphURL() string\n\tGetOpenGraphType() string\n\tGetOpenGraphImageURL() string\n\tGetOpenGraphImageFromMediaLibrary() media_library.MediaBox\n\tGetOpenGraphMetadata() []OpenGraphMetadata\n}\n"'></highlightjs>
-<p>Suppose <code>QorSEOSetting</code> implemented the above interface</p>
+<p>Suppose <code>MySEOSetting</code> implemented the above interface</p>
 
 <div class="highlight highlight-go"><pre>type MySEOSetting struct{
 		QorSEOSetting
