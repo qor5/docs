@@ -2,7 +2,7 @@
 
 <html>
 <head>
-<title>Building Admin - Activity Log - QOR5 Document</title>
+<title>Building Admin - Login - QOR5 Document</title>
 
 <meta name='description'>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -63,7 +63,7 @@
 </li>
 
 <li class='m-0'>
-<a href='basics/login.html' id='basics/login.html' onclick='window.storeMenuState("basics/login.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Login</a>
+<a href='basics/login.html' id='basics/login.html' onclick='window.storeMenuState("basics/login.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-blue-500'>Login</a>
 </li>
 
 <li class='m-0'>
@@ -95,7 +95,7 @@
 </li>
 
 <li class='m-0'>
-<a href='activity-log.html' id='activity-log.html' onclick='window.storeMenuState("activity-log.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-blue-500'>Activity Log</a>
+<a href='activity-log.html' id='activity-log.html' onclick='window.storeMenuState("activity-log.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Activity Log</a>
 </li>
 
 <li class='m-0'>
@@ -207,49 +207,142 @@
 </div>
 
 <div id='docMainBox' class='px-16 pb-12 pt-4 overflow-auto'>
-<h1 class='mb-8'>Activity Log</h1>
+<h1 class='mb-8'>Login</h1>
 
-<div class='border-t'><p>QOR5 provides a built-in activity module for recording model operations that may be important for admin users of CMS. These records are designed to be easily queried and audited, and the activity module supports the following features:</p>
+<div class='border-t'><p>Login package provides comprehensive login authentication logic and related UI interfaces. It is designed to simplify the process of adding user authentication to QOR5-based backend development project.<br>
+In QOR5 admin development, we recommend using <a href="https://github.com/qor5/admin/tree/main/login" rel="nofollow">github.com/qor5/admin/login</a>, which wraps <a href="https://github.com/qor5/x/tree/master/login" rel="nofollow">github.com/qor5/x/login</a> to keep the theme of login UI consistent with Presets and provide more powerful features.</p>
+<h2><a name="basic-usage" class="anchor" href="#basic-usage" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+Basic Usage</h2>
+
+<p>The example shows how to enable both username/password login and OAuth login.</p>
+
+<highlightjs :language='"go"' :code='"import (\n\t\"net/http\"\n\t\"os\"\n\n\t\"github.com/markbates/goth/providers/github\"\n\t\"github.com/markbates/goth/providers/google\"\n\tplogin \"github.com/qor5/admin/login\"\n\t\"github.com/qor5/admin/presets\"\n\t. \"github.com/qor5/ui/vuetify\"\n\t\"github.com/qor5/web\"\n\t\"github.com/qor5/x/login\"\n\t. \"github.com/theplant/htmlgo\"\n\t\"gorm.io/gorm\"\n)\n\ntype User struct {\n\tgorm.Model\n\n\tName    string\n\tAddress string\n\n\tlogin.UserPass\n\tlogin.OAuthInfo\n\tlogin.SessionSecure\n}\n\nfunc serve() {\n\tpb := presets.New()\n\tlb := plogin.New(pb).\n\t\tDB(DB).\n\t\tUserModel(\u0026User{}).\n\t\tSecret(os.Getenv(\"LOGIN_SECRET\")).\n\t\tOAuthProviders(\n\t\t\t\u0026login.Provider{\n\t\t\t\tGoth: google.New(os.Getenv(\"LOGIN_GOOGLE_KEY\"), os.Getenv(\"LOGIN_GOOGLE_SECRET\"), os.Getenv(\"BASE_URL\")+\"/auth/callback?provider=google\"),\n\t\t\t\tKey:  \"google\",\n\t\t\t\tText: \"Google\",\n\t\t\t},\n\t\t\t\u0026login.Provider{\n\t\t\t\tGoth: github.New(os.Getenv(\"LOGIN_GITHUB_KEY\"), os.Getenv(\"LOGIN_GITHUB_SECRET\"), os.Getenv(\"BASE_URL\")+\"/auth/callback?provider=github\"),\n\t\t\t\tKey:  \"github\",\n\t\t\t\tText: \"Login with Github\",\n\t\t\t},\n\t\t)\n\tpb.ProfileFunc(func(ctx *web.EventContext) HTMLComponent {\n\t\treturn A(Text(\"logout\")).Href(lb.LogoutURL)\n\t})\n\n\tr := http.NewServeMux()\n\tr.Handle(\"/\", pb)\n\tlb.Mount(r)\n\n\tmux := http.NewServeMux()\n\tmux.Handle(\"/\", lb.Middleware()(r))\n\thttp.ListenAndServe(\":8080\", nil)\n}\n"'></highlightjs>
+<h2><a name="username-password-login" class="anchor" href="#username-password-login" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Username/Password Login</h2>
+
+<p>To enable Username/Password login, the <code>UserModel</code> needs to implement the <a href="https://github.com/qor5/x/blob/8f986dddfeaf235fd42bb3361717551d06695517/login/user_pass.go#L13" rel="nofollow">UserPasser</a> interface. There is a default implementation - <a href="https://github.com/qor5/x/blob/8f986dddfeaf235fd42bb3361717551d06695517/login/user_pass.go#L44" rel="nofollow">UserPass</a>.</p>
+
+<highlightjs :language='"go"' :code='"type User struct {\n\tgorm.Model\n\n\tlogin.UserPass\n}"'></highlightjs>
+<h3><a name="change-password" class="anchor" href="#change-password" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Change Password</h3>
+
+<p>There are three ways to change the password:</p>
+
+<p>1. Visit the default change password page.</p>
+
+<p>2. Call the <code>OpenChangePasswordDialogEvent</code> event to change it in dialog.</p>
+
+<highlightjs :language='"go"' :code='"VBtn(\"Change Password\").OnClick(plogin.OpenChangePasswordDialogEvent)"'></highlightjs>
+<p>3. Change the password directly in Editing.</p>
+
+<highlightjs :language='"go"' :code='"userModelBuilder.Editing().Field(\"Password\").\n\tSetterFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) (err error) {\n\t\tu := obj.(*User)\n\t\tif v := ctx.R.FormValue(field.Name); v != \"\" {\n\t\t\tu.Password = v\n\t\t\tu.EncryptPassword()\n\t\t}\n\t\treturn nil\n\t})"'></highlightjs>
+<h3><a name="maxretrycount" class="anchor" href="#maxretrycount" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>MaxRetryCount</h3>
+
+<p>By default, it allows 5 login attempts with incorrect credentials, and if the limit is exceeded, the user will be locked for 1 hour. This helps to prevent brute-force attacks on the login system. You can call <code>MaxRetryCount</code> to set the maximum retry count. If you set MaxRetryCount to a value less than or equal to 0, it means there is no limit of login attempts, and the user will not be locked after a certain number of failed login attempts.</p>
+
+<highlightjs :language='"go"' :code='"loginBuilder.MaxRetryCount(count)"'></highlightjs>
+<h3><a name="totp" class="anchor" href="#totp" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>TOTP</h3>
+
+<p>There is TOTP (Time-based One-time Password) functionality out of the box, which is enabled by default.</p>
+
+<highlightjs :language='"go"' :code='"loginBuilder.TOTP(enable, login.TOTPConfig{\n\tIssuer: \"Issuer\",\n})"'></highlightjs>
+<h3><a name="google-recaptcha" class="anchor" href="#google-recaptcha" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Google reCAPTCHA</h3>
+
+<p>Google reCAPTCHA is disabled by default.</p>
+
+<highlightjs :language='"go"' :code='"loginBuilder.Recaptcha(enable, login.RecaptchaConfig{\n\tSiteKey:   \"SiteKey\",\n\tSecretKey: \"SecretKey\",\n})"'></highlightjs>
+<h2><a name="oauth-login" class="anchor" href="#oauth-login" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>OAuth Login</h2>
+
+<p>OAuth login does not require a <code>UserModel</code>. If there is a <code>UserModel</code>, it needs to implement the <a href="https://github.com/qor5/x/blob/8f986dddfeaf235fd42bb3361717551d06695517/login/oauth_user.go#L5" rel="nofollow">OAuthUser</a> interface. There is a default implementation - <a href="https://github.com/qor5/x/blob/8f986dddfeaf235fd42bb3361717551d06695517/login/oauth_user.go#L13" rel="nofollow">OAuthInfo</a>.</p>
+
+<highlightjs :language='"go"' :code='"type User struct {\n\tgorm.Model\n\n\tlogin.OAuthInfo\n}"'></highlightjs>
+<h2><a name="session-secure" class="anchor" href="#session-secure" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Session Secure</h2>
+
+<p>The <a href="https://github.com/qor5/x/blob/8f986dddfeaf235fd42bb3361717551d06695517/login/session_secure.go#L11" rel="nofollow">SessionSecurer</a> provides a way to manage unique salt for a user record. There is a default implementation - <a href="https://github.com/qor5/x/blob/8f986dddfeaf235fd42bb3361717551d06695517/login/session_secure.go#L16" rel="nofollow">SessionSecure</a>.</p>
+
+<highlightjs :language='"go"' :code='"type User struct {\n\tgorm.Model\n\n\tlogin.UserPass\n\tlogin.OAuthInfo\n\tlogin.SessionSecure\n}"'></highlightjs>
+<p><code>SessionSecurer</code> helps to ensure user security even in the event of secret leakage. When a user logs in, <code>SessionSecurer</code> generates a random salt and associates it with the user&#39;s record. This salt is then used to sign the user&#39;s session token. When the user makes requests to the server, the server verifies that the session token has been signed with the correct salt. If the salt has been changed, the session token is considered invalid and the user is logged out.</p>
+<h2><a name="hooks" class="anchor" href="#hooks" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Hooks</h2>
+
+<p><a href="https://github.com/qor5/x/blob/8f986dddfeaf235fd42bb3361717551d06695517/login/builder.go#L39" rel="nofollow">Hooks</a> are functions that are called before or after certain events.<br>
+The following hooks are available:</p>
+<h3><a name="beforesetpassword" class="anchor" href="#beforesetpassword" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+BeforeSetPassword</h3>
+<h4><a name="extra-values" class="anchor" href="#extra-values" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+Extra Values</h4>
 
 <ul>
-<li>Detailed change logging functionality for model data modifications.</li>
-<li>Allow certain fields to be ignored when comparing modified data, such as the update time.</li>
-<li>Customization of the diffing process for complex field types, like time.Time.</li>
-<li>Customization of the keys used to identify model data.</li>
-<li>Support both automatic and manual CRUD operation recording.</li>
-<li>Provide flexibility to customize the actions other than default CRUD.</li>
-<li>An page for querying the activity log via QOR5 admin</li>
+<li>password</li>
 </ul>
-<h2><a name="initialize-the-activity-package" class="anchor" href="#initialize-the-activity-package" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
-Initialize the activity package</h2>
 
-<p>To initialize activity package with the default configuration, you need to pass a <code>presets.Builder</code> instance and a database instance.</p>
+<p>This hook is called before resetting or changing a password. The hook can be used to validate password formats.</p>
+<h3><a name="afterlogin" class="anchor" href="#afterlogin" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+AfterLogin</h3>
 
-<highlightjs :language='"go"' :code='"presetsBuilder := presets.New()\ndb, err := gorm.Open(sqlite.Open(\"/tmp/activity.db\"), \u0026gorm.Config{})\nif err != nil {\n\tpanic(err)\n}\nactivityBuilder := activity.New(presetsBuilder, db)"'></highlightjs>
-<p>By default, the activity package uses QOR5 login package&#39;s <code>login.UserKey</code> as the default key to fetch the current user from the context. If you want to use your own key, you can use the <code>SetCreatorContextKey</code> function.</p>
+<p>This hook is called after a successful login.</p>
+<h3><a name="afterfailedtologin" class="anchor" href="#afterfailedtologin" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+AfterFailedToLogin</h3>
+<h4><a name="extra-values" class="anchor" href="#extra-values" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+Extra Values</h4>
 
-<p>Same with above, the activity package uses the db instance that passed in during initialization to perform db operations. If you need another db to do the work, you can use <code>SetDBContextKey</code> method.</p>
-<h2><a name="register-the-models-that-require-activity-tracking" class="anchor" href="#register-the-models-that-require-activity-tracking" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
-Register the models that require activity tracking</h2>
+<ul>
+<li>login error</li>
+</ul>
 
-<p>This example demonstrates how to register <code>Product</code> into the activity. The activities on the product model will be automatically recorded when it is created, updated, or deleted.</p>
+<p>This hook is called after a failed login. Note that the <code>user</code> parameter may be nil.</p>
+<h3><a name="afteruserlocked" class="anchor" href="#afteruserlocked" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+AfterUserLocked</h3>
 
-<highlightjs :language='"go"' :code='"type Product struct {\n\tTitle string\n\tCode  string\n\tPrice float64\n}\nproductModel := presetsBuilder.Model(\u0026Product{})\n\nactivityBuilder.RegisterModel(productModel).UseDefaultTab().AddKeys(\"Title\").AddIgnoredFields(\"Code\").SkipDelete()"'></highlightjs>
-<p>By default, the activity package will use the primary key as the key to indentify the current model data. You can use <code>SetKeys</code> and <code>AddKeys</code> methods to customize it.</p>
+<p>This hook is called after a user is locked.</p>
+<h3><a name="afterlogout" class="anchor" href="#afterlogout" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+AfterLogout</h3>
 
-<p>When diffing the modified data, the activity package will ignore the <code>ID</code>, <code>CreatedAt</code>, <code>UpdatedAt</code>, <code>DeletedAt</code> fields. You can either use <code>AddIgnoredFields</code> to append your own fields to the default ignored fields. Or <code>SetIgnoredFields</code> method to replace the default ignored fields.</p>
+<p>This hook is called after a logout.</p>
+<h3><a name="afterconfirmsendresetpasswordlink" class="anchor" href="#afterconfirmsendresetpasswordlink" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+AfterConfirmSendResetPasswordLink</h3>
+<h4><a name="extra-values" class="anchor" href="#extra-values" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+Extra Values</h4>
 
-<p>For special fields like <code>time.Time</code> or media files handled by QOR5 media_library, activity package already handled them. You can use <code>AddTypeHanders</code> method to handle your own field types.</p>
+<ul>
+<li>reset link</li>
+</ul>
 
-<p>If you want to skip the automatic recording, you can use <code>SkipCreate</code>, <code>SkipUpdate</code> and <code>SkipDelete</code> methods.</p>
+<p>This hook is called after confirming the sending of a password reset link. This is where the code to send the reset link to the user should be written.</p>
+<h3><a name="afterresetpassword" class="anchor" href="#afterresetpassword" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+AfterResetPassword</h3>
 
-<p>The Activity package allows for displaying the activities of a record on its editing page. Simply use the <code>EnableActivityInfoTab</code> method to enable this feature. Once enabled, you can customize the format of each activity&#39;s display text using the <code>SetTabHeading</code> method. Additionally, you can make each activity a link to the corresponding record using the <code>SetLink</code> method.</p>
-<h2><a name="record-the-activity-log-manually" class="anchor" href="#record-the-activity-log-manually" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
-Record the activity log manually</h2>
+<p>This hook is called after a password is reset.</p>
+<h3><a name="afterchangepassword" class="anchor" href="#afterchangepassword" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+AfterChangePassword</h3>
 
-<p>If you register a preset model into the activity, the activity package will automatically record the activity log for CRUD operations. However, if you need to manually record the activity log for other operations or if you want to register a non-preset model, you can use the following sample code.</p>
+<p>This hook is called after a password is changed.</p>
+<h3><a name="afterextendsession" class="anchor" href="#afterextendsession" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+AfterExtendSession</h3>
+<h4><a name="extra-values" class="anchor" href="#extra-values" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+Extra Values</h4>
 
-<highlightjs :language='"go"' :code='"currentCtx := context.WithValue(context.Background(), activity.CreatorContextKey, \"user1\")\n\nactivityBuilder.AddRecords(\"Publish\", currentCtx, \u0026Product{Title: \"Product 1\", Code: \"P1\", Price: 100})\n\nactivityBuilder.AddRecords(\"Update Price\", currentCtx, \u0026Product{Title: \"Product 1\", Code: \"P1\", Price: 200})"'></highlightjs>
+<ul>
+<li>old session token</li>
+</ul>
+
+<p>This hook is called after a session is extended.</p>
+<h3><a name="aftertotpcodereused" class="anchor" href="#aftertotpcodereused" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+AfterTOTPCodeReused</h3>
+
+<p>This hook is called after a TOTP code has been reused.</p>
+<h3><a name="afteroauthcomplete" class="anchor" href="#afteroauthcomplete" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+AfterOAuthComplete</h3>
+
+<p>This hook is called after an OAuth authentication is completed.</p>
+<h2><a name="customize-pages" class="anchor" href="#customize-pages" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Customize Pages</h2>
+
+<p>To customize pages, there are two ways:</p>
+
+<p>1. Each page has a corresponding <code>xxxPageFunc</code> to rewrite the page content. You can easily customize a page by copying the <a href="https://github.com/qor5/admin/blob/main/login/views.go" rel="nofollow">default page func</a> and modifying it according to your needs.</p>
+
+<highlightjs :language='"go"' :code='"loginBuilder.LoginPageFunc(func(ctx *web.EventContext) (r web.PageResponse, err error) {\n\tr.Body = Text(\"This is login page\")\n\treturn\n})"'></highlightjs>
+<p>2. Only mount the API and serve the login pages manually.<br>
+When you want to embed the login form into an existing page, this way can be very useful.</p>
+
+<highlightjs :language='"go"' :code='"loginBuilder.LoginPageURL(\"/custom-login-page\")\nloginBuilder.MountAPI(mux)\nmux.Handle(\"/custom-login-page\", loginPage)"'></highlightjs>
 </div>
 </div>
 </div>

@@ -32,6 +32,7 @@ var DocTree = []interface{}{
 			basics.ManageMenu,
 			advanced_functions.DetailPageForComplexObject,
 			basics.Layout,
+			basics.Login,
 			// permission
 			basics.Permissions,
 			basics.Role,
