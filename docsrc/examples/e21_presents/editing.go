@@ -164,6 +164,6 @@ func PresetsEditingCustomizationTabs(b *presets.Builder) {
 	})
 }
 
-const PresetsEditingCustomizationTabsPath = "/samples/presets-editing-customization-tabs"
-
 // @snippet_end
+
+const PresetsEditingCustomizationTabsPath = "/samples/presets-editing-customization-tabs"

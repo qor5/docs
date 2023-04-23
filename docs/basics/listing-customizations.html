@@ -310,6 +310,26 @@ Later do an bulk update data for all of them.</p>
 <li><code>ComponentFunc</code> of the bulk action configure the component that will show to user to input after user clicked the bulk action button</li>
 <li><code>UpdateFunc</code> configure the logic that the bulk action execute</li>
 </ul>
+
+<h2 id='search-func'>Search Func
+<a href='#search-func' class='anchor'></a>
+</h2>
+<p><code>SearchFunc</code> defines a data processing function for <code>ListingBuilder</code>.
+This function searches for a model based on the specified search parameters.
+It returns the search results along with the total count of matching records.
+You can process the data displayed on the listing page here based on context or custom conditions before pagination.</p>
+
+<p>In the following example, the listing page only displays approved customers.</p>
+
+<highlightjs :language='"go"' :code='"\nfunc PresetsListingCustomizationSearcher(b *presets.Builder) {\n\tdb := setupDB()\n\tb.URIPrefix(PresetsListingCustomizationSearcherPath).DataOperator(gorm2op.DataOperator(db))\n\tmb := b.Model(\u0026Customer{})\n\tmb.Listing().SearchFunc(func(model interface{}, params *presets.SearchParams, ctx *web.EventContext) (r interface{}, totalCount int, err error) {\n\t\t// only display approved customers\n\t\tqdb := db.Where(\"approved_at IS NOT NULL\")\n\t\treturn gorm2op.DataOperator(qdb).Search(model, params, ctx)\n\t})\n\n}\n"'></highlightjs>
+
+<div>
+<div class='demo'>
+<a href='/samples/presets-listing-customization-searcher/customers' target='_blank'>Check the demo</a>
+ | 
+<a href='https://github.com/qor5/docs/tree/main/docsrc/examples/e21_presents/listing.go' target='_blank'>Source on GitHub</a>
+</div>
+</div>
 </div>
 </div>
 </div>
