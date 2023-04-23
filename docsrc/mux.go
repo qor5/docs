@@ -732,5 +732,12 @@ func SamplesHandler(prefix string) http.Handler {
 		c24,
 	)
 
+	c25 := presets.New().AssetFunc(addGA)
+	e21_presents.PresetsEditingCustomizationTabs(c25)
+	mux.Handle(
+		e21_presents.PresetsEditingCustomizationTabsPath+"/",
+		c25,
+	)
+
 	return mux
 }

@@ -6,7 +6,9 @@ import (
 	"net/http"
 
 	"github.com/qor5/admin/presets"
+	"github.com/qor5/admin/presets/gorm2op"
 	"github.com/qor5/ui/tiptap"
+	v "github.com/qor5/ui/vuetify"
 	"github.com/qor5/web"
 	"github.com/sunfmin/reflectutils"
 	h "github.com/theplant/htmlgo"
@@ -141,5 +143,27 @@ func PresetsEditingCustomizationValidation(b *presets.Builder) (
 }
 
 const PresetsEditingCustomizationValidationPath = "/samples/presets-editing-customization-validation"
+
+// @snippet_end
+
+// @snippet_begin(PresetsEditingCustomizationTabsSample)
+
+func PresetsEditingCustomizationTabs(b *presets.Builder) {
+	db := setupDB()
+	b.URIPrefix(PresetsEditingCustomizationTabsPath).DataOperator(gorm2op.DataOperator(db))
+	mb := b.Model(&Company{})
+	mb.Listing("ID", "Name")
+	mb.Editing().AppendTabsPanelFunc(func(obj interface{}, ctx *web.EventContext) h.HTMLComponent {
+		c := obj.(*Company)
+		return h.Components(
+			v.VTab(h.Text("New Tab")),
+			v.VTabItem(
+				v.VListItemTitle(h.Text(fmt.Sprintf("Name: %s", c.Name))),
+			).Class("pa-4"),
+		)
+	})
+}
+
+const PresetsEditingCustomizationTabsPath = "/samples/presets-editing-customization-tabs"
 
 // @snippet_end

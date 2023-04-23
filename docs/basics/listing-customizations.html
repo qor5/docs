@@ -2,7 +2,7 @@
 
 <html>
 <head>
-<title>Building Admin - Keyboard Shortcut - QOR5 Document</title>
+<title>Building Admin - Listing Customizations - QOR5 Document</title>
 
 <meta name='description'>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -39,7 +39,7 @@
 </li>
 
 <li class='m-0'>
-<a href='basics/listing-customizations.html' id='basics/listing-customizations.html' onclick='window.storeMenuState("basics/listing-customizations.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Listing Customizations</a>
+<a href='basics/listing-customizations.html' id='basics/listing-customizations.html' onclick='window.storeMenuState("basics/listing-customizations.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-blue-500'>Listing Customizations</a>
 </li>
 
 <li class='m-0'>
@@ -83,7 +83,7 @@
 </li>
 
 <li class='m-0'>
-<a href='basics/shortcut.html' id='basics/shortcut.html' onclick='window.storeMenuState("basics/shortcut.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-blue-500'>Keyboard Shortcut</a>
+<a href='basics/shortcut.html' id='basics/shortcut.html' onclick='window.storeMenuState("basics/shortcut.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Keyboard Shortcut</a>
 </li>
 
 <li class='m-0'>
@@ -211,25 +211,105 @@
 </div>
 
 <div id='docMainBox' class='px-16 pb-12 pt-4 overflow-auto'>
-<h1 class='mb-8'>Keyboard Shortcut</h1>
+<h1 class='mb-8'>Listing Customizations</h1>
 
-<div class='border-t'><p>To add keyboard shortcut to a button:</p>
+<div class='border-t'><p>We get a default listing page with default columns, But default columns from database
+columns rarely fit the needs for any real application.</p>
 
-<p>Trigger the event by <a href="https://www.npmjs.com/package/vue-global-events" rel="nofollow">GlobalEvents</a>.
-You can configure your own keyboard event like <code>@keyup.ctrl.enter</code> to trigger the event.</p>
+<h2 id='change-list-columns-and-component-of-field'>Change List Columns and Component of Field
+<a href='#change-list-columns-and-component-of-field' class='anchor'></a>
+</h2>
+<p>Here is how do we change the columns of the list and how to we change the content display of a columns.</p>
 
-<p>Also you can setup the <code>filter</code> function to limit when this event can be triggered by shortcut.
-In the example, the event would only be triggered when <code>locals.shortCutEnabled</code> is opened.</p>
-
-<highlightjs :language='"go"' :code='"import (\n\t. \"github.com/qor5/ui/vuetify\"\n\t\"github.com/qor5/web\"\n\th \"github.com/theplant/htmlgo\"\n)\n\nfunc ShortCutSample(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\tclickEvent := \"locals.count += 1\"\n\tpr.Body = VContainer(\n\t\tweb.Scope(\n\t\t\tVRow(\n\t\t\t\tVCol(\n\t\t\t\t\tVRow(\n\t\t\t\t\t\tVBtn(\"count+1\").Attr(\"@click\", clickEvent).Class(\"mr-4\"),\n\t\t\t\t\t\th.Text(\"Shortcut: enter\"),\n\t\t\t\t\t).Class(\"mb-10\"),\n\t\t\t\t\tVRow(\n\t\t\t\t\t\tVBtn(\"toggle shortcut\").Attr(\"@click\", \"locals.shortCutEnabled = !locals.shortCutEnabled\"),\n\t\t\t\t\t),\n\t\t\t\t),\n\t\t\t\tVCol(\n\t\t\t\t\tVCard(\n\t\t\t\t\t\tVCardTitle(h.Text(\"Shortcut Enabled\")),\n\t\t\t\t\t\tVCardText().Attr(\"v-text\", \"locals.shortCutEnabled\"),\n\t\t\t\t\t).Class(\"mb-10\"),\n\n\t\t\t\t\tVCard(\n\t\t\t\t\t\tVCardTitle(h.Text(\"Count\")),\n\t\t\t\t\t\tVCardText().Attr(\"v-text\", \"locals.count\"),\n\t\t\t\t\t),\n\t\t\t\t),\n\t\t\t).Class(\"mt-10\"),\n\t\t\t// Add shortcut for this button. only available when drawer is opened\n\t\t\tweb.GlobalEvents().Attr(\":filter\", `(event, handler, eventName) =\u003e locals.shortCutEnabled == true`).Attr(\"@keydown.enter\", clickEvent),\n\t\t).Init(`{ shortCutEnabled: true, count: 0 }`).\n\t\t\tVSlot(\"{ locals }\"),\n\t)\n\treturn\n}\n\nvar ShortCutSamplePB = web.Page(ShortCutSample)\n\nconst ShortCutSamplePath = \"/samples/shortcut-sample\"\n"'></highlightjs>
+<highlightjs :language='"go"' :code='"\ntype Company struct {\n\tID   int\n\tName string\n}\n\nfunc PresetsListingCustomizationFields(b *presets.Builder) (\n\tcust *presets.ModelBuilder,\n\tcl *presets.ListingBuilder,\n\tce *presets.EditingBuilder,\n\tdb *gorm.DB,\n) {\n\tcust, db = PresetsHelloWorld(b)\n\tb.URIPrefix(PresetsListingCustomizationFieldsPath)\n\n\tcl = cust.Listing(\"ID\", \"Name\", \"Company\", \"Email\").\n\t\tSearchColumns(\"name\", \"email\").SelectableColumns(true)\n\tcl.Field(\"Company\").ComponentFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) h.HTMLComponent {\n\t\tc := obj.(*Customer)\n\t\tvar comp Company\n\t\tif c.CompanyID == 0 {\n\t\t\treturn h.Td()\n\t\t}\n\n\t\tdb.First(\u0026comp, \"id = ?\", c.CompanyID)\n\t\treturn h.Td(\n\t\t\th.A().Text(comp.Name).\n\t\t\t\tAttr(\"@click\",\n\t\t\t\t\tweb.POST().EventFunc(actions.Edit).\n\t\t\t\t\t\tQuery(presets.ParamID, fmt.Sprint(comp.ID)).\n\t\t\t\t\t\tURL(PresetsListingCustomizationFieldsPath+\"/companies\").\n\t\t\t\t\t\tGo()),\n\t\t\th.Text(\"-\"),\n\t\t\th.A().Text(\"(Open in Dialog)\").\n\t\t\t\tAttr(\"@click\",\n\t\t\t\t\tweb.POST().EventFunc(actions.Edit).\n\t\t\t\t\t\tQuery(presets.ParamID, fmt.Sprint(comp.ID)).\n\t\t\t\t\t\tQuery(presets.ParamOverlay, actions.Dialog).\n\t\t\t\t\t\tURL(PresetsListingCustomizationFieldsPath+\"/companies\").\n\t\t\t\t\t\tGo(),\n\t\t\t\t),\n\t\t)\n\t})\n\n\tce = cust.Editing(\"Name\", \"CompanyID\")\n\n\tcust.RegisterEventFunc(\"updateCompanyList\", func(ctx *web.EventContext) (r web.EventResponse, err error) {\n\t\tcompanyID := ctx.QueryAsInt(presets.ParamOverlayUpdateID)\n\t\tr.UpdatePortals = append(r.UpdatePortals, \u0026web.PortalUpdate{\n\t\t\tName: \"companyListPortal\",\n\t\t\tBody: companyList(ctx, db, companyID),\n\t\t})\n\t\treturn\n\t})\n\n\tce.Field(\"CompanyID\").ComponentFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) h.HTMLComponent {\n\t\tc := obj.(*Customer)\n\t\treturn web.Portal(companyList(ctx, db, c.CompanyID)).Name(\"companyListPortal\")\n\t})\n\n\tcomp := b.Model(\u0026Company{})\n\tcomp.Editing().ValidateFunc(func(obj interface{}, ctx *web.EventContext) (err web.ValidationErrors) {\n\t\tc := obj.(*Company)\n\t\tif len(c.Name) \u003c 5 {\n\t\t\terr.GlobalError(\"name must longer than 5\")\n\t\t}\n\t\treturn\n\t})\n\n\treturn\n}\n\nfunc companyList(ctx *web.EventContext, db *gorm.DB, companyID int) h.HTMLComponent {\n\tmsgr := i18n.MustGetModuleMessages(ctx.R, presets.ModelsI18nModuleKey, Messages_en_US).(*Messages)\n\tvar comps []Company\n\tdb.Find(\u0026comps)\n\treturn h.Div(\n\t\tv.VSelect().\n\t\t\tLabel(msgr.CustomersCompanyID).\n\t\t\tItems(comps).\n\t\t\tItemText(\"Name\").\n\t\t\tItemValue(\"ID\").\n\t\t\tValue(companyID).\n\t\t\tFieldName(\"CompanyID\"),\n\n\t\th.A().Text(\"Add Company\").Attr(\"@click\",\n\t\t\tweb.POST().\n\t\t\t\tURL(PresetsListingCustomizationFieldsPath+\"/companies\").\n\t\t\t\tEventFunc(actions.New).\n\t\t\t\tQuery(presets.ParamOverlay, actions.Dialog).\n\t\t\t\tQuery(presets.ParamOverlayAfterUpdateScript,\n\t\t\t\t\tweb.POST().EventFunc(\"updateCompanyList\").Go()).\n\t\t\t\tGo(),\n\t\t),\n\t)\n}\n\nconst PresetsListingCustomizationFieldsPath = \"/samples/presets-listing-customization-fields\"\n"'></highlightjs>
 
 <div>
 <div class='demo'>
-<a href='/samples/shortcut-sample' target='_blank'>Check the demo</a>
+<a href='/samples/presets-listing-customization-fields/customers' target='_blank'>Check the demo</a>
  | 
-<a href='https://github.com/qor5/docs/tree/main/docsrc/examples/e00_basics/shortcut.go' target='_blank'>Source on GitHub</a>
+<a href='https://github.com/qor5/docs/tree/main/docsrc/examples/e21_presents/listing.go' target='_blank'>Source on GitHub</a>
 </div>
 </div>
+<p>What we did with above code:</p>
+
+<ul>
+<li>Added a new field to listing table that not exists on the struct <code>Customer</code></li>
+<li>Define the listing display for the listing table by using the <code>Td()</code> and fetch the company data from a different table with associated column value</li>
+<li>Link the company name in the listing to link the edit drawer of company</li>
+<li>Limit the edit drawer field to only have <code>Name</code> and <code>CompanyID</code></li>
+<li>Made the <code>CompanyID</code> field a vuetify <code>VSelect</code> component</li>
+<li>Add companies as a new navigation item, that you can manage companies data</li>
+<li><code>.SearchColumns(&#34;name&#34;, &#34;email&#34;)</code> configure the top navigation search box searches which columns with sql like operation</li>
+</ul>
+
+<h2 id='filters-panel'>Filters Panel
+<a href='#filters-panel' class='anchor'></a>
+</h2>
+<p>Here we continue to add filters for the list</p>
+
+<highlightjs :language='"go"' :code='"\nfunc PresetsListingCustomizationFilters(b *presets.Builder) (\n\tcust *presets.ModelBuilder,\n\tcl *presets.ListingBuilder,\n\tce *presets.EditingBuilder,\n\tdb *gorm.DB,\n) {\n\tcust, cl, ce, db = PresetsListingCustomizationFields(b)\n\tb.URIPrefix(PresetsListingCustomizationFiltersPath)\n\n\tcl.FilterDataFunc(func(ctx *web.EventContext) vuetifyx.FilterData {\n\t\tmsgr := i18n.MustGetModuleMessages(ctx.R, presets.ModelsI18nModuleKey, Messages_en_US).(*Messages)\n\t\tvar companyOptions []*vuetifyx.SelectItem\n\t\terr := db.Model(\u0026Company{}).Select(\"name as text, id as value\").Scan(\u0026companyOptions).Error\n\t\tif err != nil {\n\t\t\tpanic(err)\n\t\t}\n\n\t\treturn []*vuetifyx.FilterItem{\n\t\t\t{\n\t\t\t\tKey:          \"created\",\n\t\t\t\tLabel:        msgr.CustomersFilterCreated,\n\t\t\t\tItemType:     vuetifyx.ItemTypeDatetimeRange,\n\t\t\t\tSQLCondition: `cast(strftime(&#39;%%s&#39;, created_at) as INTEGER) %s ?`,\n\t\t\t},\n\t\t\t{\n\t\t\t\tKey:          \"approved\",\n\t\t\t\tLabel:        msgr.CustomersFilterApproved,\n\t\t\t\tItemType:     vuetifyx.ItemTypeDatetimeRange,\n\t\t\t\tSQLCondition: `cast(strftime(&#39;%%s&#39;, approved_at) as INTEGER) %s ?`,\n\t\t\t},\n\t\t\t{\n\t\t\t\tKey:          \"name\",\n\t\t\t\tLabel:        msgr.CustomersFilterName,\n\t\t\t\tItemType:     vuetifyx.ItemTypeString,\n\t\t\t\tSQLCondition: `name %s ?`,\n\t\t\t},\n\t\t\t{\n\t\t\t\tKey:          \"company\",\n\t\t\t\tLabel:        msgr.CustomersFilterCompany,\n\t\t\t\tItemType:     vuetifyx.ItemTypeSelect,\n\t\t\t\tSQLCondition: `company_id %s ?`,\n\t\t\t\tOptions:      companyOptions,\n\t\t\t},\n\t\t}\n\t})\n\treturn\n}\n\nconst PresetsListingCustomizationFiltersPath = \"/samples/presets-listing-customization-filters\"\n"'></highlightjs>
+
+<div>
+<div class='demo'>
+<a href='/samples/presets-listing-customization-filters/customers' target='_blank'>Check the demo</a>
+ | 
+<a href='https://github.com/qor5/docs/tree/main/docsrc/examples/e21_presents/listing.go' target='_blank'>Source on GitHub</a>
+</div>
+</div>
+<p><code>FilterDataFunc</code> of <code>presets.ListingBuilder</code> setup to have the filter menu or not.
+And how it will combine the sql conditions when doing query. the filter menu will
+change the url query strings with the filter values, and for date type in url query
+string it uses unix epoch int value. So the sql condition has to convert the database
+column data to unix epoch in order to compare with the value in url query string.</p>
+
+<p>Current we support these types</p>
+
+<ul>
+<li><code>ItemTypeDate</code>: set it as a date filter item, which have many switches to support date and date range</li>
+<li><code>ItemTypeNumber</code>: set it to a number filter item, which have switches to support number and number range</li>
+<li><code>ItemTypeString</code>: set it to a string filter item, which have contains, and match exactly</li>
+<li><code>ItemTypeSelect</code>: set it to a select filter item, which have a options of values for selection</li>
+</ul>
+
+<h2 id='filter-tabs'>Filter Tabs
+<a href='#filter-tabs' class='anchor'></a>
+</h2>
+<p>Filter tabs is based on Filters configuration. But display as tabs above the list,
+You can think it as a short cut that used very frequently to filter something instead of
+use the pop up panel of filter.</p>
+
+<highlightjs :language='"go"' :code='"\nfunc PresetsListingCustomizationTabs(b *presets.Builder) (\n\tcust *presets.ModelBuilder,\n\tcl *presets.ListingBuilder,\n\tce *presets.EditingBuilder,\n\tdb *gorm.DB,\n) {\n\tcust, cl, ce, db = PresetsListingCustomizationFilters(b)\n\tb.URIPrefix(PresetsListingCustomizationTabsPath)\n\n\tcl.FilterTabsFunc(func(ctx *web.EventContext) []*presets.FilterTab {\n\t\tvar c Company\n\t\tdb.First(\u0026c)\n\t\treturn []*presets.FilterTab{\n\t\t\t{\n\t\t\t\tLabel: \"Felix\",\n\t\t\t\tQuery: url.Values{\"name.ilike\": []string{\"felix\"}},\n\t\t\t},\n\t\t\t{\n\t\t\t\tLabel: \"The Plant\",\n\t\t\t\tQuery: url.Values{\"company\": []string{fmt.Sprint(c.ID)}},\n\t\t\t},\n\t\t\t{\n\t\t\t\tLabel: \"Approved\",\n\t\t\t\tQuery: url.Values{\"approved.gt\": []string{fmt.Sprint(1)}},\n\t\t\t},\n\t\t\t{\n\t\t\t\tLabel: \"All\",\n\t\t\t\tQuery: url.Values{\"all\": []string{\"1\"}},\n\t\t\t},\n\t\t}\n\t})\n\treturn\n}\n\nconst PresetsListingCustomizationTabsPath = \"/samples/presets-listing-customization-tabs\"\n"'></highlightjs>
+
+<div>
+<div class='demo'>
+<a href='/samples/presets-listing-customization-tabs/customers' target='_blank'>Check the demo</a>
+ | 
+<a href='https://github.com/qor5/docs/tree/main/docsrc/examples/e21_presents/listing.go' target='_blank'>Source on GitHub</a>
+</div>
+</div>
+<p><code>Query</code> string name must be from the Filter&#39;s item configuration key field.</p>
+
+<h2 id='bulk-actions'>Bulk Actions
+<a href='#bulk-actions' class='anchor'></a>
+</h2>
+<p>Bulk actions makes the list row show checkboxes, and you can select one or many rows,
+Later do an bulk update data for all of them.</p>
+
+<p>Here is how to use it:</p>
+
+<highlightjs :language='"go"' :code='"\nfunc PresetsListingCustomizationBulkActions(b *presets.Builder) (\n\tcust *presets.ModelBuilder,\n\tcl *presets.ListingBuilder,\n\tce *presets.EditingBuilder,\n\tdb *gorm.DB,\n) {\n\tcust, cl, ce, db = PresetsListingCustomizationTabs(b)\n\tb.URIPrefix(PresetsListingCustomizationBulkActionsPath)\n\n\tcl.BulkAction(\"Approve\").Label(\"Approve\").\n\t\tUpdateFunc(func(selectedIds []string, ctx *web.EventContext) (err error) {\n\t\t\tcomment := ctx.R.FormValue(\"ApprovalComment\")\n\t\t\tif len(comment) \u003c 10 {\n\t\t\t\tctx.Flash = \"comment should larger than 10\"\n\t\t\t\treturn\n\t\t\t}\n\t\t\terr = db.Model(\u0026Customer{}).\n\t\t\t\tWhere(\"id IN (?)\", selectedIds).\n\t\t\t\tUpdates(map[string]interface{}{\"approved_at\": time.Now(), \"approval_comment\": comment}).Error\n\t\t\tif err != nil {\n\t\t\t\tctx.Flash = err.Error()\n\t\t\t}\n\t\t\treturn\n\t\t}).\n\t\tComponentFunc(func(selectedIds []string, ctx *web.EventContext) h.HTMLComponent {\n\t\t\tcomment := ctx.R.FormValue(\"ApprovalComment\")\n\t\t\terrorMessage := \"\"\n\t\t\tif ctx.Flash != nil {\n\t\t\t\terrorMessage = ctx.Flash.(string)\n\t\t\t}\n\t\t\treturn v.VTextField().\n\t\t\t\tFieldName(\"ApprovalComment\").\n\t\t\t\tValue(comment).\n\t\t\t\tLabel(\"Comment\").\n\t\t\t\tErrorMessages(errorMessage)\n\t\t})\n\n\tcl.BulkAction(\"Delete\").Label(\"Delete\").\n\t\tUpdateFunc(func(selectedIds []string, ctx *web.EventContext) (err error) {\n\t\t\terr = db.Where(\"id IN (?)\", selectedIds).Delete(\u0026Customer{}).Error\n\t\t\treturn\n\t\t}).\n\t\tComponentFunc(func(selectedIds []string, ctx *web.EventContext) h.HTMLComponent {\n\t\t\treturn h.Div().Text(fmt.Sprintf(\"Are you sure you want to delete %s ?\", selectedIds)).Class(\"title deep-orange--text\")\n\t\t})\n\n\treturn\n}\n\nconst PresetsListingCustomizationBulkActionsPath = \"/samples/presets-listing-customization-bulk-actions\"\n"'></highlightjs>
+
+<div>
+<div class='demo'>
+<a href='/samples/presets-listing-customization-bulk-actions/customers' target='_blank'>Check the demo</a>
+ | 
+<a href='https://github.com/qor5/docs/tree/main/docsrc/examples/e21_presents/listing.go' target='_blank'>Source on GitHub</a>
+</div>
+</div>
+<ul>
+<li><code>ComponentFunc</code> of the bulk action configure the component that will show to user to input after user clicked the bulk action button</li>
+<li><code>UpdateFunc</code> configure the logic that the bulk action execute</li>
+</ul>
 </div>
 </div>
 </div>

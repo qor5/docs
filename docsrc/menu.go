@@ -23,6 +23,7 @@ var DocTree = []interface{}{
 		Docs: []*docgo.DocBuilder{
 			// listing
 			basics.Listing,
+			basics.ListingCustomizations,
 			basics.Filter,
 			// editing
 			basics.EditingCustomizations,
