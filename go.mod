@@ -3,16 +3,16 @@ module github.com/qor5/docs
 go 1.19
 
 require (
-	github.com/biter777/countries v1.5.6
 	github.com/fatih/color v1.13.0
 	github.com/go-chi/chi v1.5.4
 	github.com/manifoldco/promptui v0.9.0
+	github.com/markbates/goth v1.76.0
 	github.com/ory/ladon v1.2.0
 	github.com/qor/oss v0.0.0-20210412121326-3c5583a62015
-	github.com/qor5/admin v0.0.0-20230309055501-c8d08dc6944b
+	github.com/qor5/admin v0.0.0-20230420031413-a0401013364a
 	github.com/qor5/ui v1.0.1-0.20230323061917-a88f4521ec30
 	github.com/qor5/web v1.2.4
-	github.com/qor5/x v1.2.1-0.20230308023320-5dd0a2f09c49
+	github.com/qor5/x v1.2.1-0.20230420023921-8f986dddfeaf
 	github.com/shurcooL/sanitized_anchor_name v1.0.0
 	github.com/sunfmin/reflectutils v1.0.3
 	github.com/theplant/docgo v0.0.15
@@ -25,6 +25,7 @@ require (
 )
 
 require (
+	cloud.google.com/go v0.67.0 // indirect
 	github.com/NYTimes/gziphandler v1.1.1 // indirect
 	github.com/aws/aws-sdk-go v1.38.62 // indirect
 	github.com/aymerick/douceur v0.2.0 // indirect
@@ -57,7 +58,6 @@ require (
 	github.com/jinzhu/now v1.1.5 // indirect
 	github.com/jmespath/go-jmespath v0.4.0 // indirect
 	github.com/lib/pq v1.10.7 // indirect
-	github.com/markbates/goth v1.76.0 // indirect
 	github.com/mattn/go-colorable v0.1.9 // indirect
 	github.com/mattn/go-isatty v0.0.14 // indirect
 	github.com/mattn/go-sqlite3 v1.14.16 // indirect

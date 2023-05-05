@@ -3,7 +3,6 @@ package admin
 import (
 	"net/http"
 
-	"github.com/biter777/countries"
 	"github.com/qor/oss/filesystem"
 	"github.com/qor5/admin/activity"
 	"github.com/qor5/admin/l10n"
@@ -87,24 +86,25 @@ func newPB() Config {
 
 	utils.Configure(b)
 	media_view.Configure(b, db)
+	ab := activity.New(b, db).SetCreatorContextKey(login.UserKey)
+	l10nBuilder := l10n.New()
+
 	pageBuilder := example.ConfigPageBuilder(db, "/admin/page_builder", ``, b.I18n())
-	pm := pageBuilder.Configure(b, db)
+	pm := pageBuilder.Configure(b, db, l10nBuilder, ab)
 	tm := pageBuilder.ConfigTemplate(b, db)
 	cm := pageBuilder.ConfigCategory(b, db)
 
-	ab := activity.New(b, db).SetCreatorContextKey(login.UserKey)
 	ab.RegisterModels(pm, tm, cm)
 
 	storage := filesystem.New(PublishDir)
 	publisher := publish.New(db, storage).WithPageBuilder(pageBuilder)
 	publish_view.Configure(b, db, ab, publisher, pm)
 
-	l10nBuilder := l10n.New()
 	l10nBuilder.
-		RegisterLocales(countries.International, "International", "International").
-		RegisterLocales(countries.China, "China", "China").
-		GetSupportLocalesFromRequestFunc(func(R *http.Request) []countries.CountryCode {
-			return l10nBuilder.GetSupportLocales()[:]
+		RegisterLocales("International", "International", "International").
+		RegisterLocales("China", "China", "China").
+		GetSupportLocaleCodesFromRequestFunc(func(R *http.Request) []string {
+			return l10nBuilder.GetSupportLocaleCodes()[:]
 		})
 	l10n_view.Configure(b, db, l10nBuilder, ab, pm)
 
