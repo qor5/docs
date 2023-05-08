@@ -2,17 +2,18 @@ package e00_basics
 
 import (
 	"context"
+	"os"
 
 	"github.com/qor5/admin/activity"
 	"github.com/qor5/admin/presets"
-	"gorm.io/driver/sqlite"
+	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
 func NewActivitySample() {
 	// @snippet_begin(NewActivitySample)
 	presetsBuilder := presets.New()
-	db, err := gorm.Open(sqlite.Open("/tmp/activity.db"), &gorm.Config{})
+	db, err := gorm.Open(postgres.Open(os.Getenv("DBURL")), &gorm.Config{})
 	if err != nil {
 		panic(err)
 	}

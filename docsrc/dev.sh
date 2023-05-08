@@ -18,6 +18,7 @@ do
   gi=$((gi+1))
 done
 
+export DBURL="user=docs password=docs dbname=docs sslmode=disable host=localhost port=6532 TimeZone=Asia/Tokyo"
 go run ./build/main.go
 
 function docsRestart() {

@@ -4,6 +4,7 @@ package e21_presents
 import (
 	"fmt"
 	"net/url"
+	"os"
 	"time"
 
 	"github.com/qor5/admin/presets"
@@ -15,7 +16,7 @@ import (
 	"github.com/qor5/x/i18n"
 	h "github.com/theplant/htmlgo"
 	"golang.org/x/text/language"
-	"gorm.io/driver/sqlite"
+	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 )
@@ -48,7 +49,7 @@ func init() {
 
 func setupDB() (db *gorm.DB) {
 	var err error
-	db, err = gorm.Open(sqlite.Open("/tmp/my.db"), &gorm.Config{})
+	db, err = gorm.Open(postgres.Open(os.Getenv("DBURL")), &gorm.Config{})
 	if err != nil {
 		panic(err)
 	}
