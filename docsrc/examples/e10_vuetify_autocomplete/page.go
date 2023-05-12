@@ -73,7 +73,7 @@ var pagingRes *vuetifyx.AutocompleteDataSource
 var ExamplePreset *presets.Builder
 
 func init() {
-	db, err := gorm.Open(postgres.Open(os.Getenv("DBURL")), &gorm.Config{})
+	db, err := gorm.Open(postgres.Open(os.Getenv("DB_PARAMS")), &gorm.Config{})
 	if err != nil {
 		panic(err)
 	}

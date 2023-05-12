@@ -13,7 +13,7 @@ import (
 func NewActivitySample() {
 	// @snippet_begin(NewActivitySample)
 	presetsBuilder := presets.New()
-	db, err := gorm.Open(postgres.Open(os.Getenv("DBURL")), &gorm.Config{})
+	db, err := gorm.Open(postgres.Open(os.Getenv("DB_PARAMS")), &gorm.Config{})
 	if err != nil {
 		panic(err)
 	}

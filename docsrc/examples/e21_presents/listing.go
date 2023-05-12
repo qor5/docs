@@ -49,7 +49,7 @@ func init() {
 
 func setupDB() (db *gorm.DB) {
 	var err error
-	db, err = gorm.Open(postgres.Open(os.Getenv("DBURL")), &gorm.Config{})
+	db, err = gorm.Open(postgres.Open(os.Getenv("DB_PARAMS")), &gorm.Config{})
 	if err != nil {
 		panic(err)
 	}
