@@ -10,7 +10,7 @@ require (
 	github.com/ory/ladon v1.2.0
 	github.com/qor/oss v0.0.0-20210412121326-3c5583a62015
 	github.com/qor5/admin v0.0.0-20230420031413-a0401013364a
-	github.com/qor5/ui v1.0.1-0.20230323061917-a88f4521ec30
+	github.com/qor5/ui v1.0.1-0.20230515083007-a78fdeee4431
 	github.com/qor5/web v1.2.4
 	github.com/qor5/x v1.2.1-0.20230420023921-8f986dddfeaf
 	github.com/shurcooL/sanitized_anchor_name v1.0.0
