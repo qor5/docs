@@ -732,7 +732,12 @@ func SamplesHandler(prefix string) http.Handler {
 		c24,
 	)
 
-	// TODO: c25, Merge L10n docs
+	c25 := presets.New().AssetFunc(addGA)
+	example_basics.LocalizationExampleMock(c25)
+	mux.Handle(
+		example_basics.LocalizationExamplePath+"/",
+		c25,
+	)
 
 	c26 := presets.New().AssetFunc(addGA)
 	example_basics.InternationalizationExample(c26)
