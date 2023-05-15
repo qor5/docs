@@ -2,7 +2,7 @@
 
 <html>
 <head>
-<title>Web Application - Page Func and Event Func - QOR5 Document</title>
+<title>Building Admin - SEO - QOR5 Document</title>
 
 <meta name='description'>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -91,7 +91,7 @@
 </li>
 
 <li class='m-0'>
-<a href='seo.html' id='seo.html' onclick='window.storeMenuState("seo.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>SEO</a>
+<a href='seo.html' id='seo.html' onclick='window.storeMenuState("seo.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-blue-500'>SEO</a>
 </li>
 
 <li class='m-0'>
@@ -109,7 +109,7 @@
 <li class='cursor-default px-4 py-1 truncate break-words w-64 m-0'>Web Application</li>
 
 <li class='m-0'>
-<a href='basics/page-func-and-event-func.html' id='basics/page-func-and-event-func.html' onclick='window.storeMenuState("basics/page-func-and-event-func.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-blue-500'>Page Func and Event Func</a>
+<a href='basics/page-func-and-event-func.html' id='basics/page-func-and-event-func.html' onclick='window.storeMenuState("basics/page-func-and-event-func.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Page Func and Event Func</a>
 </li>
 
 <li class='m-0'>
@@ -211,39 +211,123 @@
 </div>
 
 <div id='docMainBox' class='px-16 pb-12 pt-4 overflow-auto'>
-<h1 class='mb-8'>Page Func and Event Func</h1>
+<h1 class='mb-8'>SEO</h1>
 
-<div class='border-t'><p><code>PageFunc</code> is used to build a web page, <code>EventFunc</code> is called when user interact with the page, For example button or link clicks.</p>
+<div class='border-t'><p>The SEO library facilitates the optimization of Search Engine results by managing and injecting dynamic data into HTML tags.</p>
+<h2><a name="usage" class="anchor" href="#usage" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+Usage</h2>
 
-<highlightjs :language='"go"' :code='"type PageFunc func(ctx *EventContext) (r PageResponse, err error)\ntype EventFunc func(ctx *EventContext) (r EventResponse, err error)\n"'></highlightjs>
-<p><code>web.Page(...)</code> converts multiple <code>EventFunc</code>s along with one <code>PageFunc</code> to a <code>http.Handler</code>,
-event func needs a name to be used by <code>web.POST().EventFunc(name).Go()</code> to attach to an html element that post http request to call the <code>EventFunc</code> when vue event like <code>@click</code> happens</p>
-<p>Here is a hello world with more interactions. User click the button will reload the page with latest time</p>
+<p>Initialize a <code>Collection</code> instance. The <code>Collection</code> manages all the registered models and hold global seo settings</p>
 
-<highlightjs :language='"go"' :code='"import (\n\t\"time\"\n\n\t\"github.com/qor5/web\"\n\t. \"github.com/theplant/htmlgo\"\n)\n\nfunc HelloWorldReload(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\tpr.Body = Div(\n\t\tH1(\"Hello World\"),\n\t\tText(time.Now().Format(time.RFC3339Nano)),\n\t\tButton(\"Reload Page\").Attr(\"@click\", web.GET().\n\t\t\tEventFunc(reloadEvent).\n\t\t\tGo()),\n\t)\n\treturn\n}\n\nfunc update(ctx *web.EventContext) (er web.EventResponse, err error) {\n\ter.Reload = true\n\treturn\n}\n\nconst reloadEvent = \"reload\"\n\nvar HelloWorldReloadPB = web.Page(HelloWorldReload).\n\tEventFunc(reloadEvent, update)\n\nconst HelloWorldReloadPath = \"/samples/hello_world_reload\"\n"'></highlightjs>
+<div class="highlight highlight-go"><pre>collection := seo.NewCollection()
 
-<div>
-<div class='demo'>
-<a href='/samples/hello_world_reload' target='_blank'>Check the demo</a>
- | 
-<a href='https://github.com/qor5/docs/tree/main/docsrc/examples/e00_basics/hello-world-reload.go' target='_blank'>Source on GitHub</a>
-</div>
-</div>
-<p>Note that you have to mount the <code>web.Page(...)</code> instance to http.ServeMux with a path to be able to access the <code>PageFunc</code> in your browser, when mounting you can also wrap the <code>PageFunc</code> with middleware, which is <code>func(in PageFunc) (out PageFunc)</code> a func that take a page func and do some wrapping and return a new page func</p>
+// Turn off the default inherit the upper level SEO data when the current SEO data is missing
+collection.SetInherited(false)
+</pre></div>
+<h3><a name="register-models-to-seo" class="anchor" href="#register-models-to-seo" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+Register models to SEO</h3>
 
-<highlightjs :language='"go"' :code='"mux.Handle(\n\te00_basics.HelloWorldReloadPath,\n\te00_basics.HelloWorldReloadPB.Wrap(demoLayout),\n)"'></highlightjs>
-<p><code>wb.Page(...)</code> convert any <code>PageFunc</code> into <code>http.Handler</code>, outside you can wrap any middleware that can use on Go standard <code>http.Handler</code>.</p>
-<p>In case you don&#39;t know what is a http.Handler middleware,
-It&#39;s a function that takes http.Handler as input, might also with other parameters,
-And also return a new http.Handler,
-<a href="https://github.com/nytimes/gziphandler" rel="nofollow">gziphandler</a> is an example.</p>
-<p>But What the heck is <code>demoLayout</code> there?
-Well it&#39;s a <code>PageFunc</code> middleware. That takes an <code>PageFunc</code> as input,
-wrap it&#39;s <code>PageResponse</code> with layout html and return a new <code>PageFunc</code>.
-If you follow the code to write your own <code>PageFunc</code>,
-The button click might not work without this.
-Since there is no layout to import needed javascript to make this work.
-continue to next page to checkout how to add necessary javascript, css etc to make the demo work.</p>
+<div class="highlight highlight-go"><pre>// Register mutiple SEO by name
+collection.RegisterSEOByNames(&#34;Product&#34;, &#34;Announcement&#34;)
+
+// Register a SEO by model
+type Product struct{
+	Name  string
+	Setting Setting
+}
+collection.RegisterSEO(&amp;Product{})
+</pre></div>
+<h3><a name="remove-models-from-seo" class="anchor" href="#remove-models-from-seo" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+Remove models from SEO</h3>
+
+<pre><code>// Remove by struct
+collection.RemoveSEO(&amp;Product{})
+// Remove by name
+collection.RemoveSEO(&#34;Not Found&#34;)
+</code></pre>
+<h2><a name="configuration" class="anchor" href="#configuration" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+Configuration</h2>
+<h3><a name="change-the-default-global-seo-name" class="anchor" href="#change-the-default-global-seo-name" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+Change the default global SEO name</h3>
+
+<div class="highlight highlight-go"><pre>collection.SetGlobalName(&#34;My Global SEO&#34;)
+</pre></div>
+<h3><a name="change-the-default-context-db-key" class="anchor" href="#change-the-default-context-db-key" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+Change the default context db key</h3>
+
+<div class="highlight highlight-go"><pre>collection.SetDBContextKey(&#34;My DB&#34;)
+</pre></div>
+<h3><a name="change-the-default-seo-name" class="anchor" href="#change-the-default-seo-name" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+Change the default SEO name</h3>
+
+<div class="highlight highlight-go"><pre>collection.RegisterSEO(&amp;Product{}).SetName(&#34;My Product&#34;)
+</pre></div>
+<h3><a name="register-customized-variables" class="anchor" href="#register-customized-variables" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+Register customized variables</h3>
+
+<div class="highlight highlight-go"><pre>collection.RegisterSEO(&amp;Product{}).
+	RegisterContextVariables(&#34;og:image&#34;, func(obj interface{}, _ *Setting, _ *http.Request) string {
+		// this will render &#34;og:image&#34; with the value of the object in the current request
+		return obj.image.url
+	}).
+	RegisterContextVariables(&#34;Name&#34;, func(obj interface{}, _ *Setting, _ *http.Request) string {
+		return obj.Name
+	})
+</pre></div>
+<h3><a name="register-setting-variable" class="anchor" href="#register-setting-variable" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+Register setting variable</h3>
+
+<p>This variable will be saved in the database and available as a global variable while editing SEO settings.</p>
+
+<div class="highlight highlight-go"><pre>collection.RegisterSEO(&amp;Product{}).RegisterSettingVaribles(struct{ProductTag string}{})
+</pre></div>
+<h3><a name="render-seo-html-data" class="anchor" href="#render-seo-html-data" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+Render SEO html data</h3>
+
+<div class="highlight highlight-go"><pre>// Render Global SEO
+collection.RenderGlobal(request)
+
+// Render SEO by name
+collection.Render(&#34;product&#34;, request)
+
+// Render SEO by model
+collection.Render(Product{}, request)
+</pre></div>
+<h2><a name="customization" class="anchor" href="#customization" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+Customization</h2>
+<p>You can customize your SEO settings by implementing the interface and adding functions such as l10n and publish.</p>
+
+<highlightjs :language='"go"' :code='"type QorSEOSettingInterface interface {\n\tGetName() string\n\tSetName(string)\n\tGetSEOSetting() Setting\n\tSetSEOSetting(Setting)\n\tGetVariables() Variables\n\tSetVariables(Variables)\n\tGetTitle() string\n\tGetDescription() string\n\tGetKeywords() string\n\tGetOpenGraphURL() string\n\tGetOpenGraphType() string\n\tGetOpenGraphImageURL() string\n\tGetOpenGraphImageFromMediaLibrary() media_library.MediaBox\n\tGetOpenGraphMetadata() []OpenGraphMetadata\n}\n"'></highlightjs>
+<p>Suppose <code>MySEOSetting</code> implemented the above interface</p>
+
+<div class="highlight highlight-go"><pre>type MySEOSetting struct{
+		QorSEOSetting
+		// publish
+		// l10n
+}
+</pre></div>
+
+<p>Use <code>SetSettingModel</code> function to set it</p>
+
+<div class="highlight highlight-go"><pre>collection.SetSettingModel(&amp;MySEOSetting{})
+</pre></div>
+
+<h2>Example</h2>
+
+<highlightjs :language='"go"' :code='"var SeoCollection *seo.Collection\n\nfunc ConfigureSeo(b *presets.Builder, db *gorm.DB) {\n\tSeoCollection = seo.NewCollection()\n\tSeoCollection.RegisterSEO(\u0026models.Post{}).RegisterContextVariables(\n\t\t\"Title\",\n\t\tfunc(object interface{}, _ *seo.Setting, _ *http.Request) string {\n\t\t\tif article, ok := object.(models.Post); ok {\n\t\t\t\treturn article.Title\n\t\t\t}\n\t\t\treturn \"\"\n\t\t},\n\t).RegisterSettingVaribles(struct{ Test string }{})\n\tSeoCollection.RegisterSEOByNames(\"Not Found\", \"Internal Server Error\")\n\tSeoCollection.Configure(b, db)\n}\n"'></highlightjs>
+<h2><a name="definition" class="anchor" href="#definition" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Definition</h2>
+
+<p><code>Collection</code> manages all the registered models and hold global seo settings.</p>
+
+<highlightjs :language='"go"' :code='"type Collection struct {\n\tregisteredSEO []*SEO\n\tglobalName    string      //default name is GlobalSEO\n\tinherited     bool        //default is true. the order is model seo setting, system seo setting, global seo setting\n\tdbContextKey  interface{} // get db from context\n\tsettingModel  interface{} // db model\n}\n"'></highlightjs>
+<p><code>SEO</code> provides system-level default page matadata.</p>
+
+<highlightjs :language='"go"' :code='"type SEO struct {\n\tname             string\n\tmodelTyp         reflect.Type\n\tcontextVariables map[string]contextVariablesFunc // fetch context variables from request\n\tsettingVariables interface{}                     // fetch setting variables from db\n}\n"'></highlightjs>
+<p>You can use seo setting at the model level, but you need to register the model to the system SEO</p>
+
+<highlightjs :language='"go"' :code='"type Product struct {\n\tName string\n\tSEO  Setting\n}\n"'></highlightjs>
+
+<highlightjs :language='"go"' :code='"collection.RegisterSEO(\u0026Product{})"'></highlightjs>
 </div>
 </div>
 </div>
