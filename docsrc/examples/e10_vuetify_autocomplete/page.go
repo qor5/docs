@@ -143,7 +143,7 @@ func VuetifyAutocomplete(ctx *web.EventContext) (pr web.PageResponse, err error)
 			FieldName("Values2").
 			Label("Load options from data source").
 			Sorting(true).
-			SetDataSource(pagingRes),
+			SetDataSource(pagingRes).ChipColor("red"),
 	)
 	return
 }
