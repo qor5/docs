@@ -10,11 +10,12 @@ import (
 	l10n_view "github.com/qor5/admin/l10n/views"
 	"github.com/qor5/admin/presets"
 	"github.com/qor5/admin/presets/gorm2op"
+	"gorm.io/gorm"
 )
 
 // @snippet_begin(L10nModelExample)
 type L10nModel struct {
-	ID    uint
+	gorm.Model
 	Title string
 
 	l10n.Locale
@@ -60,6 +61,7 @@ func LocalizationExampleMock(b *presets.Builder) {
 	// @snippet_begin(L10nConfigureExample)
 	mb := b.Model(&L10nModel{}).URIName("l10n-models")
 	l10n_view.Configure(b, DB, l10nBuilder, nil, mb)
+	mb.Listing("ID", "Title", "Locale")
 	// @snippet_end
 	// @snippet_end
 
