@@ -302,6 +302,8 @@ github.com/qor5/ui v1.0.1-0.20230515062823-c4a7a2e6c94e h1:f5POTr3VQZg1Hr5CqOa4J
 github.com/qor5/ui v1.0.1-0.20230515062823-c4a7a2e6c94e/go.mod h1:bgBqjIytHRdfTsiZea8df/ltAcyQyuHiLbecgo8Iwgw=
 github.com/qor5/ui v1.0.1-0.20230515083007-a78fdeee4431 h1:VQvvpHEvp/D3kpz2XHofFfwN/fYIBYWwAa6tRe6TtrU=
 github.com/qor5/ui v1.0.1-0.20230515083007-a78fdeee4431/go.mod h1:bgBqjIytHRdfTsiZea8df/ltAcyQyuHiLbecgo8Iwgw=
+github.com/qor5/ui v1.0.1-0.20230518014109-9c84f1e3851f h1:QeNdEOKgMnNNO3LjPu7ffk58IaHBXgdrq3IysIxi/ec=
+github.com/qor5/ui v1.0.1-0.20230518014109-9c84f1e3851f/go.mod h1:bgBqjIytHRdfTsiZea8df/ltAcyQyuHiLbecgo8Iwgw=
 github.com/qor5/web v1.2.4 h1:CsChErtiYgaMA7CkqkC7nP2YEAOjDZ7JNrrUJTYGNLc=
 github.com/qor5/web v1.2.4/go.mod h1:4VXydGmy5Uwz8rEeKjcmCetciJo8TpU0mnN7Ca5kMR0=
 github.com/qor5/x v1.2.1-0.20230420023921-8f986dddfeaf h1:vbRMFexTTIUBpWR/0HjB4A4BEijN3rO/fYVmFoj3/PQ=
