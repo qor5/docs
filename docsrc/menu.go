@@ -44,6 +44,7 @@ var DocTree = []interface{}{
 			basics.SEO,
 			basics.Activity,
 			basics.Worker,
+			basics.L10n,
 		},
 	},
 

@@ -102,6 +102,10 @@
 <a href='basics/worker.html' id='basics/worker.html' onclick='window.storeMenuState("basics/worker.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Worker</a>
 </li>
 
+<li class='m-0'>
+<a href='basics/l10n.html' id='basics/l10n.html' onclick='window.storeMenuState("basics/l10n.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Localization</a>
+</li>
+
 <li class='cursor-default px-4 py-1 truncate break-words w-64 m-0'>Web Application</li>
 
 <li class='m-0'>
@@ -251,7 +255,8 @@ Basic Usage</h2>
 <highlightjs :language='"go"' :code='"loginBuilder.Recaptcha(enable, login.RecaptchaConfig{\n\tSiteKey:   \"SiteKey\",\n\tSecretKey: \"SecretKey\",\n})"'></highlightjs>
 <h2><a name="oauth-login" class="anchor" href="#oauth-login" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>OAuth Login</h2>
 
-<p>OAuth login does not require a <code>UserModel</code>. If there is a <code>UserModel</code>, it needs to implement the <a href="https://github.com/qor5/x/blob/8f986dddfeaf235fd42bb3361717551d06695517/login/oauth_user.go#L5" rel="nofollow">OAuthUser</a> interface. There is a default implementation - <a href="https://github.com/qor5/x/blob/8f986dddfeaf235fd42bb3361717551d06695517/login/oauth_user.go#L13" rel="nofollow">OAuthInfo</a>.</p>
+<p>OAuth login is based on <a href="https://github.com/markbates/goth" rel="nofollow">goth</a>.<br>
+OAuth login does not require a <code>UserModel</code>. If there is a <code>UserModel</code>, it needs to implement the <a href="https://github.com/qor5/x/blob/8f986dddfeaf235fd42bb3361717551d06695517/login/oauth_user.go#L5" rel="nofollow">OAuthUser</a> interface. There is a default implementation - <a href="https://github.com/qor5/x/blob/8f986dddfeaf235fd42bb3361717551d06695517/login/oauth_user.go#L13" rel="nofollow">OAuthInfo</a>.</p>
 
 <highlightjs :language='"go"' :code='"type User struct {\n\tgorm.Model\n\n\tlogin.OAuthInfo\n}"'></highlightjs>
 <h2><a name="session-secure" class="anchor" href="#session-secure" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Session Secure</h2>
