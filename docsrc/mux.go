@@ -733,10 +733,17 @@ func SamplesHandler(prefix string) http.Handler {
 	)
 
 	c25 := presets.New().AssetFunc(addGA)
-	example_basics.LocalizationExampleMock(c25)
+	example_basics.PublishExample(c25)
+	mux.Handle(
+		example_basics.PublishExamplePath+"/",
+		c25,
+	)
+
+	c26 := presets.New().AssetFunc(addGA)
+	example_basics.LocalizationExampleMock(c26)
 	mux.Handle(
 		example_basics.LocalizationExamplePath+"/",
-		c25,
+		c26,
 	)
 
 	return mux

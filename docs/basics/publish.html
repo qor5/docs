@@ -2,7 +2,7 @@
 
 <html>
 <head>
-<title>Building Admin - Slug - QOR5 Document</title>
+<title>Building Admin - Publish - QOR5 Document</title>
 
 <meta name='description'>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -87,7 +87,7 @@
 </li>
 
 <li class='m-0'>
-<a href='slug.html' id='slug.html' onclick='window.storeMenuState("slug.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-blue-500'>Slug</a>
+<a href='slug.html' id='slug.html' onclick='window.storeMenuState("slug.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Slug</a>
 </li>
 
 <li class='m-0'>
@@ -103,7 +103,7 @@
 </li>
 
 <li class='m-0'>
-<a href='basics/publish.html' id='basics/publish.html' onclick='window.storeMenuState("basics/publish.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Publish</a>
+<a href='basics/publish.html' id='basics/publish.html' onclick='window.storeMenuState("basics/publish.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-blue-500'>Publish</a>
 </li>
 
 <li class='m-0'>
@@ -215,21 +215,64 @@
 </div>
 
 <div id='docMainBox' class='px-16 pb-12 pt-4 overflow-auto'>
-<h1 class='mb-8'>Slug</h1>
+<h1 class='mb-8'>Publish</h1>
 
-<div class='border-t'><p>Slug provides an easy way to create pretty URLs for your model.</p>
+<div class='border-t'><p>Publish controls the online/offline status of records. It generalizes publishing using 3 main modules:</p>
+
+<ul>
+<li><code>Status</code>: to flag a record be online/offline</li>
+<li><code>Schedule</code>: to schedule records to be online/offline automatically</li>
+<li><code>Version</code>: to allow a record to have more than one copies and chain them together</li>
+</ul>
 <h2><a name="usage" class="anchor" href="#usage" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
 Usage</h2>
 
-<p>If the source field called <code>Name</code>, Use <code>*WithSlug</code> which is <code>NameWithSlug</code> as the slug field name, the field type should be <code>slug.Slug</code>. Then the pretty URL would be derived from <code>Name</code> automatically on editing.</p>
+<p>Inject modules to the resource model.</p>
 
-<div class="highlight highlight-go"><pre>
-type User struct {
-	gorm.Model
-	Name            string
-	NameWithSlug    slug.Slug
-}
-</pre></div>
+<highlightjs :language='"go"' :code='"type Product struct {\n\tgorm.Model\n\n\tName  string\n\tPrice int\n\n\tpublish.Status\n\tpublish.Schedule\n\tpublish.Version\n}\n"'></highlightjs>
+<p>Implement primary slug interfaces for passing the values of primary keys between events</p>
+
+<highlightjs :language='"go"' :code='"var _ presets.SlugEncoder = (*Product)(nil)\nvar _ presets.SlugDecoder = (*Product)(nil)\n\nfunc (p *Product) PrimarySlug() string {\n\treturn fmt.Sprintf(\"%v_%v\", p.ID, p.Version.Version)\n}\n\nfunc (p *Product) PrimaryColumnValuesBySlug(slug string) map[string]string {\n\tsegs := strings.Split(slug, \"_\")\n\tif len(segs) != 2 {\n\t\tpanic(\"wrong slug\")\n\t}\n\n\treturn map[string]string{\n\t\t\"id\":      segs[0],\n\t\t\"version\": segs[1],\n\t}\n}\n"'></highlightjs>
+<p>Create publisher and configure Publish view for model, and remember to display Status and Schedule fields in Editing</p>
+
+<highlightjs :language='"go"' :code='"mb := b.Model(\u0026Product{})\nmb.Editing(\"Status\", \"Schedule\", \"Name\", \"Price\")\n\npublisher := publish.New(DB, nil)\npublish_view.Configure(b, DB, nil, publisher, mb)\n\n// run the publisher job if Schedule is used\ngo publish.RunPublisher(DB, nil, publisher)"'></highlightjs>
+<p>Implement the publish interfaces if there is a need to publish content to storage(filesystem, AWS S3, ...)</p>
+
+<highlightjs :language='"go"' :code='"var _ publish.PublishInterface = (*Product)(nil)\nvar _ publish.UnPublishInterface = (*Product)(nil)\n\nfunc (p *Product) GetPublishActions(db *gorm.DB, ctx context.Context, storage oss.StorageInterface) (objs []*publish.PublishAction, err error) {\n\t// create publish actions\n\treturn\n}\n\nfunc (p *Product) GetUnPublishActions(db *gorm.DB, ctx context.Context, storage oss.StorageInterface) (objs []*publish.PublishAction, err error) {\n\t// create unpublish actions\n\treturn\n}\n"'></highlightjs>
+
+<div>
+<div class='demo'>
+<a href='/samples/publish/products' target='_blank'>Check the demo</a>
+ | 
+<a href='https://github.com/qor5/docs/tree/main/docsrc/examples/example_basics/publish.go' target='_blank'>Source on GitHub</a>
+</div>
+</div>
+<h2><a name="modules" class="anchor" href="#modules" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Modules</h2>
+<h3><a name="status" class="anchor" href="#status" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+Status</h3>
+
+<p><code>Status</code> module stores the status of the record.</p>
+
+<highlightjs :language='"go"' :code='"const (\n\tStatusDraft   = \"draft\"\n\tStatusOnline  = \"online\"\n\tStatusOffline = \"offline\"\n)\n\ntype Status struct {\n\tStatus    string `gorm:\"default:&#39;draft&#39;\"`\n\tOnlineUrl string\n}\n"'></highlightjs>
+<p>The initial status is <strong>draft</strong>, after publishing it becomes <strong>online</strong>, and after unpublishing it becomes <strong>offline</strong>.</p>
+<h3><a name="schedule" class="anchor" href="#schedule" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Schedule</h3>
+
+<p><code>Schedule</code> module schedules records to be online/offline automatically with the publisher job.</p>
+
+<highlightjs :language='"go"' :code='"type Schedule struct {\n\tScheduledStartAt *time.Time `gorm:\"index\"`\n\tScheduledEndAt   *time.Time `gorm:\"index\"`\n\n\tActualStartAt *time.Time\n\tActualEndAt   *time.Time\n}\n"'></highlightjs>
+<p>If a record has <code>ScheduledStartAt</code> set, and the current time is larger than this value, the record will be published and the <code>ActualStartAt</code> will be set to the actual published time, the <code>ScheduledStartAt</code> will be cleared.<br>
+If a record has <code>ScheduledEndAt</code> set, and the current time is larger than this value, the record will be unpublished and the <code>ActualEndAt</code> will be set to the actual unpublished time, the <code>ScheduledEndAt</code> will be cleared.</p>
+<h3><a name="version" class="anchor" href="#version" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Version</h3>
+
+<p><code>Version</code> module allows one record to have multiple copies, with Schedule, you can even schedule different prices of a product for a whole year.</p>
+
+<highlightjs :language='"go"' :code='"type Version struct {\n\tVersion       string `gorm:\"primary_key;size:128\"`\n\tVersionName   string\n\tParentVersion string\n}\n"'></highlightjs>
+<p>The <code>Version</code> will be the primary key. By default, the <code>Version</code> value will be <code>YYYY-MM-DD-vSeq</code>, e.g. <code>2006-01-02-v01</code>. And you can rename a version on interface, which will modify the value of <code>VersionName</code>.</p>
+<h3><a name="list" class="anchor" href="#list" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>List</h3>
+
+<p><code>List</code> module publishes list page of resource.</p>
+
+<highlightjs :language='"go"' :code='"type List struct {\n\tPageNumber  int\n\tPosition    int\n\tListDeleted bool\n\tListUpdated bool\n}\n"'></highlightjs>
 </div>
 </div>
 </div>
