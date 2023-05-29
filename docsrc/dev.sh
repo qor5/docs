@@ -1,5 +1,5 @@
 goModPath(){
-    echo $GOPATH/pkg/mod/$(grep "\t$1" ../go.mod | awk -F ' ' '{print $1"@"$2}')
+    echo $GOPATH/pkg/mod/$(grep --color=never "\t$1" ../go.mod | awk -F ' ' '{print $1"@"$2}')
 }
 
 snippetDirs=(

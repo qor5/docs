@@ -2,7 +2,7 @@
 
 <html>
 <head>
-<title>Building Admin - Activity Log - QOR5 Document</title>
+<title>Building Admin - Localization - QOR5 Document</title>
 
 <meta name='description'>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -95,7 +95,7 @@
 </li>
 
 <li class='m-0'>
-<a href='activity-log.html' id='activity-log.html' onclick='window.storeMenuState("activity-log.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-blue-500'>Activity Log</a>
+<a href='activity-log.html' id='activity-log.html' onclick='window.storeMenuState("activity-log.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Activity Log</a>
 </li>
 
 <li class='m-0'>
@@ -103,7 +103,7 @@
 </li>
 
 <li class='m-0'>
-<a href='basics/l10n.html' id='basics/l10n.html' onclick='window.storeMenuState("basics/l10n.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Localization</a>
+<a href='basics/l10n.html' id='basics/l10n.html' onclick='window.storeMenuState("basics/l10n.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-blue-500'>Localization</a>
 </li>
 
 <li class='cursor-default px-4 py-1 truncate break-words w-64 m-0'>Web Application</li>
@@ -211,49 +211,41 @@
 </div>
 
 <div id='docMainBox' class='px-16 pb-12 pt-4 overflow-auto'>
-<h1 class='mb-8'>Activity Log</h1>
+<h1 class='mb-8'>Localization</h1>
 
-<div class='border-t'><p>QOR5 provides a built-in activity module for recording model operations that may be important for admin users of CMS. These records are designed to be easily queried and audited, and the activity module supports the following features:</p>
+<div class='border-t'><p>L10n gives your models the ability to localize for different Locales.<br>
+It can be a catalyst for the adaptation of a product, application, or document content to meet the language, cultural, and other requirements of a specific target market.</p>
+<h2><a name="define-a-struct" class="anchor" href="#define-a-struct" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Define a struct</h2>
 
-<ul>
-<li>Detailed change logging functionality for model data modifications.</li>
-<li>Allow certain fields to be ignored when comparing modified data, such as the update time.</li>
-<li>Customization of the diffing process for complex field types, like time.Time.</li>
-<li>Customization of the keys used to identify model data.</li>
-<li>Support both automatic and manual CRUD operation recording.</li>
-<li>Provide flexibility to customize the actions other than default CRUD.</li>
-<li>An page for querying the activity log via QOR5 admin</li>
-</ul>
-<h2><a name="initialize-the-activity-package" class="anchor" href="#initialize-the-activity-package" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
-Initialize the activity package</h2>
+<p>Define a struct that requires embed <code>l10n.Locale</code>.<br>
+Also this struct must implement <code>PrimarySlug() string</code> and <code>PrimaryColumnValuesBySlug(slug string) map[string]string</code>.</p>
 
-<p>To initialize activity package with the default configuration, you need to pass a <code>presets.Builder</code> instance and a database instance.</p>
+<highlightjs :language='"go"' :code='"type L10nModel struct {\n\tgorm.Model\n\tTitle string\n\n\tl10n.Locale\n}\n\nfunc (lm *L10nModel) PrimarySlug() string {\n\treturn fmt.Sprintf(\"%v_%v\", lm.ID, lm.LocaleCode)\n}\n\nfunc (lm *L10nModel) PrimaryColumnValuesBySlug(slug string) map[string]string {\n\tsegs := strings.Split(slug, \"_\")\n\tif len(segs) != 2 {\n\t\tpanic(\"wrong slug\")\n\t}\n\n\treturn map[string]string{\n\t\t\"id\":          segs[0],\n\t\t\"locale_code\": segs[1],\n\t}\n}\n"'></highlightjs>
+<h2><a name="init-a-l10n-builder" class="anchor" href="#init-a-l10n-builder" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Init a l10n builder</h2>
 
-<highlightjs :language='"go"' :code='"presetsBuilder := presets.New()\ndb, err := gorm.Open(postgres.Open(os.Getenv(\"DB_PARAMS\")), \u0026gorm.Config{})\nif err != nil {\n\tpanic(err)\n}\nactivityBuilder := activity.New(presetsBuilder, db)"'></highlightjs>
-<p>By default, the activity package uses QOR5 login package&#39;s <code>login.UserKey</code> as the default key to fetch the current user from the context. If you want to use your own key, you can use the <code>SetCreatorContextKey</code> function.</p>
+<p>Register locales here.<br>
+You can use <code>GetSupportLocaleCodesFromRequestFunc</code> to determine who can use which locales.</p>
 
-<p>Same with above, the activity package uses the db instance that passed in during initialization to perform db operations. If you need another db to do the work, you can use <code>SetDBContextKey</code> method.</p>
-<h2><a name="register-the-models-that-require-activity-tracking" class="anchor" href="#register-the-models-that-require-activity-tracking" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
-Register the models that require activity tracking</h2>
+<highlightjs :language='"go"' :code='"l10nBuilder := l10n.New()\nl10nBuilder.\n\tRegisterLocales(\"International\", \"international\", \"International\").\n\tRegisterLocales(\"China\", \"cn\", \"China\").\n\tRegisterLocales(\"Japan\", \"jp\", \"Japan\").\n\tGetSupportLocaleCodesFromRequestFunc(func(R *http.Request) []string {\n\t\treturn l10nBuilder.GetSupportLocaleCodes()[:]\n\t})"'></highlightjs>
+<h2><a name="configure-the-model-builder" class="anchor" href="#configure-the-model-builder" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Configure the model builder</h2>
 
-<p>This example demonstrates how to register <code>Product</code> into the activity. The activities on the product model will be automatically recorded when it is created, updated, or deleted.</p>
+<p>Use <code>l10n_view.Configure()</code> func to configure l10n view.<br>
+The <code>Switch Locale</code> ui will appear below the <code>Brand</code>.<br>
+The <code>Localize</code> ui will appear in the <code>RowMenuItem</code> under the <code>Edit</code> and the <code>Delete</code>.<br>
+<code>Localize</code> button is used to copy a piece of data from the current locale to the other locales.</p>
 
-<highlightjs :language='"go"' :code='"type Product struct {\n\tTitle string\n\tCode  string\n\tPrice float64\n}\nproductModel := presetsBuilder.Model(\u0026Product{})\n\nactivityBuilder.RegisterModel(productModel).UseDefaultTab().AddKeys(\"Title\").AddIgnoredFields(\"Code\").SkipDelete()"'></highlightjs>
-<p>By default, the activity package will use the primary key as the key to indentify the current model data. You can use <code>SetKeys</code> and <code>AddKeys</code> methods to customize it.</p>
+<highlightjs :language='"go"' :code='"mb := b.Model(\u0026L10nModel{}).URIName(\"l10n-models\")\nl10n_view.Configure(b, DB, l10nBuilder, nil, mb)\nmb.Listing(\"ID\", \"Title\", \"Locale\")"'></highlightjs>
+<h2><a name="full-example" class="anchor" href="#full-example" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Full Example</h2>
 
-<p>When diffing the modified data, the activity package will ignore the <code>ID</code>, <code>CreatedAt</code>, <code>UpdatedAt</code>, <code>DeletedAt</code> fields. You can either use <code>AddIgnoredFields</code> to append your own fields to the default ignored fields. Or <code>SetIgnoredFields</code> method to replace the default ignored fields.</p>
+<highlightjs :language='"go"' :code='"import (\n\t\"fmt\"\n\t\"net/http\"\n\t\"strings\"\n\n\t\"github.com/qor5/admin/l10n\"\n\tl10n_view \"github.com/qor5/admin/l10n/views\"\n\t\"github.com/qor5/admin/presets\"\n\t\"github.com/qor5/admin/presets/gorm2op\"\n\t\"gorm.io/gorm\"\n)\n\ntype L10nModel struct {\n\tgorm.Model\n\tTitle string\n\n\tl10n.Locale\n}\n\nfunc (lm *L10nModel) PrimarySlug() string {\n\treturn fmt.Sprintf(\"%v_%v\", lm.ID, lm.LocaleCode)\n}\n\nfunc (lm *L10nModel) PrimaryColumnValuesBySlug(slug string) map[string]string {\n\tsegs := strings.Split(slug, \"_\")\n\tif len(segs) != 2 {\n\t\tpanic(\"wrong slug\")\n\t}\n\n\treturn map[string]string{\n\t\t\"id\":          segs[0],\n\t\t\"locale_code\": segs[1],\n\t}\n}\n\n\nfunc LocalizationExampleMock(b *presets.Builder) {\n\tif err := DB.AutoMigrate(\u0026L10nModel{}); err != nil {\n\t\tpanic(err)\n\t}\n\n\tb.URIPrefix(LocalizationExamplePath).\n\t\tDataOperator(gorm2op.DataOperator(DB))\n\n\tl10nBuilder := l10n.New()\n\tl10nBuilder.\n\t\tRegisterLocales(\"International\", \"international\", \"International\").\n\t\tRegisterLocales(\"China\", \"cn\", \"China\").\n\t\tRegisterLocales(\"Japan\", \"jp\", \"Japan\").\n\t\tGetSupportLocaleCodesFromRequestFunc(func(R *http.Request) []string {\n\t\t\treturn l10nBuilder.GetSupportLocaleCodes()[:]\n\t\t})\n\n\tmb := b.Model(\u0026L10nModel{}).URIName(\"l10n-models\")\n\tl10n_view.Configure(b, DB, l10nBuilder, nil, mb)\n\tmb.Listing(\"ID\", \"Title\", \"Locale\")"'></highlightjs>
 
-<p>For special fields like <code>time.Time</code> or media files handled by QOR5 media_library, activity package already handled them. You can use <code>AddTypeHanders</code> method to handle your own field types.</p>
-
-<p>If you want to skip the automatic recording, you can use <code>SkipCreate</code>, <code>SkipUpdate</code> and <code>SkipDelete</code> methods.</p>
-
-<p>The Activity package allows for displaying the activities of a record on its editing page. Simply use the <code>EnableActivityInfoTab</code> method to enable this feature. Once enabled, you can customize the format of each activity&#39;s display text using the <code>SetTabHeading</code> method. Additionally, you can make each activity a link to the corresponding record using the <code>SetLink</code> method.</p>
-<h2><a name="record-the-activity-log-manually" class="anchor" href="#record-the-activity-log-manually" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
-Record the activity log manually</h2>
-
-<p>If you register a preset model into the activity, the activity package will automatically record the activity log for CRUD operations. However, if you need to manually record the activity log for other operations or if you want to register a non-preset model, you can use the following sample code.</p>
-
-<highlightjs :language='"go"' :code='"currentCtx := context.WithValue(context.Background(), activity.CreatorContextKey, \"user1\")\n\nactivityBuilder.AddRecords(\"Publish\", currentCtx, \u0026Product{Title: \"Product 1\", Code: \"P1\", Price: 100})\n\nactivityBuilder.AddRecords(\"Update Price\", currentCtx, \u0026Product{Title: \"Product 1\", Code: \"P1\", Price: 200})"'></highlightjs>
+<div>
+<div class='demo'>
+<a href='/samples/l10n/l10n-models' target='_blank'>Check the demo</a>
+ | 
+<a href='https://github.com/qor5/docs/tree/main/docsrc/examples/example_basics/localization.go' target='_blank'>Source on GitHub</a>
+</div>
+</div>
 </div>
 </div>
 </div>
