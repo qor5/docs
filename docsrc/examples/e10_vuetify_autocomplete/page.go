@@ -15,61 +15,41 @@ import (
 	"gorm.io/gorm"
 )
 
-type myFormValue struct {
-	Values1 []string
-	Values2 []string
-	Value3  string
-}
+type (
+	User struct {
+		Login string
+		Name  string
+	}
 
-type User struct {
-	Login string
-	Name  string
-}
+	UserIcons struct {
+		Login string `json:"text"`
+		Name  string `json:"value"`
+		Icon  string `json:"icon"`
+	}
 
-var selectedItems1 = []*User{
-	{Login: "sam", Name: "Sam"},
-	{Login: "charles", Name: "Charles"},
-}
+	Product struct {
+		ID   uint `gorm:"primarykey"`
+		Name string
+	}
+)
 
-var options1 = []*User{
-	{Login: "sam", Name: "Sam"},
-	{Login: "john", Name: "John"},
-	{Login: "charles", Name: "Charles"},
-}
+var (
+	options = []*User{
+		{Login: "sam", Name: "Sam"},
+		{Login: "john", Name: "John"},
+		{Login: "charles", Name: "Charles"},
+	}
 
-var selectedItems2 = []*User{
-	{Login: "charles", Name: "Charles"},
-}
+	iconOptions = []*UserIcons{
+		{Login: "sam", Name: "Sam", Icon: "https://cdn.vuetifyjs.com/images/lists/1.jpg"},
+		{Login: "john", Name: "John", Icon: "https://cdn.vuetifyjs.com/images/lists/2.jpg"},
+		{Login: "charles", Name: "Charles", Icon: "https://cdn.vuetifyjs.com/images/lists/3.jpg"},
+	}
 
-var selectedItems3 = []*User{
-	{Login: "charles", Name: "Charles"},
-}
-
-var options2 = []*User{
-	{Login: "sam", Name: "Sam"},
-	{Login: "john", Name: "John"},
-	{Login: "charles", Name: "Charles"},
-}
-
-var globalState = &myFormValue{
-	Values1: []string{
-		"sam",
-		"charles",
-	},
-	Values2: []string{
-		"charles",
-	},
-	Value3: "charles",
-}
-
-type Product struct {
-	ID   uint `gorm:"primarykey"`
-	Name string
-}
-
-var loadMoreRes *vuetifyx.AutocompleteDataSource
-var pagingRes *vuetifyx.AutocompleteDataSource
-var ExamplePreset *presets.Builder
+	loadMoreRes   *vuetifyx.AutocompleteDataSource
+	pagingRes     *vuetifyx.AutocompleteDataSource
+	ExamplePreset *presets.Builder
+)
 
 func init() {
 	db, err := gorm.Open(sqlite.Open("/tmp/my.db"), &gorm.Config{})
@@ -91,6 +71,9 @@ func init() {
 		&presets.AutocompleteDataSourceConfig{
 			OptionValue: "ID",
 			OptionText:  "Name",
+			OptionIcon: func(product interface{}) string {
+				return fmt.Sprintf("https://cdn.vuetifyjs.com/images/lists/%d.jpg", product.(*Product).ID%4+1)
+			},
 			KeywordColumns: []string{
 				"Name",
 			},
@@ -103,6 +86,9 @@ func init() {
 		&presets.AutocompleteDataSourceConfig{
 			OptionValue: "ID",
 			OptionText:  "Name",
+			OptionIcon: func(product interface{}) string {
+				return fmt.Sprintf("https://cdn.vuetifyjs.com/images/lists/%d.jpg", product.(*Product).ID%4+1)
+			},
 			KeywordColumns: []string{
 				"Name",
 			},
@@ -116,84 +102,53 @@ func init() {
 }
 
 func VuetifyAutocomplete(ctx *web.EventContext) (pr web.PageResponse, err error) {
-	result := h.Ul()
-	for _, v := range globalState.Values1 {
-		result.AppendChildren(h.Li().Text(v))
-	}
 	pr.Body = VContainer(
-		h.H1("An auto complete that you can select multiple options with static data"),
-		VAutocomplete().
-			Items(options1).
+		h.H1("Select many (default)"),
+		vuetifyx.VXAutocomplete().
+			Label("Load options from a list").
+			Items(options).
 			FieldName("Values1").
 			ItemText("Name").
-			ItemValue("Login").
-			Label("Static Options").
-			Value(globalState.Values1),
-		result,
+			ItemValue("Login"),
 
-		h.H1("An auto complete that you can select multiple options from data source by loading more"),
+		h.H1("Select one"),
+		vuetifyx.VXAutocomplete().
+			FieldName("Values2").
+			Label("Load options from a list").
+			Items(options).
+			ItemText("Name").
+			ItemValue("Login").
+			Multiple(false),
+
+		h.H1("Has icon"),
+		vuetifyx.VXAutocomplete().
+			Label("Load options from a list").
+			Items(iconOptions).
+			HasIcon(true),
+
+		h.H1("Load more from remote resource"),
 		vuetifyx.VXAutocomplete().
 			FieldName("Values2").
 			Label("Load options from data source").
 			SetDataSource(loadMoreRes),
 
-		h.H1("An auto complete that you can select multiple options from data source resource by paging"),
+		h.H1("Paging with remote resource"),
 		vuetifyx.VXAutocomplete().
 			FieldName("Values2").
 			Label("Load options from data source").
 			SetDataSource(pagingRes),
 
-		h.H1("VSelect"),
-		VSelect().
-			Items(options1).    // Items is the data source
-			ItemText("Name").   // ItemText is the value that would be displayed to user. the argument is the corresponding field name in the Items. here is user.Name
-			ItemValue("Login"). // ItemValue is the value that will be passed with the form. same with ItemText, here is user.Login
-			FieldName("Value3").
-			Solo(true).
-			Value(globalState.Value3),
-		h.Pre(globalState.Value3),
-		VBtn("Update").
-			Color("success").
-			OnClick("update"),
+		h.H1("Sorting"),
+		vuetifyx.VXAutocomplete().
+			FieldName("Values2").
+			Label("Load options from data source").
+			Sorting(true).
+			SetDataSource(pagingRes).ChipColor("red"),
 	)
 	return
 }
 
-func update(ctx *web.EventContext) (r web.EventResponse, err error) {
-	globalState = &myFormValue{}
-	ctx.MustUnmarshalForm(globalState)
-
-	selectedItems1 = []*User{}
-	for _, login := range globalState.Values1 {
-		for _, u := range options1 {
-			if u.Login == login {
-				selectedItems1 = append(selectedItems1, u)
-			}
-		}
-	}
-
-	selectedItems2 = []*User{}
-	for _, login := range globalState.Values2 {
-		for _, u := range options2 {
-			if u.Login == login {
-				selectedItems2 = append(selectedItems2, u)
-			}
-		}
-	}
-
-	selectedItems3 = []*User{}
-	for _, u := range options1 {
-		if u.Login == globalState.Value3 {
-			selectedItems3 = append(selectedItems3, u)
-		}
-	}
-	r.Reload = true
-
-	return
-}
-
-var VuetifyAutocompletePB = web.Page(VuetifyAutocomplete).
-	EventFunc("update", update)
+var VuetifyAutocompletePB = web.Page(VuetifyAutocomplete)
 
 const VuetifyAutoCompletePath = "/samples/vuetify-auto-complete"
 const VuetifyAutoCompletePresetPath = "/samples/vuetify-auto-complete-preset"
