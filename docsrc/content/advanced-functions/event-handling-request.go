@@ -9,12 +9,13 @@ import (
 	. "github.com/theplant/htmlgo"
 )
 
-var EventHandling = Doc(
+var EventHandlingRequest = Doc(
 	Markdown(`
-We extend vue to support the following types of event handling, so you can simply use go code to implement some complex logic.
+As you might already know, In QOR5 world, An web application contains many ~~~web.PageFunc~~~s, and each ~~~web.PageFunc~~~ is registered with many ~~~web.EventFunc~~~s. each ~~~web.EventFunc~~~ is responding to a user interaction on a page elements like buttons, links, forms, etc. Each user interaction normally make requests to the server.
+By default it will submit the global ~~~plaidForm~~~ to the server, It is an ajax request, If you don't specify ~~~EventFunc~~~, it will call the target current URL ~~~web.PageFunc~~~ default ~~~__reload__~~~ EventFunc. Otherwise it will call the specified ~~~EventFunc~~~.
 
-Using the ~~~Plaid()~~~ method will create an event handler that defaults to using the current ~~~vars~~~ and ~~~plaidForm~~~.
-The default http request method is ~~~Post~~~, if you want to use the ~~~Get~~~ method, you can also use the ~~~Get()~~~ method directly to create an event handler
+Using the ~~~web.POST()~~~ method will create an event handler that you put on the vue's event handling attribute like ~~~@click~~~, ~~~@keyup~~~ etc to handle the event.
+The default http request method is ~~~POST~~~, you can also use the ~~~GET()~~~ method so that the ajax request is a ~~~GET~~~ request.
 	`),
 
 	utils.Anchor(H2(""), "URL"),
@@ -91,4 +92,4 @@ The default http request method is ~~~Post~~~, if you want to use the ~~~Get~~~ 
 	Markdown(`Directly call the js method`),
 	ch.Code(generated.EventHandlingRawSample).Language("go"),
 	utils.Demo("Event Handling", e00_basics.EventHandlingPagePath+"?api=raw", "e00_basics/event-handling.go#L209-L217"),
-).Title("Event Handling").Slug("basics/event-handling")
+).Title("Event Handling Request").Slug("basics/event-handling")

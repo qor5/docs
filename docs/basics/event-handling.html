@@ -2,7 +2,7 @@
 
 <html>
 <head>
-<title>Web Application - Event Handling - QOR5 Document</title>
+<title>Web Application - Event Handling Request - QOR5 Document</title>
 
 <meta name='description'>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -145,15 +145,15 @@
 </li>
 
 <li class='m-0'>
-<a href='basics/summary-of-event-response.html' id='basics/summary-of-event-response.html' onclick='window.storeMenuState("basics/summary-of-event-response.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Summary of Event Response</a>
-</li>
-
-<li class='m-0'>
 <a href='basics/scope-component.html' id='basics/scope-component.html' onclick='window.storeMenuState("basics/scope-component.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Scope Component</a>
 </li>
 
 <li class='m-0'>
-<a href='basics/event-handling.html' id='basics/event-handling.html' onclick='window.storeMenuState("basics/event-handling.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-blue-500'>Event Handling</a>
+<a href='basics/event-handling.html' id='basics/event-handling.html' onclick='window.storeMenuState("basics/event-handling.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-blue-500'>Event Handling Request</a>
+</li>
+
+<li class='m-0'>
+<a href='basics/event-handing-response.html' id='basics/event-handing-response.html' onclick='window.storeMenuState("basics/event-handing-response.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Event Handing Response</a>
 </li>
 
 <li class='m-0'>
@@ -211,12 +211,13 @@
 </div>
 
 <div id='docMainBox' class='px-16 pb-12 pt-4 overflow-auto'>
-<h1 class='mb-8'>Event Handling</h1>
+<h1 class='mb-8'>Event Handling Request</h1>
 
-<div class='border-t'><p>We extend vue to support the following types of event handling, so you can simply use go code to implement some complex logic.</p>
+<div class='border-t'><p>As you might already know, In QOR5 world, An web application contains many <code>web.PageFunc</code>s, and each <code>web.PageFunc</code> is registered with many <code>web.EventFunc</code>s. each <code>web.EventFunc</code> is responding to a user interaction on a page elements like buttons, links, forms, etc. Each user interaction normally make requests to the server.
+By default it will submit the global <code>plaidForm</code> to the server, It is an ajax request, If you don&#39;t specify <code>EventFunc</code>, it will call the target current URL <code>web.PageFunc</code> default <code>__reload__</code> EventFunc. Otherwise it will call the specified <code>EventFunc</code>.</p>
 
-<p>Using the <code>Plaid()</code> method will create an event handler that defaults to using the current <code>vars</code> and <code>plaidForm</code>.
-The default http request method is <code>Post</code>, if you want to use the <code>Get</code> method, you can also use the <code>Get()</code> method directly to create an event handler</p>
+<p>Using the <code>web.POST()</code> method will create an event handler that you put on the vue&#39;s event handling attribute like <code>@click</code>, <code>@keyup</code> etc to handle the event.
+The default http request method is <code>POST</code>, you can also use the <code>GET()</code> method so that the ajax request is a <code>GET</code> request.</p>
 
 <h2 id='url'>URL
 <a href='#url' class='anchor'></a>

@@ -206,6 +206,24 @@ func EventHandlingRaw(ctx *web.EventContext) (pr web.PageResponse, err error) {
 
 // @snippet_end
 
+// @snippet_begin(EventHandlingResponsePageTitleSample)
+func EventHandlingResponsePageTitleSample(ctx *web.EventContext) (er web.EventResponse, err error) {
+	er.PageTitle = "My Page Title"
+	return
+}
+
+// @snippet_end
+
+// @snippet_begin(EventHandlingResponseBodySample)
+func EventHandlingResponseBodySample(ctx *web.EventContext) (er web.EventResponse, err error) {
+	er.Body = Div(
+		Text("Whole Page Body"),
+	)
+	return
+}
+
+// @snippet_end
+
 func EventHandlingPage(ctx *web.EventContext) (pr web.PageResponse, err error) {
 	api := ctx.R.URL.Query().Get("api")
 	switch api {
@@ -239,10 +257,20 @@ func EventHandlingPage(ctx *web.EventContext) (pr web.PageResponse, err error) {
 		return EventHandlingLocation(ctx)
 	case "raw":
 		return EventHandlingRaw(ctx)
+	case "response":
+		return EventHandlingResponsePage(ctx)
 	default:
 		pr.Body = Div()
 		return
 	}
+}
+
+func EventHandlingResponsePage(ctx *web.EventContext) (pr web.PageResponse, err error) {
+	pr.Body = VList(
+		VListItem(VListItemTitle(Text("Call EventFunc to set PageTitle"))).Attr("@click", web.POST().EventFunc("EventHandlingResponsePageTitleSample").Go()),
+		VListItem(VListItemTitle(Text("Replace The Whole Page Body"))).Attr("@click", web.POST().EventFunc("EventHandlingResponseBodySample").Go()),
+	)
+	return
 }
 
 func ExamplePage(ctx *web.EventContext) (pr web.PageResponse, err error) {
@@ -262,7 +290,9 @@ var ExamplePagePB = web.Page(ExamplePage).
 		return
 	})
 
-var EventHandlingPagePB = web.Page(EventHandlingPage)
+var EventHandlingPagePB = web.Page(EventHandlingPage).
+	EventFunc("EventHandlingResponsePageTitleSample", EventHandlingResponsePageTitleSample).
+	EventFunc("EventHandlingResponseBodySample", EventHandlingResponseBodySample)
 
 const EventHandlingPagePath = "/samples/event_handling"
 const EventExamplePagePath = "/samples/event_handling/example"

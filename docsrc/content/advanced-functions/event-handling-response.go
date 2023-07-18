@@ -1,12 +1,15 @@
 package advanced_functions
 
 import (
+	"github.com/qor5/docs/docsrc/examples/e00_basics"
 	"github.com/qor5/docs/docsrc/generated"
+	"github.com/qor5/docs/docsrc/utils"
 	. "github.com/theplant/docgo"
 	"github.com/theplant/docgo/ch"
+	. "github.com/theplant/htmlgo"
 )
 
-var SummaryOfEventResponse = Doc(
+var EventHandingResponse = Doc(
 	Markdown(`
 The behaviour of ~web.EventFunc~ is controlled by it's return type ~web.EventResponse~
 `),
@@ -29,5 +32,10 @@ The behaviour of ~web.EventFunc~ is controlled by it's return type ~web.EventRes
 - ~Data~ is for any AJAX call that want pure JSON, you can set ~er.Data = myobj~ to any object that
   will marshals to JSON, and on the client side use javascript to utilize them
 `),
-).Title("Summary of Event Response").
-	Slug("basics/summary-of-event-response")
+
+	utils.Anchor(H2(""), "PageTitle"),
+	Markdown(`Set the page title in the AJAX response with Javascript internally.`),
+	ch.Code(generated.EventHandlingResponsePageTitleSample).Language("go"),
+	utils.Demo("Event Handling", e00_basics.EventHandlingPagePath+"?api=response", "e00_basics/event-handling.go#L210-L213"),
+).Title("Event Handing Response").
+	Slug("basics/event-handing-response")
