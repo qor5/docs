@@ -25,7 +25,7 @@ require (
 )
 
 require (
-	cloud.google.com/go v0.67.0 // indirectj
+	cloud.google.com/go v0.67.0 // indirect
 	github.com/NYTimes/gziphandler v1.1.1 // indirect
 	github.com/aymerick/douceur v0.2.0 // indirect
 	github.com/boombuler/barcode v1.0.1 // indirect
@@ -91,8 +91,8 @@ require (
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
 
-replace github.com/qor5/web => ../web
+//replace github.com/qor5/web => ../web
 
-replace github.com/qor5/ui => ../ui
+//replace github.com/qor5/ui => ../ui
 
 //replace github.com/qor5/admin => ../admin
