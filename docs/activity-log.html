@@ -103,6 +103,10 @@
 </li>
 
 <li class='m-0'>
+<a href='basics/i18n.html' id='basics/i18n.html' onclick='window.storeMenuState("basics/i18n.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Internationalization</a>
+</li>
+
+<li class='m-0'>
 <a href='basics/l10n.html' id='basics/l10n.html' onclick='window.storeMenuState("basics/l10n.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Localization</a>
 </li>
 
@@ -238,7 +242,7 @@ Register the models that require activity tracking</h2>
 
 <p>This example demonstrates how to register <code>Product</code> into the activity. The activities on the product model will be automatically recorded when it is created, updated, or deleted.</p>
 
-<highlightjs :language='"go"' :code='"type Product struct {\n\tTitle string\n\tCode  string\n\tPrice float64\n}\nproductModel := presetsBuilder.Model(\u0026Product{})\n\nactivityBuilder.RegisterModel(productModel).UseDefaultTab().AddKeys(\"Title\").AddIgnoredFields(\"Code\").SkipDelete()"'></highlightjs>
+<highlightjs :language='"go"' :code='"type Product struct {\n\tTitle string\n\tCode  string\n\tPrice float64\n}\nproductModel := presetsBuilder.Model(\u0026Product{})\n\nactivityBuilder.RegisterModel(productModel).EnableActivityInfoTab().AddKeys(\"Title\").AddIgnoredFields(\"Code\").SkipDelete()"'></highlightjs>
 <p>By default, the activity package will use the primary key as the key to indentify the current model data. You can use <code>SetKeys</code> and <code>AddKeys</code> methods to customize it.</p>
 
 <p>When diffing the modified data, the activity package will ignore the <code>ID</code>, <code>CreatedAt</code>, <code>UpdatedAt</code>, <code>DeletedAt</code> fields. You can either use <code>AddIgnoredFields</code> to append your own fields to the default ignored fields. Or <code>SetIgnoredFields</code> method to replace the default ignored fields.</p>

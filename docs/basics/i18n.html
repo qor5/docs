@@ -2,7 +2,7 @@
 
 <html>
 <head>
-<title>Building Admin - Login - QOR5 Document</title>
+<title>Building Admin - Internationalization - QOR5 Document</title>
 
 <meta name='description'>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -63,7 +63,7 @@
 </li>
 
 <li class='m-0'>
-<a href='basics/login.html' id='basics/login.html' onclick='window.storeMenuState("basics/login.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-blue-500'>Login</a>
+<a href='basics/login.html' id='basics/login.html' onclick='window.storeMenuState("basics/login.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Login</a>
 </li>
 
 <li class='m-0'>
@@ -103,7 +103,7 @@
 </li>
 
 <li class='m-0'>
-<a href='basics/i18n.html' id='basics/i18n.html' onclick='window.storeMenuState("basics/i18n.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Internationalization</a>
+<a href='basics/i18n.html' id='basics/i18n.html' onclick='window.storeMenuState("basics/i18n.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-blue-500'>Internationalization</a>
 </li>
 
 <li class='m-0'>
@@ -215,143 +215,86 @@
 </div>
 
 <div id='docMainBox' class='px-16 pb-12 pt-4 overflow-auto'>
-<h1 class='mb-8'>Login</h1>
+<h1 class='mb-8'>Internationalization</h1>
 
-<div class='border-t'><p>Login package provides comprehensive login authentication logic and related UI interfaces. It is designed to simplify the process of adding user authentication to QOR5-based backend development project.<br>
-In QOR5 admin development, we recommend using <a href="https://github.com/qor5/admin/tree/main/login" rel="nofollow">github.com/qor5/admin/login</a>, which wraps <a href="https://github.com/qor5/x/tree/master/login" rel="nofollow">github.com/qor5/x/login</a> to keep the theme of login UI consistent with Presets and provide more powerful features.</p>
-<h2><a name="basic-usage" class="anchor" href="#basic-usage" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
-Basic Usage</h2>
+<div class='border-t'><p>The <a href="https://github.com/qor5/x/tree/master/i18n" rel="nofollow">i18n package</a> provides support for internationalization (i18n) in Go applications.
+With the package, you can support multiple languages,
+register messages for each module in each language, and serve multilingual content
+based on the user&#39;s preferences.</p>
 
-<p>The example shows how to enable both username/password login and OAuth login.</p>
+<br>
 
-<highlightjs :language='"go"' :code='"import (\n\t\"net/http\"\n\t\"os\"\n\n\t\"github.com/markbates/goth/providers/github\"\n\t\"github.com/markbates/goth/providers/google\"\n\tplogin \"github.com/qor5/admin/login\"\n\t\"github.com/qor5/admin/presets\"\n\t. \"github.com/qor5/ui/vuetify\"\n\t\"github.com/qor5/web\"\n\t\"github.com/qor5/x/login\"\n\t. \"github.com/theplant/htmlgo\"\n\t\"gorm.io/gorm\"\n)\n\ntype User struct {\n\tgorm.Model\n\n\tName    string\n\tAddress string\n\n\tlogin.UserPass\n\tlogin.OAuthInfo\n\tlogin.SessionSecure\n}\n\nfunc serve() {\n\tpb := presets.New()\n\tlb := plogin.New(pb).\n\t\tDB(DB).\n\t\tUserModel(\u0026User{}).\n\t\tSecret(os.Getenv(\"LOGIN_SECRET\")).\n\t\tOAuthProviders(\n\t\t\t\u0026login.Provider{\n\t\t\t\tGoth: google.New(os.Getenv(\"LOGIN_GOOGLE_KEY\"), os.Getenv(\"LOGIN_GOOGLE_SECRET\"), os.Getenv(\"BASE_URL\")+\"/auth/callback?provider=google\"),\n\t\t\t\tKey:  \"google\",\n\t\t\t\tText: \"Google\",\n\t\t\t},\n\t\t\t\u0026login.Provider{\n\t\t\t\tGoth: github.New(os.Getenv(\"LOGIN_GITHUB_KEY\"), os.Getenv(\"LOGIN_GITHUB_SECRET\"), os.Getenv(\"BASE_URL\")+\"/auth/callback?provider=github\"),\n\t\t\t\tKey:  \"github\",\n\t\t\t\tText: \"Login with Github\",\n\t\t\t},\n\t\t)\n\tpb.ProfileFunc(func(ctx *web.EventContext) HTMLComponent {\n\t\treturn A(Text(\"logout\")).Href(lb.LogoutURL)\n\t})\n\n\tr := http.NewServeMux()\n\tr.Handle(\"/\", pb)\n\tlb.Mount(r)\n\n\tmux := http.NewServeMux()\n\tmux.Handle(\"/\", lb.Middleware()(r))\n\thttp.ListenAndServe(\":8080\", nil)\n}\n"'></highlightjs>
-<h2><a name="username-password-login" class="anchor" href="#username-password-login" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Username/Password Login</h2>
+<div>
+<div class='demo'>
+<a href='/samples/i18n/home' target='_blank'>Check the demo</a>
+ | 
+<a href='https://github.com/qor5/docs/tree/main/docsrc/examples/example_basics/internationalization.go' target='_blank'>Source on GitHub</a>
+</div>
+</div>
+<h2><a name="getting-started" class="anchor" href="#getting-started" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Getting Started</h2>
 
-<p>To enable Username/Password login, the <code>UserModel</code> needs to implement the <a href="https://github.com/qor5/x/blob/8f986dddfeaf235fd42bb3361717551d06695517/login/user_pass.go#L13" rel="nofollow">UserPasser</a> interface. There is a default implementation - <a href="https://github.com/qor5/x/blob/8f986dddfeaf235fd42bb3361717551d06695517/login/user_pass.go#L44" rel="nofollow">UserPass</a>.</p>
+<p>To use the i18n package, you first need to import it into your Go application:</p>
 
-<highlightjs :language='"go"' :code='"type User struct {\n\tgorm.Model\n\n\tlogin.UserPass\n}"'></highlightjs>
-<h3><a name="change-password" class="anchor" href="#change-password" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Change Password</h3>
+<highlightjs :language='"go"' :code='"import \"github.com/qor5/x/i18n\""'></highlightjs>
+<p>Next, create a new <code>Builder</code> instance using the <code>New()</code> function.
+If you want to use it with QOR5, use the <code>I18n()</code> on <code>presets.Builder</code>:</p>
 
-<p>There are three ways to change the password:</p>
+<highlightjs :language='"go"' :code='"i18nB := b.I18n()"'></highlightjs>
+<p>The <code>Builder</code> struct is the central point of the i18n package.
+It holds the supported languages, the messages for each module in each language,
+and the configuration for retrieving the language preference.</p>
+<h2><a name="adding-support-languages" class="anchor" href="#adding-support-languages" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Adding Support Languages</h2>
 
-<p>1. Visit the default change password page.</p>
+<p>To support multiple languages in your web application, you need to define the languages that you support.
+You can do this by calling the <code>SupportLanguages</code> function on the <code>Builder</code> struct:</p>
 
-<p>2. Call the <code>OpenChangePasswordDialogEvent</code> event to change it in dialog.</p>
+<highlightjs :language='"go"' :code='"i18nB.SupportLanguages(language.English, language.SimplifiedChinese, language.Japanese)"'></highlightjs>
+<p>The i18n package uses English as the default language. You can add other languages by the <code>SupportLanguages</code> function.</p>
+<h2><a name="registering-module-messages" class="anchor" href="#registering-module-messages" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Registering Module Messages</h2>
 
-<highlightjs :language='"go"' :code='"VBtn(\"Change Password\").OnClick(plogin.OpenChangePasswordDialogEvent)"'></highlightjs>
-<p>3. Change the password directly in Editing.</p>
+<p>Once you have defined the languages, you need to register messages for each module.
+You can do this by the <code>RegisterForModule</code> function on the <code>Builder</code> struct:</p>
 
-<highlightjs :language='"go"' :code='"userModelBuilder.Editing().Field(\"Password\").\n\tSetterFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) (err error) {\n\t\tu := obj.(*User)\n\t\tif v := ctx.R.FormValue(field.Name); v != \"\" {\n\t\t\tu.Password = v\n\t\t\tu.EncryptPassword()\n\t\t}\n\t\treturn nil\n\t})"'></highlightjs>
-<h3><a name="maxretrycount" class="anchor" href="#maxretrycount" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>MaxRetryCount</h3>
+<highlightjs :language='"go"' :code='"i18nB.\n\tRegisterForModule(language.SimplifiedChinese, presets.ModelsI18nModuleKey, Messages_zh_CN_ModelsI18nModuleKey).\n\tRegisterForModule(language.Japanese, presets.ModelsI18nModuleKey, Messages_ja_JP_ModelsI18nModuleKey).\n\tRegisterForModule(language.English, I18nExampleKey, Messages_en_US).\n\tRegisterForModule(language.Japanese, I18nExampleKey, Messages_ja_JP).\n\tRegisterForModule(language.SimplifiedChinese, I18nExampleKey, Messages_zh_CN).\n\tGetSupportLanguagesFromRequestFunc(func(r *http.Request) []language.Tag {\n\t\treturn b.I18n().GetSupportLanguages()\n\t})"'></highlightjs>
+<p>The <code>RegisterForModule</code> function takes three arguments: the language tag, the module key,
+and a pointer to a struct that implements the Messages interface.
+The Messages interface is an empty interface that you can use to define your own messages.</p>
 
-<p>By default, it allows 5 login attempts with incorrect credentials, and if the limit is exceeded, the user will be locked for 1 hour. This helps to prevent brute-force attacks on the login system. You can call <code>MaxRetryCount</code> to set the maximum retry count. If you set MaxRetryCount to a value less than or equal to 0, it means there is no limit of login attempts, and the user will not be locked after a certain number of failed login attempts.</p>
+<p>Such a struct might look like this:</p>
 
-<highlightjs :language='"go"' :code='"loginBuilder.MaxRetryCount(count)"'></highlightjs>
-<h3><a name="totp" class="anchor" href="#totp" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>TOTP</h3>
+<highlightjs :language='"go"' :code='"const I18nExampleKey i18n.ModuleKey = \"I18nExampleKey\"\n\ntype Messages struct {\n\tAdmin   string\n\tWelcome string\n}\n\nvar Messages_en_US = \u0026Messages{\n\tAdmin:   \"Admin\",\n\tWelcome: \"Welcome\",\n}\nvar Messages_zh_CN = \u0026Messages{\n\tAdmin:   \"管理系统\",\n\tWelcome: \"欢迎\",\n}\nvar Messages_ja_JP = \u0026Messages{\n\tAdmin:   \"管理システム\",\n\tWelcome: \"ようこそ\",\n}\n"'></highlightjs>
+<p>If you want to define messages inside the system,
+you can add new variables to the message structure associated with <code>presets.ModelsI18nModuleKey</code>,
+and the variable name definitions follow the camel case.</p>
 
-<p>There is TOTP (Time-based One-time Password) functionality out of the box, which is enabled by default.</p>
+<p>Such a struct might look like this:</p>
 
-<highlightjs :language='"go"' :code='"loginBuilder.TOTP(enable, login.TOTPConfig{\n\tIssuer: \"Issuer\",\n})"'></highlightjs>
-<h3><a name="google-recaptcha" class="anchor" href="#google-recaptcha" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Google reCAPTCHA</h3>
+<highlightjs :language='"go"' :code='"\ntype Messages_ModelsI18nModuleKey struct {\n\tHomes             string\n\tVideos            string\n\tVideosName        string\n\tVideosDescription string\n}\n\nvar Messages_zh_CN_ModelsI18nModuleKey = \u0026Messages_ModelsI18nModuleKey{\n\tHomes:             \"主页\",\n\tVideos:            \"视频\",\n\tVideosName:        \"视频名称\",\n\tVideosDescription: \"视频描述\",\n}\nvar Messages_ja_JP_ModelsI18nModuleKey = \u0026Messages_ModelsI18nModuleKey{\n\tHomes:             \"ホーム\",\n\tVideos:            \"ビデオ\",\n\tVideosName:        \"ビデオの名前\",\n\tVideosDescription: \"ビデオの説明\",\n}\n"'></highlightjs>
+<p>The <code>GetSupportLanguagesFromRequestFunc</code> is a method of the <code>Builder</code> struct in the i18n package.
+It allows you to set a function that retrieves the list of supported languages
+from an HTTP request, which can be useful in scenarios where the list of supported
+languages varies based on the request context.</p>
 
-<p>Google reCAPTCHA is disabled by default.</p>
+<p>If you create a separate page, you need to use the <code>EnsureLanguage</code> to get i18n to work on this page.</p>
 
-<highlightjs :language='"go"' :code='"loginBuilder.Recaptcha(enable, login.RecaptchaConfig{\n\tSiteKey:   \"SiteKey\",\n\tSecretKey: \"SecretKey\",\n})"'></highlightjs>
-<h2><a name="oauth-login" class="anchor" href="#oauth-login" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>OAuth Login</h2>
+<p>The <code>EnsureLanguage</code> function is an HTTP middleware that ensures the request&#39;s language
+is properly set and stored. It does this by first checking the query parameters for
+a language value, and if found, setting a cookie with that value. If no language
+value is present in the query parameters, it looks for the language value in the cookie.</p>
 
-<p>OAuth login is based on <a href="https://github.com/markbates/goth" rel="nofollow">goth</a>.<br>
-OAuth login does not require a <code>UserModel</code>. If there is a <code>UserModel</code>, it needs to implement the <a href="https://github.com/qor5/x/blob/8f986dddfeaf235fd42bb3361717551d06695517/login/oauth_user.go#L5" rel="nofollow">OAuthUser</a> interface. There is a default implementation - <a href="https://github.com/qor5/x/blob/8f986dddfeaf235fd42bb3361717551d06695517/login/oauth_user.go#L13" rel="nofollow">OAuthInfo</a>.</p>
+<p>The middleware then determines the best-matching language from the supported languages
+based on the &#34;Accept-Language&#34; header of the request. If no match is found,
+it defaults to the first supported language. It then sets the language context for
+the request, which can be retrieved later by calling the <code>MustGetModuleMessages</code> function.</p>
+<h2><a name="retrieving-messages" class="anchor" href="#retrieving-messages" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Retrieving Messages</h2>
 
-<highlightjs :language='"go"' :code='"type User struct {\n\tgorm.Model\n\n\tlogin.OAuthInfo\n}"'></highlightjs>
-<h2><a name="session-secure" class="anchor" href="#session-secure" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Session Secure</h2>
+<p>To retrieve module messages in your HTTP handler, you can use the <code>MustGetModuleMessages</code> function:</p>
 
-<p>The <a href="https://github.com/qor5/x/blob/8f986dddfeaf235fd42bb3361717551d06695517/login/session_secure.go#L11" rel="nofollow">SessionSecurer</a> provides a way to manage unique salt for a user record. There is a default implementation - <a href="https://github.com/qor5/x/blob/8f986dddfeaf235fd42bb3361717551d06695517/login/session_secure.go#L16" rel="nofollow">SessionSecure</a>.</p>
-
-<highlightjs :language='"go"' :code='"type User struct {\n\tgorm.Model\n\n\tlogin.UserPass\n\tlogin.OAuthInfo\n\tlogin.SessionSecure\n}"'></highlightjs>
-<p><code>SessionSecurer</code> helps to ensure user security even in the event of secret leakage. When a user logs in, <code>SessionSecurer</code> generates a random salt and associates it with the user&#39;s record. This salt is then used to sign the user&#39;s session token. When the user makes requests to the server, the server verifies that the session token has been signed with the correct salt. If the salt has been changed, the session token is considered invalid and the user is logged out.</p>
-<h2><a name="hooks" class="anchor" href="#hooks" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Hooks</h2>
-
-<p><a href="https://github.com/qor5/x/blob/8f986dddfeaf235fd42bb3361717551d06695517/login/builder.go#L39" rel="nofollow">Hooks</a> are functions that are called before or after certain events.<br>
-The following hooks are available:</p>
-<h3><a name="beforesetpassword" class="anchor" href="#beforesetpassword" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
-BeforeSetPassword</h3>
-<h4><a name="extra-values" class="anchor" href="#extra-values" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
-Extra Values</h4>
-
-<ul>
-<li>password</li>
-</ul>
-
-<p>This hook is called before resetting or changing a password. The hook can be used to validate password formats.</p>
-<h3><a name="afterlogin" class="anchor" href="#afterlogin" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
-AfterLogin</h3>
-
-<p>This hook is called after a successful login.</p>
-<h3><a name="afterfailedtologin" class="anchor" href="#afterfailedtologin" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
-AfterFailedToLogin</h3>
-<h4><a name="extra-values" class="anchor" href="#extra-values" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
-Extra Values</h4>
-
-<ul>
-<li>login error</li>
-</ul>
-
-<p>This hook is called after a failed login. Note that the <code>user</code> parameter may be nil.</p>
-<h3><a name="afteruserlocked" class="anchor" href="#afteruserlocked" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
-AfterUserLocked</h3>
-
-<p>This hook is called after a user is locked.</p>
-<h3><a name="afterlogout" class="anchor" href="#afterlogout" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
-AfterLogout</h3>
-
-<p>This hook is called after a logout.</p>
-<h3><a name="afterconfirmsendresetpasswordlink" class="anchor" href="#afterconfirmsendresetpasswordlink" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
-AfterConfirmSendResetPasswordLink</h3>
-<h4><a name="extra-values" class="anchor" href="#extra-values" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
-Extra Values</h4>
-
-<ul>
-<li>reset link</li>
-</ul>
-
-<p>This hook is called after confirming the sending of a password reset link. This is where the code to send the reset link to the user should be written.</p>
-<h3><a name="afterresetpassword" class="anchor" href="#afterresetpassword" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
-AfterResetPassword</h3>
-
-<p>This hook is called after a password is reset.</p>
-<h3><a name="afterchangepassword" class="anchor" href="#afterchangepassword" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
-AfterChangePassword</h3>
-
-<p>This hook is called after a password is changed.</p>
-<h3><a name="afterextendsession" class="anchor" href="#afterextendsession" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
-AfterExtendSession</h3>
-<h4><a name="extra-values" class="anchor" href="#extra-values" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
-Extra Values</h4>
-
-<ul>
-<li>old session token</li>
-</ul>
-
-<p>This hook is called after a session is extended.</p>
-<h3><a name="aftertotpcodereused" class="anchor" href="#aftertotpcodereused" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
-AfterTOTPCodeReused</h3>
-
-<p>This hook is called after a TOTP code has been reused.</p>
-<h3><a name="afteroauthcomplete" class="anchor" href="#afteroauthcomplete" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
-AfterOAuthComplete</h3>
-
-<p>This hook is called after an OAuth authentication is completed.</p>
-<h2><a name="customize-pages" class="anchor" href="#customize-pages" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Customize Pages</h2>
-
-<p>To customize pages, there are two ways:</p>
-
-<p>1. Each page has a corresponding <code>xxxPageFunc</code> to rewrite the page content. You can easily customize a page by copying the <a href="https://github.com/qor5/admin/blob/main/login/views.go" rel="nofollow">default page func</a> and modifying it according to your needs.</p>
-
-<highlightjs :language='"go"' :code='"loginBuilder.LoginPageFunc(func(ctx *web.EventContext) (r web.PageResponse, err error) {\n\tr.Body = Text(\"This is login page\")\n\treturn\n})"'></highlightjs>
-<p>2. Only mount the API and serve the login pages manually.<br>
-When you want to embed the login form into an existing page, this way can be very useful.</p>
-
-<highlightjs :language='"go"' :code='"loginBuilder.LoginPageURL(\"/custom-login-page\")\nloginBuilder.MountAPI(mux)\nmux.Handle(\"/custom-login-page\", loginPage)"'></highlightjs>
+<highlightjs :language='"go"' :code='"msgr := i18n.MustGetModuleMessages(ctx.R, I18nExampleKey, Messages_en_US).(*Messages)\nr.Body = v.VContainer(\n\th.Div(\n\t\th.H1(msgr.Welcome),\n\t).Class(\"text-center mt-8\"),\n)"'></highlightjs>
+<p>The <code>MustGetModuleMessages</code> function takes three arguments:
+the HTTP request, the module key, and a pointer to a struct
+that implements the Messages interface. The function retrieves the messages
+for the specified module in the language set by the i18n middleware.</p>
 </div>
 </div>
 </div>
