@@ -27,7 +27,7 @@ func NewActivitySample() {
 	}
 	productModel := presetsBuilder.Model(&Product{})
 
-	activityBuilder.RegisterModel(productModel).UseDefaultTab().AddKeys("Title").AddIgnoredFields("Code").SkipDelete()
+	activityBuilder.RegisterModel(productModel).EnableActivityInfoTab().AddKeys("Title").AddIgnoredFields("Code").SkipDelete()
 	// @snippet_end
 
 	// @snippet_begin(ActivityRecordLogSample)

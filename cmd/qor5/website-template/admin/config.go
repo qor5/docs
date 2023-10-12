@@ -1,6 +1,7 @@
 package admin
 
 import (
+	"github.com/qor5/admin/seo"
 	"net/http"
 
 	"github.com/qor/oss/filesystem"
@@ -90,14 +91,16 @@ func newPB() Config {
 	l10nBuilder := l10n.New()
 
 	pageBuilder := example.ConfigPageBuilder(db, "/admin/page_builder", ``, b.I18n())
-	pm := pageBuilder.Configure(b, db, l10nBuilder, ab)
+	storage := filesystem.New(PublishDir)
+	publisher := publish.New(db, storage).WithPageBuilder(pageBuilder)
+
+	seoCollection := seo.NewCollection()
+	pm := pageBuilder.Configure(b, db, l10nBuilder, ab, publisher, seoCollection)
 	tm := pageBuilder.ConfigTemplate(b, db)
-	cm := pageBuilder.ConfigCategory(b, db)
+	cm := pageBuilder.ConfigCategory(b, db, l10nBuilder)
 
 	ab.RegisterModels(pm, tm, cm)
 
-	storage := filesystem.New(PublishDir)
-	publisher := publish.New(db, storage).WithPageBuilder(pageBuilder)
 	publish_view.Configure(b, db, ab, publisher, pm)
 
 	l10nBuilder.

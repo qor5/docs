@@ -2,7 +2,7 @@
 
 <html>
 <head>
-<title>UI Components - Auto Complete - QOR5 Document</title>
+<title>Building Admin - Localization - QOR5 Document</title>
 
 <meta name='description'>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -36,10 +36,6 @@
 
 <li class='m-0'>
 <a href='basics/listing.html' id='basics/listing.html' onclick='window.storeMenuState("basics/listing.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Listing</a>
-</li>
-
-<li class='m-0'>
-<a href='basics/listing-customizations.html' id='basics/listing-customizations.html' onclick='window.storeMenuState("basics/listing-customizations.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Listing Customizations</a>
 </li>
 
 <li class='m-0'>
@@ -111,7 +107,7 @@
 </li>
 
 <li class='m-0'>
-<a href='basics/l10n.html' id='basics/l10n.html' onclick='window.storeMenuState("basics/l10n.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Localization</a>
+<a href='basics/l10n.html' id='basics/l10n.html' onclick='window.storeMenuState("basics/l10n.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-blue-500'>Localization</a>
 </li>
 
 <li class='cursor-default px-4 py-1 truncate break-words w-64 m-0'>Web Application</li>
@@ -183,7 +179,7 @@
 </li>
 
 <li class='m-0'>
-<a href='vuetify-components/auto-complete.html' id='vuetify-components/auto-complete.html' onclick='window.storeMenuState("vuetify-components/auto-complete.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-blue-500'>Auto Complete</a>
+<a href='vuetify-components/auto-complete.html' id='vuetify-components/auto-complete.html' onclick='window.storeMenuState("vuetify-components/auto-complete.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Auto Complete</a>
 </li>
 
 <li class='m-0'>
@@ -219,24 +215,39 @@
 </div>
 
 <div id='docMainBox' class='px-16 pb-12 pt-4 overflow-auto'>
-<h1 class='mb-8'>Auto Complete</h1>
+<h1 class='mb-8'>Localization</h1>
 
-<div class='border-t'><p>AutoComplete is a more advanced component that vuetify provides, We extend it
-So that it can fetch remote options from an event func. here we show these examples:</p>
+<div class='border-t'><p>L10n gives your models the ability to localize for different Locales.<br>
+It can be a catalyst for the adaptation of a product, application, or document content to meet the language, cultural, and other requirements of a specific target market.</p>
+<h2><a name="define-a-struct" class="anchor" href="#define-a-struct" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Define a struct</h2>
 
-<ul>
-<li>An auto complete that you can select multiple with static data</li>
-<li>An auto complete that you can select multiple with remote fetched dynamic data</li>
-<li>A static normal select component</li>
-</ul>
+<p>Define a struct that requires embed <code>l10n.Locale</code>.<br>
+Also this struct must implement <code>PrimarySlug() string</code> and <code>PrimaryColumnValuesBySlug(slug string) map[string]string</code>.</p>
 
-<highlightjs :language='"go"' :code='"\nimport (\n\t\"fmt\"\n\n\t\"github.com/qor5/admin/presets\"\n\t\"github.com/qor5/admin/presets/gorm2op\"\n\t. \"github.com/qor5/ui/vuetify\"\n\t\"github.com/qor5/ui/vuetifyx\"\n\t\"github.com/qor5/web\"\n\th \"github.com/theplant/htmlgo\"\n\t\"gorm.io/driver/sqlite\"\n\t\"gorm.io/gorm\"\n)\n\ntype (\n\tUser struct {\n\t\tLogin string\n\t\tName  string\n\t}\n\n\tUserIcons struct {\n\t\tLogin string `json:\"text\"`\n\t\tName  string `json:\"value\"`\n\t\tIcon  string `json:\"icon\"`\n\t}\n\n\tProduct struct {\n\t\tID   uint `gorm:\"primarykey\"`\n\t\tName string\n\t}\n)\n\nvar (\n\toptions = []*User{\n\t\t{Login: \"sam\", Name: \"Sam\"},\n\t\t{Login: \"john\", Name: \"John\"},\n\t\t{Login: \"charles\", Name: \"Charles\"},\n\t}\n\n\ticonOptions = []*UserIcons{\n\t\t{Login: \"sam\", Name: \"Sam\", Icon: \"https://cdn.vuetifyjs.com/images/lists/1.jpg\"},\n\t\t{Login: \"john\", Name: \"John\", Icon: \"https://cdn.vuetifyjs.com/images/lists/2.jpg\"},\n\t\t{Login: \"charles\", Name: \"Charles\", Icon: \"https://cdn.vuetifyjs.com/images/lists/3.jpg\"},\n\t}\n\n\tloadMoreRes   *vuetifyx.AutocompleteDataSource\n\tpagingRes     *vuetifyx.AutocompleteDataSource\n\tExamplePreset *presets.Builder\n)\n\nfunc init() {\n\tdb, err := gorm.Open(sqlite.Open(\"/tmp/my.db\"), \u0026gorm.Config{})\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\n\tdb.AutoMigrate(\u0026Product{})\n\tdb.Where(\"1=1\").Delete(\u0026Product{})\n\n\tfor i := 1; i \u003c 300; i++ {\n\t\tdb.Create(\u0026Product{Name: fmt.Sprintf(\"Product %d\", i)})\n\t}\n\n\tExamplePreset = presets.New()\n\tExamplePreset.URIPrefix(VuetifyAutoCompletePresetPath).DataOperator(gorm2op.DataOperator(db))\n\tlisting := ExamplePreset.Model(\u0026Product{}).Listing()\n\tloadMoreRes = listing.ConfigureAutocompleteDataSource(\n\t\t\u0026presets.AutocompleteDataSourceConfig{\n\t\t\tOptionValue: \"ID\",\n\t\t\tOptionText:  \"Name\",\n\t\t\tOptionIcon: func(product interface{}) string {\n\t\t\t\treturn fmt.Sprintf(\"https://cdn.vuetifyjs.com/images/lists/%d.jpg\", product.(*Product).ID%4+1)\n\t\t\t},\n\t\t\tKeywordColumns: []string{\n\t\t\t\t\"Name\",\n\t\t\t},\n\t\t\tPerPage: 50,\n\t\t},\n\t\t\"loadMore\",\n\t)\n\n\tpagingRes = listing.ConfigureAutocompleteDataSource(\n\t\t\u0026presets.AutocompleteDataSourceConfig{\n\t\t\tOptionValue: \"ID\",\n\t\t\tOptionText:  \"Name\",\n\t\t\tOptionIcon: func(product interface{}) string {\n\t\t\t\treturn fmt.Sprintf(\"https://cdn.vuetifyjs.com/images/lists/%d.jpg\", product.(*Product).ID%4+1)\n\t\t\t},\n\t\t\tKeywordColumns: []string{\n\t\t\t\t\"Name\",\n\t\t\t},\n\t\t\tPerPage:  20,\n\t\t\tIsPaging: true,\n\t\t\tOrderBy:  \"Name\",\n\t\t},\n\t\t\"paging\",\n\t)\n\n}\n\nfunc VuetifyAutocomplete(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\tpr.Body = VContainer(\n\t\th.H1(\"Select many (default)\"),\n\t\tvuetifyx.VXAutocomplete().\n\t\t\tLabel(\"Load options from a list\").\n\t\t\tItems(options).\n\t\t\tFieldName(\"Values1\").\n\t\t\tItemText(\"Name\").\n\t\t\tItemValue(\"Login\"),\n\n\t\th.H1(\"Select one\"),\n\t\tvuetifyx.VXAutocomplete().\n\t\t\tFieldName(\"Values2\").\n\t\t\tLabel(\"Load options from a list\").\n\t\t\tItems(options).\n\t\t\tItemText(\"Name\").\n\t\t\tItemValue(\"Login\").\n\t\t\tMultiple(false),\n\n\t\th.H1(\"Has icon\"),\n\t\tvuetifyx.VXAutocomplete().\n\t\t\tLabel(\"Load options from a list\").\n\t\t\tItems(iconOptions).\n\t\t\tHasIcon(true),\n\n\t\th.H1(\"Load more from remote resource\"),\n\t\tvuetifyx.VXAutocomplete().\n\t\t\tFieldName(\"Values2\").\n\t\t\tLabel(\"Load options from data source\").\n\t\t\tSetDataSource(loadMoreRes),\n\n\t\th.H1(\"Paging with remote resource\"),\n\t\tvuetifyx.VXAutocomplete().\n\t\t\tFieldName(\"Values2\").\n\t\t\tLabel(\"Load options from data source\").\n\t\t\tSetDataSource(pagingRes),\n\n\t\th.H1(\"Sorting\"),\n\t\tvuetifyx.VXAutocomplete().\n\t\t\tFieldName(\"Values2\").\n\t\t\tLabel(\"Load options from data source\").\n\t\t\tSorting(true).\n\t\t\tSetDataSource(pagingRes).ChipColor(\"red\"),\n\t)\n\treturn\n}\n\nvar VuetifyAutocompletePB = web.Page(VuetifyAutocomplete)\n\nconst VuetifyAutoCompletePath = \"/samples/vuetify-auto-complete\"\nconst VuetifyAutoCompletePresetPath = \"/samples/vuetify-auto-complete-preset\"\n"'></highlightjs>
+<highlightjs :language='"go"' :code='"type L10nModel struct {\n\tgorm.Model\n\tTitle string\n\n\tl10n.Locale\n}\n\nfunc (lm *L10nModel) PrimarySlug() string {\n\treturn fmt.Sprintf(\"%v_%v\", lm.ID, lm.LocaleCode)\n}\n\nfunc (lm *L10nModel) PrimaryColumnValuesBySlug(slug string) map[string]string {\n\tsegs := strings.Split(slug, \"_\")\n\tif len(segs) != 2 {\n\t\tpanic(\"wrong slug\")\n\t}\n\n\treturn map[string]string{\n\t\t\"id\":          segs[0],\n\t\t\"locale_code\": segs[1],\n\t}\n}\n"'></highlightjs>
+<h2><a name="init-a-l10n-builder" class="anchor" href="#init-a-l10n-builder" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Init a l10n builder</h2>
+
+<p>Register locales here.<br>
+You can use <code>GetSupportLocaleCodesFromRequestFunc</code> to determine who can use which locales.</p>
+
+<highlightjs :language='"go"' :code='"l10nBuilder := l10n.New()\nl10nBuilder.\n\tRegisterLocales(\"International\", \"international\", \"International\").\n\tRegisterLocales(\"China\", \"cn\", \"China\").\n\tRegisterLocales(\"Japan\", \"jp\", \"Japan\").\n\tGetSupportLocaleCodesFromRequestFunc(func(R *http.Request) []string {\n\t\treturn l10nBuilder.GetSupportLocaleCodes()[:]\n\t})"'></highlightjs>
+<h2><a name="configure-the-model-builder" class="anchor" href="#configure-the-model-builder" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Configure the model builder</h2>
+
+<p>Use <code>l10n_view.Configure()</code> func to configure l10n view.<br>
+The <code>Switch Locale</code> ui will appear below the <code>Brand</code>.<br>
+The <code>Localize</code> ui will appear in the <code>RowMenuItem</code> under the <code>Edit</code> and the <code>Delete</code>.<br>
+<code>Localize</code> button is used to copy a piece of data from the current locale to the other locales.</p>
+
+<highlightjs :language='"go"' :code='"mb := b.Model(\u0026L10nModel{}).URIName(\"l10n-models\")\nl10n_view.Configure(b, DB, l10nBuilder, nil, mb)\nmb.Listing(\"ID\", \"Title\", \"Locale\")"'></highlightjs>
+<h2><a name="full-example" class="anchor" href="#full-example" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Full Example</h2>
+
+<highlightjs :language='"go"' :code='"import (\n\t\"fmt\"\n\t\"net/http\"\n\t\"strings\"\n\n\t\"github.com/qor5/admin/l10n\"\n\tl10n_view \"github.com/qor5/admin/l10n/views\"\n\t\"github.com/qor5/admin/presets\"\n\t\"github.com/qor5/admin/presets/gorm2op\"\n\t\"gorm.io/gorm\"\n)\n\ntype L10nModel struct {\n\tgorm.Model\n\tTitle string\n\n\tl10n.Locale\n}\n\nfunc (lm *L10nModel) PrimarySlug() string {\n\treturn fmt.Sprintf(\"%v_%v\", lm.ID, lm.LocaleCode)\n}\n\nfunc (lm *L10nModel) PrimaryColumnValuesBySlug(slug string) map[string]string {\n\tsegs := strings.Split(slug, \"_\")\n\tif len(segs) != 2 {\n\t\tpanic(\"wrong slug\")\n\t}\n\n\treturn map[string]string{\n\t\t\"id\":          segs[0],\n\t\t\"locale_code\": segs[1],\n\t}\n}\n\n\nfunc LocalizationExampleMock(b *presets.Builder) {\n\tif err := DB.AutoMigrate(\u0026L10nModel{}); err != nil {\n\t\tpanic(err)\n\t}\n\n\tb.URIPrefix(LocalizationExamplePath).\n\t\tDataOperator(gorm2op.DataOperator(DB))\n\n\tl10nBuilder := l10n.New()\n\tl10nBuilder.\n\t\tRegisterLocales(\"International\", \"international\", \"International\").\n\t\tRegisterLocales(\"China\", \"cn\", \"China\").\n\t\tRegisterLocales(\"Japan\", \"jp\", \"Japan\").\n\t\tGetSupportLocaleCodesFromRequestFunc(func(R *http.Request) []string {\n\t\t\treturn l10nBuilder.GetSupportLocaleCodes()[:]\n\t\t})\n\n\tmb := b.Model(\u0026L10nModel{}).URIName(\"l10n-models\")\n\tl10n_view.Configure(b, DB, l10nBuilder, nil, mb)\n\tmb.Listing(\"ID\", \"Title\", \"Locale\")"'></highlightjs>
 
 <div>
 <div class='demo'>
-<a href='/samples/vuetify-auto-complete' target='_blank'>Check the demo</a>
+<a href='/samples/l10n/l10n-models' target='_blank'>Check the demo</a>
  | 
-<a href='https://github.com/qor5/docs/tree/main/docsrc/examples/e10_vuetify_autocomplete/page.go' target='_blank'>Source on GitHub</a>
+<a href='https://github.com/qor5/docs/tree/main/docsrc/examples/example_basics/localization.go' target='_blank'>Source on GitHub</a>
 </div>
 </div>
 </div>
