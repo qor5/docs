@@ -738,7 +738,12 @@ func SamplesHandler(prefix string) http.Handler {
 	example_basics.InternationalizationExample(c26)
 	mux.Handle(
 		example_basics.InternationalizationExamplePath+"/",
-		c26,
+		c26)
+	c25 := presets.New().AssetFunc(addGA)
+	example_basics.LocalizationExampleMock(c25)
+	mux.Handle(
+		example_basics.LocalizationExamplePath+"/",
+		c25,
 	)
 
 	return mux
