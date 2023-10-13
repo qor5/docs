@@ -30,6 +30,7 @@ func setupDB() (db *gorm.DB) {
 	err = db.AutoMigrate(
 		&Post{},
 		&Category{},
+		&Product{},
 	)
 	if err != nil {
 		panic(err)

@@ -24,7 +24,8 @@ require (
 )
 
 require (
-	cloud.google.com/go v0.67.0 // indirect
+	cloud.google.com/go/compute v1.19.3 // indirect
+	cloud.google.com/go/compute/metadata v0.2.3 // indirect
 	github.com/NYTimes/gziphandler v1.1.1 // indirect
 	github.com/aymerick/douceur v0.2.0 // indirect
 	github.com/boombuler/barcode v1.0.1 // indirect
