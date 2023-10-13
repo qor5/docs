@@ -8,27 +8,25 @@ require (
 	github.com/manifoldco/promptui v0.9.0
 	github.com/markbates/goth v1.77.0
 	github.com/ory/ladon v1.2.0
-	github.com/qor/oss v0.0.0-20210412121326-3c5583a62015
-	github.com/qor5/admin v0.0.0-20230524072031-6ad72f63e702
-	github.com/qor5/ui v1.0.1-0.20230518014109-9c84f1e3851f
-	github.com/qor5/web v1.2.4
-	github.com/qor5/x v1.2.1-0.20230420023921-8f986dddfeaf
+	github.com/qor/oss v0.0.0-20230717083721-c04686f83630
+	github.com/qor5/admin v0.0.0-20231009020927-485bb3c7c83b
+	github.com/qor5/ui v1.0.1-0.20230913083355-743825ff29b1
+	github.com/qor5/web v1.3.0
+	github.com/qor5/x v1.2.1-0.20230907054212-50b1a850acf6
 	github.com/shurcooL/sanitized_anchor_name v1.0.0
 	github.com/sunfmin/reflectutils v1.0.3
 	github.com/theplant/docgo v0.0.15
 	github.com/theplant/htmlgo v1.0.3
 	github.com/yosssi/gohtml v0.0.0-20201013000340-ee4748c638f4
-	golang.org/x/text v0.9.0
-	gorm.io/driver/postgres v1.5.0
-	gorm.io/driver/sqlite v1.5.0
-	gorm.io/gorm v1.25.1
+	golang.org/x/text v0.13.0
+	gorm.io/driver/postgres v1.4.8
+	gorm.io/gorm v1.24.2
 )
 
 require (
 	cloud.google.com/go/compute v1.19.3 // indirect
 	cloud.google.com/go/compute/metadata v0.2.3 // indirect
 	github.com/NYTimes/gziphandler v1.1.1 // indirect
-	github.com/aws/aws-sdk-go v1.44.265 // indirect
 	github.com/aymerick/douceur v0.2.0 // indirect
 	github.com/boombuler/barcode v1.0.1 // indirect
 	github.com/chzyer/readline v1.5.1 // indirect
@@ -54,11 +52,9 @@ require (
 	github.com/jackc/pgx/v5 v5.3.1 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
-	github.com/jmespath/go-jmespath v0.4.0 // indirect
 	github.com/lib/pq v1.10.9 // indirect
 	github.com/mattn/go-colorable v0.1.9 // indirect
 	github.com/mattn/go-isatty v0.0.14 // indirect
-	github.com/mattn/go-sqlite3 v1.14.16 // indirect
 	github.com/microcosm-cc/bluemonday v1.0.23 // indirect
 	github.com/ory/pagination v0.0.1 // indirect
 	github.com/pborman/uuid v1.2.1 // indirect
@@ -83,16 +79,19 @@ require (
 	go.uber.org/multierr v1.11.0 // indirect
 	go.uber.org/zap v1.24.0 // indirect
 	goji.io v2.0.2+incompatible // indirect
-	golang.org/x/crypto v0.9.0 // indirect
+	golang.org/x/crypto v0.14.0 // indirect
 	golang.org/x/image v0.7.0 // indirect
-	golang.org/x/net v0.10.0 // indirect
+	golang.org/x/net v0.17.0 // indirect
 	golang.org/x/oauth2 v0.8.0 // indirect
-	golang.org/x/sys v0.8.0 // indirect
+	golang.org/x/sys v0.13.0 // indirect
 	golang.org/x/time v0.3.0 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
 	google.golang.org/protobuf v1.30.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
 
-// replace github.com/qor5/web => ../web
-// replace github.com/qor5/ui => ../ui
+//replace github.com/qor5/web => ../web
+
+//replace github.com/qor5/ui => ../ui
+
+//replace github.com/qor5/admin => ../admin

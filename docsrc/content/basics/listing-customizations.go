@@ -79,5 +79,16 @@ Here is how to use it:
 - ~ComponentFunc~ of the bulk action configure the component that will show to user to input after user clicked the bulk action button
 - ~UpdateFunc~ configure the logic that the bulk action execute
 `),
+	utils.Anchor(H2(""), "Search Func"),
+	Markdown(`
+~SearchFunc~ defines a data processing function for ~ListingBuilder~.
+This function searches for a model based on the specified search parameters.
+It returns the search results along with the total count of matching records.
+You can process the data displayed on the listing page here based on context or custom conditions before pagination.
+
+In the following example, the listing page only displays approved customers.
+`),
+	ch.Code(generated.PresetsListingCustomizationSearcherSample).Language("go"),
+	utils.Demo("Search Func", e21_presents.PresetsListingCustomizationSearcherPath+"/customers", "e21_presents/listing.go"),
 ).Title("Listing Customizations").
 	Slug("basics/listing-customizations")

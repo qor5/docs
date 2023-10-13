@@ -4,6 +4,7 @@ package e21_presents
 import (
 	"fmt"
 	"net/url"
+	"os"
 	"time"
 
 	"github.com/qor5/admin/presets"
@@ -15,7 +16,7 @@ import (
 	"github.com/qor5/x/i18n"
 	h "github.com/theplant/htmlgo"
 	"golang.org/x/text/language"
-	"gorm.io/driver/sqlite"
+	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 )
@@ -48,7 +49,7 @@ func init() {
 
 func setupDB() (db *gorm.DB) {
 	var err error
-	db, err = gorm.Open(sqlite.Open("/tmp/my.db"), &gorm.Config{})
+	db, err = gorm.Open(postgres.Open(os.Getenv("DB_PARAMS")), &gorm.Config{})
 	if err != nil {
 		panic(err)
 	}
@@ -332,3 +333,21 @@ func PresetsListingCustomizationBulkActions(b *presets.Builder) (
 const PresetsListingCustomizationBulkActionsPath = "/samples/presets-listing-customization-bulk-actions"
 
 // @snippet_end
+
+// @snippet_begin(PresetsListingCustomizationSearcherSample)
+
+func PresetsListingCustomizationSearcher(b *presets.Builder) {
+	db := setupDB()
+	b.URIPrefix(PresetsListingCustomizationSearcherPath).DataOperator(gorm2op.DataOperator(db))
+	mb := b.Model(&Customer{})
+	mb.Listing().SearchFunc(func(model interface{}, params *presets.SearchParams, ctx *web.EventContext) (r interface{}, totalCount int, err error) {
+		// only display approved customers
+		qdb := db.Where("approved_at IS NOT NULL")
+		return gorm2op.DataOperator(qdb).Search(model, params, ctx)
+	})
+
+}
+
+// @snippet_end
+
+const PresetsListingCustomizationSearcherPath = "/samples/presets-listing-customization-searcher"
