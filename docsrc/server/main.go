@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/qor5/docs/docsrc"
-	"github.com/qor5/docs/docsrc/examples/example_basics"
+	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
@@ -17,11 +17,16 @@ func main() {
 		port = "8800"
 	}
 
-	go runAtMidNight(example_basics.DB)
+	db, err := gorm.Open(postgres.Open(os.Getenv("DB_PARAMS")), &gorm.Config{})
+	if err != nil {
+		panic(err)
+	}
+
+	go runAtMidNight(db)
 
 	// @snippet_begin(HelloWorldMainSample)
 	fmt.Println("Starting docs at :" + port)
-	err := http.ListenAndServe(":"+port, docsrc.Mux("/"))
+	err = http.ListenAndServe(":"+port, docsrc.Mux("/"))
 	if err != nil {
 		panic(err)
 	}

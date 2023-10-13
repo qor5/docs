@@ -46,6 +46,12 @@ With ~FieldDefaults~ we can write libraries that add customized type for differe
 of how to display the edit controls, and How to save the object.
 
 `),
+	utils.Anchor(H2(""), "Tabs"),
+	Markdown(`
+Tabs can be added by using ~AppendTabsPanelFunc~ func on ~EditingBuilder~:
+`),
+	ch.Code(generated.PresetsEditingCustomizationTabsSample).Language("go"),
+	utils.Demo("Presets Editing Customization Tabs", e21_presents.PresetsEditingCustomizationTabsPath+"/companies", "e21_presents/editing.go"),
 	utils.Anchor(H2(""), "Validation"),
 	Markdown(`
 Field level validation and display on field can be added by implement ~ValidateFunc~,

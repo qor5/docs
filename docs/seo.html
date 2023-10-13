@@ -39,6 +39,10 @@
 </li>
 
 <li class='m-0'>
+<a href='basics/listing-customizations.html' id='basics/listing-customizations.html' onclick='window.storeMenuState("basics/listing-customizations.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Listing Customizations</a>
+</li>
+
+<li class='m-0'>
 <a href='basics/filter.html' id='basics/filter.html' onclick='window.storeMenuState("basics/filter.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Filters</a>
 </li>
 
@@ -103,11 +107,11 @@
 </li>
 
 <li class='m-0'>
-<a href='basics/l10n.html' id='basics/l10n.html' onclick='window.storeMenuState("basics/l10n.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Localization</a>
+<a href='basics/i18n.html' id='basics/i18n.html' onclick='window.storeMenuState("basics/i18n.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Internationalization</a>
 </li>
 
 <li class='m-0'>
-<a href='basics/i18n.html' id='basics/i18n.html' onclick='window.storeMenuState("basics/i18n.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Internationalization</a>
+<a href='basics/l10n.html' id='basics/l10n.html' onclick='window.storeMenuState("basics/l10n.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Localization</a>
 </li>
 
 <li class='cursor-default px-4 py-1 truncate break-words w-64 m-0'>Web Application</li>
@@ -301,7 +305,7 @@ collection.Render(Product{}, request)
 Customization</h2>
 <p>You can customize your SEO settings by implementing the interface and adding functions such as l10n and publish.</p>
 
-<highlightjs :language='"go"' :code='"type QorSEOSettingInterface interface {\n\tGetName() string\n\tSetName(string)\n\tGetSEOSetting() Setting\n\tSetSEOSetting(Setting)\n\tGetVariables() Variables\n\tSetVariables(Variables)\n\tGetTitle() string\n\tGetDescription() string\n\tGetKeywords() string\n\tGetOpenGraphURL() string\n\tGetOpenGraphType() string\n\tGetOpenGraphImageURL() string\n\tGetOpenGraphImageFromMediaLibrary() media_library.MediaBox\n\tGetOpenGraphMetadata() []OpenGraphMetadata\n}\n"'></highlightjs>
+<highlightjs :language='"go"' :code='"type QorSEOSettingInterface interface {\n\tGetName() string\n\tSetName(string)\n\tGetSEOSetting() Setting\n\tSetSEOSetting(Setting)\n\tGetVariables() Variables\n\tSetVariables(Variables)\n\tGetLocale() string\n\tSetLocale(string)\n\tGetTitle() string\n\tGetDescription() string\n\tGetKeywords() string\n\tGetOpenGraphTitle() string\n\tGetOpenGraphDescription() string\n\tGetOpenGraphURL() string\n\tGetOpenGraphType() string\n\tGetOpenGraphImageURL() string\n\tGetOpenGraphImageFromMediaLibrary() media_library.MediaBox\n\tGetOpenGraphMetadata() []OpenGraphMetadata\n}\n"'></highlightjs>
 <p>Suppose <code>MySEOSetting</code> implemented the above interface</p>
 
 <div class="highlight highlight-go"><pre>type MySEOSetting struct{
@@ -318,12 +322,12 @@ Customization</h2>
 
 <h2>Example</h2>
 
-<highlightjs :language='"go"' :code='"var SeoCollection *seo.Collection\n\nfunc ConfigureSeo(b *presets.Builder, db *gorm.DB) {\n\tSeoCollection = seo.NewCollection()\n\tSeoCollection.RegisterSEO(\u0026models.Post{}).RegisterContextVariables(\n\t\t\"Title\",\n\t\tfunc(object interface{}, _ *seo.Setting, _ *http.Request) string {\n\t\t\tif article, ok := object.(models.Post); ok {\n\t\t\t\treturn article.Title\n\t\t\t}\n\t\t\treturn \"\"\n\t\t},\n\t).RegisterSettingVaribles(struct{ Test string }{})\n\tSeoCollection.RegisterSEOByNames(\"Not Found\", \"Internal Server Error\")\n\tSeoCollection.Configure(b, db)\n}\n"'></highlightjs>
+<highlightjs :language='"go"' :code='"var SeoCollection *seo.Collection\n\nfunc ConfigureSeo(b *presets.Builder, db *gorm.DB) {\n\tSeoCollection = seo.NewCollection()\n\tSeoCollection.RegisterSEO(\u0026models.Post{}).RegisterContextVariables(\n\t\t\"Title\",\n\t\tfunc(object interface{}, _ *seo.Setting, _ *http.Request) string {\n\t\t\tif article, ok := object.(models.Post); ok {\n\t\t\t\treturn article.Title\n\t\t\t}\n\t\t\treturn \"\"\n\t\t},\n\t).RegisterSettingVaribles(struct{ Test string }{})\n\tSeoCollection.RegisterSEOByNames(\"Product\", \"Announcement\")\n\tSeoCollection.Configure(b, db)\n}\n"'></highlightjs>
 <h2><a name="definition" class="anchor" href="#definition" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Definition</h2>
 
 <p><code>Collection</code> manages all the registered models and hold global seo settings.</p>
 
-<highlightjs :language='"go"' :code='"type Collection struct {\n\tregisteredSEO []*SEO\n\tglobalName    string      //default name is GlobalSEO\n\tinherited     bool        //default is true. the order is model seo setting, system seo setting, global seo setting\n\tdbContextKey  interface{} // get db from context\n\tsettingModel  interface{} // db model\n}\n"'></highlightjs>
+<highlightjs :language='"go"' :code='"type Collection struct {\n\tregisteredSEO []*SEO\n\tglobalName    string                                                             //default name is GlobalSEO\n\tinherited     bool                                                               //default is true. the order is model seo setting, system seo setting, global seo setting\n\tdbContextKey  interface{}                                                        // get db from context\n\tsettingModel  interface{}                                                        // db model\n\tafterSave     func(ctx context.Context, settingName string, locale string) error // hook called after saving\n}\n"'></highlightjs>
 <p><code>SEO</code> provides system-level default page matadata.</p>
 
 <highlightjs :language='"go"' :code='"type SEO struct {\n\tname             string\n\tmodelTyp         reflect.Type\n\tcontextVariables map[string]contextVariablesFunc // fetch context variables from request\n\tsettingVariables interface{}                     // fetch setting variables from db\n}\n"'></highlightjs>
