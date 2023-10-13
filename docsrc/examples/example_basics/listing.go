@@ -5,7 +5,7 @@ import (
 
 	"github.com/qor5/admin/presets"
 	"github.com/qor5/admin/presets/gorm2op"
-	"github.com/qor5/ui/vuetify"
+	v "github.com/qor5/ui/vuetify"
 	"github.com/qor5/web"
 	h "github.com/theplant/htmlgo"
 	"gorm.io/driver/sqlite"
@@ -79,7 +79,10 @@ func ListingSample(b *presets.Builder) {
 
 	rmn := postModelBuilder.Listing().RowMenu()
 	rmn.RowMenuItem("Show").ComponentFunc(func(obj interface{}, id string, ctx *web.EventContext) h.HTMLComponent {
-		return h.Text("Fake Show")
+		return v.VListItem(
+			v.VListItemIcon(v.VIcon("menu")),
+			v.VListItemTitle(h.Text("Show")),
+		)
 	})
 
 	postModelBuilder.Listing().ActionsAsMenu(true)
@@ -90,7 +93,7 @@ func ListingSample(b *presets.Builder) {
 			// ignore err for now
 		}
 
-		return vuetify.VAutocomplete().Chips(true).FieldName(field.Name).Label(field.Label).Value(field.Value(obj)).Items(categories).ItemText("Name").ItemValue("ID")
+		return v.VAutocomplete().Chips(true).FieldName(field.Name).Label(field.Label).Value(field.Value(obj)).Items(categories).ItemText("Name").ItemValue("ID")
 	})
 
 	postModelBuilder.Listing().Field("CategoryID").Label("Category").ComponentFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) h.HTMLComponent {

@@ -332,3 +332,21 @@ func PresetsListingCustomizationBulkActions(b *presets.Builder) (
 const PresetsListingCustomizationBulkActionsPath = "/samples/presets-listing-customization-bulk-actions"
 
 // @snippet_end
+
+// @snippet_begin(PresetsListingCustomizationSearcherSample)
+
+func PresetsListingCustomizationSearcher(b *presets.Builder) {
+	db := setupDB()
+	b.URIPrefix(PresetsListingCustomizationSearcherPath).DataOperator(gorm2op.DataOperator(db))
+	mb := b.Model(&Customer{})
+	mb.Listing().SearchFunc(func(model interface{}, params *presets.SearchParams, ctx *web.EventContext) (r interface{}, totalCount int, err error) {
+		// only display approved customers
+		qdb := db.Where("approved_at IS NOT NULL")
+		return gorm2op.DataOperator(qdb).Search(model, params, ctx)
+	})
+
+}
+
+// @snippet_end
+
+const PresetsListingCustomizationSearcherPath = "/samples/presets-listing-customization-searcher"
