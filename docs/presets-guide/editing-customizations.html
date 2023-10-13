@@ -39,6 +39,10 @@
 </li>
 
 <li class='m-0'>
+<a href='basics/listing-customizations.html' id='basics/listing-customizations.html' onclick='window.storeMenuState("basics/listing-customizations.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Listing Customizations</a>
+</li>
+
+<li class='m-0'>
 <a href='basics/filter.html' id='basics/filter.html' onclick='window.storeMenuState("basics/filter.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Filters</a>
 </li>
 
@@ -100,6 +104,14 @@
 
 <li class='m-0'>
 <a href='basics/worker.html' id='basics/worker.html' onclick='window.storeMenuState("basics/worker.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Worker</a>
+</li>
+
+<li class='m-0'>
+<a href='basics/publish.html' id='basics/publish.html' onclick='window.storeMenuState("basics/publish.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Publish</a>
+</li>
+
+<li class='m-0'>
+<a href='basics/i18n.html' id='basics/i18n.html' onclick='window.storeMenuState("basics/i18n.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Internationalization</a>
 </li>
 
 <li class='m-0'>
@@ -263,6 +275,21 @@ then set the value to <code>MainImage</code> field</li>
 
 <p>With <code>FieldDefaults</code> we can write libraries that add customized type for different models to reuse. It can take care
 of how to display the edit controls, and How to save the object.</p>
+
+<h2 id='tabs'>Tabs
+<a href='#tabs' class='anchor'></a>
+</h2>
+<p>Tabs can be added by using <code>AppendTabsPanelFunc</code> func on <code>EditingBuilder</code>:</p>
+
+<highlightjs :language='"go"' :code='"\nfunc PresetsEditingCustomizationTabs(b *presets.Builder) {\n\tdb := setupDB()\n\tb.URIPrefix(PresetsEditingCustomizationTabsPath).DataOperator(gorm2op.DataOperator(db))\n\tmb := b.Model(\u0026Company{})\n\tmb.Listing(\"ID\", \"Name\")\n\tmb.Editing().AppendTabsPanelFunc(func(obj interface{}, ctx *web.EventContext) h.HTMLComponent {\n\t\tc := obj.(*Company)\n\t\treturn h.Components(\n\t\t\tv.VTab(h.Text(\"New Tab\")),\n\t\t\tv.VTabItem(\n\t\t\t\tv.VListItemTitle(h.Text(fmt.Sprintf(\"Name: %s\", c.Name))),\n\t\t\t).Class(\"pa-4\"),\n\t\t)\n\t})\n}\n"'></highlightjs>
+
+<div>
+<div class='demo'>
+<a href='/samples/presets-editing-customization-tabs/companies' target='_blank'>Check the demo</a>
+ | 
+<a href='https://github.com/qor5/docs/tree/main/docsrc/examples/e21_presents/editing.go' target='_blank'>Source on GitHub</a>
+</div>
+</div>
 
 <h2 id='validation'>Validation
 <a href='#validation' class='anchor'></a>

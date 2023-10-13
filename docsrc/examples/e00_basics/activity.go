@@ -2,17 +2,18 @@ package e00_basics
 
 import (
 	"context"
+	"os"
 
 	"github.com/qor5/admin/activity"
 	"github.com/qor5/admin/presets"
-	"gorm.io/driver/sqlite"
+	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
 func NewActivitySample() {
 	// @snippet_begin(NewActivitySample)
 	presetsBuilder := presets.New()
-	db, err := gorm.Open(sqlite.Open("/tmp/activity.db"), &gorm.Config{})
+	db, err := gorm.Open(postgres.Open(os.Getenv("DB_PARAMS")), &gorm.Config{})
 	if err != nil {
 		panic(err)
 	}
@@ -27,7 +28,7 @@ func NewActivitySample() {
 	}
 	productModel := presetsBuilder.Model(&Product{})
 
-	activityBuilder.RegisterModel(productModel).UseDefaultTab().AddKeys("Title").AddIgnoredFields("Code").SkipDelete()
+	activityBuilder.RegisterModel(productModel).EnableActivityInfoTab().AddKeys("Title").AddIgnoredFields("Code").SkipDelete()
 	// @snippet_end
 
 	// @snippet_begin(ActivityRecordLogSample)

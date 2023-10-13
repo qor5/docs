@@ -22,5 +22,6 @@ To run the QOR5 documentation locally, follow these steps:
 
 1. Clone this repository to your local machine.
 2. Navigate to the `docsrc` directory.
-3. Execute the `dev.sh` script.
-4. Access the documentation in your web browser at http://localhost:8800 to view the documentation.
+3. Run `docker-compose up`.
+4. Execute the `dev.sh` script.
+5. Access the documentation in your web browser at http://localhost:8800 to view the documentation.
