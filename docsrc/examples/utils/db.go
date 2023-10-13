@@ -1,14 +1,16 @@
 package utils
 
 import (
-	"gorm.io/driver/sqlite"
+	"os"
+
+	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 )
 
 func InitDB() (db *gorm.DB) {
 	var err error
-	db, err = gorm.Open(sqlite.Open("/tmp/my.db"), &gorm.Config{})
+	db, err = gorm.Open(postgres.Open(os.Getenv("DB_PARAMS")), &gorm.Config{})
 	if err != nil {
 		panic(err)
 	}

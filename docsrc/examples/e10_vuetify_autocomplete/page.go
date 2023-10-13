@@ -4,6 +4,7 @@ package e10_vuetify_autocomplete
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/qor5/admin/presets"
 	"github.com/qor5/admin/presets/gorm2op"
@@ -11,7 +12,7 @@ import (
 	"github.com/qor5/ui/vuetifyx"
 	"github.com/qor5/web"
 	h "github.com/theplant/htmlgo"
-	"gorm.io/driver/sqlite"
+	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
@@ -52,7 +53,7 @@ var (
 )
 
 func init() {
-	db, err := gorm.Open(sqlite.Open("/tmp/my.db"), &gorm.Config{})
+	db, err := gorm.Open(postgres.Open(os.Getenv("DB_PARAMS")), &gorm.Config{})
 	if err != nil {
 		panic(err)
 	}
