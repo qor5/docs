@@ -69,9 +69,9 @@ func PublishExample(b *presets.Builder) {
 	b.URIPrefix(PublishExamplePath).
 		DataOperator(gorm2op.DataOperator(DB))
 
-		// @snippet_begin(PublishConfigureView)
+	// @snippet_begin(PublishConfigureView)
 	mb := b.Model(&Product{})
-	mb.Editing("Status", "Schedule", "Name", "Price")
+	mb.Editing("StatusBar", "Schedule", "Name", "Price")
 
 	publisher := publish.New(DB, nil)
 	publish_view.Configure(b, DB, nil, publisher, mb)
