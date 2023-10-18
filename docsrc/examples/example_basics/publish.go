@@ -71,7 +71,7 @@ func PublishExample(b *presets.Builder) {
 
 	// @snippet_begin(PublishConfigureView)
 	mb := b.Model(&Product{})
-	mb.Editing("StatusBar", "Schedule", "Name", "Price")
+	mb.Editing("StatusBar", "ScheduleBar", "Name", "Price")
 
 	publisher := publish.New(DB, nil)
 	publish_view.Configure(b, DB, nil, publisher, mb)
