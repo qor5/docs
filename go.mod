@@ -12,7 +12,7 @@ require (
 	github.com/qor5/admin v0.0.0-20231018094342-8abd2359e13e
 	github.com/qor5/ui v1.0.1-0.20230913083355-743825ff29b1
 	github.com/qor5/web v1.3.1
-	github.com/qor5/x v1.2.1-0.20230907054212-50b1a850acf6
+	github.com/qor5/x v1.2.1-0.20231025063809-3344ed4b91f3
 	github.com/shurcooL/sanitized_anchor_name v1.0.0
 	github.com/sunfmin/reflectutils v1.0.3
 	github.com/theplant/docgo v0.0.15
