@@ -94,8 +94,8 @@ func newPB() Config {
 	storage := filesystem.New(PublishDir)
 	publisher := publish.New(db, storage).WithPageBuilder(pageBuilder)
 
-	seoCollection := seo.NewCollection()
-	pm := pageBuilder.Configure(b, db, l10nBuilder, ab, publisher, seoCollection)
+	seoBuilder := seo.NewBuilder(db)
+	pm := pageBuilder.Configure(b, db, l10nBuilder, ab, publisher, seoBuilder)
 	tm := pageBuilder.ConfigTemplate(b, db)
 	cm := pageBuilder.ConfigCategory(b, db, l10nBuilder)
 
