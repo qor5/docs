@@ -22,8 +22,7 @@ func VuetifyNavigationDrawer(ctx *web.EventContext) (pr web.PageResponse, err er
 			VBtn("Close").On("click", "vars.drawer1 = false"),
 		).Temporary(true).
 			Attr("v-model", "vars.drawer1").
-			Right(true).
-			Bottom(true).
+			Location("right").
 			Absolute(true).
 			Width(600),
 
@@ -50,12 +49,11 @@ func showDrawer(ctx *web.EventContext) (er web.EventResponse, err error) {
 				).Name("InputPortal"),
 				VBtn("Update parent and close").
 					OnClick("updateParentAndClose"),
-			).Right(true).
+			).Location("right").
 				Attr("v-model", "vars.drawer2").
-				Bottom(true).
 				Temporary(true).
 				Absolute(true).
-				Value(true).
+				ModelValue(true).
 				Width(800),
 		},
 	)

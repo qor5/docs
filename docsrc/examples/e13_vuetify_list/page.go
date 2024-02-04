@@ -14,7 +14,7 @@ func HelloVuetifyList(ctx *web.EventContext) (pr web.PageResponse, err error) {
 				VFlex(
 					VCard(children...),
 				).Col(Xs, 6).Offset(Sm, 3),
-			).Row(true),
+			),
 		).GridList(Md).TextAlign(Xs, Center)
 	}
 
@@ -26,7 +26,7 @@ func HelloVuetifyList(ctx *web.EventContext) (pr web.PageResponse, err error) {
 			VBtn("").Icon(true).Children(
 				VIcon("search"),
 			),
-		).Color("cyan").Dark(true),
+		).Color("cyan"),
 		VList(
 			VSubheader(h.Text("Today")),
 			VListItem(
@@ -61,7 +61,7 @@ func HelloVuetifyList(ctx *web.EventContext) (pr web.PageResponse, err error) {
 					VListItemSubtitle(h.RawHTML(`<span class='text--primary'>Sandra Adams</span> &mdash; Do you have Paris recommendations? Have you ever been?`)),
 				),
 			),
-		).TwoLine(true),
+		).Lines("two"),
 	)
 
 	return

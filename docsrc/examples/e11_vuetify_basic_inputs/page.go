@@ -43,22 +43,22 @@ func VuetifyBasicInputs(ctx *web.EventContext) (pr web.PageResponse, err error) 
 		utils.PrettyFormAsJSON(ctx),
 		VTextField().
 			Label("Form ValueIs").
-			Solo(true).
+			Variant("solo").
 			Clearable(true).
 			FieldName("MyValue").
 			ErrorMessages(verr.GetFieldErrors("MyValue")...).
 			Value(s.MyValue),
 		VTextarea().FieldName("TextareaValue").
 			ErrorMessages(verr.GetFieldErrors("TextareaValue")...).
-			Solo(true).Value(s.TextareaValue),
+			Variant("solo").Value(s.TextareaValue),
 		VRadioGroup(
 			VRadio().Value("F").Label("Female"),
 			VRadio().Value("M").Label("Male"),
 		).FieldName("Gender").Value(s.Gender),
 		VCheckbox().FieldName("Agreed").
 			ErrorMessages(verr.GetFieldErrors("Agreed")...).
-			Label("Agree").InputValue(s.Agreed),
-		VSwitch().FieldName("Feature1").InputValue(s.Feature1),
+			Label("Agree").Value(s.Agreed),
+		VSwitch().FieldName("Feature1").Value(s.Feature1),
 
 		VSlider().FieldName("Slider1").
 			ErrorMessages(verr.GetFieldErrors("Slider1")...).

@@ -75,7 +75,7 @@ func form2(ctx *web.EventContext, fv *myFormValue, verr *web.ValidationErrors) h
 
 		VSwitch().
 			FieldName("Form2.Feature1").
-			InputValue(fv.Form2.Feature1).
+			Value(fv.Form2.Feature1).
 			Label("Feature1"),
 
 		VSlider().FieldName("Form2.Slider1").

@@ -33,7 +33,7 @@ func HelloVuetifyMenu(ctx *web.EventContext) (pr web.PageResponse, err error) {
 			web.Slot(
 				VBtn("Menu as Popover").
 					On("click", "vars.myMenuShow = true").
-					Dark(true).
+					Theme("dark").
 					Color("indigo"),
 			).Name("activator"),
 
@@ -60,7 +60,7 @@ func HelloVuetifyMenu(ctx *web.EventContext) (pr web.PageResponse, err error) {
 						VListItemAction(
 							VSwitch().Color("purple").
 								FieldName("EnableMessages").
-								InputValue(fv.EnableMessages),
+								Value(fv.EnableMessages),
 						),
 						VListItemTitle(h.Text("Enable messages")),
 					),
@@ -68,7 +68,7 @@ func HelloVuetifyMenu(ctx *web.EventContext) (pr web.PageResponse, err error) {
 						VListItemAction(
 							VSwitch().Color("purple").
 								FieldName("EnableHints").
-								InputValue(fv.EnableHints),
+								Value(fv.EnableHints),
 						),
 						VListItemTitle(h.Text("Enable hints")),
 					),
@@ -76,15 +76,15 @@ func HelloVuetifyMenu(ctx *web.EventContext) (pr web.PageResponse, err error) {
 
 				VCardActions(
 					VSpacer(),
-					VBtn("Cancel").Text(true).
+					VBtn("Cancel").Variant("text").
 						On("click", "vars.myMenuShow = false"),
 					VBtn("Save").Color("primary").
-						Text(true).OnClick("submit"),
+						Variant("text").OnClick("submit"),
 				),
 			),
 		).CloseOnContentClick(false).
-			NudgeWidth(200).
-			OffsetY(true).
+			Width(200).
+			Offset(true).
 			Attr("v-model", "vars.myMenuShow"),
 	).Attr(web.InitContextVars, `{myMenuShow: false}`)
 

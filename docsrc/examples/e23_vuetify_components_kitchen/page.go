@@ -38,7 +38,7 @@ func VuetifyComponentsKitchen(ctx *web.EventContext) (pr web.PageResponse, err e
 	for _, city := range globalCities {
 		chips = append(chips,
 			VChip(h.Text(city)).
-				Close(true).
+				Closable(true).
 				Attr("@click:close", web.POST().EventFunc("removeCity").Query("city", city).Go()),
 		)
 	}
@@ -53,13 +53,13 @@ func VuetifyComponentsKitchen(ctx *web.EventContext) (pr web.PageResponse, err e
 		VChipGroup(
 			VChip(
 				h.Text("Hangzhou"),
-				VIcon("star").Right(true),
+				VIcon("star").End(true),
 			).Value("HZ"),
 			VChip(h.Text("Shanghai")).Value("SH").Filter(true).Label(true),
 			VChip(h.Text("Tokyo")).Value("TK").Filter(true),
 			VChip(h.Text("New York")).Value("NY"),
 			VChip(h.Text("London")).Value("LD"),
-		).ActiveClass("indigo darken-3 white--text").
+		).SelectedClass("indigo darken-3 white--text").
 			// Mandatory(true).
 			FieldName("Cities1").
 			Value(fv.Cities1).

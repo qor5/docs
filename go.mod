@@ -92,6 +92,6 @@ require (
 
 //replace github.com/qor5/web => ../web
 
-//replace github.com/qor5/ui => ../ui
+replace github.com/qor5/ui => ../ui
 
-//replace github.com/qor5/admin => ../admin
+replace github.com/qor5/admin => ../admin
