@@ -1,4 +1,4 @@
-package e00_basics
+package example_basics
 
 import (
 	"context"

@@ -38,7 +38,7 @@ func VuetifyVariantSubForm(ctx *web.EventContext) (pr web.PageResponse, err erro
 				"Type2",
 			}).
 			Value(fv.Type).
-			Attr("@change", web.POST().
+			Attr("@input", web.POST().
 				FieldValue("Type", web.Var("$event")).
 				EventFunc("switchForm").
 				Go()),

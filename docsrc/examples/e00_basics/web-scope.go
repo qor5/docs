@@ -25,19 +25,14 @@ if (locals.btnLabel == "Add") {
 }`),
 
 				VList(
-					VSubheader(
+					VListSubheader(
 						Text("REPORTS"),
 					),
-					VListItemGroup(
-						VListItem(
-							VListItemIcon(
-								VIcon("").Attr("v-text", "item.icon"),
-							),
-							VListItemContent(
-								VListItemTitle().Attr("v-text", "item.text"),
-							),
-						).Attr("v-for", "(item, i) in locals.items").
-							Attr("x-bind:key", "i"),
+					VListGroup(
+						VListItem().Attr("v-for", "(item, i) in locals.items").
+							Attr("x-bind:key", "i").
+							PrependIcon("item.icon").
+							Title("item.text"),
 					).Attr("v-model", "locals.selectedItem").
 						Attr("color", "primary"),
 				).Attr("dense", ""),

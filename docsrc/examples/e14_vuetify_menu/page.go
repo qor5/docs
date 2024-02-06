@@ -40,19 +40,15 @@ func HelloVuetifyMenu(ctx *web.EventContext) (pr web.PageResponse, err error) {
 			VCard(
 				VList(
 					VListItem(
-						VListItemAvatar(
-							h.Img("https://cdn.vuetifyjs.com/images/john.jpg").Alt("John"),
-						),
-						VListItemContent(
-							VListItemTitle(h.Text("John Leider")),
-							VListItemSubtitle(h.Text("Founder of Vuetify.js")),
-						),
 						VListItemAction(
 							web.Portal(
 								favoredIcon(),
 							).Name(favoredIconPortalName),
 						),
-					),
+					).
+						PrependAvatar("https://cdn.vuetifyjs.com/images/john.jpg").
+						Title("John Leider").
+						Subtitle("Founder of Vuetify.js"),
 				),
 				VDivider(),
 				VList(

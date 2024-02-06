@@ -53,7 +53,7 @@ func VuetifyComponentsKitchen(ctx *web.EventContext) (pr web.PageResponse, err e
 		VChipGroup(
 			VChip(
 				h.Text("Hangzhou"),
-				VIcon("star").End(true),
+				VIcon("mdi-star").End(true),
 			).Value("HZ"),
 			VChip(h.Text("Shanghai")).Value("SH").Filter(true).Label(true),
 			VChip(h.Text("Tokyo")).Value("TK").Filter(true),

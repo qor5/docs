@@ -4,7 +4,7 @@ go 1.19
 
 require (
 	github.com/fatih/color v1.13.0
-	github.com/go-chi/chi v1.5.4
+	github.com/go-chi/chi/v5 v5.0.8
 	github.com/manifoldco/promptui v0.9.0
 	github.com/markbates/goth v1.77.0
 	github.com/ory/ladon v1.2.0

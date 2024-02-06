@@ -2,11 +2,11 @@ package main
 
 import (
 	"fmt"
+	"github.com/qor5/docs/docsrc/examples"
 	"net/http"
 	"os"
 	"time"
 
-	"github.com/qor5/docs/docsrc"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -24,9 +24,13 @@ func main() {
 
 	go runAtMidNight(db)
 
+	// @snippet_begin(HelloWorldMuxSample1)
+	mux := http.NewServeMux()
+	// @snippet_end
+
 	// @snippet_begin(HelloWorldMainSample)
 	fmt.Println("Starting docs at :" + port)
-	err = http.ListenAndServe(":"+port, docsrc.Mux("/"))
+	err = http.ListenAndServe(":"+port, examples.Mux(mux, "/"))
 	if err != nil {
 		panic(err)
 	}

@@ -1,32 +1,25 @@
-package docsrc
+package web_vuetify_mux
 
 import (
 	"fmt"
-	"net/http"
-	"os"
-	"strings"
-
-	"github.com/go-chi/chi/middleware"
-	"github.com/qor5/admin/presets"
+	"github.com/qor5/docs/docsrc/assets"
 	"github.com/qor5/docs/docsrc/examples/e00_basics"
-	"github.com/qor5/docs/docsrc/examples/e10_vuetify_autocomplete"
 	"github.com/qor5/docs/docsrc/examples/e11_vuetify_basic_inputs"
 	"github.com/qor5/docs/docsrc/examples/e13_vuetify_list"
 	"github.com/qor5/docs/docsrc/examples/e14_vuetify_menu"
 	"github.com/qor5/docs/docsrc/examples/e15_vuetify_navigation_drawer"
 	"github.com/qor5/docs/docsrc/examples/e17_hello_lazy_portals_and_reload"
-	"github.com/qor5/docs/docsrc/examples/e21_presents"
 	"github.com/qor5/docs/docsrc/examples/e22_vuetify_variant_sub_form"
 	"github.com/qor5/docs/docsrc/examples/e23_vuetify_components_kitchen"
 	"github.com/qor5/docs/docsrc/examples/e24_vuetify_components_linkage_select"
-	"github.com/qor5/docs/docsrc/examples/example_basics"
 	"github.com/qor5/docs/docsrc/utils"
 	"github.com/qor5/ui/tiptap"
-	v "github.com/qor5/ui/vuetify"
-	"github.com/qor5/ui/vuetifyx"
+	. "github.com/qor5/ui/vuetify"
 	"github.com/qor5/web"
-	"github.com/theplant/docgo"
 	. "github.com/theplant/htmlgo"
+	"net/http"
+	"os"
+	"strings"
 )
 
 type section struct {
@@ -100,7 +93,7 @@ func footer() HTMLComponent {
 	).Role("contentinfo").Class("global-footer")
 }
 
-func addGA(ctx *web.EventContext) {
+func AddGA(ctx *web.EventContext) {
 	if strings.Index(ctx.R.Host, "localhost") >= 0 {
 		return
 	}
@@ -119,7 +112,7 @@ func addGA(ctx *web.EventContext) {
 
 func layout(in web.PageFunc, secs []*section, prefix string, cp *pageItem) (out web.PageFunc) {
 	return func(ctx *web.EventContext) (pr web.PageResponse, err error) {
-		addGA(ctx)
+		AddGA(ctx)
 		pr.PageTitle = cp.title + " - " + "QOR5"
 
 		ctx.Injector.HeadHTML(`
@@ -170,7 +163,7 @@ func layout(in web.PageFunc, secs []*section, prefix string, cp *pageItem) (out 
 // @snippet_begin(DemoLayoutSample)
 func demoLayout(in web.PageFunc) (out web.PageFunc) {
 	return func(ctx *web.EventContext) (pr web.PageResponse, err error) {
-		addGA(ctx)
+		AddGA(ctx)
 
 		ctx.Injector.HeadHTML(`
 			<script src='/assets/vue.js'></script>
@@ -202,7 +195,7 @@ func demoLayout(in web.PageFunc) (out web.PageFunc) {
 // @snippet_begin(TipTapLayoutSample)
 func tiptapLayout(in web.PageFunc) (out web.PageFunc) {
 	return func(ctx *web.EventContext) (pr web.PageResponse, err error) {
-		addGA(ctx)
+		AddGA(ctx)
 
 		ctx.Injector.HeadHTML(`
 			<link rel="stylesheet" href="/assets/tiptap.css">
@@ -238,7 +231,7 @@ func tiptapLayout(in web.PageFunc) (out web.PageFunc) {
 // @snippet_begin(DemoBootstrapLayoutSample)
 func demoBootstrapLayout(in web.PageFunc) (out web.PageFunc) {
 	return func(ctx *web.EventContext) (pr web.PageResponse, err error) {
-		addGA(ctx)
+		AddGA(ctx)
 
 		ctx.Injector.HeadHTML(`
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -297,12 +290,12 @@ var vuetifyJSTags = func() string {
 // @snippet_begin(DemoVuetifyLayoutSample)
 func demoVuetifyLayout(in web.PageFunc) (out web.PageFunc) {
 	return func(ctx *web.EventContext) (pr web.PageResponse, err error) {
-		addGA(ctx)
+		AddGA(ctx)
 
 		ctx.Injector.HeadHTML(`
 			<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono" async>
 			<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" async>
-			<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" async>
+			<link href="https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css" rel="stylesheet" async>
 			<link rel="stylesheet" href="/assets/vuetify.css">
 			<script src='/assets/vue.js'></script>
 		`)
@@ -322,8 +315,8 @@ func demoVuetifyLayout(in web.PageFunc) (out web.PageFunc) {
 			panic(err)
 		}
 
-		pr.Body = v.VApp(
-			v.VMain(
+		pr.Body = VApp(
+			VMain(
 				innerPr.Body,
 			),
 		)
@@ -344,11 +337,7 @@ func rf(comp HTMLComponent, p *pageItem) web.PageFunc {
 	}
 }
 
-func Mux(prefix string) http.Handler {
-
-	// @snippet_begin(HelloWorldMuxSample1)
-	mux := http.NewServeMux()
-	// @snippet_end
+func Mux(mux *http.ServeMux, prefix string) http.Handler {
 
 	// @snippet_begin(ComponentsPackSample)
 	mux.Handle("/assets/main.js",
@@ -382,45 +371,28 @@ func Mux(prefix string) http.Handler {
 	// @snippet_begin(VuetifyComponentsPackSample)
 	mux.Handle("/assets/vuetify.js",
 		web.PacksHandler("text/javascript",
-			v.Vuetify(""),
-			v.JSComponentsPack(),
-			vuetifyx.JSComponentsPack(),
+			Vuetify(""),
+			JSComponentsPack(),
+			// vuetifyx.JSComponentsPack(),
 		),
 	)
 
 	mux.Handle("/assets/vuetify.css",
 		web.PacksHandler("text/css",
-			v.CSSComponentsPack(),
+			CSSComponentsPack(),
 		),
 	)
 	// @snippet_end
 
 	mux.HandleFunc("/favicon.ico", func(w http.ResponseWriter, r *http.Request) {
-		w.Write(favicon)
+		w.Write(assets.Favicon)
 		return
 	})
-
-	samplesMux := SamplesHandler(prefix)
-	mux.Handle("/samples/",
-		middleware.Logger(
-			middleware.RequestID(
-				samplesMux,
-			),
-		),
-	)
-
-	mux.Handle("/", docgo.New().
-		MainPageTitle("QOR5 Document").
-		Assets("/assets/", Assets).
-		DocTree(DocTree...).
-		Build(),
-	)
 
 	return mux
 }
 
-func SamplesHandler(prefix string) http.Handler {
-	mux := http.NewServeMux()
+func SamplesHandler(mux *http.ServeMux, prefix string) http.Handler {
 	emptyUb := web.New().LayoutFunc(web.NoopLayoutFunc)
 
 	mux.Handle(e00_basics.TypeSafeBuilderSamplePath, e00_basics.TypeSafeBuilderSamplePFPB.Builder(emptyUb))
@@ -520,15 +492,15 @@ func SamplesHandler(prefix string) http.Handler {
 		e11_vuetify_basic_inputs.VuetifyBasicInputsPB.Wrap(demoVuetifyLayout),
 	)
 
-	mux.Handle(
-		e10_vuetify_autocomplete.VuetifyAutoCompletePath,
-		e10_vuetify_autocomplete.VuetifyAutocompletePB.Wrap(demoVuetifyLayout),
-	)
+	// mux.Handle(
+	// 	e10_vuetify_autocomplete.VuetifyAutoCompletePath,
+	// 	e10_vuetify_autocomplete.VuetifyAutocompletePB.Wrap(demoVuetifyLayout),
+	// )
 
-	mux.Handle(
-		e10_vuetify_autocomplete.VuetifyAutoCompletePresetPath+"/",
-		e10_vuetify_autocomplete.ExamplePreset,
-	)
+	// mux.Handle(
+	// 	e10_vuetify_autocomplete.VuetifyAutoCompletePresetPath+"/",
+	// 	e10_vuetify_autocomplete.ExamplePreset,
+	// )
 
 	mux.Handle(
 		e22_vuetify_variant_sub_form.VuetifyVariantSubFormPath,
@@ -554,215 +526,6 @@ func SamplesHandler(prefix string) http.Handler {
 		e24_vuetify_components_linkage_select.VuetifyComponentsLinkageSelectPath,
 		e24_vuetify_components_linkage_select.VuetifyComponentsLinkageSelectPB.Wrap(demoVuetifyLayout),
 	)
-
-	// @snippet_begin(MountPresetHelloWorldSample)
-	c00 := presets.New().AssetFunc(addGA)
-	e21_presents.PresetsHelloWorld(c00)
-	mux.Handle(
-		e21_presents.PresetsHelloWorldPath+"/",
-		c00,
-	)
-	// @snippet_end
-
-	c01 := presets.New().AssetFunc(addGA)
-	e21_presents.PresetsListingCustomizationFields(c01)
-	mux.Handle(
-		e21_presents.PresetsListingCustomizationFieldsPath+"/",
-		c01,
-	)
-
-	c02 := presets.New().AssetFunc(addGA)
-	e21_presents.PresetsListingCustomizationFilters(c02)
-	mux.Handle(
-		e21_presents.PresetsListingCustomizationFiltersPath+"/",
-		c02,
-	)
-
-	c03 := presets.New().AssetFunc(addGA)
-	e21_presents.PresetsListingCustomizationTabs(c03)
-	mux.Handle(
-		e21_presents.PresetsListingCustomizationTabsPath+"/",
-		c03,
-	)
-
-	c04 := presets.New().AssetFunc(addGA)
-	e21_presents.PresetsListingCustomizationBulkActions(c04)
-	mux.Handle(
-		e21_presents.PresetsListingCustomizationBulkActionsPath+"/",
-		c04,
-	)
-
-	c05 := presets.New().AssetFunc(addGA)
-	e21_presents.PresetsEditingCustomizationDescription(c05)
-	mux.Handle(
-		e21_presents.PresetsEditingCustomizationDescriptionPath+"/",
-		c05,
-	)
-
-	c06 := presets.New().AssetFunc(addGA)
-	e21_presents.PresetsEditingCustomizationFileType(c06)
-	mux.Handle(
-		e21_presents.PresetsEditingCustomizationFileTypePath+"/",
-		c06,
-	)
-
-	c07 := presets.New().AssetFunc(addGA)
-	e21_presents.PresetsEditingCustomizationValidation(c07)
-	mux.Handle(
-		e21_presents.PresetsEditingCustomizationValidationPath+"/",
-		c07,
-	)
-
-	c08 := presets.New().AssetFunc(addGA)
-	e21_presents.PresetsDetailPageTopNotes(c08)
-	mux.Handle(
-		e21_presents.PresetsDetailPageTopNotesPath+"/",
-		c08,
-	)
-
-	c09 := presets.New().AssetFunc(addGA)
-	e21_presents.PresetsDetailPageDetails(c09)
-	mux.Handle(
-		e21_presents.PresetsDetailPageDetailsPath+"/",
-		c09,
-	)
-
-	c10 := presets.New().AssetFunc(addGA)
-	e21_presents.PresetsDetailPageCards(c10)
-	mux.Handle(
-		e21_presents.PresetsDetailPageCardsPath+"/",
-		c10,
-	)
-
-	c11 := presets.New().AssetFunc(addGA)
-	e21_presents.PresetsPermissions(c11)
-	mux.Handle(
-		e21_presents.PresetsPermissionsPath+"/",
-		c11,
-	)
-
-	c12 := presets.New().AssetFunc(addGA)
-	e21_presents.PresetsModelBuilderExtensions(c12)
-	mux.Handle(
-		e21_presents.PresetsModelBuilderExtensionsPath+"/",
-		c12,
-	)
-
-	c13 := presets.New().AssetFunc(addGA)
-	example_basics.PresetsBasicFilter(c13)
-	mux.Handle(
-		example_basics.PresetsBasicFilterPath+"/",
-		c13,
-	)
-
-	c14 := presets.New().AssetFunc(addGA)
-	e21_presents.PresetsNotificationCenterSample(c14)
-	mux.Handle(
-		e21_presents.NotificationCenterSamplePath+"/",
-		c14,
-	)
-
-	c15 := presets.New().AssetFunc(addGA)
-	e21_presents.PresetsLinkageSelectFilterItem(c15)
-	mux.Handle(
-		e21_presents.PresetsLinkageSelectFilterItemPath+"/",
-		c15,
-	)
-
-	c16 := presets.New().AssetFunc(addGA)
-	example_basics.ListingSample(c16)
-	mux.Handle(
-		example_basics.ListingSamplePath+"/",
-		c16,
-	)
-
-	c17 := presets.New().AssetFunc(addGA)
-	e21_presents.PresetsBrandTitle(c17)
-	mux.Handle(
-		e21_presents.PresetsBrandTitlePath+"/",
-		c17,
-	)
-
-	c18 := presets.New().AssetFunc(addGA)
-	e21_presents.PresetsBrandFunc(c18)
-	mux.Handle(
-		e21_presents.PresetsBrandFuncPath+"/",
-		c18,
-	)
-
-	c19 := presets.New().AssetFunc(addGA)
-	e21_presents.PresetsProfile(c19)
-	mux.Handle(
-		e21_presents.PresetsProfilePath+"/",
-		c19,
-	)
-
-	c20 := presets.New().AssetFunc(addGA)
-	e21_presents.PresetsOrderMenu(c20)
-	mux.Handle(
-		e21_presents.PresetsMenuOrderPath+"/",
-		c20,
-	)
-
-	c21 := presets.New().AssetFunc(addGA)
-	e21_presents.PresetsGroupMenu(c21)
-	mux.Handle(
-		e21_presents.PresetsMenuGroupPath+"/",
-		c21,
-	)
-
-	c22 := presets.New().AssetFunc(addGA)
-	example_basics.PresetsConfirmDialog(c22)
-	mux.Handle(
-		example_basics.PresetsConfirmDialogPath+"/",
-		c22,
-	)
-
-	c23 := presets.New().AssetFunc(addGA)
-	example_basics.WorkerExampleMock(c23)
-	mux.Handle(
-		example_basics.WorkerExamplePath+"/",
-		c23,
-	)
-
-	c24 := presets.New().AssetFunc(addGA)
-	example_basics.ActionWorkerExampleMock(c24)
-	mux.Handle(
-		example_basics.ActionWorkerExamplePath+"/",
-		c24,
-	)
-
-	c25 := presets.New().AssetFunc(addGA)
-	e21_presents.PresetsEditingCustomizationTabs(c25)
-	mux.Handle(
-		e21_presents.PresetsEditingCustomizationTabsPath+"/",
-		c25,
-	)
-
-	c26 := presets.New().AssetFunc(addGA)
-	e21_presents.PresetsListingCustomizationSearcher(c26)
-	mux.Handle(
-		e21_presents.PresetsListingCustomizationSearcherPath+"/",
-		c26,
-	)
-
-	c27 := presets.New().AssetFunc(addGA)
-	example_basics.InternationalizationExample(c27)
-	mux.Handle(
-		example_basics.InternationalizationExamplePath+"/",
-		c27)
-	c28 := presets.New().AssetFunc(addGA)
-	example_basics.LocalizationExampleMock(c28)
-	mux.Handle(
-		example_basics.LocalizationExamplePath+"/",
-		c28,
-	)
-
-	c29 := presets.New().AssetFunc(addGA)
-	example_basics.PublishExample(c29)
-	mux.Handle(
-		example_basics.PublishExamplePath+"/",
-		c29)
 
 	return mux
 }
