@@ -54,18 +54,18 @@ func VuetifyBasicInputs(ctx *web.EventContext) (pr web.PageResponse, err error) 
 		VRadioGroup(
 			VRadio().Value("F").Label("Female"),
 			VRadio().Value("M").Label("Male"),
-		).FieldName("Gender").Value(s.Gender),
-		VCheckbox().FieldName("Agreed").
+		).Attr(web.VField("Gender", s.Gender)...),
+		VCheckbox().Attr(web.VField("Agreed", s.Agreed)...).
 			ErrorMessages(verr.GetFieldErrors("Agreed")...).
-			Label("Agree").Value(s.Agreed),
-		VSwitch().FieldName("Feature1").Value(s.Feature1),
+			Label("Agree"),
+		VSwitch().Attr(web.VField("Feature1", s.Feature1)...),
 
-		VSlider().FieldName("Slider1").
-			ErrorMessages(verr.GetFieldErrors("Slider1")...).
-			Value(s.Slider1),
+		VSlider().Attr(web.VField("Slider1", s.Slider1)...).
+			ErrorMessages(verr.GetFieldErrors("Slider1")...),
+
 		web.Portal().Name("Portal1"),
 
-		VFileInput().FieldName("Files1"),
+		VFileInput().Attr(web.VField("Files1", nil)...),
 
 		VFileInput().Label("Auto post to server after select file").Multiple(true).
 			Attr("@change", web.POST().
@@ -92,7 +92,7 @@ func VuetifyBasicInputs(ctx *web.EventContext) (pr web.PageResponse, err error) 
 func addPortal(ctx *web.EventContext) (r web.EventResponse, err error) {
 	r.UpdatePortals = append(r.UpdatePortals, &web.PortalUpdate{
 		Name: "Portal1",
-		Body: h.Input("").Type("hidden").Value("this is my portal added hidden value").Attr(web.VFieldName("PortalAddedValue")...),
+		Body: h.Input("").Type("hidden").Attr(web.VField("PortalAddedValue", "this is my portal added hidden value")...),
 	})
 	return
 }

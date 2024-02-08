@@ -49,11 +49,13 @@ World`
 		Pre(fv.File1Bytes()).Style("width: 400px; white-space: pre-wrap;"),
 		Div(
 			Label("Text1"),
-			Input("").Type("text").Value(fv.Text1).Attr(web.VFieldName("Text1")...),
+			Input("").Type("text").
+				Attr(web.VField("Text1", fv.Text1)...),
 		),
 		Div(
 			Label("Checkbox1"),
-			Input("").Type("checkbox").Value("1").Checked(fv.Checkbox1 == "1").Attr(web.VFieldName("Checkbox1")...),
+			Input("").Type("checkbox").Checked(fv.Checkbox1 == "1").
+				Attr(web.VField("Checkbox1", "1")...),
 		),
 
 		web.Scope(
@@ -63,17 +65,17 @@ World`
 				Div(
 					Label("Color1"),
 					Input("").Type("color").
-						Value(fv.Color1).
-						Attr(web.VFieldName("Color1")...),
+						Attr(web.VField("Color1", fv.Color1)...),
 				),
 				Div(
 					Label("Email1"),
-					Input("").Type("email").Value(fv.Email1).Attr(web.VFieldName("Email1")...),
+					Input("").Type("email").
+						Attr(web.VField("Email1", fv.Email1)...),
 				),
 
 				Input("").Type("checkbox").
 					Attr("v-model", "locals.checked").
-					Attr(web.VFieldName("Checked123")...),
+					Attr(web.VField("Checked123", "")...),
 
 				Button("Uncheck it").Attr("@click", "locals.checked = false"),
 				Hr(),
@@ -90,7 +92,8 @@ World`
 
 				Div(
 					Label("Email1"),
-					Input("").Type("email").Value(fv.Email1).Attr(web.VFieldName("Email1")...),
+					Input("").Type("email").
+						Attr(web.VField("Email1", fv.Email1)...),
 				),
 
 				Button("Send").Attr("@click", web.POST().
@@ -103,52 +106,62 @@ World`
 				Legend("Radio"),
 				Label("Radio Value 1"),
 				Input("Radio1").Type("radio").
-					Value("1").Checked(fv.Radio1 == "1").Attr(web.VFieldName("Radio1")...),
+					Checked(fv.Radio1 == "1").
+					Attr(web.VField("Radio1", "1")...),
 				Label("Radio Value 2"),
-				Input("Radio1").Type("radio").
-					Value("2").Checked(fv.Radio1 == "2").Attr(web.VFieldName("Radio1")...),
+				Input("Radio1").Type("radio").Checked(fv.Radio1 == "2").
+					Attr(web.VField("Radio1", "2")...),
 			),
 		),
 		Div(
 			Label("Range1"),
-			Input("").Type("range").Value(fmt.Sprint(fv.Range1)).Attr(web.VFieldName("Range1")...),
+			Input("").Type("range").
+				Attr(web.VField("Range1", fmt.Sprint(fv.Range1))...),
 		),
 
 		web.Scope(
 			Div(
 				Label("Url1"),
-				Input("").Type("url").Value(fv.Url1).Attr(web.VFieldName("Url1")...),
+				Input("").Type("url").
+					Attr(web.VField("Url1", fv.Url1)...),
 			),
 			Div(
 				Label("Tel1"),
-				Input("").Type("tel").Value(fv.Tel1).Attr(web.VFieldName("Tel1")...),
+				Input("").Type("tel").
+					Attr(web.VField("Tel1", fv.Tel1)...),
 			),
 			Div(
 				Label("Month1"),
-				Input("").Type("month").Value(fv.Month1).Attr(web.VFieldName("Month1")...),
+				Input("").Type("month").
+					Attr(web.VField("Month1", fv.Month1)...),
 			),
 		).VSlot("{ locals }"),
 
 		Div(
 			Label("Time1"),
-			Input("").Type("time").Value(fv.Time1).Attr(web.VFieldName("Time1")...),
+			Input("").Type("time").
+				Attr(web.VField("Time1", fv.Time1)...),
 		),
 		Div(
 			Label("Week1"),
-			Input("").Type("week").Value(fv.Week1).Attr(web.VFieldName("Week1")...),
+			Input("").Type("week").
+				Attr(web.VField("Week1", fv.Week1)...),
 		),
 		Div(
 			Label("DatetimeLocal1"),
-			Input("").Type("datetime-local").Value(fv.DatetimeLocal1).Attr(web.VFieldName("DatetimeLocal1")...),
+			Input("").Type("datetime-local").
+				Attr(web.VField("DatetimeLocal1", fv.DatetimeLocal1)...),
 		),
 		Div(
 			Label("File1"),
-			Input("").Type("file").Value("").Attr(web.VFieldName("File1")...),
+			Input("").Type("file").
+				Attr(web.VField("File1", "")...),
 		),
 		Div(
 			Label("Hidden values with default"),
-			Input("").Type("hidden").Value(`hidden value
-'123`).Attr(web.VFieldName("HiddenValue1")...),
+			Input("").Type("hidden").
+				Attr(web.VField("HiddenValue1", `hidden value
+'123`)...),
 		),
 		Div(
 			Button("Submit").Attr("@click", web.POST().EventFunc("checkvalue").Go()),

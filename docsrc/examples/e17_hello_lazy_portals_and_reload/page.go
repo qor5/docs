@@ -89,7 +89,8 @@ func addItemForm(ctx *web.EventContext) (r web.EventResponse, err error) {
 	var s = &mystate{}
 	ctx.MustUnmarshalForm(s)
 
-	textField := VTextField().FieldName("Company")
+	textField := VTextField().
+		Attr(web.VField("Company", "")...)
 
 	if len(s.Error) > 0 {
 		textField.Error(true).ErrorMessages(s.Error)

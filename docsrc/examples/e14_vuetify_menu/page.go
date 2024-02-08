@@ -55,16 +55,14 @@ func HelloVuetifyMenu(ctx *web.EventContext) (pr web.PageResponse, err error) {
 					VListItem(
 						VListItemAction(
 							VSwitch().Color("purple").
-								FieldName("EnableMessages").
-								Value(fv.EnableMessages),
+								Attr(web.VField("EnableMessages", fv.EnableMessages)...),
 						),
 						VListItemTitle(h.Text("Enable messages")),
 					),
 					VListItem(
 						VListItemAction(
 							VSwitch().Color("purple").
-								FieldName("EnableHints").
-								Value(fv.EnableHints),
+								Attr(web.VField("EnableHints", fv.EnableHints)...),
 						),
 						VListItemTitle(h.Text("Enable hints")),
 					),

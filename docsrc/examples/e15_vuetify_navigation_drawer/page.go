@@ -63,10 +63,8 @@ func showDrawer(ctx *web.EventContext) (er web.EventResponse, err error) {
 }
 
 func textField(value string, fieldErrors ...string) h.HTMLComponent {
-	return VTextField().
-		FieldName("Drawer2Input").
-		ErrorMessages(fieldErrors...).
-		Value(value)
+	return VTextField().Attr(web.VField("Drawer2Input", value)...).
+		ErrorMessages(fieldErrors...)
 }
 
 func updateParentAndClose(ctx *web.EventContext) (er web.EventResponse, err error) {

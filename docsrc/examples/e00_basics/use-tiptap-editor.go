@@ -39,8 +39,7 @@ func HelloWorldTipTap(ctx *web.EventContext) (pr web.PageResponse, err error) {
 
 	pr.Body = Div(
 		tiptap.TipTapEditor().
-			FieldName("Content1").
-			Value(defaultValue),
+			Attr(web.VField("Content1", defaultValue)),
 		Hr(),
 		Pre(
 			gohtml.Format(ctx.R.FormValue("Content1")),

@@ -64,11 +64,15 @@ func UsePlaidForm(ctx *web.EventContext) (pr web.PageResponse, err error) {
 					Legend("Product Form"),
 					Div(
 						Label("Product Name"),
-						Input("").Value(productName).Type("text").Attr(web.VFieldName("ProductName")...),
+						Input("").
+							Type("text").
+							Attr(web.VField("ProductName", productName)...),
 					),
 					Div(
 						Label("Material ID"),
-						Input("").Value(materialID).Type("text").Disabled(true).Attr(web.VFieldName("MaterialID")...),
+						Input("").
+							Type("text").Disabled(true).
+							Attr(web.VField("MaterialID", materialID)...),
 					),
 
 					web.Scope(
@@ -77,11 +81,15 @@ func UsePlaidForm(ctx *web.EventContext) (pr web.PageResponse, err error) {
 
 							Div(
 								Label("Material Name"),
-								Input("").Value(materialName).Type("text").Attr(web.VFieldName("MaterialName")...),
+								Input("").
+									Type("text").
+									Attr(web.VField("MaterialName", materialName)...),
 							),
 							Div(
 								Label("Raw Material ID"),
-								Input("").Value(rawMaterialID).Type("text").Disabled(true).Attr(web.VFieldName("RawMaterialID")...),
+								Input("").
+									Type("text").Disabled(true).
+									Attr(web.VField("RawMaterialID", rawMaterialID)...),
 							),
 							web.Scope(
 								Fieldset(
@@ -89,7 +97,9 @@ func UsePlaidForm(ctx *web.EventContext) (pr web.PageResponse, err error) {
 
 									Div(
 										Label("Raw Material Name"),
-										Input("").Value(rawMaterialName).Type("text").Attr(web.VFieldName("RawMaterialName")...),
+										Input("").
+											Type("text").
+											Attr(web.VField("RawMaterialName", rawMaterialName)...),
 									),
 
 									Button("Send").Style(`background: orange;`).Attr("@click", web.POST().EventFunc("updateValue").Go()),
@@ -102,7 +112,9 @@ func UsePlaidForm(ctx *web.EventContext) (pr web.PageResponse, err error) {
 
 					Div(
 						Label("Country ID"),
-						Input("").Value(countryID).Type("text").Disabled(true).Attr(web.VFieldName("CountryID")...),
+						Input("").
+							Type("text").Disabled(true).
+							Attr(web.VField("CountryID", countryID)...),
 					),
 
 					web.Scope(
@@ -111,7 +123,9 @@ func UsePlaidForm(ctx *web.EventContext) (pr web.PageResponse, err error) {
 
 							Div(
 								Label("Country Name"),
-								Input("").Value(countryName).Type("text").Attr(web.VFieldName("CountryName")...),
+								Input("").
+									Type("text").
+									Attr(web.VField("CountryName", countryName)...),
 							),
 
 							Button("Send").Style(`background: red;`).Attr("@click", web.POST().EventFunc("updateValue").Go()),

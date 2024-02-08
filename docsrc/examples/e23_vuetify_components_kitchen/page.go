@@ -60,14 +60,11 @@ func VuetifyComponentsKitchen(ctx *web.EventContext) (pr web.PageResponse, err e
 			VChip(h.Text("New York")).Value("NY"),
 			VChip(h.Text("London")).Value("LD"),
 		).SelectedClass("indigo darken-3 white--text").
-			// Mandatory(true).
-			FieldName("Cities1").
-			Value(fv.Cities1).
+			Attr(web.VField("Cities1", fv.Cities1)...).
 			Multiple(true),
 		VAutocomplete().
 			Items(globalCities).
-			FieldName("Cities2").
-			Value(fv.Cities2),
+			Attr(web.VField("Cities2", fv.Cities2)...),
 
 		h.H1("Items Group"),
 
@@ -93,8 +90,8 @@ func VuetifyComponentsKitchen(ctx *web.EventContext) (pr web.PageResponse, err e
 					),
 				),
 			),
-		).FieldName("MyItem").
-			Value(fv.MyItem),
+		).
+			Attr(web.VField("MyItem", fv.MyItem)...),
 
 		VBtn("Submit").
 			OnClick("submit"),

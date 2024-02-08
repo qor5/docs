@@ -37,8 +37,7 @@ func VuetifyVariantSubForm(ctx *web.EventContext) (pr web.PageResponse, err erro
 				"Type1",
 				"Type2",
 			}).
-			Value(fv.Type).
-			FieldName("Type").
+			Attr(web.VField("Type", fv.Type)...).
 			Attr("@update:menu", web.POST().
 				EventFunc("switchForm").
 				Go()),
@@ -63,8 +62,8 @@ func form1(ctx *web.EventContext, fv *myFormValue) h.HTMLComponent {
 		VRadioGroup(
 			VRadio().Value("F").Label("Female"),
 			VRadio().Value("M").Label("Male"),
-		).FieldName("Form1.Gender").
-			Value(fv.Form1.Gender).
+		).
+			Attr(web.VField("Form1.Gender", fv.Form1.Gender)...).
 			Label("Gender"),
 	)
 }
@@ -74,13 +73,12 @@ func form2(ctx *web.EventContext, fv *myFormValue, verr *web.ValidationErrors) h
 		h.H1("Form2"),
 
 		VSwitch().
-			FieldName("Form2.Feature1").
-			Value(fv.Form2.Feature1).
+			Attr(web.VField("Form2.Feature1", fv.Form2.Feature1)...).
 			Label("Feature1"),
 
-		VSlider().FieldName("Form2.Slider1").
+		VSlider().
+			Attr(web.VField("Form2.Slider1", fv.Form2.Slider1)...).
 			ErrorMessages(verr.GetFieldErrors("Slider1")...).
-			Value(fv.Form2.Slider1).
 			Label("Slider1"),
 	)
 }
