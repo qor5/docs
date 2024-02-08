@@ -45,12 +45,12 @@ func VuetifyBasicInputs(ctx *web.EventContext) (pr web.PageResponse, err error) 
 			Label("Form ValueIs").
 			Variant("solo").
 			Clearable(true).
-			FieldName("MyValue").
-			ErrorMessages(verr.GetFieldErrors("MyValue")...).
-			Value(s.MyValue),
-		VTextarea().FieldName("TextareaValue").
+			Attr(web.VField("MyValue", s.MyValue)...).
+			ErrorMessages(verr.GetFieldErrors("MyValue")...),
+		VTextarea().
+			Attr(web.VField("TextareaValue", s.TextareaValue)...).
 			ErrorMessages(verr.GetFieldErrors("TextareaValue")...).
-			Variant("solo").Value(s.TextareaValue),
+			Variant("solo"),
 		VRadioGroup(
 			VRadio().Value("F").Label("Female"),
 			VRadio().Value("M").Label("Male"),
