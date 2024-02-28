@@ -31,26 +31,27 @@ func VuetifyVariantSubForm(ctx *web.EventContext) (pr web.PageResponse, err erro
 
 	pr.Body = VContainer(
 		utils.PrettyFormAsJSON(ctx),
+		web.Scope(
+			VSelect().
+				Items([]string{
+					"Type1",
+					"Type2",
+				}).
+				Attr("v-model", "locals.Type").
+				Attr("@update:menu", web.POST().
+					EventFunc("switchForm").
+					Go()),
 
-		VSelect().
-			Items([]string{
-				"Type1",
-				"Type2",
-			}).
-			Attr(web.VField("Type", fv.Type)...).
-			Attr("@update:menu", web.POST().
-				EventFunc("switchForm").
-				Go()),
+			web.Portal(
+				h.If(fv.Type == "Type1",
+					form1(ctx, &fv),
+				).Else(
+					form2(ctx, &fv, &verr),
+				),
+			).Name("subform"),
 
-		web.Portal(
-			h.If(fv.Type == "Type1",
-				form1(ctx, &fv),
-			).Else(
-				form2(ctx, &fv, &verr),
-			),
-		).Name("subform"),
-
-		VBtn("Submit").OnClick("submit"),
+			VBtn("Submit").OnClick("submit"),
+		).VSlot("{ locals }").Init(h.JSONString(fv)),
 	)
 	return
 }
@@ -63,7 +64,7 @@ func form1(ctx *web.EventContext, fv *myFormValue) h.HTMLComponent {
 			VRadio().Value("F").Label("Female"),
 			VRadio().Value("M").Label("Male"),
 		).
-			Attr(web.VField("Form1.Gender", fv.Form1.Gender)...).
+			Attr("v-model", "locals.Form1.Gender").
 			Label("Gender"),
 	)
 }
@@ -73,11 +74,13 @@ func form2(ctx *web.EventContext, fv *myFormValue, verr *web.ValidationErrors) h
 		h.H1("Form2"),
 
 		VSwitch().
-			Attr(web.VField("Form2.Feature1", fv.Form2.Feature1)...).
+			Color("red").
+			Attr("v-model", "locals.Form2.Feature1").
 			Label("Feature1"),
 
 		VSlider().
-			Attr(web.VField("Form2.Slider1", fv.Form2.Slider1)...).
+			Step(1).
+			Attr("v-model", "locals.Form2.Slider1").
 			ErrorMessages(verr.GetFieldErrors("Slider1")...).
 			Label("Slider1"),
 	)

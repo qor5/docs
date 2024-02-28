@@ -87,7 +87,7 @@ func autoReload(ctx *web.EventContext) (er web.EventResponse, err error) {
 	reloadCount++
 
 	if reloadCount > 5 {
-		er.VarsScript = `vars.interval = 0;`
+		er.RunScript = `vars.interval = 0;`
 	}
 	return
 }

@@ -1,6 +1,7 @@
 package e00_basics
 
 import (
+	"fmt"
 	"github.com/qor5/docs/docsrc/utils"
 	. "github.com/qor5/ui/vuetify"
 	"github.com/qor5/web"
@@ -57,85 +58,87 @@ func UsePlaidForm(ctx *web.EventContext) (pr web.PageResponse, err error) {
 	pr.Body = Div(
 		H3("Form Content"),
 		utils.PrettyFormAsJSON(ctx),
+		web.Scope(
 
-		Div(
 			Div(
-				Fieldset(
-					Legend("Product Form"),
-					Div(
-						Label("Product Name"),
-						Input("").
-							Type("text").
-							Attr(web.VField("ProductName", productName)...),
-					),
-					Div(
-						Label("Material ID"),
-						Input("").
-							Type("text").Disabled(true).
-							Attr(web.VField("MaterialID", materialID)...),
-					),
+				Div(
+					Fieldset(
+						Legend("Product Form"),
+						Div(
+							Label("Product Name"),
+							Input("").
+								Type("text").
+								Attr("v-model", "locals.ProductName"),
+						),
+						Div(
+							Label("Material ID"),
+							Input("").
+								Type("text").Disabled(true).
+								Attr("v-model", "locals.MaterialID"),
+						),
 
-					web.Scope(
-						Fieldset(
-							Legend("Material Form"),
+						web.Scope(
+							Fieldset(
+								Legend("Material Form"),
 
-							Div(
-								Label("Material Name"),
-								Input("").
-									Type("text").
-									Attr(web.VField("MaterialName", materialName)...),
-							),
-							Div(
-								Label("Raw Material ID"),
-								Input("").
-									Type("text").Disabled(true).
-									Attr(web.VField("RawMaterialID", rawMaterialID)...),
-							),
-							web.Scope(
-								Fieldset(
-									Legend("Raw Material Form"),
+								Div(
+									Label("Material Name"),
+									Input("").
+										Type("text").
+										Attr("v-model", "locals.MaterialName"),
+								),
+								Div(
+									Label("Raw Material ID"),
+									Input("").
+										Type("text").Disabled(true).
+										Attr("v-model", "locals.RawMaterialID"),
+								),
+								web.Scope(
+									Fieldset(
+										Legend("Raw Material Form"),
 
-									Div(
-										Label("Raw Material Name"),
-										Input("").
-											Type("text").
-											Attr(web.VField("RawMaterialName", rawMaterialName)...),
-									),
+										Div(
+											Label("Raw Material Name"),
+											Input("").
+												Type("text").
+												Attr("v-model", "locals.RawMaterialName"),
+										),
 
-									Button("Send").Style(`background: orange;`).Attr("@click", web.POST().EventFunc("updateValue").Go()),
-								).Style(`background: orange;`),
-							).VSlot("{ plaidForm }"),
+										Button("Send").Style(`background: orange;`).Attr("@click", web.POST().EventFunc("updateValue").Go()),
+									).Style(`background: orange;`),
+								).VSlot("{ plaidForm, locals }").Init(fmt.Sprintf("{RawMaterialName: %+v}", rawMaterialName)),
 
-							Button("Send").Style(`background: brown;`).Attr("@click", web.POST().EventFunc("updateValue").Go()),
-						).Style(`background: brown;`),
-					).VSlot("{ plaidForm }"),
+								Button("Send").Style(`background: brown;`).Attr("@click", web.POST().EventFunc("updateValue").Go()),
+							).Style(`background: brown;`),
+						).VSlot("{ plaidForm, locals }"),
 
-					Div(
-						Label("Country ID"),
-						Input("").
-							Type("text").Disabled(true).
-							Attr(web.VField("CountryID", countryID)...),
-					),
+						Div(
+							Label("Country ID"),
+							Input("").
+								Type("text").Disabled(true).
+								Attr("v-model", "locals.CountryID"),
+						),
 
-					web.Scope(
-						Fieldset(
-							Legend("Country Of Origin Form"),
+						web.Scope(
+							Fieldset(
+								Legend("Country Of Origin Form"),
 
-							Div(
-								Label("Country Name"),
-								Input("").
-									Type("text").
-									Attr(web.VField("CountryName", countryName)...),
-							),
+								Div(
+									Label("Country Name"),
+									Input("").
+										Type("text").
+										Attr("v-model", "locals.CountryName"),
+								),
 
-							Button("Send").Style(`background: red;`).Attr("@click", web.POST().EventFunc("updateValue").Go()),
-						).Style(`background: red;`),
-					).VSlot("{ plaidForm }"),
+								Button("Send").Style(`background: red;`).Attr("@click", web.POST().EventFunc("updateValue").Go()),
+							).Style(`background: red;`),
+						).VSlot("{ plaidForm, locals }").Init(fmt.Sprintf("{CountryName: %+v}", countryName)),
 
-					Div(
-						Button("Send").Style(`background: grey;`).Attr("@click", web.POST().EventFunc("updateValue").Go())),
-				).Style(`background: grey;`)),
-		).Style(`width:600px;`),
+						Div(
+							Button("Send").Style(`background: grey;`).Attr("@click", web.POST().EventFunc("updateValue").Go())),
+					).Style(`background: grey;`)),
+			).Style(`width:600px;`),
+		).VSlot("{ locals, plaidForm }").Init("{ProductName: 'Product1', MaterialID: '55', MaterialName: 'Material1', RawMaterialID: '77', RawMaterialName: 'RawMaterial1', CountryID: '88', CountryName: 'Country1'}"),
 	)
 
 	return

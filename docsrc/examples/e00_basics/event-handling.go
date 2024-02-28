@@ -254,11 +254,11 @@ func ExamplePage(ctx *web.EventContext) (pr web.PageResponse, err error) {
 
 var ExamplePagePB = web.Page(ExamplePage).
 	EventFunc("form", func(ctx *web.EventContext) (r web.EventResponse, err error) {
-		r.VarsScript = fmt.Sprintf(`alert("form data is %s")`, ctx.R.FormValue("name"))
+		r.RunScript = fmt.Sprintf(`alert("form data is %s")`, ctx.R.FormValue("name"))
 		return
 	}).
 	EventFunc("hello", func(ctx *web.EventContext) (r web.EventResponse, err error) {
-		r.VarsScript = `alert("Hello World")`
+		r.RunScript = `alert("Hello World")`
 		return
 	})
 

@@ -28,58 +28,60 @@ func HelloVuetifyMenu(ctx *web.EventContext) (pr web.PageResponse, err error) {
 
 	pr.Body = VContainer(
 		utils.PrettyFormAsJSON(ctx),
+		web.Scope(
+			VMenu(
+				web.Slot(
+					VBtn("Menu as Popover").
+						On("click", "vars.myMenuShow = true").
+						Theme("dark").
+						Color("indigo"),
+				).Name("activator"),
 
-		VMenu(
-			web.Slot(
-				VBtn("Menu as Popover").
-					On("click", "vars.myMenuShow = true").
-					Theme("dark").
-					Color("indigo"),
-			).Name("activator"),
-
-			VCard(
-				VList(
-					VListItem(
-						VListItemAction(
-							web.Portal(
-								favoredIcon(),
-							).Name(favoredIconPortalName),
-						),
-					).
-						PrependAvatar("https://cdn.vuetifyjs.com/images/john.jpg").
-						Title("John Leider").
-						Subtitle("Founder of Vuetify.js"),
-				),
-				VDivider(),
-				VList(
-					VListItem(
-						VListItemAction(
-							VSwitch().Color("purple").
-								Attr(web.VField("EnableMessages", fv.EnableMessages)...),
-						),
-						VListItemTitle(h.Text("Enable messages")),
+				VCard(
+					VList(
+						VListItem(
+							VListItemAction(
+								web.Portal(
+									favoredIcon(),
+								).Name(favoredIconPortalName),
+							),
+						).
+							PrependAvatar("https://cdn.vuetifyjs.com/images/john.jpg").
+							Title("John Leider").
+							Subtitle("Founder of Vuetify.js"),
 					),
-					VListItem(
-						VListItemAction(
-							VSwitch().Color("purple").
-								Attr(web.VField("EnableHints", fv.EnableHints)...),
+					VDivider(),
+
+					VList(
+						VListItem(
+							VListItemAction(
+								VSwitch().Color("purple").
+									Attr("v-model", "locals.EnableMessages"),
+							),
+							VListItemTitle(h.Text("Enable messages")),
 						),
-						VListItemTitle(h.Text("Enable hints")),
+						VListItem(
+							VListItemAction(
+								VSwitch().Color("purple").
+									Attr("v-model", "locals.EnableHints"),
+							),
+							VListItemTitle(h.Text("Enable hints")),
+						),
+					),
+
+					VCardActions(
+						VSpacer(),
+						VBtn("Cancel").Variant("text").
+							On("click", "vars.myMenuShow = false"),
+						VBtn("Save").Color("primary").
+							Variant("text").OnClick("submit"),
 					),
 				),
-
-				VCardActions(
-					VSpacer(),
-					VBtn("Cancel").Variant("text").
-						On("click", "vars.myMenuShow = false"),
-					VBtn("Save").Color("primary").
-						Variant("text").OnClick("submit"),
-				),
-			),
-		).CloseOnContentClick(false).
-			Width(200).
-			Offset(true).
-			Attr("v-model", "vars.myMenuShow"),
+			).CloseOnContentClick(false).
+				Width(200).
+				Offset(true).
+				Attr("v-model", "vars.myMenuShow"),
+		).VSlot("{ locals }").Init(h.JSONString(fv)),
 	).Attr(web.InitContextVars, `{myMenuShow: false}`)
 
 	return
@@ -107,7 +109,7 @@ func toggleFavored(ctx *web.EventContext) (er web.EventResponse, err error) {
 
 func submit(ctx *web.EventContext) (er web.EventResponse, err error) {
 	er.Reload = true
-	er.VarsScript = "vars.myMenuShow = false"
+	er.RunScript = "vars.myMenuShow = false"
 	return
 }
 

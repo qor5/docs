@@ -45,56 +45,67 @@ func VuetifyComponentsKitchen(ctx *web.EventContext) (pr web.PageResponse, err e
 
 	pr.Body = VContainer(
 		utils.PrettyFormAsJSON(ctx),
+		web.Scope(
+			h.H1("Chips delete"),
+			chips,
 
-		h.H1("Chips delete"),
-		chips,
+			h.H1("Chips group"),
+			h.H2("Cities1"),
+			VChipGroup(
+				VChip(
+					h.Text("Hangzhou"),
+					VIcon("mdi-star").End(true),
+				).Value("HZ"),
+				VChip(h.Text("Shanghai")).Value("SH").Filter(true).Label(true),
+				VChip(h.Text("Tokyo")).Value("TK").Filter(true),
+				VChip(h.Text("New York")).Value("NY"),
+				VChip(h.Text("London")).Value("LD"),
+			).SelectedClass("bg-indigo").
+				Attr("v-model", "locals.Cities1").
+				Multiple(true),
+			h.H2("Cities2"),
+			VAutocomplete().
+				Items(globalCities).
+				Chips(true).
+				ClosableChips(true).
+				Multiple(true).
+				Attr("v-model", "locals.Cities2"),
 
-		h.H1("Chips group"),
-		VChipGroup(
-			VChip(
-				h.Text("Hangzhou"),
-				VIcon("mdi-star").End(true),
-			).Value("HZ"),
-			VChip(h.Text("Shanghai")).Value("SH").Filter(true).Label(true),
-			VChip(h.Text("Tokyo")).Value("TK").Filter(true),
-			VChip(h.Text("New York")).Value("NY"),
-			VChip(h.Text("London")).Value("LD"),
-		).SelectedClass("indigo darken-3 white--text").
-			Attr(web.VField("Cities1", fv.Cities1)...).
-			Multiple(true),
-		VAutocomplete().
-			Items(globalCities).
-			Attr(web.VField("Cities2", fv.Cities2)...),
+			h.H1("Items Group"),
 
-		h.H1("Items Group"),
+			VItemGroup(
+				VContainer(
+					VRow(
+						VCol(
+							VItem(
+								VCard(
+									VCardTitle(h.Text("Item1")),
+								).
+									Height(200).
+									Attr(":class", "['d-flex align-center', selectedClass]").
+									Attr("@click", "toggle"),
+							).Value("VItem1").Attr("v-slot", "{isSelected, selectedClass, toggle}"),
+						),
 
-		VItemGroup(
-			VContainer(
-				VRow(
-					VCol(
-						VItem(
-							VCard(
-								VCardTitle(h.Text("Item1")),
-							).Attr(":color", "active ? \"primary\" : \"\"").
-								Attr("@click", "toggle"),
-						).Value("VItem1").Attr("v-slot", "{active, toggle}"),
-					),
-
-					VCol(
-						VItem(
-							VCard(
-								VCardTitle(h.Text("Item2")),
-							).Attr(":color", "active ? \"primary\" : \"\"").
-								Attr("@click", "toggle"),
-						).Value("VItem2").Attr("v-slot", "{active, toggle}"),
+						VCol(
+							VItem(
+								VCard(
+									VCardTitle(h.Text("Item2")),
+								).
+									Height(200).
+									Attr(":class", "['d-flex align-center', selectedClass]").
+									Attr("@click", "toggle"),
+							).Value("VItem2").Attr("v-slot", "{isSelected, selectedClass, toggle}"),
+						),
 					),
 				),
-			),
-		).
-			Attr(web.VField("MyItem", fv.MyItem)...),
+			).
+				SelectedClass("bg-primary").
+				Attr("v-model", "locals.MyItem"),
 
-		VBtn("Submit").
-			OnClick("submit"),
+			VBtn("Submit").
+				OnClick("submit"),
+		).VSlot("{ locals, plaidForm }").Init(h.JSONString(fv)),
 	)
 	return
 }
@@ -109,7 +120,7 @@ func submit(ctx *web.EventContext) (r web.EventResponse, err error) {
 
 func removeCity(ctx *web.EventContext) (r web.EventResponse, err error) {
 	city := ctx.R.FormValue("city")
-	var newCities []string
+	var newCities = make([]string, 0)
 	for _, c := range globalCities {
 		if c != city {
 			newCities = append(newCities, c)

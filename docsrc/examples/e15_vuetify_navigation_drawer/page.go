@@ -43,12 +43,14 @@ func showDrawer(ctx *web.EventContext) (er web.EventResponse, err error) {
 		&web.PortalUpdate{
 			Name: "drawer2",
 			Body: VNavigationDrawer(
-				h.Text("Drawer 2"),
-				web.Portal(
-					textField(""),
-				).Name("InputPortal"),
-				VBtn("Update parent and close").
-					OnClick("updateParentAndClose"),
+				web.Scope(
+					h.Text("Drawer 2"),
+					web.Portal(
+						textField(""),
+					).Name("InputPortal"),
+					VBtn("Update parent and close").
+						OnClick("updateParentAndClose"),
+				).VSlot("{ locals }"),
 			).Location("right").
 				Attr("v-model", "vars.drawer2").
 				Temporary(true).
@@ -58,12 +60,13 @@ func showDrawer(ctx *web.EventContext) (er web.EventResponse, err error) {
 		},
 	)
 
-	er.VarsScript = `setTimeout(function(){ vars.drawer2 = true }, 100)`
+	er.RunScript = `setTimeout(function(){ vars.drawer2 = true }, 100)`
 	return
 }
 
 func textField(value string, fieldErrors ...string) h.HTMLComponent {
-	return VTextField().Attr(web.VField("Drawer2Input", value)...).
+	return VTextField().
+		Attr("v-model", "locals.Drawer2Input").
 		ErrorMessages(fieldErrors...)
 }
 
@@ -81,7 +84,7 @@ func updateParentAndClose(ctx *web.EventContext) (er web.EventResponse, err erro
 		Body: h.Text(fmt.Sprintf("Updated content at %s", time.Now())),
 	})
 
-	er.VarsScript = "vars.drawer2 = false"
+	er.RunScript = "vars.drawer2 = false"
 	return
 }
 

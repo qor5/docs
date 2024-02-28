@@ -12,7 +12,6 @@ import (
 	"github.com/qor5/docs/docsrc/examples/e22_vuetify_variant_sub_form"
 	"github.com/qor5/docs/docsrc/examples/e23_vuetify_components_kitchen"
 	"github.com/qor5/docs/docsrc/examples/e24_vuetify_components_linkage_select"
-	"github.com/qor5/docs/docsrc/utils"
 	"github.com/qor5/ui/tiptap"
 	. "github.com/qor5/ui/vuetify"
 	"github.com/qor5/web"
@@ -327,16 +326,6 @@ func demoVuetifyLayout(in web.PageFunc) (out web.PageFunc) {
 
 // @snippet_end
 
-func rf(comp HTMLComponent, p *pageItem) web.PageFunc {
-	return func(ctx *web.EventContext) (r web.PageResponse, err error) {
-		r.Body = Components(
-			utils.Anchor(H1(""), p.title),
-			comp,
-		)
-		return
-	}
-}
-
 func Mux(mux *http.ServeMux, prefix string) http.Handler {
 
 	// @snippet_begin(ComponentsPackSample)
@@ -392,7 +381,11 @@ func Mux(mux *http.ServeMux, prefix string) http.Handler {
 	return mux
 }
 
-func SamplesHandler(mux *http.ServeMux, prefix string) http.Handler {
+type muxer interface {
+	Handle(pattern string, handler http.Handler)
+}
+
+func SamplesHandler(mux muxer, prefix string) {
 	emptyUb := web.New().LayoutFunc(web.NoopLayoutFunc)
 
 	mux.Handle(e00_basics.TypeSafeBuilderSamplePath, e00_basics.TypeSafeBuilderSamplePFPB.Builder(emptyUb))
@@ -527,5 +520,5 @@ func SamplesHandler(mux *http.ServeMux, prefix string) http.Handler {
 		e24_vuetify_components_linkage_select.VuetifyComponentsLinkageSelectPB.Wrap(demoVuetifyLayout),
 	)
 
-	return mux
+	return
 }

@@ -8,7 +8,7 @@ import (
 
 	. "github.com/qor5/ui/vuetify"
 	"github.com/qor5/web"
-	h "github.com/theplant/htmlgo"
+	. "github.com/theplant/htmlgo"
 )
 
 type mystate struct {
@@ -30,25 +30,25 @@ func LazyPortalsAndReload(ctx *web.EventContext) (pr web.PageResponse, err error
 					web.Portal().Loader(web.POST().EventFunc("menuItems")).Name("menuContent"),
 				),
 
-				h.Div(
-					h.H1("Portal A"),
+				Div(
+					H1("Portal A"),
 					web.Portal().Loader(web.POST().EventFunc("portal1")).Name("portalA"),
 				).Style("border: 2px solid blue;"),
 
-				h.Div(
-					h.H1("Portal B"),
+				Div(
+					H1("Portal B"),
 					web.Portal().Loader(web.POST().EventFunc("portal1")).Name("portalB"),
 				).Style("border: 2px solid red;"),
 
 				VBtn("Reload Portal A and B").OnClick("reloadAB").Color("orange").Theme("dark"),
 
-				h.Div(
-					h.H1("Portal C"),
+				Div(
+					H1("Portal C"),
 					web.Portal().Name("portalC"),
 				).Style("border: 2px solid blue;"),
 
-				h.Div(
-					h.H1("Portal D"),
+				Div(
+					H1("Portal D"),
 					web.Portal().Name("portalD"),
 				).Style("border: 2px solid red;"),
 
@@ -61,10 +61,10 @@ func LazyPortalsAndReload(ctx *web.EventContext) (pr web.PageResponse, err error
 
 func menuItems(ctx *web.EventContext) (r web.EventResponse, err error) {
 
-	var items []h.HTMLComponent
+	var items []HTMLComponent
 	for _, item := range listItems {
 		items = append(items, VListItem(
-			VListItemTitle(h.Text(item)),
+			VListItemTitle(Text(item)),
 		))
 	}
 
@@ -90,20 +90,21 @@ func addItemForm(ctx *web.EventContext) (r web.EventResponse, err error) {
 	ctx.MustUnmarshalForm(s)
 
 	textField := VTextField().
-		Attr(web.VField("Company", "")...)
+		Attr("v-model", "locals.Company")
 
 	if len(s.Error) > 0 {
 		textField.Error(true).ErrorMessages(s.Error)
 	}
 
-	r.Body = VCard(
-		VCardText(
-			textField,
-		),
-		VCardActions(
-			VBtn("Create").Color("primary").OnClick("addItem"),
-		),
-	)
+	r.Body = web.Scope(
+		VCard(
+			VCardText(
+				textField,
+			),
+			VCardActions(
+				VBtn("Create").Color("bg-primary").OnClick("addItem"),
+			),
+		)).VSlot("{ locals }").Init(`{Company: ""}`)
 	return
 }
 
@@ -125,7 +126,7 @@ func addItem(ctx *web.EventContext) (r web.EventResponse, err error) {
 }
 
 func portal1(ctx *web.EventContext) (r web.EventResponse, err error) {
-	r.Body = h.Text(fmt.Sprint(time.Now().UnixNano()))
+	r.Body = Text(fmt.Sprint(time.Now().UnixNano()))
 	return
 }
 
@@ -138,11 +139,11 @@ func updateCD(ctx *web.EventContext) (r web.EventResponse, err error) {
 	r.UpdatePortals = append(r.UpdatePortals,
 		&web.PortalUpdate{
 			Name: "portalC",
-			Body: h.Text(fmt.Sprint(time.Now().UnixNano())),
+			Body: Text(fmt.Sprint(time.Now().UnixNano())),
 		},
 		&web.PortalUpdate{
 			Name: "portalD",
-			Body: h.Text(fmt.Sprint(time.Now().UnixNano())),
+			Body: Text(fmt.Sprint(time.Now().UnixNano())),
 		},
 	)
 	return

@@ -41,49 +41,56 @@ func VuetifyBasicInputs(ctx *web.EventContext) (pr web.PageResponse, err error) 
 
 	pr.Body = VContainer(
 		utils.PrettyFormAsJSON(ctx),
-		VTextField().
-			Label("Form ValueIs").
-			Variant("solo").
-			Clearable(true).
-			Attr(web.VField("MyValue", s.MyValue)...).
-			ErrorMessages(verr.GetFieldErrors("MyValue")...),
-		VTextarea().
-			Attr(web.VField("TextareaValue", s.TextareaValue)...).
-			ErrorMessages(verr.GetFieldErrors("TextareaValue")...).
-			Variant("solo"),
-		VRadioGroup(
-			VRadio().Value("F").Label("Female"),
-			VRadio().Value("M").Label("Male"),
-		).Attr(web.VField("Gender", s.Gender)...),
-		VCheckbox().Attr(web.VField("Agreed", s.Agreed)...).
-			ErrorMessages(verr.GetFieldErrors("Agreed")...).
-			Label("Agree"),
-		VSwitch().Attr(web.VField("Feature1", s.Feature1)...),
+		web.Scope(
+			VTextField().
+				Label("Form ValueIs").
+				Variant("solo").
+				Clearable(true).
+				Attr("v-model", "locals.MyValue").
+				ErrorMessages(verr.GetFieldErrors("MyValue")...),
+			VTextarea().
+				Attr("v-model", "locals.TextareaValue").
+				ErrorMessages(verr.GetFieldErrors("TextareaValue")...).
+				Variant("solo"),
+			VRadioGroup(
+				VRadio().Value("F").Label("Female"),
+				VRadio().Value("M").Label("Male"),
+			).
+				Attr("v-model", "locals.Gender"),
+			VCheckbox().
+				Attr("v-model", "locals.Agreed").
+				ErrorMessages(verr.GetFieldErrors("Agreed")...).
+				Label("Agree"),
+			VSwitch().
+				Attr("v-model", "locals.Feature1"),
 
-		VSlider().Attr(web.VField("Slider1", s.Slider1)...).
-			ErrorMessages(verr.GetFieldErrors("Slider1")...),
+			VSlider().
+				Attr("v-model", "locals.Slider1").
+				ErrorMessages(verr.GetFieldErrors("Slider1")...),
 
-		web.Portal().Name("Portal1"),
+			web.Portal().Name("Portal1"),
 
-		VFileInput().Attr(web.VField("Files1", nil)...),
+			VFileInput().
+				Attr("v-model", "locals.Files1"),
 
-		VFileInput().Label("Auto post to server after select file").Multiple(true).
-			Attr("@change", web.POST().
-				EventFunc("update").
-				FieldValue("Files2", web.Var("$event")).
-				Go()),
-
-		h.Div(
-			h.Input("Files3").Type("file").
-				Attr("@input", web.POST().
+			VFileInput().Label("Auto post to server after select file").Multiple(true).
+				Attr("@change", web.POST().
 					EventFunc("update").
-					FieldValue("Files3", web.Var("$event")).
+					FieldValue("Files2", web.Var("$event")).
 					Go()),
-		).Class("mb-4"),
 
-		VBtn("Update").OnClick("update").Color("primary"),
-		h.P().Text("The following button will update a portal with a hidden field, if you click this button, and then click the above update button, you will find additional value posted to server"),
-		VBtn("Add Portal Hidden Value").OnClick("addPortal"),
+			h.Div(
+				h.Input("Files3").Type("file").
+					Attr("@input", web.POST().
+						EventFunc("update").
+						FieldValue("Files3", web.Var("$event")).
+						Go()),
+			).Class("mb-4"),
+
+			VBtn("Update").OnClick("update").Color("primary"),
+			h.P().Text("The following button will update a portal with a hidden field, if you click this button, and then click the above update button, you will find additional value posted to server"),
+			VBtn("Add Portal Hidden Value").OnClick("addPortal"),
+		).VSlot("{ locals }").Init(h.JSONString(s)),
 	)
 
 	return
@@ -92,7 +99,8 @@ func VuetifyBasicInputs(ctx *web.EventContext) (pr web.PageResponse, err error) 
 func addPortal(ctx *web.EventContext) (r web.EventResponse, err error) {
 	r.UpdatePortals = append(r.UpdatePortals, &web.PortalUpdate{
 		Name: "Portal1",
-		Body: h.Input("").Type("hidden").Attr(web.VField("PortalAddedValue", "this is my portal added hidden value")...),
+		Body: h.Input("").Type("hidden").
+			Attr(":value", "locals.PortalAddedValue = 'this is my portal added hidden value'"),
 	})
 	return
 }
