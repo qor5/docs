@@ -14,37 +14,52 @@ func PartialUpdatePage(ctx *web.EventContext) (pr web.PageResponse, err error) {
 		A().Text("Edit").Href("javascript:;").
 			Attr("@click", web.POST().EventFunc("edit1").Go()),
 		web.Portal(
-			Text("original portal content here"),
+			If(len(fd.Title) > 0,
+				H1(fd.Title),
+				H5(fd.Date),
+			).Else(
+				Text("Default value"),
+			),
 		).Name("part1"),
 		Div().Text(time.Now().Format(time.RFC3339Nano)),
 	)
 	return
 }
 
+type formData struct {
+	Title string
+	Date  string
+}
+
+var fd formData
+
 func edit1(ctx *web.EventContext) (er web.EventResponse, err error) {
 	er.UpdatePortals = append(er.UpdatePortals, &web.PortalUpdate{
 		Name: "part1",
 		Body: Div(
-			Fieldset(
-				Legend("Input value"),
-				Div(
-					Label("Title"),
-					Input("").Type("text"),
-				),
+			web.Scope(
+				Fieldset(
+					Legend("Input value"),
+					Div(
+						Label("Title"),
+						Input("").Type("text").Attr("v-model", "locals.Title"),
+					),
 
-				Div(
-					Label("Date"),
-					Input("").Type("date"),
+					Div(
+						Label("Date"),
+						Input("").Type("date").Attr("v-model", "locals.Date"),
+					),
 				),
-			),
-			Button("Update").
-				Attr("@click", web.POST().EventFunc("reload2").Go()),
+				Button("Update").
+					Attr("@click", web.POST().EventFunc("reload2").Go()),
+			).VSlot("{ locals }").Init(JSONString(fd)),
 		),
 	})
 	return
 }
 
 func reload2(ctx *web.EventContext) (er web.EventResponse, err error) {
+	ctx.MustUnmarshalForm(&fd)
 	er.Reload = true
 	return
 }
