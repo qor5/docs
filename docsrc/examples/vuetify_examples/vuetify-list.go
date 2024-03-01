@@ -4,57 +4,86 @@ package vuetify_examples
 import (
 	. "github.com/qor5/ui/vuetify"
 	"github.com/qor5/web"
-	h "github.com/theplant/htmlgo"
+	. "github.com/theplant/htmlgo"
 )
 
+type ListItem struct {
+	Type          string `json:"type,omitempty"`
+	Title         string `json:"title,omitempty"`
+	PrependAvatar string `json:"prependAvatar,omitempty"`
+	Subtitle      string `json:"subtitle,omitempty"`
+	Inset         bool   `json:"inset,omitempty"`
+}
+
 func HelloVuetifyList(ctx *web.EventContext) (pr web.PageResponse, err error) {
-	wrapper := func(children ...h.HTMLComponent) h.HTMLComponent {
+	wrapper := func(children ...HTMLComponent) HTMLComponent {
 		return VContainer(
 			VCard(children...),
 		).GridList(Md).TextAlign(Xs, Center)
 	}
 
+	items := []ListItem{
+		{
+			Type:  "subheader",
+			Title: "Today",
+		},
+		{
+			Title:         "Brunch this weekend?",
+			PrependAvatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
+			Subtitle:      `<span class="text-primary">Ali Connors</span> &mdash; I'll be in your neighborhood doing errands this weekend. Do you want to hang out?`,
+		},
+		{
+			Type:  "divider",
+			Inset: true,
+		},
+		{
+			Title:         "Summer BBQ",
+			PrependAvatar: "https://cdn.vuetifyjs.com/images/lists/2.jpg",
+			Subtitle:      `<span class="text-primary">to Alex, Scott, Jennifer</span> &mdash; Wish I could come, but I'm out of town this weekend.`,
+		},
+		{
+			Type:  "divider",
+			Inset: true,
+		},
+		{
+			Title:         "Oui oui",
+			PrependAvatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
+			Subtitle:      `<span class="text-primary">Sandra Adams</span> &mdash; Do you have Paris recommendations? Have you ever been?`,
+		},
+		{
+			Type:  "divider",
+			Inset: true,
+		},
+		{
+			Title:         "Birthday gift",
+			PrependAvatar: "https://cdn.vuetifyjs.com/images/lists/4.jpg",
+			Subtitle:      `<span class="text-primary">Trevor Hansen</span> &mdash; Have any ideas about what we should get Heidi for her birthday?`,
+		},
+		{
+			Type:  "divider",
+			Inset: true,
+		},
+		{
+			Title:         "Recipe to try",
+			PrependAvatar: "https://cdn.vuetifyjs.com/images/lists/5.jpg",
+			Subtitle:      `<span class="text-primary">Britta Holt</span> &mdash; We should eat this: Grate, Squash, Corn, and tomatillo Tacos.`,
+		},
+	}
+
 	pr.Body = wrapper(
 		VToolbar(
 			// VToolbarSideIcon(),
-			VToolbarTitle("Inbox"),
+			VToolbarTitle("Inbox").Class("text-white"),
 			VSpacer(),
 			VBtn("").Icon(true).Children(
 				VIcon("search"),
 			),
 		).Color("cyan"),
-		// VList(
-		// 	VSubheader(h.Text("Today")),
-		// 	VListItem(
-		// 		VListItemContent(
-		// 			VListItemTitle(h.Text("Brunch this weekend?")),
-		// 			VListItemSubtitle(
-		// 				h.Span("Ali Connors").Class("text--primary"),
-		// 				h.Text("&mdash; I'll be in your neighborhood doing errands this weekend. Do you want to hang out?"),
-		// 			),
-		// 		),
-		// 	).PrependAvatar("https://cdn.vuetifyjs.com/images/lists/1.jpg"),
-		// 	VDivider().Inset(true),
-		// 	VListItem(
-		// 		VListItemAvatar(
-		// 			h.Img("https://cdn.vuetifyjs.com/images/lists/2.jpg"),
-		// 		),
-		// 		VListItemContent(
-		// 			VListItemTitle(h.RawHTML(`Summer BBQ <span class="grey--text text--lighten-1">4</span>`)),
-		// 			VListItemSubtitle(h.RawHTML(`<span class='text--primary'>to Alex, Scott, Jennifer</span> &mdash; Wish I could come, but I'm out of town this weekend.`)),
-		// 		),
-		// 	),
-		// 	VDivider().Inset(true),
-		// 	VListItem(
-		// 		VListItemAvatar(
-		// 			h.Img("https://cdn.vuetifyjs.com/images/lists/3.jpg"),
-		// 		),
-		// 		VListItemContent(
-		// 			VListItemTitle(h.Text(`Oui oui`)),
-		// 			VListItemSubtitle(h.RawHTML(`<span class='text--primary'>Sandra Adams</span> &mdash; Do you have Paris recommendations? Have you ever been?`)),
-		// 		),
-		// 	),
-		// ).Lines("two"),
+		VList(
+			Template(
+				Div().Attr("v-html", "subtitle"),
+			).Attr("v-slot:subtitle", "{ subtitle }"),
+		).Lines("three").ItemProps(true).Items(items),
 	)
 
 	return
