@@ -1,6 +1,6 @@
 module github.com/qor5/docs
 
-go 1.19
+go 1.22
 
 require (
 	github.com/fatih/color v1.13.0
