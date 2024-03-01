@@ -28,10 +28,15 @@ type MyData struct {
 	HiddenValue1   string
 }
 
+type NestForm2 struct {
+	Email1 string
+}
+
 func FormHandlingPage(ctx *web.EventContext) (pr web.PageResponse, err error) {
 
 	var fv MyData
-	err = ctx.UnmarshalForm(&fv)
+	ctx.MustUnmarshalForm(&fv)
+
 	if fv.Text1 == "" {
 		fv.Text1 = `Hello '1
 World`
@@ -40,10 +45,12 @@ World`
 		fv.HiddenValue1 = `hidden value
 '123`
 	}
-
-	if err != nil {
-		panic(err)
+	if fv.Color1 == "" {
+		fv.Color1 = "#ff0000"
 	}
+
+	var nf2 NestForm2
+	ctx.MustUnmarshalForm(&nf2)
 
 	pr.Body = Div(
 		web.Scope(
@@ -89,7 +96,7 @@ World`
 						FieldValue("name", "azuma").
 						Go()),
 				),
-			).VSlot("{ plaidForm, locals }").Init("{checked: true}"),
+			).VSlot("{ plaidForm, locals }").Init(JSONString(fv)),
 			web.Scope(
 				Fieldset(
 					Legend("Nested Form 2"),
@@ -104,7 +111,7 @@ World`
 						EventFunc("checkvalue").
 						Go()),
 				),
-			).VSlot("{ plaidForm, locals }").Init("{checked: true}"),
+			).VSlot("{ plaidForm, locals }").Init(nf2, "{checked: true}"),
 			Div(
 				Fieldset(
 					Legend("Radio"),
@@ -124,23 +131,21 @@ World`
 					Attr("v-model", "locals.Range1"),
 			),
 
-			web.Scope(
-				Div(
-					Label("Url1"),
-					Input("").Type("url").
-						Attr("v-model", "locals.Url1"),
-				),
-				Div(
-					Label("Tel1"),
-					Input("").Type("tel").
-						Attr("v-model", "locals.Tel1"),
-				),
-				Div(
-					Label("Month1"),
-					Input("").Type("month").
-						Attr("v-model", "locals.Month1"),
-				),
-			).VSlot("{ locals }"),
+			Div(
+				Label("Url1"),
+				Input("").Type("url").
+					Attr("v-model", "locals.Url1"),
+			),
+			Div(
+				Label("Tel1"),
+				Input("").Type("tel").
+					Attr("v-model", "locals.Tel1"),
+			),
+			Div(
+				Label("Month1"),
+				Input("").Type("month").
+					Attr("v-model", "locals.Month1"),
+			),
 
 			Div(
 				Label("Time1"),
@@ -160,7 +165,8 @@ World`
 			Div(
 				Label("File1"),
 				Input("").Type("file").
-					Attr("v-model", "locals.File1"),
+					Attr("multiple", true).
+					Attr("@change", "locals.File1 = $event.target.files"),
 			),
 			Div(
 				Label("Hidden values with default"),
