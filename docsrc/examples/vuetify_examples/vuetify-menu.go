@@ -6,7 +6,7 @@ import (
 	"github.com/qor5/docs/docsrc/utils"
 	. "github.com/qor5/ui/vuetify"
 	"github.com/qor5/web"
-	h "github.com/theplant/htmlgo"
+	. "github.com/theplant/htmlgo"
 )
 
 type formData struct {
@@ -32,70 +32,62 @@ func HelloVuetifyMenu(ctx *web.EventContext) (pr web.PageResponse, err error) {
 			VMenu(
 				web.Slot(
 					VBtn("Menu as Popover").
-						On("click", "vars.myMenuShow = true").
-						Theme("dark").
+						Attr("v-bind", "props").
 						Color("indigo"),
-				).Name("activator"),
+				).Name("activator").Scope("{ props }"),
 
 				VCard(
 					VList(
 						VListItem(
-							VListItemAction(
+							Template(
 								web.Portal(
 									favoredIcon(),
 								).Name(favoredIconPortalName),
-							),
-						).
-							PrependAvatar("https://cdn.vuetifyjs.com/images/john.jpg").
-							Title("John Leider").
-							Subtitle("Founder of Vuetify.js"),
+							).Attr("v-slot:append", true),
+						).Attr("prepend-avatar", "https://cdn.vuetifyjs.com/images/john.jpg").
+							Attr("subtitle", "Founder of Vuetify").
+							Title("John Leider"),
 					),
 					VDivider(),
-
 					VList(
 						VListItem(
-							VListItemAction(
-								VSwitch().Color("purple").
-									Attr("v-model", "locals.EnableMessages"),
-							),
-							VListItemTitle(h.Text("Enable messages")),
+							VSwitch().Attr("v-model", "locals.EnableMessages").
+								Attr("color", "purple").
+								Attr("label", "Enable messages").
+								Attr("hide-details", true),
 						),
 						VListItem(
-							VListItemAction(
-								VSwitch().Color("purple").
-									Attr("v-model", "locals.EnableHints"),
-							),
-							VListItemTitle(h.Text("Enable hints")),
+							VSwitch().Attr("v-model", "locals.EnableHints").
+								Attr("color", "purple").
+								Attr("label", "Enable hints").
+								Attr("hide-details", true),
 						),
 					),
 
 					VCardActions(
 						VSpacer(),
 						VBtn("Cancel").Variant("text").
-							On("click", "vars.myMenuShow = false"),
+							On("click", "locals.myMenuShow = false"),
 						VBtn("Save").Color("primary").
 							Variant("text").OnClick("submit"),
 					),
-				),
+				).MinWidth(300),
 			).CloseOnContentClick(false).
-				Width(200).
-				Offset(true).
-				Attr("v-model", "vars.myMenuShow"),
-		).VSlot("{ locals }").Init(h.JSONString(fv)),
-	).Attr(web.InitContextVars, `{myMenuShow: false}`)
+				Location("end").
+				Attr("v-model", "locals.myMenuShow"),
+		).VSlot("{ locals }").Init(JSONString(fv)),
+	)
 
 	return
 }
 
-func favoredIcon() h.HTMLComponent {
+func favoredIcon() HTMLComponent {
 	color := ""
 	if globalFavored {
-		color = "red"
+		color = "text-red"
 	}
 
-	return VBtn("").Icon(true).Children(
-		VIcon("favorite").Color(color),
-	).OnClick("toggleFavored")
+	return VBtn("").Variant("text").Icon("mdi-heart").Class(color).OnClick("toggleFavored")
 }
 
 func toggleFavored(ctx *web.EventContext) (er web.EventResponse, err error) {
@@ -109,7 +101,7 @@ func toggleFavored(ctx *web.EventContext) (er web.EventResponse, err error) {
 
 func submit(ctx *web.EventContext) (er web.EventResponse, err error) {
 	er.Reload = true
-	er.RunScript = "vars.myMenuShow = false"
+	er.RunScript = "locals.myMenuShow = false"
 	return
 }
 
