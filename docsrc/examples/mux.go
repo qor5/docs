@@ -5,8 +5,8 @@ import (
 	"github.com/qor5/admin/presets"
 	"github.com/qor5/docs/docsrc"
 	"github.com/qor5/docs/docsrc/assets"
-	"github.com/qor5/docs/docsrc/examples/e21_presents"
-	"github.com/qor5/docs/docsrc/examples/example_basics"
+	"github.com/qor5/docs/docsrc/examples/admin_examples"
+	"github.com/qor5/docs/docsrc/examples/presents_examples"
 	"github.com/qor5/docs/docsrc/examples/web_vuetify_mux"
 	"github.com/theplant/docgo"
 	"net/http"
@@ -39,211 +39,211 @@ func SamplesHandler(prefix string) http.Handler {
 	addGA := web_vuetify_mux.AddGA
 	// @snippet_begin(MountPresetHelloWorldSample)
 	c00 := presets.New().AssetFunc(addGA)
-	e21_presents.PresetsHelloWorld(c00)
+	presents_examples.PresetsHelloWorld(c00)
 	mux.Handle(
-		e21_presents.PresetsHelloWorldPath+"/",
+		presents_examples.PresetsHelloWorldPath+"/",
 		c00,
 	)
 	// @snippet_end
 
 	c01 := presets.New().AssetFunc(addGA)
-	e21_presents.PresetsListingCustomizationFields(c01)
+	presents_examples.PresetsListingCustomizationFields(c01)
 	mux.Handle(
-		e21_presents.PresetsListingCustomizationFieldsPath+"/",
+		presents_examples.PresetsListingCustomizationFieldsPath+"/",
 		c01,
 	)
 
 	c02 := presets.New().AssetFunc(addGA)
-	e21_presents.PresetsListingCustomizationFilters(c02)
+	presents_examples.PresetsListingCustomizationFilters(c02)
 	mux.Handle(
-		e21_presents.PresetsListingCustomizationFiltersPath+"/",
+		presents_examples.PresetsListingCustomizationFiltersPath+"/",
 		c02,
 	)
 
 	c03 := presets.New().AssetFunc(addGA)
-	e21_presents.PresetsListingCustomizationTabs(c03)
+	presents_examples.PresetsListingCustomizationTabs(c03)
 	mux.Handle(
-		e21_presents.PresetsListingCustomizationTabsPath+"/",
+		presents_examples.PresetsListingCustomizationTabsPath+"/",
 		c03,
 	)
 
 	c04 := presets.New().AssetFunc(addGA)
-	e21_presents.PresetsListingCustomizationBulkActions(c04)
+	presents_examples.PresetsListingCustomizationBulkActions(c04)
 	mux.Handle(
-		e21_presents.PresetsListingCustomizationBulkActionsPath+"/",
+		presents_examples.PresetsListingCustomizationBulkActionsPath+"/",
 		c04,
 	)
 
 	c05 := presets.New().AssetFunc(addGA)
-	e21_presents.PresetsEditingCustomizationDescription(c05)
+	presents_examples.PresetsEditingCustomizationDescription(c05)
 	mux.Handle(
-		e21_presents.PresetsEditingCustomizationDescriptionPath+"/",
+		presents_examples.PresetsEditingCustomizationDescriptionPath+"/",
 		c05,
 	)
 
 	c06 := presets.New().AssetFunc(addGA)
-	e21_presents.PresetsEditingCustomizationFileType(c06)
+	presents_examples.PresetsEditingCustomizationFileType(c06)
 	mux.Handle(
-		e21_presents.PresetsEditingCustomizationFileTypePath+"/",
+		presents_examples.PresetsEditingCustomizationFileTypePath+"/",
 		c06,
 	)
 
 	c07 := presets.New().AssetFunc(addGA)
-	e21_presents.PresetsEditingCustomizationValidation(c07)
+	presents_examples.PresetsEditingCustomizationValidation(c07)
 	mux.Handle(
-		e21_presents.PresetsEditingCustomizationValidationPath+"/",
+		presents_examples.PresetsEditingCustomizationValidationPath+"/",
 		c07,
 	)
 
 	c08 := presets.New().AssetFunc(addGA)
-	e21_presents.PresetsDetailPageTopNotes(c08)
+	presents_examples.PresetsDetailPageTopNotes(c08)
 	mux.Handle(
-		e21_presents.PresetsDetailPageTopNotesPath+"/",
+		presents_examples.PresetsDetailPageTopNotesPath+"/",
 		c08,
 	)
 
 	c09 := presets.New().AssetFunc(addGA)
-	e21_presents.PresetsDetailPageDetails(c09)
+	presents_examples.PresetsDetailPageDetails(c09)
 	mux.Handle(
-		e21_presents.PresetsDetailPageDetailsPath+"/",
+		presents_examples.PresetsDetailPageDetailsPath+"/",
 		c09,
 	)
 
 	c10 := presets.New().AssetFunc(addGA)
-	e21_presents.PresetsDetailPageCards(c10)
+	presents_examples.PresetsDetailPageCards(c10)
 	mux.Handle(
-		e21_presents.PresetsDetailPageCardsPath+"/",
+		presents_examples.PresetsDetailPageCardsPath+"/",
 		c10,
 	)
 
 	c11 := presets.New().AssetFunc(addGA)
-	e21_presents.PresetsPermissions(c11)
+	presents_examples.PresetsPermissions(c11)
 	mux.Handle(
-		e21_presents.PresetsPermissionsPath+"/",
+		presents_examples.PresetsPermissionsPath+"/",
 		c11,
 	)
 
 	c12 := presets.New().AssetFunc(addGA)
-	e21_presents.PresetsModelBuilderExtensions(c12)
+	presents_examples.PresetsModelBuilderExtensions(c12)
 	mux.Handle(
-		e21_presents.PresetsModelBuilderExtensionsPath+"/",
+		presents_examples.PresetsModelBuilderExtensionsPath+"/",
 		c12,
 	)
 
 	c13 := presets.New().AssetFunc(addGA)
-	example_basics.PresetsBasicFilter(c13)
+	admin_examples.PresetsBasicFilter(c13)
 	mux.Handle(
-		example_basics.PresetsBasicFilterPath+"/",
+		admin_examples.PresetsBasicFilterPath+"/",
 		c13,
 	)
 
 	c14 := presets.New().AssetFunc(addGA)
-	e21_presents.PresetsNotificationCenterSample(c14)
+	presents_examples.PresetsNotificationCenterSample(c14)
 	mux.Handle(
-		e21_presents.NotificationCenterSamplePath+"/",
+		presents_examples.NotificationCenterSamplePath+"/",
 		c14,
 	)
 
 	c15 := presets.New().AssetFunc(addGA)
-	e21_presents.PresetsLinkageSelectFilterItem(c15)
+	presents_examples.PresetsLinkageSelectFilterItem(c15)
 	mux.Handle(
-		e21_presents.PresetsLinkageSelectFilterItemPath+"/",
+		presents_examples.PresetsLinkageSelectFilterItemPath+"/",
 		c15,
 	)
 
 	c16 := presets.New().AssetFunc(addGA)
-	example_basics.ListingSample(c16)
+	admin_examples.ListingSample(c16)
 	mux.Handle(
-		example_basics.ListingSamplePath+"/",
+		admin_examples.ListingSamplePath+"/",
 		c16,
 	)
 
 	c17 := presets.New().AssetFunc(addGA)
-	e21_presents.PresetsBrandTitle(c17)
+	presents_examples.PresetsBrandTitle(c17)
 	mux.Handle(
-		e21_presents.PresetsBrandTitlePath+"/",
+		presents_examples.PresetsBrandTitlePath+"/",
 		c17,
 	)
 
 	c18 := presets.New().AssetFunc(addGA)
-	e21_presents.PresetsBrandFunc(c18)
+	presents_examples.PresetsBrandFunc(c18)
 	mux.Handle(
-		e21_presents.PresetsBrandFuncPath+"/",
+		presents_examples.PresetsBrandFuncPath+"/",
 		c18,
 	)
 
 	c19 := presets.New().AssetFunc(addGA)
-	e21_presents.PresetsProfile(c19)
+	presents_examples.PresetsProfile(c19)
 	mux.Handle(
-		e21_presents.PresetsProfilePath+"/",
+		presents_examples.PresetsProfilePath+"/",
 		c19,
 	)
 
 	c20 := presets.New().AssetFunc(addGA)
-	e21_presents.PresetsOrderMenu(c20)
+	presents_examples.PresetsOrderMenu(c20)
 	mux.Handle(
-		e21_presents.PresetsMenuOrderPath+"/",
+		presents_examples.PresetsMenuOrderPath+"/",
 		c20,
 	)
 
 	c21 := presets.New().AssetFunc(addGA)
-	e21_presents.PresetsGroupMenu(c21)
+	presents_examples.PresetsGroupMenu(c21)
 	mux.Handle(
-		e21_presents.PresetsMenuGroupPath+"/",
+		presents_examples.PresetsMenuGroupPath+"/",
 		c21,
 	)
 
 	c22 := presets.New().AssetFunc(addGA)
-	example_basics.PresetsConfirmDialog(c22)
+	admin_examples.PresetsConfirmDialog(c22)
 	mux.Handle(
-		example_basics.PresetsConfirmDialogPath+"/",
+		admin_examples.PresetsConfirmDialogPath+"/",
 		c22,
 	)
 
 	c23 := presets.New().AssetFunc(addGA)
-	example_basics.WorkerExampleMock(c23)
+	admin_examples.WorkerExampleMock(c23)
 	mux.Handle(
-		example_basics.WorkerExamplePath+"/",
+		admin_examples.WorkerExamplePath+"/",
 		c23,
 	)
 
 	c24 := presets.New().AssetFunc(addGA)
-	example_basics.ActionWorkerExampleMock(c24)
+	admin_examples.ActionWorkerExampleMock(c24)
 	mux.Handle(
-		example_basics.ActionWorkerExamplePath+"/",
+		admin_examples.ActionWorkerExamplePath+"/",
 		c24,
 	)
 
 	c25 := presets.New().AssetFunc(addGA)
-	e21_presents.PresetsEditingCustomizationTabs(c25)
+	presents_examples.PresetsEditingCustomizationTabs(c25)
 	mux.Handle(
-		e21_presents.PresetsEditingCustomizationTabsPath+"/",
+		presents_examples.PresetsEditingCustomizationTabsPath+"/",
 		c25,
 	)
 
 	c26 := presets.New().AssetFunc(addGA)
-	e21_presents.PresetsListingCustomizationSearcher(c26)
+	presents_examples.PresetsListingCustomizationSearcher(c26)
 	mux.Handle(
-		e21_presents.PresetsListingCustomizationSearcherPath+"/",
+		presents_examples.PresetsListingCustomizationSearcherPath+"/",
 		c26,
 	)
 
 	c27 := presets.New().AssetFunc(addGA)
-	example_basics.InternationalizationExample(c27)
+	admin_examples.InternationalizationExample(c27)
 	mux.Handle(
-		example_basics.InternationalizationExamplePath+"/",
+		admin_examples.InternationalizationExamplePath+"/",
 		c27)
 	c28 := presets.New().AssetFunc(addGA)
-	example_basics.LocalizationExampleMock(c28)
+	admin_examples.LocalizationExampleMock(c28)
 	mux.Handle(
-		example_basics.LocalizationExamplePath+"/",
+		admin_examples.LocalizationExamplePath+"/",
 		c28,
 	)
 
 	c29 := presets.New().AssetFunc(addGA)
-	example_basics.PublishExample(c29)
+	admin_examples.PublishExample(c29)
 	mux.Handle(
-		example_basics.PublishExamplePath+"/",
+		admin_examples.PublishExamplePath+"/",
 		c29)
 
 	return mux

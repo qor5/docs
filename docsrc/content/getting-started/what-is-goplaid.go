@@ -1,7 +1,7 @@
 package getting_started
 
 import (
-	"github.com/qor5/docs/docsrc/examples/e00_basics"
+	"github.com/qor5/docs/docsrc/examples/web_examples"
 	"github.com/qor5/docs/docsrc/generated"
 	"github.com/qor5/docs/docsrc/utils"
 	. "github.com/theplant/docgo"
@@ -41,7 +41,7 @@ The above is the code you mostly writing. the following is the boilerplate code 
 	ch.Code(generated.HelloWorldMuxSample1).Language("go"),
 	ch.Code(generated.HelloWorldMuxSample2).Language("go"),
 	ch.Code(generated.HelloWorldMainSample).Language("go"),
-	utils.Demo("Hello World", e00_basics.HelloWorldPath, "e00_basics/hello-world.go"),
+	utils.Demo("Hello World", web_examples.HelloWorldPath, "e00_basics/hello-world.go"),
 
 	Markdown(`
 If you wondering why ~H1("Hello World")~ and how this worked, Please go ahead and checkout next page

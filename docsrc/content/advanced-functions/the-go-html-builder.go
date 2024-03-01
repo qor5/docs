@@ -1,7 +1,7 @@
 package advanced_functions
 
 import (
-	"github.com/qor5/docs/docsrc/examples/e00_basics"
+	"github.com/qor5/docs/docsrc/examples/web_examples"
 	"github.com/qor5/docs/docsrc/generated"
 	"github.com/qor5/docs/docsrc/utils"
 	. "github.com/theplant/docgo"
@@ -30,6 +30,6 @@ Consider the following code:
 	Markdown(`
 It's basically assembled what Kotlin can do, Also is legitimate Go code.
 `),
-	utils.Demo("The Go HTML Builder", e00_basics.TypeSafeBuilderSamplePath, "e00_basics/type-safe-builder-sample.go"),
+	utils.Demo("The Go HTML Builder", web_examples.TypeSafeBuilderSamplePath, "e00_basics/type-safe-builder-sample.go"),
 ).Title("The Go HTML builder").
 	Slug("advanced-functions/the-go-html-builder")

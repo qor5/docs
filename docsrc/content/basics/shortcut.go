@@ -1,7 +1,7 @@
 package basics
 
 import (
-	"github.com/qor5/docs/docsrc/examples/e00_basics"
+	"github.com/qor5/docs/docsrc/examples/web_examples"
 	"github.com/qor5/docs/docsrc/generated"
 	"github.com/qor5/docs/docsrc/utils"
 	. "github.com/theplant/docgo"
@@ -20,5 +20,5 @@ In the example, the event would only be triggered when ~locals.shortCutEnabled~ 
 `),
 
 	ch.Code(generated.ShortCutSample).Language("go"),
-	utils.Demo("Shortcut", e00_basics.ShortCutSamplePath, "e00_basics/shortcut.go"),
+	utils.Demo("Shortcut", web_examples.ShortCutSamplePath, "e00_basics/shortcut.go"),
 ).Slug("basics/shortcut").Title("Keyboard Shortcut")

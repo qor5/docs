@@ -1,7 +1,7 @@
 package advanced_functions
 
 import (
-	"github.com/qor5/docs/docsrc/examples/e00_basics"
+	"github.com/qor5/docs/docsrc/examples/web_examples"
 	"github.com/qor5/docs/docsrc/generated"
 	"github.com/qor5/docs/docsrc/utils"
 	. "github.com/theplant/docgo"
@@ -24,7 +24,7 @@ Inside ~web.EventFunc~, two ways go to a new page:
 This example demonstrated the above:
 `),
 	ch.Code(generated.PageTransitionSample).Language("go"),
-	utils.Demo("Switch Pages With Push State", e00_basics.Page1Path, "e00_basics/page-transition.go"),
+	utils.Demo("Switch Pages With Push State", web_examples.Page1Path, "e00_basics/page-transition.go"),
 	Markdown(`
 When running the above demo, If you check Chrome Developer Tools about Network requests,
 You will see that the Location link and the Button is actually doing an AJAX request to the other page.

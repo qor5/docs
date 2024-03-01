@@ -1,0 +1,97 @@
+package vuetify_examples
+
+// @snippet_begin(VuetifyNavigationDrawerSample)
+import (
+	"fmt"
+	"time"
+
+	. "github.com/qor5/ui/vuetify"
+	"github.com/qor5/web"
+	h "github.com/theplant/htmlgo"
+)
+
+func VuetifyNavigationDrawer(ctx *web.EventContext) (pr web.PageResponse, err error) {
+
+	pr.Body = VContainer(
+		h.H2("A drawer that has close button"),
+
+		VBtn("show").On("click", "vars.drawer1 = !vars.drawer1"),
+
+		VNavigationDrawer(
+			h.Text("Hi"),
+			VBtn("Close").On("click", "vars.drawer1 = false"),
+		).Temporary(true).
+			Attr("v-model", "vars.drawer1").
+			Location("right").
+			Absolute(true).
+			Width(600),
+
+		h.H2("Load a drawer from remote and show it").Class("pt-8"),
+
+		VBtn("Show Drawer 2").OnClick("showDrawer"),
+
+		web.Portal().Name("drawer2UpdateContent"),
+
+		web.Portal().Name("drawer2"),
+	).Attr(web.InitContextVars, `{drawer1: false, drawer2: false}`)
+
+	return
+}
+
+func showDrawer(ctx *web.EventContext) (er web.EventResponse, err error) {
+	er.UpdatePortals = append(er.UpdatePortals,
+		&web.PortalUpdate{
+			Name: "drawer2",
+			Body: VNavigationDrawer(
+				web.Scope(
+					h.Text("Drawer 2"),
+					web.Portal(
+						textField(""),
+					).Name("InputPortal"),
+					VBtn("Update parent and close").
+						OnClick("updateParentAndClose"),
+				).VSlot("{ locals }"),
+			).Location("right").
+				Attr("v-model", "vars.drawer2").
+				Temporary(true).
+				Absolute(true).
+				ModelValue(true).
+				Width(800),
+		},
+	)
+
+	er.RunScript = `setTimeout(function(){ vars.drawer2 = true }, 100)`
+	return
+}
+
+func textField(value string, fieldErrors ...string) h.HTMLComponent {
+	return VTextField().
+		Attr("v-model", "locals.Drawer2Input").
+		ErrorMessages(fieldErrors...)
+}
+
+func updateParentAndClose(ctx *web.EventContext) (er web.EventResponse, err error) {
+	if len(ctx.R.FormValue("Drawer2Input")) < 10 {
+		er.UpdatePortals = append(er.UpdatePortals, &web.PortalUpdate{
+			Name: "InputPortal",
+			Body: textField(ctx.R.FormValue("Drawer2Input"), "input more then 10 characters"),
+		})
+		return
+	}
+
+	er.UpdatePortals = append(er.UpdatePortals, &web.PortalUpdate{
+		Name: "drawer2UpdateContent",
+		Body: h.Text(fmt.Sprintf("Updated content at %s", time.Now())),
+	})
+
+	er.RunScript = "vars.drawer2 = false"
+	return
+}
+
+var VuetifyNavigationDrawerPB = web.Page(VuetifyNavigationDrawer).
+	EventFunc("showDrawer", showDrawer).
+	EventFunc("updateParentAndClose", updateParentAndClose)
+
+const VuetifyNavigationDrawerPath = "/samples/vuetify-navigation-drawer"
+
+// @snippet_end

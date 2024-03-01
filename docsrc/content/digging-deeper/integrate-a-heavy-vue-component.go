@@ -1,7 +1,7 @@
 package digging_deeper
 
 import (
-	"github.com/qor5/docs/docsrc/examples/e00_basics"
+	"github.com/qor5/docs/docsrc/examples/web_examples"
 	"github.com/qor5/docs/docsrc/generated"
 	"github.com/qor5/docs/docsrc/utils"
 	. "github.com/theplant/docgo"
@@ -113,6 +113,6 @@ And we write a page func to use it like any other component:
 	Markdown(`
 And now let's check out our fruits:
 `),
-	utils.Demo("Integrate a Heavy Vue Component", e00_basics.HelloWorldTipTapPath, "e00_basics/use-tiptap-editor.go"),
+	utils.Demo("Integrate a Heavy Vue Component", web_examples.HelloWorldTipTapPath, "e00_basics/use-tiptap-editor.go"),
 ).Title("Integrate a heavy Vue Component").
 	Slug("components-guide/integrate-a-heavy-vue-component")

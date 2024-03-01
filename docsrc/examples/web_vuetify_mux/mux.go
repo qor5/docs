@@ -3,15 +3,9 @@ package web_vuetify_mux
 import (
 	"fmt"
 	"github.com/qor5/docs/docsrc/assets"
-	"github.com/qor5/docs/docsrc/examples/e00_basics"
-	"github.com/qor5/docs/docsrc/examples/e11_vuetify_basic_inputs"
-	"github.com/qor5/docs/docsrc/examples/e13_vuetify_list"
-	"github.com/qor5/docs/docsrc/examples/e14_vuetify_menu"
-	"github.com/qor5/docs/docsrc/examples/e15_vuetify_navigation_drawer"
-	"github.com/qor5/docs/docsrc/examples/e17_hello_lazy_portals_and_reload"
-	"github.com/qor5/docs/docsrc/examples/e22_vuetify_variant_sub_form"
-	"github.com/qor5/docs/docsrc/examples/e23_vuetify_components_kitchen"
 	"github.com/qor5/docs/docsrc/examples/e24_vuetify_components_linkage_select"
+	"github.com/qor5/docs/docsrc/examples/vuetify_examples"
+	"github.com/qor5/docs/docsrc/examples/web_examples"
 	"github.com/qor5/ui/tiptap"
 	. "github.com/qor5/ui/vuetify"
 	"github.com/qor5/web"
@@ -388,101 +382,111 @@ type muxer interface {
 func SamplesHandler(mux muxer, prefix string) {
 	emptyUb := web.New().LayoutFunc(web.NoopLayoutFunc)
 
-	mux.Handle(e00_basics.TypeSafeBuilderSamplePath, e00_basics.TypeSafeBuilderSamplePFPB.Builder(emptyUb))
+	mux.Handle(web_examples.TypeSafeBuilderSamplePath, web_examples.TypeSafeBuilderSamplePFPB.Builder(emptyUb))
 
 	// @snippet_begin(HelloWorldMuxSample2)
-	mux.Handle(e00_basics.HelloWorldPath, e00_basics.HelloWorldPB)
+	mux.Handle(web_examples.HelloWorldPath, web_examples.HelloWorldPB)
 	// @snippet_end
 
 	// @snippet_begin(HelloWorldReloadMuxSample1)
 	mux.Handle(
-		e00_basics.HelloWorldReloadPath,
-		e00_basics.HelloWorldReloadPB.Wrap(demoLayout),
+		web_examples.HelloWorldReloadPath,
+		web_examples.HelloWorldReloadPB.Wrap(demoLayout),
 	)
 	// @snippet_end
 
 	mux.Handle(
-		e00_basics.Page1Path,
-		e00_basics.Page1PB.Wrap(demoLayout),
-	)
-	mux.Handle(
-		e00_basics.Page2Path,
-		e00_basics.Page2PB.Wrap(demoLayout),
+		web_examples.HelloButtonPath,
+		web_examples.HelloButtonPB.Wrap(demoLayout),
 	)
 
 	mux.Handle(
-		e00_basics.ReloadWithFlashPath,
-		e00_basics.ReloadWithFlashPB.Wrap(demoLayout),
+		web_examples.Page1Path,
+		web_examples.Page1PB.Wrap(demoLayout),
+	)
+	mux.Handle(
+		web_examples.Page2Path,
+		web_examples.Page2PB.Wrap(demoLayout),
 	)
 
 	mux.Handle(
-		e00_basics.PartialUpdatePagePath,
-		e00_basics.PartialUpdatePagePB.Wrap(demoLayout),
+		web_examples.ReloadWithFlashPath,
+		web_examples.ReloadWithFlashPB.Wrap(demoLayout),
 	)
 
 	mux.Handle(
-		e00_basics.PartialReloadPagePath,
-		e00_basics.PartialReloadPagePB.Wrap(demoLayout),
+		web_examples.PartialUpdatePagePath,
+		web_examples.PartialUpdatePagePB.Wrap(demoLayout),
 	)
 
 	mux.Handle(
-		e00_basics.MultiStatePagePath,
-		e00_basics.MultiStatePagePB.Wrap(demoLayout),
+		web_examples.PartialReloadPagePath,
+		web_examples.PartialReloadPagePB.Wrap(demoLayout),
 	)
 
 	mux.Handle(
-		e00_basics.FormHandlingPagePath,
-		e00_basics.FormHandlingPagePB.Wrap(demoLayout),
+		web_examples.MultiStatePagePath,
+		web_examples.MultiStatePagePB.Wrap(demoLayout),
 	)
 
 	mux.Handle(
-		e00_basics.CompositeComponentSample1PagePath,
-		e00_basics.CompositeComponentSample1PagePB.Wrap(demoBootstrapLayout),
+		web_examples.FormHandlingPagePath,
+		web_examples.FormHandlingPagePB.Wrap(demoLayout),
 	)
 
 	mux.Handle(
-		e00_basics.HelloWorldTipTapPath,
-		e00_basics.HelloWorldTipTapPB.Wrap(tiptapLayout),
+		web_examples.CompositeComponentSample1PagePath,
+		web_examples.CompositeComponentSample1PagePB.Wrap(demoBootstrapLayout),
 	)
 
 	mux.Handle(
-		e13_vuetify_list.HelloVuetifyListPath,
-		e13_vuetify_list.HelloVuetifyListPB.Wrap(demoVuetifyLayout),
+		web_examples.HelloWorldTipTapPath,
+		web_examples.HelloWorldTipTapPB.Wrap(tiptapLayout),
 	)
 
 	mux.Handle(
-		e14_vuetify_menu.HelloVuetifyMenuPath,
-		e14_vuetify_menu.HelloVuetifyMenuPB.Wrap(demoVuetifyLayout),
+		vuetify_examples.HelloVuetifyListPath,
+		vuetify_examples.HelloVuetifyListPB.Wrap(demoVuetifyLayout),
 	)
 
 	mux.Handle(
-		e00_basics.EventExamplePagePath,
-		e00_basics.ExamplePagePB.Wrap(demoVuetifyLayout),
+		vuetify_examples.HelloVuetifyMenuPath,
+		vuetify_examples.HelloVuetifyMenuPB.Wrap(demoVuetifyLayout),
 	)
 
 	mux.Handle(
-		e00_basics.EventHandlingPagePath,
-		e00_basics.EventHandlingPagePB.Wrap(demoVuetifyLayout),
+		web_examples.EventExamplePagePath,
+		web_examples.ExamplePagePB.Wrap(demoVuetifyLayout),
 	)
 
 	mux.Handle(
-		e00_basics.WebScopeUseLocalsPagePath,
-		e00_basics.UseLocalsPB.Wrap(demoVuetifyLayout),
+		web_examples.EventHandlingPagePath,
+		web_examples.EventHandlingPagePB.Wrap(demoVuetifyLayout),
 	)
 
 	mux.Handle(
-		e00_basics.WebScopeUsePlaidFormPagePath,
-		e00_basics.UsePlaidFormPB.Wrap(demoVuetifyLayout),
+		web_examples.WebScopeUseLocalsPagePath,
+		web_examples.UseLocalsPB.Wrap(demoVuetifyLayout),
 	)
 
 	mux.Handle(
-		e00_basics.ShortCutSamplePath,
-		e00_basics.ShortCutSamplePB.Wrap(demoVuetifyLayout),
+		web_examples.WebScopeUsePlaidFormPagePath,
+		web_examples.UsePlaidFormPB.Wrap(demoVuetifyLayout),
 	)
 
 	mux.Handle(
-		e11_vuetify_basic_inputs.VuetifyBasicInputsPath,
-		e11_vuetify_basic_inputs.VuetifyBasicInputsPB.Wrap(demoVuetifyLayout),
+		web_examples.ShortCutSamplePath,
+		web_examples.ShortCutSamplePB.Wrap(demoVuetifyLayout),
+	)
+
+	mux.Handle(
+		vuetify_examples.VuetifyGridPath,
+		vuetify_examples.VuetifyGridPB.Wrap(demoVuetifyLayout),
+	)
+
+	mux.Handle(
+		vuetify_examples.VuetifyBasicInputsPath,
+		vuetify_examples.VuetifyBasicInputsPB.Wrap(demoVuetifyLayout),
 	)
 
 	// mux.Handle(
@@ -496,23 +500,23 @@ func SamplesHandler(mux muxer, prefix string) {
 	// )
 
 	mux.Handle(
-		e22_vuetify_variant_sub_form.VuetifyVariantSubFormPath,
-		e22_vuetify_variant_sub_form.VuetifyVariantSubFormPB.Wrap(demoVuetifyLayout),
+		vuetify_examples.VuetifyVariantSubFormPath,
+		vuetify_examples.VuetifyVariantSubFormPB.Wrap(demoVuetifyLayout),
 	)
 
 	mux.Handle(
-		e23_vuetify_components_kitchen.VuetifyComponentsKitchenPath,
-		e23_vuetify_components_kitchen.VuetifyComponentsKitchenPB.Wrap(demoVuetifyLayout),
+		vuetify_examples.VuetifyComponentsKitchenPath,
+		vuetify_examples.VuetifyComponentsKitchenPB.Wrap(demoVuetifyLayout),
 	)
 
 	mux.Handle(
-		e15_vuetify_navigation_drawer.VuetifyNavigationDrawerPath,
-		e15_vuetify_navigation_drawer.VuetifyNavigationDrawerPB.Wrap(demoVuetifyLayout),
+		vuetify_examples.VuetifyNavigationDrawerPath,
+		vuetify_examples.VuetifyNavigationDrawerPB.Wrap(demoVuetifyLayout),
 	)
 
 	mux.Handle(
-		e17_hello_lazy_portals_and_reload.LazyPortalsAndReloadPath,
-		e17_hello_lazy_portals_and_reload.LazyPortalsAndReloadPB.Wrap(demoVuetifyLayout),
+		vuetify_examples.LazyPortalsAndReloadPath,
+		vuetify_examples.LazyPortalsAndReloadPB.Wrap(demoVuetifyLayout),
 	)
 
 	mux.Handle(
