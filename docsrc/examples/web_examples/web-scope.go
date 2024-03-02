@@ -10,37 +10,45 @@ import (
 
 // @snippet_begin(WebScopeUseLocalsSample1)
 func UseLocals(ctx *web.EventContext) (pr web.PageResponse, err error) {
-	pr.Body = VCard(
-		VBtn("Test Can Not Change Other Scope").Attr("@click", `locals.btnLabel = "YES"`),
+	pr.Body = VContainer(
+		VIcon("home"),
+		VBtn("Test Can Not Change Other Scope").
+			PrependIcon("mdi-home").
+			Attr("@click", `locals.btnLabel = "YES"`),
 		web.Scope(
 			VCard(
-				VBtn("").
-					Attr("v-text", "locals.btnLabel").
-					Attr("@click", `
-if (locals.btnLabel == "Add") {
-	locals.items.push({text: "B", icon: "done"});
-	locals.btnLabel = "Remove";
-} else {
-	locals.items.pop();
-	locals.btnLabel = "Add";
-}`),
-
 				VList(
 					VListSubheader(
 						Text("REPORTS"),
 					),
-					VListGroup(
-						VListItem().Attr("v-for", "(item, i) in locals.items").
-							Attr("x-bind:key", "i").
-							PrependIcon("item.icon").
-							Title("item.text"),
-					).Attr("v-model", "locals.selectedItem").
-						Attr("color", "primary"),
-				).Attr("dense", ""),
+					VListItem(
+						web.Slot(
+							VIcon("").Attr(":icon", "item.icon"),
+						).Name("prepend"),
+						VListItemTitle().Attr("v-text", "item.text"),
+					).Attr("v-for", "(item, i) in locals.items").
+						Attr(":key", "i").
+						Attr(":value", "i").
+						Attr("color", "red"),
+				).Attr("dense", true).Attr("v-model:selected", "locals.selectedItem"),
+
+				VCardActions(
+					VBtn("").
+						Variant("text").
+						Attr("v-text", "locals.btnLabel + locals.selectedItem").
+						Attr("@click", `
+if (locals.btnLabel == "Add") {
+	locals.items.push({text: "B", icon: "mdi-check"});
+	locals.btnLabel = "Remove";
+} else {
+	locals.items.splice(locals.selectedItem, 1)
+	locals.btnLabel = "Add";
+}`),
+				),
 			).Class("mx-auto").
 				Attr("max-width", "300").
 				Attr("tile", ""),
-		).Init(`{ selectedItem: 1, btnLabel:"Add", items: [{text: "A", icon: "clock"}]}`).
+		).Init(`{ selectedItem: 0, btnLabel:"Add", items: [{text: "A", icon: "mdi-clock"}]}`).
 			VSlot("{ locals }"),
 	)
 	return
