@@ -36,7 +36,7 @@ func ShortCutSample(ctx *web.EventContext) (pr web.PageResponse, err error) {
 			// Add shortcut for this button. only available when drawer is opened
 			web.GlobalEvents().Attr(":filter", `(event, handler, eventName) => locals.shortCutEnabled == true`).Attr("@keydown.enter", clickEvent),
 		).Init(`{ shortCutEnabled: true, count: 0 }`).
-			VSlot("{ locals }"),
+			VSlot("{ locals, form }"),
 	)
 	return
 }

@@ -31,15 +31,15 @@ func MultiStatePage(ctx *web.EventContext) (pr web.PageResponse, err error) {
 				Fieldset(
 					Div(
 						Label("Name"),
-						Input("").Type("text").Attr("v-model", "locals.Name"),
+						Input("").Type("text").Attr("v-model", "form.Name"),
 					),
 					Div(
 						Label("Date"),
-						Input("").Type("date").Attr("v-model", "locals.Date"),
+						Input("").Type("date").Attr("v-model", "form.Date"),
 					),
 				),
 				Button("Update").Attr("@click", web.POST().EventFunc("update5").Go()),
-			).VSlot("{ locals }").Init(JSONString(multiStateFd)),
+			).VSlot("{ locals, form }").FormInit(JSONString(multiStateFd)),
 		).Style("border: 5px solid orange; height: 200px;")
 	}
 

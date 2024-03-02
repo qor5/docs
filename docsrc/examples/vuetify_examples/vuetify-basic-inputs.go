@@ -46,32 +46,34 @@ func VuetifyBasicInputs(ctx *web.EventContext) (pr web.PageResponse, err error) 
 				Label("Form ValueIs").
 				Variant("solo").
 				Clearable(true).
-				Attr("v-model", "locals.MyValue").
+				Attr("v-model", "form.MyValue").
 				ErrorMessages(verr.GetFieldErrors("MyValue")...),
 			VTextarea().
-				Attr("v-model", "locals.TextareaValue").
+				Attr("v-model", "form.TextareaValue").
 				ErrorMessages(verr.GetFieldErrors("TextareaValue")...).
 				Variant("solo"),
 			VRadioGroup(
 				VRadio().Value("F").Label("Female"),
 				VRadio().Value("M").Label("Male"),
 			).
-				Attr("v-model", "locals.Gender"),
+				Attr("v-model", "form.Gender"),
 			VCheckbox().
-				Attr("v-model", "locals.Agreed").
+				Attr("v-model", "form.Agreed").
 				ErrorMessages(verr.GetFieldErrors("Agreed")...).
 				Label("Agree"),
 			VSwitch().
-				Attr("v-model", "locals.Feature1"),
+				Color("primary").
+				Attr("v-model", "form.Feature1"),
 
 			VSlider().
-				Attr("v-model", "locals.Slider1").
+				Step(1).
+				Attr("v-model", "form.Slider1").
 				ErrorMessages(verr.GetFieldErrors("Slider1")...),
 
 			web.Portal().Name("Portal1"),
 
 			VFileInput().
-				Attr("v-model", "locals.Files1"),
+				Attr("v-model", "form.Files1"),
 
 			VFileInput().Label("Auto post to server after select file").Multiple(true).
 				Attr("@change", web.POST().
@@ -90,7 +92,7 @@ func VuetifyBasicInputs(ctx *web.EventContext) (pr web.PageResponse, err error) 
 			VBtn("Update").OnClick("update").Color("primary"),
 			h.P().Text("The following button will update a portal with a hidden field, if you click this button, and then click the above update button, you will find additional value posted to server"),
 			VBtn("Add Portal Hidden Value").OnClick("addPortal"),
-		).VSlot("{ locals }").Init(h.JSONString(s)),
+		).VSlot("{ locals, form }").FormInit(h.JSONString(s)),
 	)
 
 	return
@@ -100,7 +102,7 @@ func addPortal(ctx *web.EventContext) (r web.EventResponse, err error) {
 	r.UpdatePortals = append(r.UpdatePortals, &web.PortalUpdate{
 		Name: "Portal1",
 		Body: h.Input("").Type("hidden").
-			Attr(":value", "locals.PortalAddedValue = 'this is my portal added hidden value'"),
+			Attr(":value", "form.PortalAddedValue = 'this is my portal added hidden value'"),
 	})
 	return
 }

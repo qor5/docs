@@ -33,7 +33,7 @@ func VuetifyNavigationDrawer(ctx *web.EventContext) (pr web.PageResponse, err er
 		web.Portal().Name("drawer2UpdateContent"),
 
 		web.Portal().Name("drawer2"),
-	).Attr(web.InitContextVars, `{drawer1: false, drawer2: false}`)
+	).Attr(":value", "vars.test1 = 1")
 
 	return
 }
@@ -50,12 +50,11 @@ func showDrawer(ctx *web.EventContext) (er web.EventResponse, err error) {
 					).Name("InputPortal"),
 					VBtn("Update parent and close").
 						OnClick("updateParentAndClose"),
-				).VSlot("{ locals }"),
+				).VSlot("{ locals, form }"),
 			).Location("right").
 				Attr("v-model", "vars.drawer2").
 				Temporary(true).
 				Absolute(true).
-				ModelValue(true).
 				Width(800),
 		},
 	)
@@ -66,7 +65,7 @@ func showDrawer(ctx *web.EventContext) (er web.EventResponse, err error) {
 
 func textField(value string, fieldErrors ...string) h.HTMLComponent {
 	return VTextField().
-		Attr("v-model", "locals.Drawer2Input").
+		Attr("v-model", "form.Drawer2Input").
 		ErrorMessages(fieldErrors...)
 }
 
@@ -84,7 +83,7 @@ func updateParentAndClose(ctx *web.EventContext) (er web.EventResponse, err erro
 		Body: h.Text(fmt.Sprintf("Updated content at %s", time.Now())),
 	})
 
-	er.RunScript = "vars.drawer2 = false"
+	er.RunScript = "vars.drawer2 = false;"
 	return
 }
 

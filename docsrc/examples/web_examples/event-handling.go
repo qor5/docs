@@ -155,20 +155,6 @@ func EventHandlingFieldValue(ctx *web.EventContext) (pr web.PageResponse, err er
 
 // @snippet_end
 
-// @snippet_begin(EventHandlingFormClearSample)
-func EventHandlingFormClear(ctx *web.EventContext) (pr web.PageResponse, err error) {
-
-	pr.Body = VContainer(
-		VCard(
-			VCardTitle(Text("FormClear")),
-			VCardActions(VBtn("Go").Attr("@click", web.POST().EventFunc("form").FieldValue("name", "qor5").FormClear().Go())),
-		),
-	)
-	return
-}
-
-// @snippet_end
-
 // @snippet_begin(EventHandlingEventFuncSample)
 func EventHandlingEventFunc(ctx *web.EventContext) (pr web.PageResponse, err error) {
 
@@ -218,7 +204,6 @@ var apiMap = map[string]web.PageFunc{
 	"queries":           EventHandlingQueries,
 	"pushstateurl":      EventHandlingPushStateURL,
 	"fieldvalue":        EventHandlingFieldValue,
-	"formclear":         EventHandlingFormClear,
 	"script":            EventHandlingScript,
 	"location":          EventHandlingLocation,
 	"raw":               EventHandlingRaw,

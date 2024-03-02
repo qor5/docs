@@ -42,17 +42,17 @@ func edit1(ctx *web.EventContext) (er web.EventResponse, err error) {
 					Legend("Input value"),
 					Div(
 						Label("Title"),
-						Input("").Type("text").Attr("v-model", "locals.Title"),
+						Input("").Type("text").Attr("v-model", "form.Title"),
 					),
 
 					Div(
 						Label("Date"),
-						Input("").Type("date").Attr("v-model", "locals.Date"),
+						Input("").Type("date").Attr("v-model", "form.Date"),
 					),
 				),
 				Button("Update").
 					Attr("@click", web.POST().EventFunc("reload2").Go()),
-			).VSlot("{ locals }").Init(JSONString(fd)),
+			).VSlot("{ locals, form }").FormInit(JSONString(fd)),
 		),
 	})
 	return

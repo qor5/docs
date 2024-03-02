@@ -37,7 +37,7 @@ func VuetifyVariantSubForm(ctx *web.EventContext) (pr web.PageResponse, err erro
 					"Type1",
 					"Type2",
 				}).
-				Attr("v-model", "locals.Type").
+				Attr("v-model", "form.Type").
 				Attr("@update:menu", web.POST().
 					EventFunc("switchForm").
 					Go()),
@@ -51,7 +51,7 @@ func VuetifyVariantSubForm(ctx *web.EventContext) (pr web.PageResponse, err erro
 			).Name("subform"),
 
 			VBtn("Submit").OnClick("submit"),
-		).VSlot("{ locals }").Init(h.JSONString(fv)),
+		).VSlot("{ locals, form }").FormInit(h.JSONString(fv)),
 	)
 	return
 }
@@ -64,7 +64,7 @@ func form1(ctx *web.EventContext, fv *myFormValue1) h.HTMLComponent {
 			VRadio().Value("F").Label("Female"),
 			VRadio().Value("M").Label("Male"),
 		).
-			Attr("v-model", "locals.Form1.Gender").
+			Attr("v-model", "form.Form1.Gender").
 			Label("Gender"),
 	)
 }
@@ -75,12 +75,12 @@ func form2(ctx *web.EventContext, fv *myFormValue1, verr *web.ValidationErrors) 
 
 		VSwitch().
 			Color("red").
-			Attr("v-model", "locals.Form2.Feature1").
+			Attr("v-model", "form.Form2.Feature1").
 			Label("Feature1"),
 
 		VSlider().
 			Step(1).
-			Attr("v-model", "locals.Form2.Slider1").
+			Attr("v-model", "form.Form2.Slider1").
 			ErrorMessages(verr.GetFieldErrors("Slider1")...).
 			Label("Slider1"),
 	)

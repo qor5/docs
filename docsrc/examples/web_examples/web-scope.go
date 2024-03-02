@@ -1,7 +1,6 @@
 package web_examples
 
 import (
-	"fmt"
 	"github.com/qor5/docs/docsrc/utils"
 	. "github.com/qor5/ui/vuetify"
 	"github.com/qor5/web"
@@ -48,8 +47,8 @@ if (locals.btnLabel == "Add") {
 			).Class("mx-auto").
 				Attr("max-width", "300").
 				Attr("tile", ""),
-		).Init(`{ selectedItem: 0, btnLabel:"Add", items: [{text: "A", icon: "mdi-clock"}]}`).
-			VSlot("{ locals }"),
+		).FormInit(`{ selectedItem: 0, btnLabel:"Add", items: [{text: "A", icon: "mdi-clock"}]}`).
+			VSlot("{ locals, form }"),
 	)
 	return
 }
@@ -76,13 +75,13 @@ func UsePlaidForm(ctx *web.EventContext) (pr web.PageResponse, err error) {
 							Label("Product Name"),
 							Input("").
 								Type("text").
-								Attr("v-model", "locals.ProductName"),
+								Attr("v-model", "form.ProductName"),
 						),
 						Div(
 							Label("Material ID"),
 							Input("").
 								Type("text").Disabled(true).
-								Attr("v-model", "locals.MaterialID"),
+								Attr("v-model", "form.MaterialID"),
 						),
 
 						web.Scope(
@@ -93,13 +92,13 @@ func UsePlaidForm(ctx *web.EventContext) (pr web.PageResponse, err error) {
 									Label("Material Name"),
 									Input("").
 										Type("text").
-										Attr("v-model", "locals.MaterialName"),
+										Attr("v-model", "form.MaterialName"),
 								),
 								Div(
 									Label("Raw Material ID"),
 									Input("").
 										Type("text").Disabled(true).
-										Attr("v-model", "locals.RawMaterialID"),
+										Attr("v-model", "form.RawMaterialID"),
 								),
 								web.Scope(
 									Fieldset(
@@ -109,22 +108,22 @@ func UsePlaidForm(ctx *web.EventContext) (pr web.PageResponse, err error) {
 											Label("Raw Material Name"),
 											Input("").
 												Type("text").
-												Attr("v-model", "locals.RawMaterialName"),
+												Attr("v-model", "form.RawMaterialName"),
 										),
 
 										Button("Send").Style(`background: orange;`).Attr("@click", web.POST().EventFunc("updateValue").Go()),
 									).Style(`background: orange;`),
-								).VSlot("{ plaidForm, locals }").Init(fmt.Sprintf("{RawMaterialName: %+v}", rawMaterialName)),
+								).VSlot("{ form, locals }").FormInit(struct{ RawMaterialName string }{RawMaterialName: rawMaterialName}),
 
 								Button("Send").Style(`background: brown;`).Attr("@click", web.POST().EventFunc("updateValue").Go()),
 							).Style(`background: brown;`),
-						).VSlot("{ plaidForm, locals }"),
+						).VSlot("{ form, locals }"),
 
 						Div(
 							Label("Country ID"),
 							Input("").
 								Type("text").Disabled(true).
-								Attr("v-model", "locals.CountryID"),
+								Attr("v-model", "form.CountryID"),
 						),
 
 						web.Scope(
@@ -135,18 +134,18 @@ func UsePlaidForm(ctx *web.EventContext) (pr web.PageResponse, err error) {
 									Label("Country Name"),
 									Input("").
 										Type("text").
-										Attr("v-model", "locals.CountryName"),
+										Attr("v-model", "form.CountryName"),
 								),
 
 								Button("Send").Style(`background: red;`).Attr("@click", web.POST().EventFunc("updateValue").Go()),
 							).Style(`background: red;`),
-						).VSlot("{ plaidForm, locals }").Init(fmt.Sprintf("{CountryName: %+v}", countryName)),
+						).VSlot("{ form, locals }").FormInit(struct{ CountryName string }{CountryName: countryName}),
 
 						Div(
 							Button("Send").Style(`background: grey;`).Attr("@click", web.POST().EventFunc("updateValue").Go())),
 					).Style(`background: grey;`)),
 			).Style(`width:600px;`),
-		).VSlot("{ locals, plaidForm }").Init("{ProductName: 'Product1', MaterialID: '55', MaterialName: 'Material1', RawMaterialID: '77', RawMaterialName: 'RawMaterial1', CountryID: '88', CountryName: 'Country1'}"),
+		).VSlot("{ locals, form }").FormInit("{ProductName: 'Product1', MaterialID: '55', MaterialName: 'Material1', RawMaterialID: '77', RawMaterialName: 'RawMaterial1', CountryID: '88', CountryName: 'Country1'}"),
 	)
 
 	return

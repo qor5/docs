@@ -90,7 +90,7 @@ func addItemForm(ctx *web.EventContext) (r web.EventResponse, err error) {
 	ctx.MustUnmarshalForm(s)
 
 	textField := VTextField().
-		Attr("v-model", "locals.Company")
+		Attr("v-model", "form.Company")
 
 	if len(s.Error) > 0 {
 		textField.Error(true).ErrorMessages(s.Error)
@@ -104,7 +104,7 @@ func addItemForm(ctx *web.EventContext) (r web.EventResponse, err error) {
 			VCardActions(
 				VBtn("Create").Color("bg-primary").OnClick("addItem"),
 			),
-		)).VSlot("{ locals }").Init(`{Company: ""}`)
+		)).VSlot("{ locals, form }").FormInit(`{Company: ""}`)
 	return
 }
 

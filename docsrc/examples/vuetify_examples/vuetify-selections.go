@@ -61,7 +61,7 @@ func VuetifyComponentsKitchen(ctx *web.EventContext) (pr web.PageResponse, err e
 				VChip(h.Text("New York")).Value("NY"),
 				VChip(h.Text("London")).Value("LD"),
 			).SelectedClass("bg-indigo").
-				Attr("v-model", "locals.Cities1").
+				Attr("v-model", "form.Cities1").
 				Multiple(true),
 			h.H2("Cities2"),
 			VAutocomplete().
@@ -69,7 +69,7 @@ func VuetifyComponentsKitchen(ctx *web.EventContext) (pr web.PageResponse, err e
 				Chips(true).
 				ClosableChips(true).
 				Multiple(true).
-				Attr("v-model", "locals.Cities2"),
+				Attr("v-model", "form.Cities2"),
 
 			h.H1("Items Group"),
 
@@ -101,11 +101,11 @@ func VuetifyComponentsKitchen(ctx *web.EventContext) (pr web.PageResponse, err e
 				),
 			).
 				SelectedClass("bg-primary").
-				Attr("v-model", "locals.MyItem"),
+				Attr("v-model", "form.MyItem"),
 
 			VBtn("Submit").
 				OnClick("submit"),
-		).VSlot("{ locals, plaidForm }").Init(h.JSONString(fv)),
+		).VSlot("{ locals, form }").FormInit(h.JSONString(fv)),
 	)
 	return
 }

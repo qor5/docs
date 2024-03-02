@@ -62,12 +62,12 @@ World`
 			Div(
 				Label("Text1"),
 				Input("").Type("text").
-					Attr("v-model", "locals.Text1"),
+					Attr("v-model", "form.Text1"),
 			),
 			Div(
 				Label("Checkbox1"),
 				Input("").Type("checkbox").Checked(fv.Checkbox1 == "1").
-					Attr("v-model", "locals.Checkbox1"),
+					Attr("v-model", "form.Checkbox1"),
 			),
 
 			web.Scope(
@@ -77,16 +77,16 @@ World`
 					Div(
 						Label("Color1"),
 						Input("").Type("color").
-							Attr("v-model", "locals.Color1"),
+							Attr("v-model", "form.Color1"),
 					),
 					Div(
 						Label("Email1"),
 						Input("").Type("email").
-							Attr("v-model", "locals.Email1"),
+							Attr("v-model", "form.Email1"),
 					),
 
 					Input("").Type("checkbox").
-						Attr("v-model", "locals.Checked123"),
+						Attr("v-model", "form.Checked123"),
 
 					Button("Uncheck it").Attr("@click", "locals.checked = false"),
 					Hr(),
@@ -96,7 +96,7 @@ World`
 						FieldValue("name", "azuma").
 						Go()),
 				),
-			).VSlot("{ plaidForm, locals }").Init(JSONString(fv)),
+			).VSlot("{ form, locals }").FormInit(JSONString(fv)),
 			web.Scope(
 				Fieldset(
 					Legend("Nested Form 2"),
@@ -104,79 +104,79 @@ World`
 					Div(
 						Label("Email1"),
 						Input("").Type("email").
-							Attr("v-model", "locals.Email1"),
+							Attr("v-model", "form.Email1"),
 					),
 
 					Button("Send").Attr("@click", web.POST().
 						EventFunc("checkvalue").
 						Go()),
 				),
-			).VSlot("{ plaidForm, locals }").Init(nf2, "{checked: true}"),
+			).VSlot("{ form, locals }").FormInit(nf2, "{checked: true}"),
 			Div(
 				Fieldset(
 					Legend("Radio"),
 					Label("Radio Value 1"),
 					Input("Radio1").Type("radio").
 						Value("1").
-						Attr("v-model", "locals.Radio1"),
+						Attr("v-model", "form.Radio1"),
 					Label("Radio Value 2"),
 					Input("Radio1").Type("radio").
 						Value("2").
-						Attr("v-model", "locals.Radio1"),
+						Attr("v-model", "form.Radio1"),
 				),
 			),
 			Div(
 				Label("Range1"),
 				Input("").Type("range").
-					Attr("v-model", "locals.Range1"),
+					Attr("v-model", "form.Range1"),
 			),
 
 			Div(
 				Label("Url1"),
 				Input("").Type("url").
-					Attr("v-model", "locals.Url1"),
+					Attr("v-model", "form.Url1"),
 			),
 			Div(
 				Label("Tel1"),
 				Input("").Type("tel").
-					Attr("v-model", "locals.Tel1"),
+					Attr("v-model", "form.Tel1"),
 			),
 			Div(
 				Label("Month1"),
 				Input("").Type("month").
-					Attr("v-model", "locals.Month1"),
+					Attr("v-model", "form.Month1"),
 			),
 
 			Div(
 				Label("Time1"),
 				Input("").Type("time").
-					Attr("v-model", "locals.Time1"),
+					Attr("v-model", "form.Time1"),
 			),
 			Div(
 				Label("Week1"),
 				Input("").Type("week").
-					Attr("v-model", "locals.Week1"),
+					Attr("v-model", "form.Week1"),
 			),
 			Div(
 				Label("DatetimeLocal1"),
 				Input("").Type("datetime-local").
-					Attr("v-model", "locals.DatetimeLocal1"),
+					Attr("v-model", "form.DatetimeLocal1"),
 			),
 			Div(
 				Label("File1"),
 				Input("").Type("file").
 					Attr("multiple", true).
-					Attr("@change", "locals.File1 = $event.target.files"),
+					Attr("@change", "form.File1 = $event.target.files"),
 			),
 			Div(
 				Label("Hidden values with default"),
 				Input("").Type("hidden").
-					Attr("v-model", "locals.HiddenValue1"),
+					Attr("v-model", "form.HiddenValue1"),
 			),
 			Div(
 				Button("Submit").Attr("@click", web.POST().EventFunc("checkvalue").Go()),
 			),
-		).VSlot("{ locals }").Init(JSONString(fv)),
+		).VSlot("{ locals, form }").FormInit(JSONString(fv)),
 	)
 	return
 }

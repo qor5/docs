@@ -471,7 +471,7 @@ func SamplesHandler(mux muxer, prefix string) {
 
 	mux.Handle(
 		web_examples.WebScopeUsePlaidFormPagePath,
-		web_examples.UsePlaidFormPB.Wrap(demoVuetifyLayout),
+		web_examples.UsePlaidFormPB.Wrap(demoLayout),
 	)
 
 	mux.Handle(

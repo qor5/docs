@@ -51,13 +51,13 @@ func HelloVuetifyMenu(ctx *web.EventContext) (pr web.PageResponse, err error) {
 					VDivider(),
 					VList(
 						VListItem(
-							VSwitch().Attr("v-model", "locals.EnableMessages").
+							VSwitch().Attr("v-model", "form.EnableMessages").
 								Attr("color", "purple").
 								Attr("label", "Enable messages").
 								Attr("hide-details", true),
 						),
 						VListItem(
-							VSwitch().Attr("v-model", "locals.EnableHints").
+							VSwitch().Attr("v-model", "form.EnableHints").
 								Attr("color", "purple").
 								Attr("label", "Enable hints").
 								Attr("hide-details", true),
@@ -75,7 +75,7 @@ func HelloVuetifyMenu(ctx *web.EventContext) (pr web.PageResponse, err error) {
 			).CloseOnContentClick(false).
 				Location("end").
 				Attr("v-model", "locals.myMenuShow"),
-		).VSlot("{ locals }").Init(JSONString(fv)),
+		).VSlot("{ locals, form }").FormInit(JSONString(fv)),
 	)
 
 	return
