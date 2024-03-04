@@ -25,8 +25,8 @@ func LazyPortalsAndReload(ctx *web.EventContext) (pr web.PageResponse, err error
 			VContainer(
 				VDialog(
 					web.Slot(
-						VBtn("Select").Color("primary").Attr("v-on", "on"),
-					).Name("activator").Scope("{ on }"),
+						VBtn("Select").Color("primary").Attr("v-bind", "activatorProps"),
+					).Name("activator").Scope("{ props: activatorProps }"),
 					web.Portal().Loader(web.POST().EventFunc("menuItems")).Name("menuContent"),
 				),
 
@@ -74,9 +74,9 @@ func menuItems(ctx *web.EventContext) (r web.EventResponse, err error) {
 		VDialog(
 			web.Slot(
 				VListItemAction(
-					VBtn("Create New").Variant("text").Attr("v-on", "on"),
+					VBtn("Create New").Variant("text").Attr("v-bind", "activatorProps"),
 				),
-			).Name("activator").Scope("{ on }"),
+			).Name("activator").Scope("{ props: activatorProps }"),
 			web.Portal().Loader(web.POST().EventFunc("addItemForm")).Name("addItemForm").Visible("true"),
 		).Width("500"),
 	)
@@ -104,7 +104,7 @@ func addItemForm(ctx *web.EventContext) (r web.EventResponse, err error) {
 			VCardActions(
 				VBtn("Create").Color("bg-primary").OnClick("addItem"),
 			),
-		)).VSlot("{ locals, form }").FormInit(`{Company: ""}`)
+		)).VSlot("{ locals, form }").FormInit(s)
 	return
 }
 

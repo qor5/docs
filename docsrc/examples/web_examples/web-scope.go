@@ -47,7 +47,7 @@ if (locals.btnLabel == "Add") {
 			).Class("mx-auto").
 				Attr("max-width", "300").
 				Attr("tile", ""),
-		).FormInit(`{ selectedItem: 0, btnLabel:"Add", items: [{text: "A", icon: "mdi-clock"}]}`).
+		).Init(`{ selectedItem: 0, btnLabel:"Add", items: [{text: "A", icon: "mdi-clock"}]}`).
 			VSlot("{ locals, form }"),
 	)
 	return
