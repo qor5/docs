@@ -60,6 +60,7 @@ func LazyPortalsAndReload(ctx *web.EventContext) (pr web.PageResponse, err error
 }
 
 func menuItems(ctx *web.EventContext) (r web.EventResponse, err error) {
+	var s = &mystate{}
 
 	var items []HTMLComponent
 	for _, item := range listItems {
@@ -77,7 +78,9 @@ func menuItems(ctx *web.EventContext) (r web.EventResponse, err error) {
 					VBtn("Create New").Variant("text").Attr("v-bind", "activatorProps"),
 				),
 			).Name("activator").Scope("{ props: activatorProps }"),
-			web.Portal().Loader(web.POST().EventFunc("addItemForm")).Name("addItemForm").Visible("true"),
+			web.Scope(
+				web.Portal().Loader(web.POST().EventFunc("addItemForm")).Name("addItemForm").Visible("true"),
+			).VSlot("{ locals, form }").FormInit(s),
 		).Width("500"),
 	)
 
@@ -96,7 +99,7 @@ func addItemForm(ctx *web.EventContext) (r web.EventResponse, err error) {
 		textField.Error(true).ErrorMessages(s.Error)
 	}
 
-	r.Body = web.Scope(
+	r.Body =
 		VCard(
 			VCardText(
 				textField,
@@ -104,7 +107,7 @@ func addItemForm(ctx *web.EventContext) (r web.EventResponse, err error) {
 			VCardActions(
 				VBtn("Create").Color("bg-primary").OnClick("addItem"),
 			),
-		)).VSlot("{ locals, form }").FormInit(s)
+		)
 	return
 }
 
@@ -113,7 +116,7 @@ func addItem(ctx *web.EventContext) (r web.EventResponse, err error) {
 	ctx.MustUnmarshalForm(s)
 
 	if len(s.Company) < 5 {
-		s.Error = "too short"
+		r.RunScript = "form.Error = 'too short'"
 		r.ReloadPortals = []string{"addItemForm"}
 		return
 	}
