@@ -524,5 +524,10 @@ func SamplesHandler(mux muxer, prefix string) {
 		e24_vuetify_components_linkage_select.VuetifyComponentsLinkageSelectPB.Wrap(demoVuetifyLayout),
 	)
 
+	mux.Handle(
+		vuetify_examples.VuetifySnackBarsPath,
+		vuetify_examples.VuetifySnackBarsPB.Wrap(demoVuetifyLayout),
+	)
+
 	return
 }
