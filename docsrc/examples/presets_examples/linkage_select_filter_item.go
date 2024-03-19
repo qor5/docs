@@ -1,4 +1,4 @@
-package presents_examples
+package presets_examples
 
 // @snippet_begin(LinkageSelectFilterItem)
 import (
@@ -21,10 +21,10 @@ func PresetsLinkageSelectFilterItem(b *presets.Builder) {
 		m := obj.(*Address)
 
 		return vx.VXLinkageSelect().
-			FieldName(field.Name).
+			Attr(web.VField(field.Name, []string{m.Province, m.City, m.District})).
 			Items(getLinkageProvinceCityDistrictItems()...).
-			Labels(getLinkageProvinceCityDistrictLabels()...).
-			SelectedIDs(m.Province, m.City, m.District)
+			Labels(getLinkageProvinceCityDistrictLabels()...)
+
 	}).SetterFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) (err error) {
 		vs := ctx.R.Form["ProvinceCityDistrict"]
 		m := obj.(*Address)

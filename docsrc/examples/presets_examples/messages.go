@@ -1,4 +1,4 @@
-package presents_examples
+package presets_examples
 
 type Messages struct {
 	Admin                   string

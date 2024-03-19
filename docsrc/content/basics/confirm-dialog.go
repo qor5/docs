@@ -2,10 +2,10 @@ package basics
 
 import (
 	"fmt"
+	"github.com/qor5/docs/docsrc/examples/presets_examples"
 	"path"
 	"strings"
 
-	"github.com/qor5/docs/docsrc/examples/admin_examples"
 	"github.com/qor5/docs/docsrc/generated"
 	"github.com/qor5/docs/docsrc/utils"
 	. "github.com/theplant/docgo"
@@ -39,7 +39,7 @@ To use a custom portal for dialog.
 	ch.Code(generated.ConfirmDialogSample).Language("go"),
 	utils.Demo(
 		"Confirm Dialog",
-		path.Join(admin_examples.PresetsConfirmDialogPath, "/confirm-dialog"),
+		path.Join(presets_examples.PresetsConfirmDialogPath, "/confirm-dialog"),
 		"example_basics/confirm-dialog.go",
 	),
 ).Slug("basics/confirm-dialog").Title("Confirm Dialog")

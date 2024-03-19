@@ -1,4 +1,4 @@
-package admin_examples
+package presets_examples
 
 // @snippet_begin(FilterSample)
 import (
@@ -6,11 +6,26 @@ import (
 	"github.com/qor5/admin/presets/gorm2op"
 	"github.com/qor5/ui/vuetifyx"
 	"github.com/qor5/web"
+	"gorm.io/gorm"
+	"time"
 )
 
-func PresetsBasicFilter(b *presets.Builder) {
+type Post struct {
+	ID        uint
+	Title     string
+	Body      string
+	UpdatedAt time.Time
+	CreatedAt time.Time
+	Disabled  bool
+
+	Status string
+
+	CategoryID uint
+}
+
+func PresetsBasicFilter(db *gorm.DB, b *presets.Builder) {
 	b.URIPrefix(PresetsBasicFilterPath).
-		DataOperator(gorm2op.DataOperator(DB))
+		DataOperator(gorm2op.DataOperator(db))
 
 	// create a ModelBuilder
 	postBuilder := b.Model(&Post{})

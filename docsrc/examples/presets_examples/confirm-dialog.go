@@ -1,4 +1,4 @@
-package admin_examples
+package presets_examples
 
 import (
 	"github.com/qor5/admin/presets"
@@ -6,11 +6,12 @@ import (
 	"github.com/qor5/ui/vuetify"
 	"github.com/qor5/web"
 	"github.com/theplant/htmlgo"
+	"gorm.io/gorm"
 )
 
 type confirmDialog struct{}
 
-func PresetsConfirmDialog(b *presets.Builder) {
+func PresetsConfirmDialog(db *gorm.DB, b *presets.Builder) {
 	_ = []interface{}{
 		// @snippet_begin(OpenConfirmDialog)
 		presets.OpenConfirmDialog,
@@ -27,7 +28,7 @@ func PresetsConfirmDialog(b *presets.Builder) {
 	}
 
 	b.URIPrefix(PresetsConfirmDialogPath).
-		DataOperator(gorm2op.DataOperator(DB))
+		DataOperator(gorm2op.DataOperator(db))
 
 	mb := b.Model(&confirmDialog{}).
 		URIName("confirm-dialog").

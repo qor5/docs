@@ -1,4 +1,4 @@
-package presents_examples
+package presets_examples
 
 import (
 	"fmt"
@@ -32,8 +32,7 @@ func PresetsEditingCustomizationDescription(b *presets.Builder) (
 
 	ce.Field("Description").ComponentFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) h.HTMLComponent {
 		return tiptap.TipTapEditor().
-			FieldName(field.Name).
-			Value(field.Value(obj).(string))
+			Attr(web.VField(field.Name, field.Value(obj).(string)))
 	})
 	return
 }
@@ -80,7 +79,7 @@ func PresetsEditingCustomizationFileType(b *presets.Builder) (
 			return h.Div(
 				img,
 				er,
-				h.Input("").Type("file").Attr(web.VFieldName(fmt.Sprintf("%s_NewFile", field.Name))...),
+				h.Input("").Type("file").Attr(web.VField(fmt.Sprintf("%s_NewFile", field.Name), "")...),
 			)
 		}).
 		SetterFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) (err error) {
@@ -153,14 +152,13 @@ func PresetsEditingCustomizationTabs(b *presets.Builder) {
 	b.URIPrefix(PresetsEditingCustomizationTabsPath).DataOperator(gorm2op.DataOperator(db))
 	mb := b.Model(&Company{})
 	mb.Listing("ID", "Name")
-	mb.Editing().AppendTabsPanelFunc(func(obj interface{}, ctx *web.EventContext) h.HTMLComponent {
+	mb.Editing().AppendTabsPanelFunc(func(obj interface{}, ctx *web.EventContext) (tab, content h.HTMLComponent) {
 		c := obj.(*Company)
-		return h.Components(
-			v.VTab(h.Text("New Tab")),
-			v.VTabItem(
-				v.VListItemTitle(h.Text(fmt.Sprintf("Name: %s", c.Name))),
-			).Class("pa-4"),
-		)
+		tab = v.VTab(h.Text("New Tab")).Value("2")
+		content = v.VWindowItem(
+			v.VListItemTitle(h.Text(fmt.Sprintf("Name: %s", c.Name))),
+		).Class("pa-4")
+		return
 	})
 }
 

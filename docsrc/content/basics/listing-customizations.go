@@ -1,7 +1,7 @@
 package basics
 
 import (
-	"github.com/qor5/docs/docsrc/examples/presents_examples"
+	"github.com/qor5/docs/docsrc/examples/presets_examples"
 	"github.com/qor5/docs/docsrc/generated"
 	"github.com/qor5/docs/docsrc/utils"
 	. "github.com/theplant/docgo"
@@ -20,7 +20,7 @@ columns rarely fit the needs for any real application.
 Here is how do we change the columns of the list and how to we change the content display of a columns.
 `),
 	ch.Code(generated.PresetsListingCustomizationFieldsSample).Language("go"),
-	utils.Demo("Presets Listing Customization Fields", presents_examples.PresetsListingCustomizationFieldsPath+"/customers", "e21_presents/listing.go"),
+	utils.Demo("Presets Listing Customization Fields", presets_examples.PresetsListingCustomizationFieldsPath+"/customers", "e21_presents/listing.go"),
 	Markdown(`
 What we did with above code:
 
@@ -38,7 +38,7 @@ What we did with above code:
 Here we continue to add filters for the list
 `),
 	ch.Code(generated.PresetsListingCustomizationFiltersSample).Language("go"),
-	utils.Demo("Presets Listing Filters", presents_examples.PresetsListingCustomizationFiltersPath+"/customers", "e21_presents/listing.go"),
+	utils.Demo("Presets Listing Filters", presets_examples.PresetsListingCustomizationFiltersPath+"/customers", "e21_presents/listing.go"),
 	Markdown(`
 ~FilterDataFunc~ of ~presets.ListingBuilder~ setup to have the filter menu or not.
 And how it will combine the sql conditions when doing query. the filter menu will
@@ -61,7 +61,7 @@ You can think it as a short cut that used very frequently to filter something in
 use the pop up panel of filter.
 `),
 	ch.Code(generated.PresetsListingCustomizationTabsSample).Language("go"),
-	utils.Demo("Presets Listing Filter Tabs", presents_examples.PresetsListingCustomizationTabsPath+"/customers", "e21_presents/listing.go"),
+	utils.Demo("Presets Listing Filter Tabs", presets_examples.PresetsListingCustomizationTabsPath+"/customers", "e21_presents/listing.go"),
 	Markdown(`
 ~Query~ string name must be from the Filter's item configuration key field.
 `),
@@ -74,7 +74,7 @@ Later do an bulk update data for all of them.
 Here is how to use it:
 `),
 	ch.Code(generated.PresetsListingCustomizationBulkActionsSample).Language("go"),
-	utils.Demo("Presets Listing Bulk Actions", presents_examples.PresetsListingCustomizationBulkActionsPath+"/customers", "e21_presents/listing.go"),
+	utils.Demo("Presets Listing Bulk Actions", presets_examples.PresetsListingCustomizationBulkActionsPath+"/customers", "e21_presents/listing.go"),
 	Markdown(`
 - ~ComponentFunc~ of the bulk action configure the component that will show to user to input after user clicked the bulk action button
 - ~UpdateFunc~ configure the logic that the bulk action execute
@@ -89,6 +89,6 @@ You can process the data displayed on the listing page here based on context or 
 In the following example, the listing page only displays approved customers.
 `),
 	ch.Code(generated.PresetsListingCustomizationSearcherSample).Language("go"),
-	utils.Demo("Search Func", presents_examples.PresetsListingCustomizationSearcherPath+"/customers", "e21_presents/listing.go"),
+	utils.Demo("Search Func", presets_examples.PresetsListingCustomizationSearcherPath+"/customers", "e21_presents/listing.go"),
 ).Title("Listing Customizations").
 	Slug("basics/listing-customizations")

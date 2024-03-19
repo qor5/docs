@@ -1,4 +1,4 @@
-package presents_examples
+package presets_examples
 
 import (
 	"fmt"
@@ -64,7 +64,7 @@ func PresetsDetailPageTopNotes(b *presets.Builder) (
 			n := obj.(*Note)
 			return h.Td(h.Div(
 				h.Div(
-					VIcon("comment").Color("blue").Small(true).Class("pr-2"),
+					VIcon("comment").Color("blue").Size(SizeSmall).Class("pr-2"),
 					h.Text(n.Content),
 				).Class("body-1"),
 				h.Div(
@@ -82,7 +82,6 @@ func PresetsDetailPageTopNotes(b *presets.Builder) (
 		).HeaderTitle(title).
 			Actions(
 				VBtn("Add Note").
-					Depressed(true).
 					Attr("@click",
 						web.POST().EventFunc(actions.New).
 							Query("model", "Customer").
@@ -150,7 +149,7 @@ func PresetsDetailPageDetails(b *presets.Builder) (
 		return vx.Card(detail).HeaderTitle("Details").
 			Actions(
 				VBtn("Agree Terms").
-					Depressed(true).Class("mr-2").
+					Class("mr-2").
 					Attr("@click", web.POST().
 						EventFunc(actions.Action).
 						Query(presets.ParamAction, "AgreeTerms").
@@ -159,7 +158,6 @@ func PresetsDetailPageDetails(b *presets.Builder) (
 					),
 
 				VBtn("Update details").
-					Depressed(true).
 					Attr("@click", web.POST().
 						EventFunc(actions.Edit).
 						Query(presets.ParamOverlay, actions.Dialog).
@@ -186,15 +184,14 @@ func PresetsDetailPageDetails(b *presets.Builder) (
 		var alert h.HTMLComponent
 
 		if ve, ok := ctx.Flash.(*web.ValidationErrors); ok {
-			alert = VAlert(h.Text(ve.GetGlobalError())).Border("left").
+			alert = VAlert(h.Text(ve.GetGlobalError())).Border("start").
 				Type("error").
-				Elevation(2).
-				ColoredBorder(true)
+				Elevation(2)
 		}
 
 		return h.Components(
 			alert,
-			VCheckbox().FieldName("Agree").Value(ctx.R.FormValue("Agree")).Label("Agree the terms"),
+			VCheckbox().Attr(web.VField("Agree", ctx.R.FormValue("Agree"))...).Label("Agree the terms"),
 		)
 	})
 	return
@@ -266,7 +263,6 @@ func PresetsDetailPageCards(b *presets.Builder) (
 		return vx.Card(dt).HeaderTitle("Cards").
 			Actions(
 				VBtn("Add Card").
-					Depressed(true).
 					Attr("@click",
 						web.POST().
 							EventFunc(actions.New).

@@ -1,5 +1,5 @@
 // @snippet_begin(PresetHelloWorldSample)
-package presents_examples
+package presets_examples
 
 import (
 	"fmt"
