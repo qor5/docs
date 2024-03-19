@@ -79,7 +79,7 @@ func PresetsHelloWorld(b *presets.Builder) (m *presets.ModelBuilder, db *gorm.DB
 	return
 }
 
-const PresetsHelloWorldPath = "/samples/presets_hello_world"
+const PresetsHelloWorldPath = "/samples/presets_hello_world/"
 
 // @snippet_end
 
