@@ -171,7 +171,8 @@ func EventHandlingScript(ctx *web.EventContext) (pr web.PageResponse, err error)
 	pr.Body = VContainer(
 		VCard(
 			VCardTitle(Text("Script")),
-			VCardActions(VBtn("Go").Attr("@click", web.POST().ThenScript(`alert("this is then script")`).AfterScript(`alert("this is after script")`).BeforeScript(`alert("this is before script")`).Go())),
+			VCardActions(VBtn("Go").Attr("@click", web.POST().ThenScript(`alert("this is then script")`).AfterScript(`alert("this is after script")`).
+				BeforeScript(`alert("this is before script")`).Go())),
 		),
 	)
 	return

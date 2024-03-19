@@ -19,29 +19,18 @@ func PresetsProfile(b *presets.Builder) {
 			account := "hello@getqor.com"
 			roles := []string{"Developer"}
 
-			return VMenu().OffsetY(true).Children(
-				h.Template().Attr("v-slot:activator", "{on, attrs}").Children(
+			return VMenu().Children(
+				h.Template().Attr("v-slot:activator", "{isActive,props}").Children(
 					VList(
 						VListItem(
-							VListItemAvatar(
+							h.Template().Attr("v-slot:prepend").Children(
 								VAvatar().Class("ml-1").Color("secondary").Size(40).Children(
-									h.Span(string(name[0])).Class("white--text text-h5"),
-								),
+									h.Span(string(name[0])).Class("white--text text-h5")),
 							),
-							VListItemContent(
-								VListItemTitle(h.Text(name)),
-								h.Br(),
-								VListItemSubtitle(h.Text(strings.Join(roles, ", "))),
-							),
-						).Class("pa-0 mb-2"),
+						).Title(name).Subtitle(strings.Join(roles, ", ")).Class("pa-0 mb-2"),
 						VListItem(
-							VListItemContent(
-								VListItemTitle(h.Text(account)),
-							),
-							VListItemIcon(
-								VIcon("logout").Small(true).Attr("@click", web.Plaid().URL(logoutURL).Go()),
-							),
-						).Class("pa-0 my-n4 ml-1").Dense(true),
+							VIcon("logout").Size("small").Attr("@click", web.Plaid().URL(logoutURL).Go()),
+						).Title(account).Class("pa-0 my-n4 ml-1"),
 					).Class("pa-0 ma-n4"),
 				),
 			)

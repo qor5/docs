@@ -30,10 +30,9 @@ func PartialReloadPage(ctx *web.EventContext) (pr web.PageResponse, err error) {
 		web.Scope(
 			web.Portal().Loader(web.POST().EventFunc("autoReload")).AutoReloadInterval("locals.interval"),
 			Button("stop").Attr("@click", "locals.interval = 0"),
-		).FormInit(`{interval: 2000}`).VSlot("{ locals, form }"),
+		).Init(`{interval: 2000}`).VSlot("{ locals, form }"),
 
 		H1("Load Data Only"),
-
 		web.Scope(
 			Ul(
 				Li(
@@ -87,7 +86,7 @@ func autoReload(ctx *web.EventContext) (er web.EventResponse, err error) {
 	reloadCount++
 
 	if reloadCount > 5 {
-		er.RunScript = `vars.interval = 0;`
+		er.RunScript = `locals.interval = 0;`
 	}
 	return
 }

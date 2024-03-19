@@ -27,11 +27,11 @@ func NotifierComponent() func(ctx *web.EventContext) h.HTMLComponent {
 	return func(ctx *web.EventContext) h.HTMLComponent {
 		return v.VList(
 			v.VListItem(
-				v.VListItemContent(h.A(h.Label("New Notice:"),
-					h.Text("unread notes: 3")),
+				v.VListItemTitle(
+					h.A(h.Label("New Notice:"),
+						h.Text("unread notes: 3")),
 				),
-			),
-		)
+			))
 	}
 }
 

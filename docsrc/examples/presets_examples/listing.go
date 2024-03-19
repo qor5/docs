@@ -3,6 +3,8 @@ package presets_examples
 
 import (
 	"fmt"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm/logger"
 	"net/url"
 	"os"
 	"time"
@@ -16,9 +18,7 @@ import (
 	"github.com/qor5/x/i18n"
 	h "github.com/theplant/htmlgo"
 	"golang.org/x/text/language"
-	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
-	"gorm.io/gorm/logger"
 )
 
 type Customer struct {
@@ -79,7 +79,7 @@ func PresetsHelloWorld(b *presets.Builder) (m *presets.ModelBuilder, db *gorm.DB
 	return
 }
 
-const PresetsHelloWorldPath = "/samples/presets-hello-world"
+const PresetsHelloWorldPath = "/samples/presets_hello_world"
 
 // @snippet_end
 
@@ -164,11 +164,8 @@ func companyList(ctx *web.EventContext, db *gorm.DB, companyID int) h.HTMLCompon
 		v.VSelect().
 			Label(msgr.CustomersCompanyID).
 			Items(comps).
-			ItemText("Name").
-			ItemValue("ID").
-			Value(companyID).
-			FieldName("CompanyID"),
-
+			Attr(web.VField("CompanyID", companyID)).
+			ItemTitle("Name").ItemValue("ID"),
 		h.A().Text("Add Company").Attr("@click",
 			web.POST().
 				URL(PresetsListingCustomizationFieldsPath+"/companies").
@@ -312,8 +309,7 @@ func PresetsListingCustomizationBulkActions(b *presets.Builder) (
 				errorMessage = ctx.Flash.(string)
 			}
 			return v.VTextField().
-				FieldName("ApprovalComment").
-				Value(comment).
+				Attr(web.VField("ApprovalComment", comment)).
 				Label("Comment").
 				ErrorMessages(errorMessage)
 		})
