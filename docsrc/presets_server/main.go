@@ -27,6 +27,7 @@ func (im *indexMux) Page(ctx *web.EventContext) (r web.PageResponse, err error) 
 func (im *indexMux) Handle(pattern string, handler http.Handler) {
 	im.paths = append(im.paths, pattern)
 	im.mux.Handle(pattern, handler)
+	im.mux.Handle(pattern+"/", handler)
 }
 
 func main() {

@@ -79,7 +79,7 @@ func PresetsHelloWorld(b *presets.Builder) (m *presets.ModelBuilder, db *gorm.DB
 	return
 }
 
-const PresetsHelloWorldPath = "/samples/presets_hello_world/"
+const PresetsHelloWorldPath = "/samples/presets_hello_world"
 
 // @snippet_end
 
@@ -178,7 +178,7 @@ func companyList(ctx *web.EventContext, db *gorm.DB, companyID int) h.HTMLCompon
 	)
 }
 
-const PresetsListingCustomizationFieldsPath = "/samples/presets-listing-customization-fields"
+const PresetsListingCustomizationFieldsPath = "/samples/presets_listing_customization_fields"
 
 // @snippet_end
 
@@ -346,4 +346,4 @@ func PresetsListingCustomizationSearcher(b *presets.Builder) {
 
 // @snippet_end
 
-const PresetsListingCustomizationSearcherPath = "/samples/presets-listing-customization-searcher"
+const PresetsListingCustomizationSearcherPath = "/samples/presets_listing_customization_searcher"
