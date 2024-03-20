@@ -3,6 +3,7 @@ package presets_examples
 
 import (
 	"fmt"
+	"golang.org/x/text/language"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm/logger"
 	"net/url"
@@ -17,7 +18,6 @@ import (
 	"github.com/qor5/web"
 	"github.com/qor5/x/i18n"
 	h "github.com/theplant/htmlgo"
-	"golang.org/x/text/language"
 	"gorm.io/gorm"
 )
 
@@ -68,10 +68,6 @@ func setupDB() (db *gorm.DB) {
 func PresetsHelloWorld(b *presets.Builder) (m *presets.ModelBuilder, db *gorm.DB) {
 	db = DB
 
-	b.I18n().
-		SupportLanguages(language.English, language.SimplifiedChinese).
-		RegisterForModule(language.SimplifiedChinese, presets.ModelsI18nModuleKey, Messages_zh_CN)
-
 	b.URIPrefix(PresetsHelloWorldPath).
 		DataOperator(gorm2op.DataOperator(db))
 	m = b.Model(&Customer{})
@@ -96,6 +92,10 @@ func PresetsListingCustomizationFields(b *presets.Builder) (
 	ce *presets.EditingBuilder,
 	db *gorm.DB,
 ) {
+	b.I18n().
+		SupportLanguages(language.English, language.SimplifiedChinese).
+		RegisterForModule(language.SimplifiedChinese, presets.ModelsI18nModuleKey, Messages_zh_CN)
+
 	cust, db = PresetsHelloWorld(b)
 	b.URIPrefix(PresetsListingCustomizationFieldsPath)
 
@@ -164,7 +164,7 @@ func companyList(ctx *web.EventContext, db *gorm.DB, companyID int) h.HTMLCompon
 		v.VSelect().
 			Label(msgr.CustomersCompanyID).
 			Items(comps).
-			Attr(web.VField("CompanyID", companyID)).
+			Attr(web.VField("CompanyID", companyID)...).
 			ItemTitle("Name").ItemValue("ID"),
 		h.A().Text("Add Company").Attr("@click",
 			web.POST().
