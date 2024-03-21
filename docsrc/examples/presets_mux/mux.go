@@ -7,6 +7,7 @@ import (
 	"github.com/qor5/docs/docsrc/examples/presets_examples"
 	"github.com/qor5/docs/docsrc/examples/web_vuetify_mux"
 	. "github.com/qor5/ui/vuetify"
+	"github.com/qor5/ui/vuetifyx"
 	"github.com/qor5/web"
 	"net/http"
 	"os"
@@ -31,6 +32,11 @@ var vuetifyJSTags = func() string {
 	}
 	return `<script src='/assets/vuetify.js'></script>`
 }()
+
+func AddVuetifyx(ctx *web.EventContext) {
+	ctx.Injector.HeadHTML(`<script src='/assets/vuetifyx.js'></script>`)
+
+}
 
 // @snippet_begin(DemoVuetifyLayoutSample)
 func demoVuetifyLayout(in web.PageFunc) (out web.PageFunc) {
@@ -98,6 +104,11 @@ func Mux(mux *http.ServeMux, prefix string) http.Handler {
 			CSSComponentsPack(),
 		),
 	)
+	mux.Handle("/assets/vuetifyx.js",
+		web.PacksHandler("text/javascript",
+			vuetifyx.JSComponentsPack(),
+		),
+	)
 
 	mux.HandleFunc("/favicon.ico", func(w http.ResponseWriter, r *http.Request) {
 		w.Write(assets.Favicon)
@@ -130,21 +141,21 @@ func SamplesHandler(mux muxer, prefix string) {
 		c01,
 	)
 
-	c02 := presets.New().AssetFunc(addGA)
+	c02 := presets.New().AssetFunc(addGA).AssetFunc(AddVuetifyx)
 	presets_examples.PresetsListingCustomizationFilters(c02)
 	mux.Handle(
 		presets_examples.PresetsListingCustomizationFiltersPath,
 		c02,
 	)
 
-	c03 := presets.New().AssetFunc(addGA)
+	c03 := presets.New().AssetFunc(addGA).AssetFunc(AddVuetifyx)
 	presets_examples.PresetsListingCustomizationTabs(c03)
 	mux.Handle(
 		presets_examples.PresetsListingCustomizationTabsPath,
 		c03,
 	)
 
-	c04 := presets.New().AssetFunc(addGA)
+	c04 := presets.New().AssetFunc(addGA).AssetFunc(AddVuetifyx)
 	presets_examples.PresetsListingCustomizationBulkActions(c04)
 	mux.Handle(
 		presets_examples.PresetsListingCustomizationBulkActionsPath,
