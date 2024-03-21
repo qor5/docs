@@ -528,6 +528,13 @@ func SamplesHandler(mux muxer, prefix string) {
 		vuetify_examples.VuetifySnackBarsPath,
 		vuetify_examples.VuetifySnackBarsPB.Wrap(demoVuetifyLayout),
 	)
-
+	mux.Handle(
+		vuetify_examples.VuetifyTabsPath,
+		vuetify_examples.VuetifyTabsPB.Wrap(demoVuetifyLayout),
+	)
+	mux.Handle(
+		vuetify_examples.VuetifyCheckboxPath,
+		vuetify_examples.VuetifyCheckboxPB.Wrap(demoVuetifyLayout),
+	)
 	return
 }
