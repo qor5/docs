@@ -65,7 +65,7 @@ func PresetsGroupMenu(b *presets.Builder) {
 		return
 	})
 	// @snippet_begin(MenuGroupSample)
-	mb := b.Model(&book{}).MenuIcon("book")
+	mb := b.Model(&book{}).MenuIcon("mdi-book")
 
 	mb.Listing().PageFunc(func(ctx *web.EventContext) (r web.PageResponse, err error) {
 		r.Body = vuetify.VContainer(
@@ -81,7 +81,7 @@ func PresetsGroupMenu(b *presets.Builder) {
 		b.MenuGroup("Media").SubItems(
 			"videos",
 			"musics",
-		).Icon("perm_media"),
+		).Icon("mdi-video"),
 	)
 	// @snippet_end
 }

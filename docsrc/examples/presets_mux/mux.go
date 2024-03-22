@@ -33,11 +33,6 @@ var vuetifyJSTags = func() string {
 	return `<script src='/assets/vuetify.js'></script>`
 }()
 
-func AddVuetifyx(ctx *web.EventContext) {
-	ctx.Injector.HeadHTML(`<script src='/assets/vuetifyx.js'></script>`)
-
-}
-
 // @snippet_begin(DemoVuetifyLayoutSample)
 func demoVuetifyLayout(in web.PageFunc) (out web.PageFunc) {
 	return func(ctx *web.EventContext) (pr web.PageResponse, err error) {
@@ -141,21 +136,21 @@ func SamplesHandler(mux muxer, prefix string) {
 		c01,
 	)
 
-	c02 := presets.New().AssetFunc(addGA).AssetFunc(AddVuetifyx)
+	c02 := presets.New().AssetFunc(addGA)
 	presets_examples.PresetsListingCustomizationFilters(c02)
 	mux.Handle(
 		presets_examples.PresetsListingCustomizationFiltersPath,
 		c02,
 	)
 
-	c03 := presets.New().AssetFunc(addGA).AssetFunc(AddVuetifyx)
+	c03 := presets.New().AssetFunc(addGA)
 	presets_examples.PresetsListingCustomizationTabs(c03)
 	mux.Handle(
 		presets_examples.PresetsListingCustomizationTabsPath,
 		c03,
 	)
 
-	c04 := presets.New().AssetFunc(addGA).AssetFunc(AddVuetifyx)
+	c04 := presets.New().AssetFunc(addGA)
 	presets_examples.PresetsListingCustomizationBulkActions(c04)
 	mux.Handle(
 		presets_examples.PresetsListingCustomizationBulkActionsPath,
