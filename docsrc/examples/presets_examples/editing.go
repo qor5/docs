@@ -79,7 +79,7 @@ func PresetsEditingCustomizationFileType(b *presets.Builder) (
 			return h.Div(
 				img,
 				er,
-				h.Input("").Type("file").Attr(web.VFieldOn(fmt.Sprintf("%s_NewFile", field.Name), "")...),
+				h.Input("").Type("file").Attr("@change", fmt.Sprintf("form.%s_NewFile = $event.target.files[0]", field.Name)),
 			)
 		}).
 		SetterFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) (err error) {
