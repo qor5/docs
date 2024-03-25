@@ -37,11 +37,11 @@ func PresetsPermissions(b *presets.Builder) (
 			web.Slot(
 				VBtn("").
 					Icon(true).
-					Attr("v-bind", "attrs", "v-on", "on").
+					Attr("v-bind", "props").
 					Children(
-						VIcon("person"),
+						VIcon("mdi-account"),
 					).Class("ml-2"),
-			).Name("activator").Scope("{ on, attrs }"),
+			).Name("activator").Scope("{  props }"),
 
 			VList(
 				VListItem(

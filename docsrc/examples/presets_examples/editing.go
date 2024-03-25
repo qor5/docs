@@ -2,7 +2,7 @@ package presets_examples
 
 import (
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 
 	"github.com/qor5/admin/presets"
@@ -32,7 +32,7 @@ func PresetsEditingCustomizationDescription(b *presets.Builder) (
 
 	ce.Field("Description").ComponentFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) h.HTMLComponent {
 		return tiptap.TipTapEditor().
-			Attr(web.VField(field.Name, field.Value(obj).(string)))
+			Attr(web.VField(field.Name, field.Value(obj).(string))...)
 	})
 	return
 }
@@ -79,7 +79,7 @@ func PresetsEditingCustomizationFileType(b *presets.Builder) (
 			return h.Div(
 				img,
 				er,
-				h.Input("").Type("file").Attr(web.VField(fmt.Sprintf("%s_NewFile", field.Name), "")...),
+				h.Input("").Type("file").Attr(web.VFieldOn(fmt.Sprintf("%s_NewFile", field.Name), "")...),
 			)
 		}).
 		SetterFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) (err error) {
@@ -88,8 +88,8 @@ func PresetsEditingCustomizationFileType(b *presets.Builder) (
 			if ff == nil {
 				return
 			}
-
-			req, err := http.NewRequest("PUT", "https://transfer.sh/myfile.png", ff)
+			var req *http.Request
+			req, err = http.NewRequest("PUT", "https://transfer.sh/myfile.png", ff)
 			if err != nil {
 				return
 			}
@@ -99,7 +99,7 @@ func PresetsEditingCustomizationFileType(b *presets.Builder) (
 				panic(err)
 			}
 			var b []byte
-			b, err = ioutil.ReadAll(res.Body)
+			b, err = io.ReadAll(res.Body)
 			if err != nil {
 				return
 			}
@@ -157,7 +157,7 @@ func PresetsEditingCustomizationTabs(b *presets.Builder) {
 		tab = v.VTab(h.Text("New Tab")).Value("2")
 		content = v.VWindowItem(
 			v.VListItemTitle(h.Text(fmt.Sprintf("Name: %s", c.Name))),
-		).Class("pa-4")
+		).Value("2").Class("pa-4")
 		return
 	})
 }

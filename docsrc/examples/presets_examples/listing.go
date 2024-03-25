@@ -309,7 +309,7 @@ func PresetsListingCustomizationBulkActions(b *presets.Builder) (
 				errorMessage = ctx.Flash.(string)
 			}
 			return v.VTextField().
-				Attr(web.VField("ApprovalComment", comment)).
+				Attr(web.VField("ApprovalComment", comment)...).
 				Label("Comment").
 				ErrorMessages(errorMessage)
 		})

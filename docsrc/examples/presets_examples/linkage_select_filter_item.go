@@ -19,9 +19,9 @@ func PresetsLinkageSelectFilterItem(b *presets.Builder) {
 
 	eb.Field("ProvinceCityDistrict").ComponentFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) h.HTMLComponent {
 		m := obj.(*Address)
-
+		// TODO v-model is undefined
 		return vx.VXLinkageSelect().
-			Attr(web.VField(field.Name, []string{m.Province, m.City, m.District})).
+			Attr(web.VField(field.Name, []string{m.Province, m.City, m.District})...).
 			Items(getLinkageProvinceCityDistrictItems()...).
 			Labels(getLinkageProvinceCityDistrictLabels()...)
 
@@ -48,6 +48,7 @@ func PresetsLinkageSelectFilterItem(b *presets.Builder) {
 					SelectOutOfOrder: false,
 					SQLConditions:    []string{"province = ?", "city = ?", "district = ?"},
 				},
+				ValuesAre: []string{},
 			},
 		}
 	})

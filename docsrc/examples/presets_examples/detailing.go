@@ -146,7 +146,7 @@ func PresetsDetailPageDetails(b *presets.Builder) (
 			).Header("DETAILS"),
 		)
 
-		return vx.Card(detail).HeaderTitle("Details").
+		return vx.Card(detail).HeaderTitle("Details").Variant(VariantFlat).
 			Actions(
 				VBtn("Agree Terms").
 					Class("mr-2").

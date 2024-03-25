@@ -7,6 +7,7 @@ import (
 	"github.com/qor5/docs/docsrc/examples/presets_examples"
 	"github.com/qor5/docs/docsrc/examples/web_vuetify_mux"
 	. "github.com/qor5/ui/vuetify"
+	"github.com/qor5/ui/vuetifyx"
 	"github.com/qor5/web"
 	"net/http"
 	"os"
@@ -96,6 +97,11 @@ func Mux(mux *http.ServeMux, prefix string) http.Handler {
 	mux.Handle("/assets/vuetify.css",
 		web.PacksHandler("text/css",
 			CSSComponentsPack(),
+		),
+	)
+	mux.Handle("/assets/vuetifyx.js",
+		web.PacksHandler("text/javascript",
+			vuetifyx.JSComponentsPack(),
 		),
 	)
 
