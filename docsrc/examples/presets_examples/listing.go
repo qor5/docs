@@ -111,6 +111,8 @@ func PresetsListingCustomizationFields(b *presets.Builder) (
 		db.First(&comp, "id = ?", c.CompanyID)
 		return h.Td(
 			h.A().Text(comp.Name).
+				Class("text-decoration-none", "text-blue").
+				Href("javascript:void(0)").
 				Attr("@click",
 					web.POST().EventFunc(actions.Edit).
 						Query(presets.ParamID, fmt.Sprint(comp.ID)).
@@ -118,6 +120,8 @@ func PresetsListingCustomizationFields(b *presets.Builder) (
 						Go()),
 			h.Text("-"),
 			h.A().Text("(Open in Dialog)").
+				Class("text-decoration-none", "text-blue").
+				Href("javascript:void(0)").
 				Attr("@click",
 					web.POST().EventFunc(actions.Edit).
 						Query(presets.ParamID, fmt.Sprint(comp.ID)).
@@ -163,10 +167,13 @@ func companyList(ctx *web.EventContext, db *gorm.DB, companyID int) h.HTMLCompon
 	return h.Div(
 		v.VSelect().
 			Label(msgr.CustomersCompanyID).
+			Variant("underlined").
 			Items(comps).
 			Attr(web.VField("CompanyID", companyID)...).
 			ItemTitle("Name").ItemValue("ID"),
-		h.A().Text("Add Company").Attr("@click",
+		h.A().Text("Add Company").
+			Class("text-decoration-none", "text-blue").
+			Href("javascript:void(0)").Attr("@click",
 			web.POST().
 				URL(PresetsListingCustomizationFieldsPath+"/companies").
 				EventFunc(actions.New).
@@ -309,6 +316,7 @@ func PresetsListingCustomizationBulkActions(b *presets.Builder) (
 				errorMessage = ctx.Flash.(string)
 			}
 			return v.VTextField().
+				Variant("underlined").
 				Attr(web.VField("ApprovalComment", comment)...).
 				Label("Comment").
 				ErrorMessages(errorMessage)

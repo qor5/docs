@@ -64,7 +64,7 @@ func PresetsDetailPageTopNotes(b *presets.Builder) (
 			n := obj.(*Note)
 			return h.Td(h.Div(
 				h.Div(
-					VIcon("comment").Color("blue").Size(SizeSmall).Class("pr-2"),
+					VIcon("mdi-message-reply-text").Color("blue").Size(SizeSmall).Class("pr-2"),
 					h.Text(n.Content),
 				).Class("body-1"),
 				h.Div(
@@ -89,7 +89,7 @@ func PresetsDetailPageTopNotes(b *presets.Builder) (
 							URL(mi.PresetsPrefix()+"/notes").
 							Go(),
 					),
-			).Class("mb-4")
+			).Class("mb-4").Variant(VariantElevated)
 	})
 
 	b.Model(&Note{}).
@@ -146,7 +146,7 @@ func PresetsDetailPageDetails(b *presets.Builder) (
 			).Header("DETAILS"),
 		)
 
-		return vx.Card(detail).HeaderTitle("Details").Variant(VariantFlat).
+		return vx.Card(detail).HeaderTitle("Details").Variant(VariantElevated).
 			Actions(
 				VBtn("Agree Terms").
 					Class("mr-2").

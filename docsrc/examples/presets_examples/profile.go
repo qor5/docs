@@ -24,15 +24,15 @@ func PresetsProfile(b *presets.Builder) {
 					VList(
 						VListItem(
 							h.Template().Attr("v-slot:prepend", "{ isActive}").Children(
-								VAvatar().Class("ml-1").Color("secondary").Size(40).Children(
-									h.Span(string(name[0])).Class("white--text text-h5")),
+								VAvatar().Class("ml-1").Color("surface-variant").Size(40).Children(
+									h.Span(string(name[0])).Class("text-white text-h5")),
 							),
 						).Title(name).Subtitle(strings.Join(roles, ", ")).Class("pa-0 mb-2"),
 						VListItem(
 							h.Template().Attr("v-slot:append", "{ isActive}").Children(
 								VIcon("mdi-logout").Size("small").Attr("@click", web.Plaid().URL(logoutURL).Go()),
 							),
-						).Title(account).Class("pa-0 my-n4 ml-1"),
+						).Title(account).Class("pa-0 my-n2 ml-1"),
 					).Class("pa-0 ma-n4"),
 				),
 			)
