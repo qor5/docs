@@ -26,7 +26,10 @@ type Post struct {
 func PresetsBasicFilter(db *gorm.DB, b *presets.Builder) {
 	b.URIPrefix(PresetsBasicFilterPath).
 		DataOperator(gorm2op.DataOperator(db))
-
+	err := db.AutoMigrate(&Post{})
+	if err != nil {
+		panic(err)
+	}
 	// create a ModelBuilder
 	postBuilder := b.Model(&Post{})
 
