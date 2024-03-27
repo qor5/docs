@@ -14,7 +14,8 @@ func PresetsProfile(b *presets.Builder) {
 	b.URIPrefix(PresetsProfilePath).BrandTitle("Admin").
 		ProfileFunc(func(ctx *web.EventContext) h.HTMLComponent {
 			// Demo
-			logoutURL := "."
+			//logoutURL := "."
+			logoutURL := ""
 			name := "QOR5"
 			account := "hello@getqor.com"
 			roles := []string{"Developer"}
