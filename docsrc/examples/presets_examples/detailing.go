@@ -227,7 +227,8 @@ func PresetsDetailPageCards(b *presets.Builder) (
 	if err != nil {
 		panic(err)
 	}
-	dp = cust.Detailing("TopNotes", "Details", "Cards")
+
+	dp = cust.RightDrawerWidth("800").Detailing("TopNotes", "Details", "Cards").Drawer(true)
 
 	dp.Field("Cards").ComponentFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) h.HTMLComponent {
 		mi := field.ModelInfo
@@ -267,6 +268,7 @@ func PresetsDetailPageCards(b *presets.Builder) (
 						web.POST().
 							EventFunc(actions.New).
 							Query("customerID", cusID).
+							Query(presets.ParamOverlay, actions.Dialog).
 							URL(mi.PresetsPrefix()+"/credit-cards").
 							Go(),
 					).Class("mb-4"),
