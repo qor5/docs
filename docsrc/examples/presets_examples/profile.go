@@ -18,7 +18,6 @@ func PresetsProfile(b *presets.Builder) {
 			//account := "hello@getqor.com"
 			roles := []string{"Developer"}
 			return web.Slot(
-				VDivider(),
 				VRow(
 					VCol(
 						VCard().Class("text-grey-darken-1").Variant("text").Title(name).Subtitle(roles[0]).Children(
