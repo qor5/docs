@@ -17,34 +17,32 @@ func PresetsProfile(b *presets.Builder) {
 			name := "QOR5"
 			//account := "hello@getqor.com"
 			roles := []string{"Developer"}
-			return web.Slot(
-				VRow(
-					VCol(
-						VCard().Class("text-grey-darken-1").Variant("text").Title(name).Subtitle(roles[0]).Children(
-							web.Slot(
-								VAvatar().Class("ml-1 rounded-lg").Color("blue").Size(48).Children(
-									h.Span(string(name[0])).Class("text-white text-h5")),
-							).Name("prepend"),
-						),
-						//VAvatar(
-						//	h.Span("QO").Class("text-h5"),
-						//).Attr("color", "blue").Attr("size", "48").Class("rounded-lg"),
-						//h.Span(name).Class("text-h6 mx-2 text-grey-darken-1"),
-					).Attr("cols", "8"),
-					VCol(
-						VBtn("").Attr("density", "compact").
-							Attr("variant", "text").
-							Attr("icon", "mdi-chevron-right").
-							Class("text-grey-darken-1"),
-					).Attr("cols", "2").Class("d-flex justify-center align-center").Attr("@click", web.Plaid().URL(logoutURL).Go()),
-					VCol(
-						VBtn("").Attr("density", "compact").
-							Attr("variant", "text").
-							Attr("icon", "mdi-bell-outline").
-							Class("text-grey-darken-1"),
-					).Attr("cols", "2").Class("d-flex align-center justify-center"),
-				).Attr("align", "center", "justify", "center").Class("pa-4"),
-			).Name("append")
+			return VRow(
+				VCol(
+					VCard().Class("text-grey-darken-1").Variant("text").Title(name).Subtitle(roles[0]).Children(
+						web.Slot(
+							VAvatar().Class("ml-1 rounded-lg").Color("blue").Size(48).Children(
+								h.Span(string(name[0])).Class("text-white text-h5")),
+						).Name("prepend"),
+					),
+					//VAvatar(
+					//	h.Span("QO").Class("text-h5"),
+					//).Attr("color", "blue").Attr("size", "48").Class("rounded-lg"),
+					//h.Span(name).Class("text-h6 mx-2 text-grey-darken-1"),
+				).Attr("cols", "8"),
+				VCol(
+					VBtn("").Attr("density", "compact").
+						Attr("variant", "text").
+						Attr("icon", "mdi-chevron-right").
+						Class("text-grey-darken-1"),
+				).Attr("cols", "2").Class("d-flex justify-center align-center").Attr("@click", web.Plaid().URL(logoutURL).Go()),
+				VCol(
+					VBtn("").Attr("density", "compact").
+						Attr("variant", "text").
+						Attr("icon", "mdi-bell-outline").
+						Class("text-grey-darken-1"),
+				).Attr("cols", "2").Class("d-flex align-center justify-center"),
+			).Attr("align", "center", "justify", "center")
 		})
 
 	//VMenu().Children(
