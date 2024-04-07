@@ -3,12 +3,13 @@ package presets_examples
 
 import (
 	"fmt"
-	"golang.org/x/text/language"
-	"gorm.io/driver/postgres"
-	"gorm.io/gorm/logger"
 	"net/url"
 	"os"
 	"time"
+
+	"golang.org/x/text/language"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm/logger"
 
 	"github.com/qor5/admin/presets"
 	"github.com/qor5/admin/presets/actions"
@@ -210,16 +211,18 @@ func PresetsListingCustomizationFilters(b *presets.Builder) (
 
 		return []*vuetifyx.FilterItem{
 			{
-				Key:          "created",
-				Label:        msgr.CustomersFilterCreated,
-				ItemType:     vuetifyx.ItemTypeDatetimeRange,
-				SQLCondition: `cast(strftime('%%s', created_at) as INTEGER) %s ?`,
+				Key:      "created",
+				Label:    msgr.CustomersFilterCreated,
+				ItemType: vuetifyx.ItemTypeDatetimeRange,
+				//SQLCondition: `cast(strftime('%%s', created_at) as INTEGER) %s ?`,
+				SQLCondition: `created_at %s ?`,
 			},
 			{
-				Key:          "approved",
-				Label:        msgr.CustomersFilterApproved,
-				ItemType:     vuetifyx.ItemTypeDatetimeRange,
-				SQLCondition: `cast(strftime('%%s', approved_at) as INTEGER) %s ?`,
+				Key:      "approved",
+				Label:    msgr.CustomersFilterApproved,
+				ItemType: vuetifyx.ItemTypeDatetimeRange,
+				//SQLCondition: `cast(strftime('%%s', created_at) as INTEGER) %s ?`,
+				SQLCondition: `created_at %s ?`,
 			},
 			{
 				Key:          "name",
