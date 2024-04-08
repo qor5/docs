@@ -6,14 +6,14 @@ import (
 	"github.com/qor5/docs/docsrc"
 	"github.com/qor5/docs/docsrc/assets"
 	"github.com/qor5/docs/docsrc/examples/admin_examples"
-	"github.com/qor5/docs/docsrc/examples/presets_mux"
-	"github.com/qor5/docs/docsrc/examples/web_vuetify_mux"
+	"github.com/qor5/docs/docsrc/examples/mux_presets"
+	"github.com/qor5/docs/docsrc/examples/mux_web_vuetify"
 	"github.com/theplant/docgo"
 	"net/http"
 )
 
 func Mux(mux *http.ServeMux, prefix string) http.Handler {
-	web_vuetify_mux.Mux(mux, prefix)
+	mux_web_vuetify.Mux(mux, prefix)
 	samplesMux := SamplesHandler(prefix)
 	mux.Handle("/samples/",
 		middleware.Logger(
@@ -35,9 +35,9 @@ func Mux(mux *http.ServeMux, prefix string) http.Handler {
 
 func SamplesHandler(prefix string) http.Handler {
 	mux := http.NewServeMux()
-	web_vuetify_mux.SamplesHandler(mux, prefix)
-	presets_mux.SamplesHandler(mux, prefix)
-	addGA := web_vuetify_mux.AddGA
+	mux_web_vuetify.SamplesHandler(mux, prefix)
+	mux_presets.SamplesHandler(mux, prefix)
+	addGA := mux_web_vuetify.AddGA
 
 	c23 := presets.New().AssetFunc(addGA)
 	admin_examples.WorkerExampleMock(c23)

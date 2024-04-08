@@ -1,4 +1,4 @@
-package e18_filter_component
+package vuetifyx_examples
 
 import (
 	. "github.com/qor5/ui/vuetify"
@@ -6,7 +6,7 @@ import (
 	"github.com/qor5/web"
 )
 
-func FilterComponent(ctx *web.EventContext) (pr web.PageResponse, err error) {
+func FilterDemo(ctx *web.EventContext) (pr web.PageResponse, err error) {
 
 	fd := vuetifyx.FilterData([]*vuetifyx.FilterItem{
 		{
@@ -49,3 +49,7 @@ func FilterComponent(ctx *web.EventContext) (pr web.PageResponse, err error) {
 	)
 	return
 }
+
+var FilterDemoPB = web.Page(FilterDemo)
+
+const FilterDemoPath = "/samples/filter-demo"

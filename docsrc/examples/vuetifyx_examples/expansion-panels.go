@@ -1,18 +1,11 @@
-package e20_vuetify_expansion_panels
+package vuetifyx_examples
 
 import (
-	"time"
-
 	. "github.com/qor5/ui/vuetify"
 	vx "github.com/qor5/ui/vuetifyx"
 	"github.com/qor5/web"
-	h "github.com/theplant/htmlgo"
+	. "github.com/theplant/htmlgo"
 )
-
-type Event struct {
-	Title     string
-	CreatedAt time.Time
-}
 
 func ExpansionPanelDemo(ctx *web.EventContext) (pr web.PageResponse, err error) {
 
@@ -20,13 +13,13 @@ func ExpansionPanelDemo(ctx *web.EventContext) (pr web.PageResponse, err error) 
 		VMain(
 			VExpansionPanels(
 				VExpansionPanel(
-					VExpansionPanelHeader(
-						h.Text("VISA •••• 4242	11 / 2028"),
+					VExpansionPanelTitle(
+						Text("VISA •••• 4242	11 / 2028"),
 						web.Slot(
 							VIcon("search"),
 						).Name("actions"),
-					).DisableIconRotate(true),
-					VExpansionPanelContent(
+					),
+					VExpansionPanelText(
 						VDivider(),
 						vx.DetailInfo(
 							vx.DetailColumn(
@@ -42,10 +35,10 @@ func ExpansionPanelDemo(ctx *web.EventContext) (pr web.PageResponse, err error) 
 				),
 
 				VExpansionPanel(
-					VExpansionPanelHeader(
-						h.Text("VISA •••• 2121	11 / 2028"),
+					VExpansionPanelTitle(
+						Text("VISA •••• 2121	11 / 2028"),
 					),
-					VExpansionPanelContent(
+					VExpansionPanelText(
 						VDivider(),
 						vx.DetailInfo(
 							vx.DetailColumn(
@@ -64,3 +57,7 @@ func ExpansionPanelDemo(ctx *web.EventContext) (pr web.PageResponse, err error) 
 	)
 	return
 }
+
+var ExpansionPanelDemoPB = web.Page(ExpansionPanelDemo)
+
+const ExpansionPanelDemoPath = "/samples/expansion-panel-demo"

@@ -1,4 +1,4 @@
-package e19_stripeui_key_info
+package vuetifyx_examples
 
 import (
 	"fmt"
@@ -12,6 +12,7 @@ import (
 )
 
 type Event struct {
+	ID        uint
 	Title     string
 	CreatedAt time.Time
 }
@@ -19,26 +20,32 @@ type Event struct {
 func KeyInfoDemo(ctx *web.EventContext) (pr web.PageResponse, err error) {
 	data := []*Event{
 		{
+			1,
 			"<span><strong>¥5,000</strong> was refunded from a <strong>¥236,170</strong> payment</span>",
 			time.Now(),
 		},
 		{
+			2,
 			"<span><strong>¥207,626</strong> was refunded from a <strong>¥236,170</strong> payment</span>",
 			time.Now(),
 		},
 		{
+			3,
 			"<span><strong>¥7,848</strong> was refunded from a <strong>¥236,170</strong> payment</span>",
 			time.Now(),
 		},
 		{
+			4,
 			"<span><strong>¥5,000</strong> was refunded from a <strong>¥236,170</strong> payment</span>",
 			time.Now(),
 		},
 		{
+			5,
 			"<span><strong>¥207,626</strong> was refunded from a <strong>¥236,170</strong> payment</span>",
 			time.Now(),
 		},
 		{
+			6,
 			"<span><strong>¥7,848</strong> was refunded from a <strong>¥236,170</strong> payment</span>",
 			time.Now(),
 		},
@@ -80,7 +87,7 @@ func KeyInfoDemo(ctx *web.EventContext) (pr web.PageResponse, err error) {
 					vx.KeyField(h.Text(time.Now().Format("Jan _2, 15:04 PM"))).Label("Date"),
 					vx.KeyField(h.A().Href("https://google.com").Text("customer0077N52")).Label("Customer"),
 					vx.KeyField(h.Text("•••• 4242")).Label("Payment method").Icon(VIcon("credit_card")),
-					vx.KeyField(h.Text("Normal")).Label("Risk evaluation").Icon(VChip(h.Text("43")).Small(true)),
+					vx.KeyField(h.Text("Normal")).Label("Risk evaluation").Icon(VChip(h.Text("43")).Size(SizeSmall)),
 				),
 			).SystemBar(
 				VIcon("link"),
@@ -89,9 +96,9 @@ func KeyInfoDemo(ctx *web.EventContext) (pr web.PageResponse, err error) {
 				h.Text("ch_1EJtQMAqkzzGorqLtIjCEPU5"),
 			).Header(
 				h.Text("$100.00USD"),
-				VChip(h.Text("Refunded"), VIcon("reply").Small(true)).Small(true),
+				VChip(h.Text("Refunded"), VIcon("reply").Size(SizeSmall)).Size(SizeSmall),
 			).Actions(
-				VBtn("Edit").Depressed(true),
+				VBtn("Edit"),
 			).Class("mb-4"),
 
 			vx.Card(vx.DetailInfo(
@@ -102,14 +109,15 @@ func KeyInfoDemo(ctx *web.EventContext) (pr web.PageResponse, err error) {
 					vx.DetailField(vx.OptionalText("customer0077N52")).Label("Description"),
 					vx.DetailField(vx.OptionalText("B0E69DBD")).Label("Invoice prefix"),
 					vx.DetailField(vx.OptionalText("").ZeroLabel("No VAT number")).Label("VAT number"),
-					vx.DetailField(vx.OptionalText("Normal")).Label("Risk evaluation").Icon(VChip(h.Text("43")).Small(true)),
+					vx.DetailField(vx.OptionalText("Normal")).Label("Risk evaluation").Icon(VChip(h.Text("43")).Size(
+						SizeSmall)),
 				).Header("ACCOUNT INFORMATION"),
 				vx.DetailColumn(
 					vx.DetailField(vx.OptionalText("").ZeroLabel("No address")).Label("Address"),
 					vx.DetailField(vx.OptionalText("").ZeroLabel("No phone number")).Label("Phone number"),
 				).Header("BILLING INFORMATION"),
 			)).HeaderTitle("Details").
-				Actions(VBtn("Update details").Depressed(true)).
+				Actions(VBtn("Update details")).
 				Class("mb-4"),
 
 			vx.Card(dt).HeaderTitle("Events").Class("mb-4"),
@@ -119,3 +127,7 @@ func KeyInfoDemo(ctx *web.EventContext) (pr web.PageResponse, err error) {
 	)
 	return
 }
+
+var KeyInfoDemoPB = web.Page(KeyInfoDemo)
+
+const KeyInfoDemoPath = "/samples/key-info-demo"

@@ -4,19 +4,18 @@ package presets_examples
 import (
 	"github.com/qor5/admin/presets"
 	"github.com/qor5/admin/presets/gorm2op"
-	"github.com/qor5/docs/docsrc/examples/utils"
 	v "github.com/qor5/ui/vuetify"
 	"github.com/qor5/web"
 	h "github.com/theplant/htmlgo"
 )
 
 func PresetsNotificationCenterSample(b *presets.Builder) {
-	db := utils.InitDB()
+	db := InitDB()
 	b.URIPrefix(NotificationCenterSamplePath).
 		DataOperator(gorm2op.DataOperator(db))
 
-	db.AutoMigrate(&utils.Page{})
-	b.Model(&utils.Page{})
+	db.AutoMigrate(&Page{})
+	b.Model(&Page{})
 
 	b.NotificationFunc(NotifierComponent(), NotifierCount())
 

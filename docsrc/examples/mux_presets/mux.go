@@ -1,125 +1,14 @@
-package presets_mux
+package mux_presets
 
 import (
-	"fmt"
 	"github.com/qor5/admin/presets"
-	"github.com/qor5/docs/docsrc/assets"
+	"github.com/qor5/docs/docsrc/examples/mux_web_vuetify"
 	"github.com/qor5/docs/docsrc/examples/presets_examples"
-	"github.com/qor5/docs/docsrc/examples/web_vuetify_mux"
-	. "github.com/qor5/ui/vuetify"
-	"github.com/qor5/ui/vuetifyx"
-	"github.com/qor5/web"
-	"net/http"
-	"os"
 )
 
-var coreJSTags = func() string {
-	if len(os.Getenv("DEV_CORE_JS")) > 0 {
-		return `
-<script src='http://localhost:3100/js/chunk-vendors.js'></script>
-<script src='http://localhost:3100/js/app.js'></script>
-`
-	}
-	return `<script src='/assets/main.js'></script>`
-}()
+func SamplesHandler(mux mux_web_vuetify.Muxer, prefix string) {
 
-var vuetifyJSTags = func() string {
-	if len(os.Getenv("DEV_VUETIFY_JS")) > 0 {
-		return `
-<script src='http://localhost:3080/js/chunk-vendors.js'></script>
-<script src='http://localhost:3080/js/app.js'></script>
-`
-	}
-	return `<script src='/assets/vuetify.js'></script>`
-}()
-
-// @snippet_begin(DemoVuetifyLayoutSample)
-func demoVuetifyLayout(in web.PageFunc) (out web.PageFunc) {
-	return func(ctx *web.EventContext) (pr web.PageResponse, err error) {
-
-		ctx.Injector.HeadHTML(`
-			<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono" async>
-			<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" async>
-			<link href="https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css" rel="stylesheet" async>
-			<link rel="stylesheet" href="/assets/vuetify.css">
-			<script src='/assets/vue.js'></script>
-		`)
-
-		ctx.Injector.TailHTML(fmt.Sprintf("%s %s", vuetifyJSTags, coreJSTags))
-		ctx.Injector.HeadHTML(`
-		<style>
-			[v-cloak] {
-				display: none;
-			}
-		</style>
-		`)
-
-		var innerPr web.PageResponse
-		innerPr, err = in(ctx)
-		if err != nil {
-			panic(err)
-		}
-
-		pr.Body = VApp(
-			VMain(
-				innerPr.Body,
-			),
-		)
-
-		return
-	}
-}
-
-// @snippet_end
-
-func Mux(mux *http.ServeMux, prefix string) http.Handler {
-
-	mux.Handle("/assets/main.js",
-		web.PacksHandler("text/javascript",
-			web.JSComponentsPack(),
-		),
-	)
-
-	mux.Handle("/assets/vue.js",
-		web.PacksHandler("text/javascript",
-			web.JSVueComponentsPack(),
-		),
-	)
-
-	mux.Handle("/assets/vuetify.js",
-		web.PacksHandler("text/javascript",
-			Vuetify(""),
-			JSComponentsPack(),
-			// vuetifyx.JSComponentsPack(),
-		),
-	)
-
-	mux.Handle("/assets/vuetify.css",
-		web.PacksHandler("text/css",
-			CSSComponentsPack(),
-		),
-	)
-	mux.Handle("/assets/vuetifyx.js",
-		web.PacksHandler("text/javascript",
-			vuetifyx.JSComponentsPack(),
-		),
-	)
-
-	mux.HandleFunc("/favicon.ico", func(w http.ResponseWriter, r *http.Request) {
-		w.Write(assets.Favicon)
-		return
-	})
-
-	return mux
-}
-
-type muxer interface {
-	Handle(pattern string, handler http.Handler)
-}
-
-func SamplesHandler(mux muxer, prefix string) {
-
-	addGA := web_vuetify_mux.AddGA
+	addGA := mux_web_vuetify.AddGA
 	// @snippet_begin(MountPresetHelloWorldSample)
 	c00 := presets.New().AssetFunc(addGA)
 	presets_examples.PresetsHelloWorld(c00)

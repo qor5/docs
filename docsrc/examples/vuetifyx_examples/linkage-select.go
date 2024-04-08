@@ -1,4 +1,4 @@
-package e24_vuetify_components_linkage_select
+package vuetifyx_examples
 
 // @snippet_begin(VuetifyComponentsLinkageSelect)
 

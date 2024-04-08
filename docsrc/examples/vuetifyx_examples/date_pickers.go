@@ -28,8 +28,8 @@ func VuetifyxDatePickers(ctx *web.EventContext) (pr web.PageResponse, err error)
 	return
 }
 
-var VuetifyxDatePickersPB = web.Page(VuetifyxDatePickers)
+var DatePickersPB = web.Page(VuetifyxDatePickers)
 
-const VuetifyxDatePickersPath = "/samples/vuetifyx_date_pickers"
+const DatePickersPath = "/samples/vuetifyx_date_pickers"
 
 // @snippet_end

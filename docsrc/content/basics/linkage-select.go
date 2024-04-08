@@ -1,8 +1,8 @@
 package basics
 
 import (
-	"github.com/qor5/docs/docsrc/examples/e24_vuetify_components_linkage_select"
 	"github.com/qor5/docs/docsrc/examples/presets_examples"
+	"github.com/qor5/docs/docsrc/examples/vuetifyx_examples"
 	"github.com/qor5/docs/docsrc/generated"
 	"github.com/qor5/docs/docsrc/utils"
 	. "github.com/theplant/docgo"
@@ -14,7 +14,7 @@ var LinkageSelect = Doc(
 LinkageSelect is a component for multi-level linkage select.
     `),
 	ch.Code(generated.VuetifyComponentsLinkageSelect).Language("go"),
-	utils.Demo("Vuetify LinkageSelect", e24_vuetify_components_linkage_select.VuetifyComponentsLinkageSelectPath, "e24_vuetify_components_linkage_select/page.go"),
+	utils.Demo("Vuetify LinkageSelect", vuetifyx_examples.VuetifyComponentsLinkageSelectPath, "e24_vuetify_components_linkage_select/page.go"),
 	Markdown(`
 ### Filter intergation
     `),
