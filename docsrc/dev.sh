@@ -1,5 +1,5 @@
 goModPath(){
-    echo $GOPATH/pkg/mod/$(grep --color=never "\t$1" ../go.mod | awk -F ' ' '{print $1"@"$2}')
+    go list -m -json $1 | jq -r '.Dir'
 }
 
 snippetDirs=(
@@ -9,7 +9,7 @@ snippetDirs=(
   $(goModPath github.com/qor5/ui)
   $(goModPath github.com/qor5/admin)
 )
-
+echo "${snippetDirs[@]}"
 rm -rf ./generated/*
 gi=1
 for d in "${snippetDirs[@]}"
@@ -25,7 +25,7 @@ go run ./build/main.go
 function docsRestart() {
   echo "=================>"
   killall docgodocs
-  go build -o /tmp/docgodocs ./server/main.go && /tmp/docgodocs
+  go build -o /tmp/docgodocs ./examples/server/main.go && /tmp/docgodocs
 }
 
 export -f docsRestart

@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/qor5/docs/docsrc/examples"
+	"github.com/qor5/docs/docsrc/examples/mux_admin"
 	"net/http"
 	"os"
 	"time"
@@ -30,7 +30,7 @@ func main() {
 
 	// @snippet_begin(HelloWorldMainSample)
 	fmt.Println("Starting docs at :" + port)
-	err = http.ListenAndServe(":"+port, examples.Mux(mux, "/"))
+	err = http.ListenAndServe(":"+port, mux_admin.Mux(mux, "/"))
 	if err != nil {
 		panic(err)
 	}

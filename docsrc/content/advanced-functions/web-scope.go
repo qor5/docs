@@ -1,7 +1,7 @@
 package advanced_functions
 
 import (
-	"github.com/qor5/docs/docsrc/examples/web_examples"
+	"github.com/qor5/docs/docsrc/examples/examples_web"
 	"github.com/qor5/docs/docsrc/generated"
 	"github.com/qor5/docs/docsrc/utils"
 	. "github.com/theplant/docgo"
@@ -19,7 +19,7 @@ We pre-set the "locals" object as a reactive object, and then we can initialize 
 For example:
 `),
 	ch.Code(generated.WebScopeUseLocalsSample1).Language("go"),
-	utils.Demo("Web Scope Use Locals", web_examples.WebScopeUseLocalsPagePath, "e00_basics/web-scope.go"),
+	utils.Demo("Web Scope Use Locals", examples_web.WebScopeUseLocalsPagePath, "e00_basics/web-scope.go"),
 	Markdown(`
 Use ~web.Scope()~ to determine the effective scope of the variable, then use ~.Init(...).VSlot("{ locals }")~ to initialize the variable and slot it into the ~locals~ object.
 
@@ -42,7 +42,7 @@ In this way, you can submit ~Raw Material ID~ directly in the ~Material Form~.
 For example:
 `),
 	ch.Code(generated.WebScopeUsePlaidFormSample1).Language("go"),
-	utils.Demo("Web Scope Use PlaidForm", web_examples.WebScopeUsePlaidFormPagePath, "e00_basics/web-scope.go"),
+	utils.Demo("Web Scope Use PlaidForm", examples_web.WebScopeUsePlaidFormPagePath, "e00_basics/web-scope.go"),
 	Markdown(`
 Use ~web.Scope().VSlot("{ plaidForm }")~ to determine the scope of a form.
 `),

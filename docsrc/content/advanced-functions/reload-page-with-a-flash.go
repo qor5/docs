@@ -1,7 +1,7 @@
 package advanced_functions
 
 import (
-	"github.com/qor5/docs/docsrc/examples/web_examples"
+	"github.com/qor5/docs/docsrc/examples/examples_web"
 	"github.com/qor5/docs/docsrc/generated"
 	"github.com/qor5/docs/docsrc/utils"
 	. "github.com/theplant/docgo"
@@ -19,7 +19,7 @@ The results of an ~web.EventFunc~ could be:
 Let's demonstrate reload the whole current page:
 `),
 	ch.Code(generated.ReloadWithFlashSample).Language("go"),
-	utils.Demo("Reload Page With a Flash", web_examples.ReloadWithFlashPath, "e00_basics/reload-with-a-flash.go"),
+	utils.Demo("Reload Page With a Flash", examples_web.ReloadWithFlashPath, "e00_basics/reload-with-a-flash.go"),
 	Markdown(`
 ~ctx.Flash~ Object is used to pass data between ~web.EventFunc~ to ~web.PageFunc~ just after the event func is executed. quite similar to [Rails's Flash](https://api.rubyonrails.org/classes/ActionDispatch/Flash.html).
 Different is here you can pass in any complicated struct. as long as the page func to use that flash properly.

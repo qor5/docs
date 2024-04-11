@@ -1,7 +1,7 @@
 package basics
 
 import (
-	"github.com/qor5/docs/docsrc/examples/web_examples"
+	"github.com/qor5/docs/docsrc/examples/examples_web"
 	"github.com/qor5/docs/docsrc/generated"
 	"github.com/qor5/docs/docsrc/utils"
 	. "github.com/theplant/docgo"
@@ -17,7 +17,7 @@ is just to give an input a name.
 For example:
 `),
 	ch.Code(generated.FormHandlingSample).Language("go"),
-	utils.Demo("Form Handling", web_examples.FormHandlingPagePath, "e00_basics/form-handling.go"),
+	utils.Demo("Form Handling", examples_web.FormHandlingPagePath, "e00_basics/form-handling.go"),
 	Markdown(`
 Use ~.Attr(web.VFieldName("Abc")...)~ to set the field name, make the name matches your data struct field name.
 So that you can ~ctx.UnmarshalForm(&fv)~ to set the values to data object. value of input must be set manually to set the initial value of form field.

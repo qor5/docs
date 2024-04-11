@@ -2,8 +2,8 @@ package mux_vuetifyx
 
 import (
 	"github.com/qor5/docs/docsrc/assets"
+	"github.com/qor5/docs/docsrc/examples/examples_vuetifyx"
 	"github.com/qor5/docs/docsrc/examples/mux_web_vuetify"
-	"github.com/qor5/docs/docsrc/examples/vuetifyx_examples"
 	. "github.com/qor5/ui/vuetify"
 	"github.com/qor5/ui/vuetifyx"
 	"github.com/qor5/web"
@@ -44,24 +44,24 @@ func Mux(mux *http.ServeMux, prefix string) http.Handler {
 func SamplesHandler(mux mux_web_vuetify.Muxer, prefix string) {
 
 	mux.Handle(
-		vuetifyx_examples.VuetifyComponentsLinkageSelectPath,
-		vuetifyx_examples.VuetifyComponentsLinkageSelectPB.Wrap(mux_web_vuetify.DemoVuetifyLayout),
+		examples_vuetifyx.VuetifyComponentsLinkageSelectPath,
+		examples_vuetifyx.VuetifyComponentsLinkageSelectPB.Wrap(mux_web_vuetify.DemoVuetifyLayout),
 	)
 	mux.Handle(
-		vuetifyx_examples.ExpansionPanelDemoPath,
-		vuetifyx_examples.ExpansionPanelDemoPB.Wrap(mux_web_vuetify.DemoVuetifyLayout),
+		examples_vuetifyx.ExpansionPanelDemoPath,
+		examples_vuetifyx.ExpansionPanelDemoPB.Wrap(mux_web_vuetify.DemoVuetifyLayout),
 	)
 	mux.Handle(
-		vuetifyx_examples.KeyInfoDemoPath,
-		vuetifyx_examples.KeyInfoDemoPB.Wrap(mux_web_vuetify.DemoVuetifyLayout),
+		examples_vuetifyx.KeyInfoDemoPath,
+		examples_vuetifyx.KeyInfoDemoPB.Wrap(mux_web_vuetify.DemoVuetifyLayout),
 	)
 	mux.Handle(
-		vuetifyx_examples.FilterDemoPath,
-		vuetifyx_examples.FilterDemoPB.Wrap(mux_web_vuetify.DemoVuetifyLayout),
+		examples_vuetifyx.FilterDemoPath,
+		examples_vuetifyx.FilterDemoPB.Wrap(mux_web_vuetify.DemoVuetifyLayout),
 	)
 	mux.Handle(
-		vuetifyx_examples.DatePickersPath,
-		vuetifyx_examples.DatePickersPB.Wrap(mux_web_vuetify.DemoVuetifyLayout),
+		examples_vuetifyx.DatePickersPath,
+		examples_vuetifyx.DatePickersPB.Wrap(mux_web_vuetify.DemoVuetifyLayout),
 	)
 
 	return

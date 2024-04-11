@@ -78,7 +78,6 @@ var DocTree = []interface{}{
 			advanced_functions.ATasteOfUsingVuetifyInGo,
 			// vuetifyx
 			basics.LinkageSelect,
-			basics.AutoComplete,
 			// build ui component
 			digging_deeper.CompositeNewComponentWithGo,
 			digging_deeper.IntegrateAHeavyVueComponent,

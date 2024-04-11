@@ -15,10 +15,11 @@
 
 <body>
 <div id='app' v-cloak>
-<div v-init-context:vars='{hideAside: false}' class='flex h-screen'>
+<go-plaid-scope v-slot='{ locals }' :init='{hideAside: false}'>
+<div class='flex h-screen'>
 <div class='flex-1 flex flex-col overflow-hidden'>
 <div class='flex h-full'>
-<aside v-show='!vars.hideAside' id='menuScroller' class='flex flex-col w-80 h-full bg-gray-50 border-r border-gray-200 overflow-y-auto'>
+<aside v-if='!locals.hideAside' id='menuScroller' class='flex flex-col w-80 h-full bg-gray-50 border-r border-gray-200 overflow-y-auto'>
 <div class='h-12'><search></search></div>
 
 <ul class='px-0 py-3 mx-0 text-base font-normal list-none text-gray-700'>
@@ -187,10 +188,6 @@
 </li>
 
 <li class='m-0'>
-<a href='vuetify-components/auto-complete.html' id='vuetify-components/auto-complete.html' onclick='window.storeMenuState("vuetify-components/auto-complete.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Auto Complete</a>
-</li>
-
-<li class='m-0'>
 <a href='components-guide/composite-new-component-with-go.html' id='components-guide/composite-new-component-with-go.html' onclick='window.storeMenuState("components-guide/composite-new-component-with-go.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Composite new Component With Go</a>
 </li>
 
@@ -210,7 +207,7 @@
 <div id='docContentBox' class='flex flex-row w-full'>
 <div class='flex flex-grow flex-col w-2/3'>
 <div class='flex flex-row'>
-<button @click='vars.hideAside = !vars.hideAside' class='w-12 h-12 p-4'>
+<button @click='locals.hideAside = !locals.hideAside' class='w-12 h-12 p-4'>
 <div class='w-4 h-4 fill-current text-gray-300'>
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" height="16px" viewBox="0 0 16 16" version="1.1">
@@ -243,7 +240,7 @@ event func needs a name to be used by <code>web.POST().EventFunc(name).Go()</cod
 </div>
 <p>Note that you have to mount the <code>web.Page(...)</code> instance to http.ServeMux with a path to be able to access the <code>PageFunc</code> in your browser, when mounting you can also wrap the <code>PageFunc</code> with middleware, which is <code>func(in PageFunc) (out PageFunc)</code> a func that take a page func and do some wrapping and return a new page func</p>
 
-<highlightjs :language='"go"' :code='"mux.Handle(\n\te00_basics.HelloWorldReloadPath,\n\te00_basics.HelloWorldReloadPB.Wrap(demoLayout),\n)"'></highlightjs>
+<highlightjs :language='"go"' :code='"mux.Handle(\n\texamples_web.HelloWorldReloadPath,\n\texamples_web.HelloWorldReloadPB.Wrap(demoLayout),\n)"'></highlightjs>
 <p><code>wb.Page(...)</code> convert any <code>PageFunc</code> into <code>http.Handler</code>, outside you can wrap any middleware that can use on Go standard <code>http.Handler</code>.</p>
 <p>In case you don&#39;t know what is a http.Handler middleware,
 It&#39;s a function that takes http.Handler as input, might also with other parameters,
@@ -268,6 +265,7 @@ continue to next page to checkout how to add necessary javascript, css etc to ma
 </div>
 </div>
 </div>
+</go-plaid-scope>
 </div>
 </body>
 </html>

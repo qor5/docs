@@ -15,10 +15,11 @@
 
 <body>
 <div id='app' v-cloak>
-<div v-init-context:vars='{hideAside: false}' class='flex h-screen'>
+<go-plaid-scope v-slot='{ locals }' :init='{hideAside: false}'>
+<div class='flex h-screen'>
 <div class='flex-1 flex flex-col overflow-hidden'>
 <div class='flex h-full'>
-<aside v-show='!vars.hideAside' id='menuScroller' class='flex flex-col w-80 h-full bg-gray-50 border-r border-gray-200 overflow-y-auto'>
+<aside v-if='!locals.hideAside' id='menuScroller' class='flex flex-col w-80 h-full bg-gray-50 border-r border-gray-200 overflow-y-auto'>
 <div class='h-12'><search></search></div>
 
 <ul class='px-0 py-3 mx-0 text-base font-normal list-none text-gray-700'>
@@ -187,10 +188,6 @@
 </li>
 
 <li class='m-0'>
-<a href='vuetify-components/auto-complete.html' id='vuetify-components/auto-complete.html' onclick='window.storeMenuState("vuetify-components/auto-complete.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Auto Complete</a>
-</li>
-
-<li class='m-0'>
 <a href='components-guide/composite-new-component-with-go.html' id='components-guide/composite-new-component-with-go.html' onclick='window.storeMenuState("components-guide/composite-new-component-with-go.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Composite new Component With Go</a>
 </li>
 
@@ -210,7 +207,7 @@
 <div id='docContentBox' class='flex flex-row w-full'>
 <div class='flex flex-grow flex-col w-2/3'>
 <div class='flex flex-row'>
-<button @click='vars.hideAside = !vars.hideAside' class='w-12 h-12 p-4'>
+<button @click='locals.hideAside = !locals.hideAside' class='w-12 h-12 p-4'>
 <div class='w-4 h-4 fill-current text-gray-300'>
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" height="16px" viewBox="0 0 16 16" version="1.1">
@@ -263,7 +260,7 @@ The <code>obj</code> is the <code>Post</code> record, and <code>field</code> is 
 <highlightjs :language='"go"' :code='"rmn := postModelBuilder.Listing().RowMenu()\nrmn.RowMenuItem(\"Show\").ComponentFunc(func(obj interface{}, id string, ctx *web.EventContext) h.HTMLComponent {\n\treturn h.Text(\"Fake Show\")\n})\n"'></highlightjs>
 <h2><a name="full-example" class="anchor" href="#full-example" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Full Example</h2>
 
-<highlightjs :language='"go"' :code='"\ntype Post struct {\n\tID        uint\n\tTitle     string\n\tBody      string\n\tUpdatedAt time.Time\n\tCreatedAt time.Time\n\tDisabled  bool\n\n\tStatus string\n\n\tCategoryID uint\n}\n\ntype Category struct {\n\tID   uint\n\tName string\n\n\tUpdatedAt time.Time\n\tCreatedAt time.Time\n}\n\nfunc ListingSample(b *presets.Builder) {\n\tdb := DB\n\n\t// Setup the project name, ORM and Homepage\n\tb.URIPrefix(ListingSamplePath).DataOperator(gorm2op.DataOperator(db))\n\n\t// Register Post into the builder\n\t// Use m to customize the model, Or config more models here.\n\tpostModelBuilder := b.Model(\u0026Post{})\n\tpostModelBuilder.Listing(\"ID\", \"Title\", \"Body\", \"CategoryID\", \"VirtualField\")\n\n\tpostModelBuilder.Listing().Searcher = func(model interface{}, params *presets.SearchParams, ctx *web.EventContext) (r interface{}, totalCount int, err error) {\n\t\tqdb := db.Where(\"disabled != true\")\n\t\treturn gorm2op.DataOperator(qdb).Search(model, params, ctx)\n\t}\n\n\trmn := postModelBuilder.Listing().RowMenu()\n\trmn.RowMenuItem(\"Show\").ComponentFunc(func(obj interface{}, id string, ctx *web.EventContext) h.HTMLComponent {\n\t\treturn v.VListItem(\n\t\t\tv.VListItemIcon(v.VIcon(\"menu\")),\n\t\t\tv.VListItemTitle(h.Text(\"Show\")),\n\t\t)\n\t})\n\n\tpostModelBuilder.Listing().ActionsAsMenu(true)\n\n\tpostModelBuilder.Editing().Field(\"CategoryID\").ComponentFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) h.HTMLComponent {\n\t\tcategories := []Category{}\n\t\tif err := db.Find(\u0026categories).Error; err != nil {\n\t\t\t// ignore err for now\n\t\t}\n\n\t\treturn v.VAutocomplete().Chips(true).FieldName(field.Name).Label(field.Label).Value(field.Value(obj)).Items(categories).ItemText(\"Name\").ItemValue(\"ID\")\n\t})\n\n\tpostModelBuilder.Listing().Field(\"CategoryID\").Label(\"Category\").ComponentFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) h.HTMLComponent {\n\t\tc := Category{}\n\t\tcid, _ := field.Value(obj).(uint)\n\t\tif err := db.Where(\"id = ?\", cid).Find(\u0026c).Error; err != nil {\n\t\t\t// ignore err in the example\n\t\t}\n\t\treturn h.Td(h.Text(c.Name))\n\t})\n\n\tpostModelBuilder.Listing().Field(\"VirtualField\").ComponentFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) h.HTMLComponent {\n\t\treturn h.Td(h.Text(\"virtual field\"))\n\t})\n\n\tb.Model(\u0026Category{})\n\t// Use m to customize the model, Or config more models here.\n\treturn\n}\n"'></highlightjs>
+<highlightjs :language='"go"' :code='"\ntype Post struct {\n\tID        uint\n\tTitle     string\n\tBody      string\n\tUpdatedAt time.Time\n\tCreatedAt time.Time\n\tDisabled  bool\n\n\tStatus string\n\n\tCategoryID uint\n}\n\ntype Category struct {\n\tID   uint\n\tName string\n\n\tUpdatedAt time.Time\n\tCreatedAt time.Time\n}\n\nfunc ListingSample(b *presets.Builder) {\n\tdb := DB\n\n\t// Setup the project name, ORM and Homepage\n\tb.URIPrefix(ListingSamplePath).DataOperator(gorm2op.DataOperator(db))\n\n\t// Register Post into the builder\n\t// Use m to customize the model, Or config more models here.\n\tpostModelBuilder := b.Model(\u0026Post{})\n\tpostModelBuilder.Listing(\"ID\", \"Title\", \"Body\", \"CategoryID\", \"VirtualField\")\n\n\tpostModelBuilder.Listing().Searcher = func(model interface{}, params *presets.SearchParams, ctx *web.EventContext) (r interface{}, totalCount int, err error) {\n\t\tqdb := db.Where(\"disabled != true\")\n\t\treturn gorm2op.DataOperator(qdb).Search(model, params, ctx)\n\t}\n\n\trmn := postModelBuilder.Listing().RowMenu()\n\trmn.RowMenuItem(\"Show\").ComponentFunc(func(obj interface{}, id string, ctx *web.EventContext) h.HTMLComponent {\n\t\treturn v.VListItem(\n\n\t\t\th.Template(\n\t\t\t\tv.VIcon(\"mdi-menu\"),\n\t\t\t).Name(\"prepend\"),\n\t\t\tv.VListItemTitle(h.Text(\"Show\")),\n\t\t)\n\t})\n\n\tpostModelBuilder.Listing().ActionsAsMenu(true)\n\n\tpostModelBuilder.Editing().Field(\"CategoryID\").ComponentFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) h.HTMLComponent {\n\t\tcategories := []Category{}\n\t\tif err := db.Find(\u0026categories).Error; err != nil {\n\t\t\t// ignore err for now\n\t\t}\n\n\t\treturn v.VAutocomplete().\n\t\t\tChips(true).\n\t\t\tAttr(web.VField(field.Name, field.Value(obj))).Label(field.Label).\n\t\t\tItems(categories).\n\t\t\tItemTitle(\"Name\").\n\t\t\tItemValue(\"ID\")\n\t})\n\n\tpostModelBuilder.Listing().Field(\"CategoryID\").Label(\"Category\").ComponentFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) h.HTMLComponent {\n\t\tc := Category{}\n\t\tcid, _ := field.Value(obj).(uint)\n\t\tif err := db.Where(\"id = ?\", cid).Find(\u0026c).Error; err != nil {\n\t\t\t// ignore err in the example\n\t\t}\n\t\treturn h.Td(h.Text(c.Name))\n\t})\n\n\tpostModelBuilder.Listing().Field(\"VirtualField\").ComponentFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) h.HTMLComponent {\n\t\treturn h.Td(h.Text(\"virtual field\"))\n\t})\n\n\tb.Model(\u0026Category{})\n\t// Use m to customize the model, Or config more models here.\n\treturn\n}\n"'></highlightjs>
 
 <div>
 <div class='demo'>
@@ -284,6 +281,7 @@ The <code>obj</code> is the <code>Post</code> record, and <code>field</code> is 
 </div>
 </div>
 </div>
+</go-plaid-scope>
 </div>
 </body>
 </html>

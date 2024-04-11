@@ -15,10 +15,11 @@
 
 <body>
 <div id='app' v-cloak>
-<div v-init-context:vars='{hideAside: false}' class='flex h-screen'>
+<go-plaid-scope v-slot='{ locals }' :init='{hideAside: false}'>
+<div class='flex h-screen'>
 <div class='flex-1 flex flex-col overflow-hidden'>
 <div class='flex h-full'>
-<aside v-show='!vars.hideAside' id='menuScroller' class='flex flex-col w-80 h-full bg-gray-50 border-r border-gray-200 overflow-y-auto'>
+<aside v-if='!locals.hideAside' id='menuScroller' class='flex flex-col w-80 h-full bg-gray-50 border-r border-gray-200 overflow-y-auto'>
 <div class='h-12'><search></search></div>
 
 <ul class='px-0 py-3 mx-0 text-base font-normal list-none text-gray-700'>
@@ -187,10 +188,6 @@
 </li>
 
 <li class='m-0'>
-<a href='vuetify-components/auto-complete.html' id='vuetify-components/auto-complete.html' onclick='window.storeMenuState("vuetify-components/auto-complete.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Auto Complete</a>
-</li>
-
-<li class='m-0'>
 <a href='components-guide/composite-new-component-with-go.html' id='components-guide/composite-new-component-with-go.html' onclick='window.storeMenuState("components-guide/composite-new-component-with-go.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-blue-500'>Composite new Component With Go</a>
 </li>
 
@@ -210,7 +207,7 @@
 <div id='docContentBox' class='flex flex-row w-full'>
 <div class='flex flex-grow flex-col w-2/3'>
 <div class='flex flex-row'>
-<button @click='vars.hideAside = !vars.hideAside' class='w-12 h-12 p-4'>
+<button @click='locals.hideAside = !locals.hideAside' class='w-12 h-12 p-4'>
 <div class='w-4 h-4 fill-current text-gray-300'>
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" height="16px" viewBox="0 0 16 16" version="1.1">
@@ -249,7 +246,7 @@ By utilizing the power of Go language, Any component can be abstracted and reuse
 
 <p>For this <code>Navbar</code> component to work, I have to import Bootstrap assets in this new layout function:</p>
 
-<highlightjs :language='"go"' :code='"func demoBootstrapLayout(in web.PageFunc) (out web.PageFunc) {\n\treturn func(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\t\taddGA(ctx)\n\n\t\tctx.Injector.HeadHTML(`\n\u003clink rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css\" integrity=\"sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T\" crossorigin=\"anonymous\"\u003e\n\u003cscript src=&#39;/assets/vue.js&#39;\u003e\u003c/script\u003e\n\t\t`)\n\n\t\tctx.Injector.TailHTML(`\n\u003cscript src=\"https://code.jquery.com/jquery-3.3.1.slim.min.js\" integrity=\"sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo\" crossorigin=\"anonymous\"\u003e\u003c/script\u003e\n\u003cscript src=\"https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js\" integrity=\"sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1\" crossorigin=\"anonymous\"\u003e\u003c/script\u003e\n\u003cscript src=\"https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js\" integrity=\"sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM\" crossorigin=\"anonymous\"\u003e\u003c/script\u003e\n\u003cscript src=&#39;/assets/main.js&#39;\u003e\u003c/script\u003e\n\n`)\n\t\tctx.Injector.HeadHTML(`\n\t\t\u003cstyle\u003e\n\t\t\t[v-cloak] {\n\t\t\t\tdisplay: none;\n\t\t\t}\n\t\t\u003c/style\u003e\n\t\t`)\n\n\t\tvar innerPr web.PageResponse\n\t\tinnerPr, err = in(ctx)\n\t\tif err != nil {\n\t\t\tpanic(err)\n\t\t}\n\n\t\tpr.Body = innerPr.Body\n\n\t\treturn\n\t}\n}\n"'></highlightjs>
+<highlightjs :language='"go"' :code='"func demoBootstrapLayout(in web.PageFunc) (out web.PageFunc) {\n\treturn func(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\t\tAddGA(ctx)\n\n\t\tctx.Injector.HeadHTML(`\n\u003clink rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css\" integrity=\"sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T\" crossorigin=\"anonymous\"\u003e\n\u003cscript src=&#39;/assets/vue.js&#39;\u003e\u003c/script\u003e\n\t\t`)\n\n\t\tctx.Injector.TailHTML(`\n\u003cscript src=\"https://code.jquery.com/jquery-3.3.1.slim.min.js\" integrity=\"sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo\" crossorigin=\"anonymous\"\u003e\u003c/script\u003e\n\u003cscript src=\"https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js\" integrity=\"sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1\" crossorigin=\"anonymous\"\u003e\u003c/script\u003e\n\u003cscript src=\"https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js\" integrity=\"sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM\" crossorigin=\"anonymous\"\u003e\u003c/script\u003e\n\u003cscript src=&#39;/assets/main.js&#39;\u003e\u003c/script\u003e\n\n`)\n\t\tctx.Injector.HeadHTML(`\n\t\t\u003cstyle\u003e\n\t\t\t[v-cloak] {\n\t\t\t\tdisplay: none;\n\t\t\t}\n\t\t\u003c/style\u003e\n\t\t`)\n\n\t\tvar innerPr web.PageResponse\n\t\tinnerPr, err = in(ctx)\n\t\tif err != nil {\n\t\t\tpanic(err)\n\t\t}\n\n\t\tpr.Body = innerPr.Body\n\n\t\treturn\n\t}\n}\n"'></highlightjs>
 <p>You can utilize the command line tool <a href="https://github.com/sunfmin/html2go" rel="nofollow">html2go</a> to convert existing html code to htmlgo code.
 By writing html in Go you get:</p>
 
@@ -276,6 +273,7 @@ By writing html in Go you get:</p>
 </div>
 </div>
 </div>
+</go-plaid-scope>
 </div>
 </body>
 </html>

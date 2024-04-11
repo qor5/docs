@@ -15,10 +15,11 @@
 
 <body>
 <div id='app' v-cloak>
-<div v-init-context:vars='{hideAside: false}' class='flex h-screen'>
+<go-plaid-scope v-slot='{ locals }' :init='{hideAside: false}'>
+<div class='flex h-screen'>
 <div class='flex-1 flex flex-col overflow-hidden'>
 <div class='flex h-full'>
-<aside v-show='!vars.hideAside' id='menuScroller' class='flex flex-col w-80 h-full bg-gray-50 border-r border-gray-200 overflow-y-auto'>
+<aside v-if='!locals.hideAside' id='menuScroller' class='flex flex-col w-80 h-full bg-gray-50 border-r border-gray-200 overflow-y-auto'>
 <div class='h-12'><search></search></div>
 
 <ul class='px-0 py-3 mx-0 text-base font-normal list-none text-gray-700'>
@@ -187,10 +188,6 @@
 </li>
 
 <li class='m-0'>
-<a href='vuetify-components/auto-complete.html' id='vuetify-components/auto-complete.html' onclick='window.storeMenuState("vuetify-components/auto-complete.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Auto Complete</a>
-</li>
-
-<li class='m-0'>
 <a href='components-guide/composite-new-component-with-go.html' id='components-guide/composite-new-component-with-go.html' onclick='window.storeMenuState("components-guide/composite-new-component-with-go.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Composite new Component With Go</a>
 </li>
 
@@ -210,7 +207,7 @@
 <div id='docContentBox' class='flex flex-row w-full'>
 <div class='flex flex-grow flex-col w-2/3'>
 <div class='flex flex-row'>
-<button @click='vars.hideAside = !vars.hideAside' class='w-12 h-12 p-4'>
+<button @click='locals.hideAside = !locals.hideAside' class='w-12 h-12 p-4'>
 <div class='w-4 h-4 fill-current text-gray-300'>
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" height="16px" viewBox="0 0 16 16" version="1.1">
@@ -265,7 +262,7 @@ The default http request method is <code>Post</code>, if you want to use the <co
 </h2>
 <p>Refresh page.</p>
 
-<highlightjs :language='"go"' :code='"func EventHandlingReload(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\tpr.Body = Div(\n\t\tVCard(\n\t\t\tVCardTitle(Text(\"Reload\")),\n\t\t\tText(fmt.Sprintf(\"Now: %s\", time.Now().Format(time.RFC3339Nano))),\n\t\t\tVCardActions(VBtn(\"Reload\").Attr(\"@click\", web.POST().Reload().Go())),\n\t\t),\n\t)\n\treturn\n}\n"'></highlightjs>
+<highlightjs :language='"go"' :code='"func EventHandlingReload(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\tpr.Body = VContainer(\n\t\tVCard(\n\t\t\tVCardTitle(Text(\"Reload\")),\n\t\t\tText(fmt.Sprintf(\"Now: %s\", time.Now().Format(time.RFC3339Nano))),\n\t\t\tVCardActions(VBtn(\"Reload\").Attr(\"@click\", web.POST().Reload().Go())),\n\t\t),\n\t)\n\treturn\n}\n"'></highlightjs>
 
 <div>
 <div class='demo'>
@@ -280,7 +277,7 @@ The default http request method is <code>Post</code>, if you want to use the <co
 </h2>
 <p>Request a page with a query.</p>
 
-<highlightjs :language='"go"' :code='"func EventHandlingQuery(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\tpr.Body = Div(\n\t\tVCard(\n\t\t\tVCardTitle(Text(\"Query\")),\n\t\t\tVCardActions(VBtn(\"Go\").Attr(\"@click\", web.GET().URL(EventExamplePagePath).PushState(true).Query(\"address\", \"tokyo\").Go())),\n\t\t),\n\t)\n\treturn\n}\n"'></highlightjs>
+<highlightjs :language='"go"' :code='"func EventHandlingQuery(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\tpr.Body = VContainer(\n\t\tVCard(\n\t\t\tVCardTitle(Text(\"Query\")),\n\t\t\tVCardActions(VBtn(\"Go\").Attr(\"@click\", web.GET().URL(EventExamplePagePath).PushState(true).Query(\"address\", \"tokyo\").Go())),\n\t\t),\n\t)\n\treturn\n}\n"'></highlightjs>
 
 <div>
 <div class='demo'>
@@ -295,7 +292,7 @@ The default http request method is <code>Post</code>, if you want to use the <co
 </h2>
 <p>Request a page with merging a query.</p>
 
-<highlightjs :language='"go"' :code='"func EventHandlingMergeQuery(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\tpr.Body = Div(\n\t\tVCard(\n\t\t\tVCardTitle(Text(\"MergeQuery\")),\n\t\t\tVCardActions(VBtn(\"Go\").Attr(\"@click\", web.GET().URL(EventExamplePagePath+\"?address=beijing\u0026name=qor5\u0026email=qor5@theplant.jp\").PushState(true).Query(\"address\", \"tokyo\").MergeQuery(true).Go())),\n\t\t),\n\t)\n\treturn\n}\n"'></highlightjs>
+<highlightjs :language='"go"' :code='"func EventHandlingMergeQuery(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\tpr.Body = VContainer(\n\t\tVCard(\n\t\t\tVCardTitle(Text(\"MergeQuery\")),\n\t\t\tVCardActions(VBtn(\"Go\").Attr(\"@click\", web.GET().URL(EventExamplePagePath+\"?address=beijing\u0026name=qor5\u0026email=qor5@theplant.jp\").PushState(true).Query(\"address\", \"tokyo\").MergeQuery(true).Go())),\n\t\t),\n\t)\n\treturn\n}\n"'></highlightjs>
 
 <div>
 <div class='demo'>
@@ -310,7 +307,7 @@ The default http request method is <code>Post</code>, if you want to use the <co
 </h2>
 <p>Request a page with clearing a query.</p>
 
-<highlightjs :language='"go"' :code='"func EventHandlingClearMergeQueryQuery(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\tpr.Body = Div(\n\t\tVCard(\n\t\t\tVCardTitle(Text(\"ClearMergeQuery\")),\n\t\t\tVCardActions(VBtn(\"Go\").Attr(\"@click\", web.GET().URL(EventExamplePagePath+\"?address=beijing\u0026name=qor5\u0026email=qor5@theplant.jp\").PushState(true).Query(\"address\", \"tokyo\").ClearMergeQuery([]string{\"name\"}).Go())),\n\t\t),\n\t)\n\treturn\n}\n"'></highlightjs>
+<highlightjs :language='"go"' :code='"func EventHandlingClearMergeQueryQuery(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\tpr.Body = VContainer(\n\t\tVCard(\n\t\t\tVCardTitle(Text(\"ClearMergeQuery\")),\n\t\t\tVCardActions(VBtn(\"Go\").Attr(\"@click\", web.GET().URL(EventExamplePagePath+\"?address=beijing\u0026name=qor5\u0026email=qor5@theplant.jp\").PushState(true).Query(\"address\", \"tokyo\").ClearMergeQuery([]string{\"name\"}).Go())),\n\t\t),\n\t)\n\treturn\n}\n"'></highlightjs>
 
 <div>
 <div class='demo'>
@@ -325,7 +322,7 @@ The default http request method is <code>Post</code>, if you want to use the <co
 </h2>
 <p>Request a page with a query string.</p>
 
-<highlightjs :language='"go"' :code='"func EventHandlingStringQuery(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\tpr.Body = Div(\n\t\tVCard(\n\t\t\tVCardTitle(Text(\"StringQuery\")),\n\t\t\tVCardActions(VBtn(\"Go\").Attr(\"@click\", web.GET().URL(EventExamplePagePath).PushState(true).StringQuery(\"address=tokyo\").Go())),\n\t\t),\n\t)\n\treturn\n}\n"'></highlightjs>
+<highlightjs :language='"go"' :code='"func EventHandlingStringQuery(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\tpr.Body = VContainer(\n\t\tVCard(\n\t\t\tVCardTitle(Text(\"StringQuery\")),\n\t\t\tVCardActions(VBtn(\"Go\").Attr(\"@click\", web.GET().URL(EventExamplePagePath).PushState(true).StringQuery(\"address=tokyo\").Go())),\n\t\t),\n\t)\n\treturn\n}\n"'></highlightjs>
 
 <div>
 <div class='demo'>
@@ -340,7 +337,7 @@ The default http request method is <code>Post</code>, if you want to use the <co
 </h2>
 <p>Request a page with url.Values.</p>
 
-<highlightjs :language='"go"' :code='"func EventHandlingQueries(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\tpr.Body = Div(\n\t\tVCard(\n\t\t\tVCardTitle(Text(\"Queries\")),\n\t\t\tVCardActions(VBtn(\"Go\").Attr(\"@click\", web.GET().URL(EventExamplePagePath).PushState(true).Queries(url.Values{\"address\": []string{\"tokyo\"}}).Go())),\n\t\t),\n\t)\n\treturn\n}\n"'></highlightjs>
+<highlightjs :language='"go"' :code='"func EventHandlingQueries(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\tpr.Body = VContainer(\n\t\tVCard(\n\t\t\tVCardTitle(Text(\"Queries\")),\n\t\t\tVCardActions(VBtn(\"Go\").Attr(\"@click\", web.GET().URL(EventExamplePagePath).PushState(true).Queries(url.Values{\"address\": []string{\"tokyo\"}}).Go())),\n\t\t),\n\t)\n\treturn\n}\n"'></highlightjs>
 
 <div>
 <div class='demo'>
@@ -355,7 +352,7 @@ The default http request method is <code>Post</code>, if you want to use the <co
 </h2>
 <p>Request a page with a url and also changing the window location.</p>
 
-<highlightjs :language='"go"' :code='"func EventHandlingQueries(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\tpr.Body = Div(\n\t\tVCard(\n\t\t\tVCardTitle(Text(\"Queries\")),\n\t\t\tVCardActions(VBtn(\"Go\").Attr(\"@click\", web.GET().URL(EventExamplePagePath).PushState(true).Queries(url.Values{\"address\": []string{\"tokyo\"}}).Go())),\n\t\t),\n\t)\n\treturn\n}\n"'></highlightjs>
+<highlightjs :language='"go"' :code='"func EventHandlingQueries(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\tpr.Body = VContainer(\n\t\tVCard(\n\t\t\tVCardTitle(Text(\"Queries\")),\n\t\t\tVCardActions(VBtn(\"Go\").Attr(\"@click\", web.GET().URL(EventExamplePagePath).PushState(true).Queries(url.Values{\"address\": []string{\"tokyo\"}}).Go())),\n\t\t),\n\t)\n\treturn\n}\n"'></highlightjs>
 
 <div>
 <div class='demo'>
@@ -370,7 +367,7 @@ The default http request method is <code>Post</code>, if you want to use the <co
 </h2>
 <p>Open a page with more options.</p>
 
-<highlightjs :language='"go"' :code='"func EventHandlingLocation(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\tpr.Body = Div(\n\t\tVCard(\n\t\t\tVCardTitle(Text(\"Location\")),\n\t\t\tVCardActions(VBtn(\"Go\").Attr(\"@click\", web.POST().PushState(true).Location(\u0026web.LocationBuilder{MyURL: EventExamplePagePath, MyStringQuery: \"address=test\"}).Go())),\n\t\t),\n\t)\n\treturn\n}\n"'></highlightjs>
+<highlightjs :language='"go"' :code='"func EventHandlingLocation(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\tpr.Body = VContainer(\n\t\tVCard(\n\t\t\tVCardTitle(Text(\"Location\")),\n\t\t\tVCardActions(VBtn(\"Go\").Attr(\"@click\", web.POST().PushState(true).Location(\u0026web.LocationBuilder{MyURL: EventExamplePagePath, MyStringQuery: \"address=test\"}).Go())),\n\t\t),\n\t)\n\treturn\n}\n"'></highlightjs>
 
 <div>
 <div class='demo'>
@@ -385,7 +382,7 @@ The default http request method is <code>Post</code>, if you want to use the <co
 </h2>
 <p>Fill in a value on form.</p>
 
-<highlightjs :language='"go"' :code='"func EventHandlingFileValue(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\n\tpr.Body = Div(\n\t\tVCard(\n\t\t\tVCardTitle(Text(\"FieldValue\")),\n\t\t\tVCardActions(VBtn(\"Go\").Attr(\"@click\", web.POST().EventFunc(\"form\").FieldValue(\"name\", \"qor5\").Go())),\n\t\t),\n\t)\n\treturn\n}\n"'></highlightjs>
+<highlightjs :language='"go"' :code='"func EventHandlingFieldValue(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\n\tpr.Body = VContainer(\n\t\tVCard(\n\t\t\tVCardTitle(Text(\"FieldValue\")),\n\t\t\tVCardActions(VBtn(\"Go\").Attr(\"@click\", web.POST().EventFunc(\"form\").FieldValue(\"name\", \"qor5\").Go())),\n\t\t),\n\t)\n\treturn\n}\n"'></highlightjs>
 
 <div>
 <div class='demo'>
@@ -400,7 +397,7 @@ The default http request method is <code>Post</code>, if you want to use the <co
 </h2>
 <p>Clear all form data.</p>
 
-<highlightjs :language='"go"' :code='"func EventHandlingFileValue(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\n\tpr.Body = Div(\n\t\tVCard(\n\t\t\tVCardTitle(Text(\"FieldValue\")),\n\t\t\tVCardActions(VBtn(\"Go\").Attr(\"@click\", web.POST().EventFunc(\"form\").FieldValue(\"name\", \"qor5\").Go())),\n\t\t),\n\t)\n\treturn\n}\n"'></highlightjs>
+<highlightjs :language='"go"' :code='"func EventHandlingFieldValue(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\n\tpr.Body = VContainer(\n\t\tVCard(\n\t\t\tVCardTitle(Text(\"FieldValue\")),\n\t\t\tVCardActions(VBtn(\"Go\").Attr(\"@click\", web.POST().EventFunc(\"form\").FieldValue(\"name\", \"qor5\").Go())),\n\t\t),\n\t)\n\treturn\n}\n"'></highlightjs>
 
 <div>
 <div class='demo'>
@@ -415,7 +412,7 @@ The default http request method is <code>Post</code>, if you want to use the <co
 </h2>
 <p>Register an event func and call it when the event is triggered.</p>
 
-<highlightjs :language='"go"' :code='"func EventHandlingEventFunc(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\n\tpr.Body = Div(\n\t\tVBtn(\"Go\").Attr(\"@click\", web.POST().EventFunc(\"hello\").Go()),\n\t)\n\treturn\n}\n"'></highlightjs>
+<highlightjs :language='"go"' :code='"func EventHandlingEventFunc(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\n\tpr.Body = VContainer(\n\t\tVBtn(\"Go\").Attr(\"@click\", web.POST().EventFunc(\"hello\").Go()),\n\t)\n\treturn\n}\n"'></highlightjs>
 
 <div>
 <div class='demo'>
@@ -430,7 +427,7 @@ The default http request method is <code>Post</code>, if you want to use the <co
 </h2>
 <p>Run a script code.</p>
 
-<highlightjs :language='"go"' :code='"func EventHandlingScript(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\tpr.Body = Div(\n\t\tVCard(\n\t\t\tVCardTitle(Text(\"Script\")),\n\t\t\tVCardActions(VBtn(\"Go\").Attr(\"@click\", web.POST().ThenScript(`alert(\"this is then script\")`).AfterScript(`alert(\"this is after script\")`).BeforeScript(`alert(\"this is before script\")`).Go())),\n\t\t),\n\t)\n\treturn\n}\n"'></highlightjs>
+<highlightjs :language='"go"' :code='"func EventHandlingScript(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\tpr.Body = VContainer(\n\t\tVCard(\n\t\t\tVCardTitle(Text(\"Script\")),\n\t\t\tVCardActions(VBtn(\"Go\").Attr(\"@click\", web.POST().ThenScript(`alert(\"this is then script\")`).AfterScript(`alert(\"this is after script\")`).\n\t\t\t\tBeforeScript(`alert(\"this is before script\")`).Go())),\n\t\t),\n\t)\n\treturn\n}\n"'></highlightjs>
 
 <div>
 <div class='demo'>
@@ -445,7 +442,7 @@ The default http request method is <code>Post</code>, if you want to use the <co
 </h2>
 <p>Directly call the js method</p>
 
-<highlightjs :language='"go"' :code='"func EventHandlingRaw(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\tpr.Body = Div(\n\t\tVCard(\n\t\t\tVCardTitle(Text(\"Raw\")),\n\t\t\tVCardActions(VBtn(\"Go\").Attr(\"@click\", web.POST().Raw(`pushStateURL(\"/samples/event_handling/example\")`).Go())),\n\t\t),\n\t)\n\treturn\n}\n"'></highlightjs>
+<highlightjs :language='"go"' :code='"func EventHandlingRaw(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\tpr.Body = VContainer(\n\t\tVCard(\n\t\t\tVCardTitle(Text(\"Raw\")),\n\t\t\tVCardActions(VBtn(\"Go\").Attr(\"@click\", web.POST().Raw(`pushStateURL(\"/samples/event_handling/example\")`).Go())),\n\t\t),\n\t)\n\treturn\n}\n"'></highlightjs>
 
 <div>
 <div class='demo'>
@@ -466,6 +463,7 @@ The default http request method is <code>Post</code>, if you want to use the <co
 </div>
 </div>
 </div>
+</go-plaid-scope>
 </div>
 </body>
 </html>

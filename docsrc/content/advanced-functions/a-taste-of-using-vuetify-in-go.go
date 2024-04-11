@@ -1,7 +1,7 @@
 package advanced_functions
 
 import (
-	"github.com/qor5/docs/docsrc/examples/vuetify_examples"
+	"github.com/qor5/docs/docsrc/examples/examples_vuetify"
 	"github.com/qor5/docs/docsrc/generated"
 	"github.com/qor5/docs/docsrc/utils"
 	. "github.com/theplant/docgo"
@@ -21,7 +21,7 @@ other go package.
 This example is purely render, we didn't integrate any interaction (event func) to it.
 `),
 	ch.Code(generated.VuetifyListSample).Language("go"),
-	utils.Demo("Vuetify List", vuetify_examples.HelloVuetifyListPath, "e13_vuetify_list/page.go"),
+	utils.Demo("Vuetify List", examples_vuetify.HelloVuetifyListPath, "e13_vuetify_list/page.go"),
 
 	utils.Anchor(H2(""), "Use menu, card, list, etc"),
 	Markdown(`
@@ -40,6 +40,6 @@ requesting server backend.
 ~toggleFavored~ event func did an partial update only to the favorite icon button. So that it won't close the
 menu popup, but updated the button to toggle the favorite icon.
 `),
-	utils.Demo("Vuetify Menu", vuetify_examples.HelloVuetifyMenuPath, "e14_vuetify_menu/page.go"),
+	utils.Demo("Vuetify Menu", examples_vuetify.HelloVuetifyMenuPath, "e14_vuetify_menu/page.go"),
 ).Title("A Taste of using Vuetify in Go").
 	Slug("vuetify-components/a-taste-of-using-vuetify-in-go")

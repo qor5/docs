@@ -15,10 +15,11 @@
 
 <body>
 <div id='app' v-cloak>
-<div v-init-context:vars='{hideAside: false}' class='flex h-screen'>
+<go-plaid-scope v-slot='{ locals }' :init='{hideAside: false}'>
+<div class='flex h-screen'>
 <div class='flex-1 flex flex-col overflow-hidden'>
 <div class='flex h-full'>
-<aside v-show='!vars.hideAside' id='menuScroller' class='flex flex-col w-80 h-full bg-gray-50 border-r border-gray-200 overflow-y-auto'>
+<aside v-if='!locals.hideAside' id='menuScroller' class='flex flex-col w-80 h-full bg-gray-50 border-r border-gray-200 overflow-y-auto'>
 <div class='h-12'><search></search></div>
 
 <ul class='px-0 py-3 mx-0 text-base font-normal list-none text-gray-700'>
@@ -187,10 +188,6 @@
 </li>
 
 <li class='m-0'>
-<a href='vuetify-components/auto-complete.html' id='vuetify-components/auto-complete.html' onclick='window.storeMenuState("vuetify-components/auto-complete.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Auto Complete</a>
-</li>
-
-<li class='m-0'>
 <a href='components-guide/composite-new-component-with-go.html' id='components-guide/composite-new-component-with-go.html' onclick='window.storeMenuState("components-guide/composite-new-component-with-go.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Composite new Component With Go</a>
 </li>
 
@@ -210,7 +207,7 @@
 <div id='docContentBox' class='flex flex-row w-full'>
 <div class='flex flex-grow flex-col w-2/3'>
 <div class='flex flex-row'>
-<button @click='vars.hideAside = !vars.hideAside' class='w-12 h-12 p-4'>
+<button @click='locals.hideAside = !locals.hideAside' class='w-12 h-12 p-4'>
 <div class='w-4 h-4 fill-current text-gray-300'>
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" height="16px" viewBox="0 0 16 16" version="1.1">
@@ -230,7 +227,7 @@ That can open the page to the exact state of the page being sent, Not the initia
 
 <p>For example:</p>
 
-<highlightjs :language='"go"' :code='"import (\n\t\"net/url\"\n\n\t\"github.com/qor5/web\"\n\t. \"github.com/theplant/htmlgo\"\n)\n\nfunc MultiStatePage(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\n\ttitle := \"Multi State Page\"\n\tif len(ctx.R.URL.Query().Get(\"title\")) \u003e 0 {\n\t\ttitle = ctx.R.URL.Query().Get(\"title\")\n\t}\n\tvar panel HTMLComponent\n\tif len(ctx.R.URL.Query().Get(\"panel\")) \u003e 0 {\n\t\tpanel = Div(\n\t\t\tFieldset(\n\t\t\t\tDiv(\n\t\t\t\t\tLabel(\"Name\"),\n\t\t\t\t\tInput(\"\").Type(\"text\"),\n\t\t\t\t),\n\t\t\t\tDiv(\n\t\t\t\t\tLabel(\"Date\"),\n\t\t\t\t\tInput(\"\").Type(\"date\"),\n\t\t\t\t),\n\t\t\t),\n\t\t\tButton(\"Update\").Attr(\"@click\", web.POST().EventFunc(\"update5\").Go()),\n\t\t).Style(\"border: 5px solid orange; height: 200px;\")\n\t}\n\n\tpr.Body = Div(\n\t\tH1(title),\n\t\tOl(\n\t\t\tLi(\n\t\t\t\tA().Text(\"change page title\").Href(\"javascript:;\").\n\t\t\t\t\tAttr(\"@click\", web.POST().Queries(url.Values{\"title\": []string{\"Hello\"}}).Go()),\n\t\t\t),\n\t\t\tLi(\n\t\t\t\tA().Text(\"show panel\").Href(\"javascript:;\").Attr(\"@click\", web.POST().EventFunc(\"openPanel\").Go()),\n\t\t\t),\n\t\t),\n\t\tpanel,\n\n\t\tTable(\n\t\t\tThead(\n\t\t\t\tTh(\"Name\"),\n\t\t\t\tTh(\"Date\"),\n\t\t\t),\n\t\t\tTbody(\n\t\t\t\tTr(\n\t\t\t\t\tTd(Text(\"Felix\")),\n\t\t\t\t\tTd(Text(\"2019-01-02\")),\n\t\t\t\t),\n\t\t\t),\n\t\t),\n\t)\n\treturn\n}\n\nfunc openPanel(ctx *web.EventContext) (er web.EventResponse, err error) {\n\ter.PushState = web.Location(url.Values{\"panel\": []string{\"1\"}}).MergeQuery(true)\n\treturn\n}\n\nfunc update5(ctx *web.EventContext) (er web.EventResponse, err error) {\n\ter.PushState = web.Location(url.Values{\"panel\": []string{\"\"}}).MergeQuery(true)\n\treturn\n}\n\nvar MultiStatePagePB = web.Page(MultiStatePage).\n\tEventFunc(\"openPanel\", openPanel).\n\tEventFunc(\"update5\", update5)\n\nconst MultiStatePagePath = \"/samples/multi_state_page\"\n"'></highlightjs>
+<highlightjs :language='"go"' :code='"import (\n\t\"net/url\"\n\n\t\"github.com/qor5/web\"\n\t. \"github.com/theplant/htmlgo\"\n)\n\ntype multiStateFormData struct {\n\tName string\n\tDate string\n}\n\nvar multiStateFd = multiStateFormData{\n\tName: \"Felix\",\n\tDate: \"2021-01-01\",\n}\n\nfunc MultiStatePage(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\n\ttitle := \"Multi State Page\"\n\tif len(ctx.R.URL.Query().Get(\"title\")) \u003e 0 {\n\t\ttitle = ctx.R.URL.Query().Get(\"title\")\n\t}\n\tvar panel HTMLComponent\n\tif len(ctx.R.URL.Query().Get(\"panel\")) \u003e 0 {\n\t\tpanel = Div(\n\t\t\tweb.Scope(\n\t\t\t\tFieldset(\n\t\t\t\t\tDiv(\n\t\t\t\t\t\tLabel(\"Name\"),\n\t\t\t\t\t\tInput(\"\").Type(\"text\").Attr(\"v-model\", \"form.Name\"),\n\t\t\t\t\t),\n\t\t\t\t\tDiv(\n\t\t\t\t\t\tLabel(\"Date\"),\n\t\t\t\t\t\tInput(\"\").Type(\"date\").Attr(\"v-model\", \"form.Date\"),\n\t\t\t\t\t),\n\t\t\t\t),\n\t\t\t\tButton(\"Update\").Attr(\"@click\", web.POST().EventFunc(\"update5\").Go()),\n\t\t\t).VSlot(\"{ locals, form }\").FormInit(JSONString(multiStateFd)),\n\t\t).Style(\"border: 5px solid orange; height: 200px;\")\n\t}\n\n\tpr.Body = Div(\n\t\tH1(title),\n\t\tOl(\n\t\t\tLi(\n\t\t\t\tA().Text(\"change page title\").Href(\"javascript:;\").\n\t\t\t\t\tAttr(\"@click\", web.POST().Queries(url.Values{\"title\": []string{\"Hello\"}}).Go()),\n\t\t\t),\n\t\t),\n\t\tpanel,\n\n\t\tTable(\n\t\t\tThead(\n\t\t\t\tTh(\"Name\"),\n\t\t\t\tTh(\"Date\"),\n\t\t\t),\n\t\t\tTbody(\n\t\t\t\tTr(\n\t\t\t\t\tTd(Text(multiStateFd.Name)),\n\t\t\t\t\tTd(Text(multiStateFd.Date)),\n\t\t\t\t\tTd(A().Text(\"Edit with Panel\").Href(\"javascript:;\").Attr(\"@click\",\n\t\t\t\t\t\tweb.POST().EventFunc(\"openPanel\").Go())),\n\t\t\t\t),\n\t\t\t),\n\t\t),\n\t)\n\treturn\n}\n\nfunc openPanel(ctx *web.EventContext) (er web.EventResponse, err error) {\n\ter.PushState = web.Location(url.Values{\"panel\": []string{\"1\"}}).MergeQuery(true)\n\treturn\n}\n\nfunc update5(ctx *web.EventContext) (er web.EventResponse, err error) {\n\tctx.MustUnmarshalForm(\u0026multiStateFd)\n\ter.PushState = web.Location(url.Values{\"panel\": []string{\"\"}}).MergeQuery(true)\n\treturn\n}\n\nvar MultiStatePagePB = web.Page(MultiStatePage).\n\tEventFunc(\"openPanel\", openPanel).\n\tEventFunc(\"update5\", update5)\n\nconst MultiStatePagePath = \"/samples/multi_state_page\"\n"'></highlightjs>
 
 <div>
 <div class='demo'>
@@ -270,6 +267,7 @@ That can open the page to the exact state of the page being sent, Not the initia
 </div>
 </div>
 </div>
+</go-plaid-scope>
 </div>
 </body>
 </html>

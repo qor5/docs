@@ -1,7 +1,7 @@
 package basics
 
 import (
-	"github.com/qor5/docs/docsrc/examples/admin_examples"
+	"github.com/qor5/docs/docsrc/examples/examples_admin"
 	"github.com/qor5/docs/docsrc/generated"
 	"github.com/qor5/docs/docsrc/utils"
 	. "github.com/theplant/docgo"
@@ -96,6 +96,6 @@ rmn.RowMenuItem("Show").ComponentFunc(func(obj interface{}, id string, ctx *web.
 ## Full Example
 `),
 	ch.Code(generated.PresetsListingSample).Language("go"),
-	utils.Demo("Presets Listing Customization Fields", admin_examples.ListingSamplePath+"/posts", "example_basics/listing.go"),
+	utils.Demo("Presets Listing Customization Fields", examples_admin.ListingSamplePath+"/posts", "example_basics/listing.go"),
 ).Title("Listing").
 	Slug("basics/listing")

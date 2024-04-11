@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"path"
 
-	"github.com/qor5/docs/docsrc/examples/admin_examples"
+	"github.com/qor5/docs/docsrc/examples/examples_admin"
 	"github.com/qor5/docs/docsrc/generated"
 	"github.com/qor5/docs/docsrc/utils"
 	. "github.com/theplant/docgo"
@@ -36,7 +36,7 @@ Implement the publish interfaces if there is a need to publish content to storag
 	ch.Code(generated.PublishImplementPublishInterfaces).Language("go"),
 	utils.Demo(
 		"Publish",
-		path.Join(admin_examples.PublishExamplePath, "/products"),
+		path.Join(examples_admin.PublishExamplePath, "/products"),
 		"example_basics/publish.go",
 	),
 	Markdown(fmt.Sprintf(`

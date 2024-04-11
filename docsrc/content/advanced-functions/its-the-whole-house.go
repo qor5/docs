@@ -1,7 +1,7 @@
 package advanced_functions
 
 import (
-	"github.com/qor5/docs/docsrc/examples/presets_examples"
+	"github.com/qor5/docs/docsrc/examples/examples_presets"
 	"github.com/qor5/docs/docsrc/generated"
 	"github.com/qor5/docs/docsrc/utils"
 	. "github.com/theplant/docgo"
@@ -21,7 +21,7 @@ And this ~*presets.Builder~ instance is actually also a ~http.Handler~, So that 
 to the http serve mux directly like this:
 `),
 	ch.Code(generated.MountPresetHelloWorldSample).Language("go"),
-	utils.Demo("Presets Hello World", presets_examples.PresetsHelloWorldPath+"/customers", "e21_presents/listing.go"),
+	utils.Demo("Presets Hello World", examples_presets.PresetsHelloWorldPath+"/customers", "e21_presents/listing.go"),
 	Markdown(`
 With ~r.Model(&Customer{})~:
 

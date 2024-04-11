@@ -15,10 +15,11 @@
 
 <body>
 <div id='app' v-cloak>
-<div v-init-context:vars='{hideAside: false}' class='flex h-screen'>
+<go-plaid-scope v-slot='{ locals }' :init='{hideAside: false}'>
+<div class='flex h-screen'>
 <div class='flex-1 flex flex-col overflow-hidden'>
 <div class='flex h-full'>
-<aside v-show='!vars.hideAside' id='menuScroller' class='flex flex-col w-80 h-full bg-gray-50 border-r border-gray-200 overflow-y-auto'>
+<aside v-if='!locals.hideAside' id='menuScroller' class='flex flex-col w-80 h-full bg-gray-50 border-r border-gray-200 overflow-y-auto'>
 <div class='h-12'><search></search></div>
 
 <ul class='px-0 py-3 mx-0 text-base font-normal list-none text-gray-700'>
@@ -187,10 +188,6 @@
 </li>
 
 <li class='m-0'>
-<a href='vuetify-components/auto-complete.html' id='vuetify-components/auto-complete.html' onclick='window.storeMenuState("vuetify-components/auto-complete.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Auto Complete</a>
-</li>
-
-<li class='m-0'>
 <a href='components-guide/composite-new-component-with-go.html' id='components-guide/composite-new-component-with-go.html' onclick='window.storeMenuState("components-guide/composite-new-component-with-go.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Composite new Component With Go</a>
 </li>
 
@@ -210,7 +207,7 @@
 <div id='docContentBox' class='flex flex-row w-full'>
 <div class='flex flex-grow flex-col w-2/3'>
 <div class='flex flex-row'>
-<button @click='vars.hideAside = !vars.hideAside' class='w-12 h-12 p-4'>
+<button @click='locals.hideAside = !locals.hideAside' class='w-12 h-12 p-4'>
 <div class='w-4 h-4 fill-current text-gray-300'>
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" height="16px" viewBox="0 0 16 16" version="1.1">
@@ -257,7 +254,7 @@
 
 <p>Icon strings can be found at <a href="https://fonts.google.com/icons" rel="nofollow">https://fonts.google.com/icons</a>.</p>
 
-<highlightjs :language='"go"' :code='"mb := b.Model(\u0026book{}).MenuIcon(\"book\")\n\nmb.Listing().PageFunc(func(ctx *web.EventContext) (r web.PageResponse, err error) {\n\tr.Body = vuetify.VContainer(\n\t\th.Div(\n\t\t\th.H1(\"book\"),\n\t\t).Class(\"text-center mt-8\"),\n\t)\n\treturn\n})\n\nb.MenuOrder(\n\t\"books\",\n\tb.MenuGroup(\"Media\").SubItems(\n\t\t\"videos\",\n\t\t\"musics\",\n\t).Icon(\"perm_media\"),\n)"'></highlightjs>
+<highlightjs :language='"go"' :code='"mb := b.Model(\u0026book{}).MenuIcon(\"mdi-book\")\n\nmb.Listing().PageFunc(func(ctx *web.EventContext) (r web.PageResponse, err error) {\n\tr.Body = vuetify.VContainer(\n\t\th.Div(\n\t\t\th.H1(\"book\"),\n\t\t).Class(\"text-center mt-8\"),\n\t)\n\treturn\n})\n\nb.MenuOrder(\n\t\"books\",\n\tb.MenuGroup(\"Media\").SubItems(\n\t\t\"videos\",\n\t\t\"musics\",\n\t).Icon(\"mdi-video\"),\n)"'></highlightjs>
 
 <div>
 <div class='demo'>
@@ -278,6 +275,7 @@
 </div>
 </div>
 </div>
+</go-plaid-scope>
 </div>
 </body>
 </html>

@@ -3,7 +3,7 @@ package basics
 import (
 	"path"
 
-	"github.com/qor5/docs/docsrc/examples/admin_examples"
+	"github.com/qor5/docs/docsrc/examples/examples_admin"
 	"github.com/qor5/docs/docsrc/generated"
 	"github.com/qor5/docs/docsrc/utils"
 	"github.com/theplant/docgo"
@@ -41,7 +41,7 @@ The ~Localize~ ui will appear in the ~RowMenuItem~ under the ~Edit~ and the ~Del
 	ch.Code(generated.L10nFullExample).Language("go"),
 	utils.Demo(
 		"L10n",
-		path.Join(admin_examples.LocalizationExamplePath, "/l10n-models"),
+		path.Join(examples_admin.LocalizationExamplePath, "/l10n-models"),
 		"example_basics/localization.go",
 	),
 ).Slug("basics/l10n").Title("Localization")

@@ -1,7 +1,7 @@
 package advanced_functions
 
 import (
-	"github.com/qor5/docs/docsrc/examples/presets_examples"
+	"github.com/qor5/docs/docsrc/examples/examples_presets"
 	"github.com/qor5/docs/docsrc/generated"
 	"github.com/qor5/docs/docsrc/utils"
 	. "github.com/theplant/docgo"
@@ -17,7 +17,7 @@ and as the main data model of your system, It's better to have detail page for t
 You can add all kinds of operations conveniently.
 `),
 	ch.Code(generated.PresetsDetailPageTopNotesSample).Language("go"),
-	utils.Demo("Presets Detail Page Top Notes", presets_examples.PresetsDetailPageTopNotesPath+"/customers", "e21_presents/detailing.go"),
+	utils.Demo("Presets Detail Page Top Notes", examples_presets.PresetsDetailPageTopNotesPath+"/customers", "e21_presents/detailing.go"),
 	Markdown(`
 - The name of detailing fields are just a place holder for decide ordering
 - ~CellComponentFunc~ customize how the cell display
@@ -32,7 +32,7 @@ A ~vx.DetailInfo~ component is used for display main detail field of the model.
 And you can add any actions to the detail page with ease:
 `),
 	ch.Code(generated.PresetsDetailPageDetailsSample).Language("go"),
-	utils.Demo("Presets Detail Page Details", presets_examples.PresetsDetailPageDetailsPath+"/customers", "e21_presents/detailing.go"),
+	utils.Demo("Presets Detail Page Details", examples_presets.PresetsDetailPageDetailsPath+"/customers", "e21_presents/detailing.go"),
 	Markdown(`
 - The ~stripui.Card~ Actions links to two event functions: Agree Terms, and Update Details
 - Agree Terms show a drawer popup that edit the ~term_agreed_at~ field
@@ -44,7 +44,7 @@ And you can add any actions to the detail page with ease:
 A ~vx.DataTable~ component is very featured rich, Here check out the row expandable example:
 `),
 	ch.Code(generated.PresetsDetailPageCardsSample).Language("go"),
-	utils.Demo("Presets Detail Page Credit Cards", presets_examples.PresetsDetailPageCardsPath+"/customers", "e21_presents/detailing.go"),
+	utils.Demo("Presets Detail Page Credit Cards", examples_presets.PresetsDetailPageCardsPath+"/customers", "e21_presents/detailing.go"),
 	Markdown(`
 - ~RowExpandFunc~ config the content when data table row expand
 - ~cc.Editing~ setup the fields when edit

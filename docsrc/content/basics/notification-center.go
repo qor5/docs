@@ -1,7 +1,7 @@
 package basics
 
 import (
-	"github.com/qor5/docs/docsrc/examples/presets_examples"
+	"github.com/qor5/docs/docsrc/examples/examples_presets"
 	"github.com/qor5/docs/docsrc/generated"
 	"github.com/qor5/docs/docsrc/utils"
 	. "github.com/theplant/docgo"
@@ -18,5 +18,5 @@ The second function is for rendering the number at the top right corner of the "
 `),
 
 	ch.Code(generated.NotificationCenterSample).Language("go"),
-	utils.Demo("Notification Center", presets_examples.NotificationCenterSamplePath+"/pages", "e00_basics/notification-center.go"),
+	utils.Demo("Notification Center", examples_presets.NotificationCenterSamplePath+"/pages", "e00_basics/notification-center.go"),
 ).Slug("basics/notification-center").Title("Notification Center")
