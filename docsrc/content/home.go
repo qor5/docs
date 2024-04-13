@@ -1,7 +1,7 @@
 package content
 
 import (
-	"github.com/qor5/docs/docsrc/utils"
+	"github.com/qor5/docs/v3/docsrc/utils"
 	. "github.com/theplant/docgo"
 	. "github.com/theplant/htmlgo"
 )

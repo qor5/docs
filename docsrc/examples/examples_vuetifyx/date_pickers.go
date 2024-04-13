@@ -4,7 +4,7 @@ package examples_vuetifyx
 
 import (
 	"context"
-	"github.com/qor5/web"
+	"github.com/qor5/web/v3"
 	h "github.com/theplant/htmlgo"
 )
 

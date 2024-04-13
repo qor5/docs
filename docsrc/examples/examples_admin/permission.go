@@ -4,8 +4,8 @@ import (
 	"net/http"
 
 	"github.com/ory/ladon"
-	"github.com/qor5/admin/presets"
-	"github.com/qor5/x/perm"
+	"github.com/qor5/admin/v3/presets"
+	"github.com/qor5/x/v3/perm"
 )
 
 func permissionPieces() {

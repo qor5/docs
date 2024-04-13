@@ -4,9 +4,9 @@ package examples_vuetify
 import (
 	"mime/multipart"
 
-	"github.com/qor5/docs/docsrc/utils"
-	. "github.com/qor5/ui/vuetify"
-	"github.com/qor5/web"
+	"github.com/qor5/docs/v3/docsrc/utils"
+	. "github.com/qor5/ui/v3/vuetify"
+	"github.com/qor5/web/v3"
 	h "github.com/theplant/htmlgo"
 )
 

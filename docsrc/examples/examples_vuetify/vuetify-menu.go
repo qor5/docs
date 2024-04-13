@@ -3,9 +3,9 @@ package examples_vuetify
 // @snippet_begin(VuetifyMenuSample)
 
 import (
-	"github.com/qor5/docs/docsrc/utils"
-	. "github.com/qor5/ui/vuetify"
-	"github.com/qor5/web"
+	"github.com/qor5/docs/v3/docsrc/utils"
+	. "github.com/qor5/ui/v3/vuetify"
+	"github.com/qor5/web/v3"
 	. "github.com/theplant/htmlgo"
 )
 

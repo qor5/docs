@@ -3,9 +3,9 @@ package main
 import (
 	"fmt"
 	"github.com/go-chi/chi/v5/middleware"
-	"github.com/qor5/docs/docsrc/examples/mux_vuetifyx"
-	"github.com/qor5/docs/docsrc/examples/mux_web_vuetify"
-	"github.com/qor5/web"
+	"github.com/qor5/docs/v3/docsrc/examples/mux_vuetifyx"
+	"github.com/qor5/docs/v3/docsrc/examples/mux_web_vuetify"
+	"github.com/qor5/web/v3"
 	"net/http"
 	"os"
 )

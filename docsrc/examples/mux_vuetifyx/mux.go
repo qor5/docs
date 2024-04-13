@@ -1,12 +1,12 @@
 package mux_vuetifyx
 
 import (
-	"github.com/qor5/docs/docsrc/assets"
-	"github.com/qor5/docs/docsrc/examples/examples_vuetifyx"
-	"github.com/qor5/docs/docsrc/examples/mux_web_vuetify"
-	. "github.com/qor5/ui/vuetify"
-	"github.com/qor5/ui/vuetifyx"
-	"github.com/qor5/web"
+	"github.com/qor5/docs/v3/docsrc/assets"
+	"github.com/qor5/docs/v3/docsrc/examples/examples_vuetifyx"
+	"github.com/qor5/docs/v3/docsrc/examples/mux_web_vuetify"
+	. "github.com/qor5/ui/v3/vuetify"
+	"github.com/qor5/ui/v3/vuetifyx"
+	"github.com/qor5/web/v3"
 	"net/http"
 )
 

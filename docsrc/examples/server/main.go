@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/qor5/docs/docsrc/examples/mux_admin"
+	"github.com/qor5/docs/v3/docsrc/examples/mux_admin"
 	"net/http"
 	"os"
 	"time"

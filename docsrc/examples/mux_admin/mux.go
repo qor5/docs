@@ -2,12 +2,12 @@ package mux_admin
 
 import (
 	"github.com/go-chi/chi/v5/middleware"
-	"github.com/qor5/admin/presets"
-	"github.com/qor5/docs/docsrc"
-	"github.com/qor5/docs/docsrc/assets"
-	"github.com/qor5/docs/docsrc/examples/examples_admin"
-	"github.com/qor5/docs/docsrc/examples/mux_presets"
-	"github.com/qor5/docs/docsrc/examples/mux_web_vuetify"
+	"github.com/qor5/admin/v3/presets"
+	"github.com/qor5/docs/v3/docsrc"
+	"github.com/qor5/docs/v3/docsrc/assets"
+	"github.com/qor5/docs/v3/docsrc/examples/examples_admin"
+	"github.com/qor5/docs/v3/docsrc/examples/mux_presets"
+	"github.com/qor5/docs/v3/docsrc/examples/mux_web_vuetify"
 	"github.com/theplant/docgo"
 	"net/http"
 )

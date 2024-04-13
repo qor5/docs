@@ -6,10 +6,10 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/qor5/admin/l10n"
-	l10n_view "github.com/qor5/admin/l10n/views"
-	"github.com/qor5/admin/presets"
-	"github.com/qor5/admin/presets/gorm2op"
+	"github.com/qor5/admin/v3/l10n"
+	l10n_view "github.com/qor5/admin/v3/l10n/views"
+	"github.com/qor5/admin/v3/presets"
+	"github.com/qor5/admin/v3/presets/gorm2op"
 	"gorm.io/gorm"
 )
 

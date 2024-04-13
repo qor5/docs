@@ -3,9 +3,9 @@ package examples_vuetifyx
 // @snippet_begin(VuetifyComponentsLinkageSelect)
 
 import (
-	. "github.com/qor5/ui/vuetify"
-	vx "github.com/qor5/ui/vuetifyx"
-	"github.com/qor5/web"
+	. "github.com/qor5/ui/v3/vuetify"
+	vx "github.com/qor5/ui/v3/vuetifyx"
+	"github.com/qor5/web/v3"
 	"github.com/theplant/htmlgo"
 )
 

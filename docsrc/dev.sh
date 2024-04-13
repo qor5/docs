@@ -4,10 +4,10 @@ goModPath(){
 
 snippetDirs=(
   ../
-  $(goModPath github.com/qor5/web)
-  $(goModPath github.com/qor5/x)
-  $(goModPath github.com/qor5/ui)
-  $(goModPath github.com/qor5/admin)
+  $(goModPath github.com/qor5/web/v3)
+  $(goModPath github.com/qor5/x/v3)
+  $(goModPath github.com/qor5/ui/v3)
+  $(goModPath github.com/qor5/admin/v3)
 )
 echo "${snippetDirs[@]}"
 rm -rf ./generated/*

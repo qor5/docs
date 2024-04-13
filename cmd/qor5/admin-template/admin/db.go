@@ -3,7 +3,7 @@ package admin
 import (
 	"os"
 
-	"github.com/qor5/docs/cmd/qor5/admin-template/models"
+	"github.com/qor5/docs/v3/cmd/qor5/admin-template/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"

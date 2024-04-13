@@ -5,8 +5,8 @@ import (
 	"net/url"
 	"time"
 
-	. "github.com/qor5/ui/vuetify"
-	"github.com/qor5/web"
+	. "github.com/qor5/ui/v3/vuetify"
+	"github.com/qor5/web/v3"
 	. "github.com/theplant/htmlgo"
 )
 

@@ -7,8 +7,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/qor5/admin/presets"
-	"github.com/qor5/admin/worker"
+	"github.com/qor5/admin/v3/presets"
+	"github.com/qor5/admin/v3/worker"
 )
 
 func MountWorker(b *presets.Builder) {

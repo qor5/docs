@@ -1,9 +1,9 @@
 package mux_presets
 
 import (
-	"github.com/qor5/admin/presets"
-	"github.com/qor5/docs/docsrc/examples/examples_presets"
-	"github.com/qor5/docs/docsrc/examples/mux_web_vuetify"
+	"github.com/qor5/admin/v3/presets"
+	"github.com/qor5/docs/v3/docsrc/examples/examples_presets"
+	"github.com/qor5/docs/v3/docsrc/examples/mux_web_vuetify"
 )
 
 func SamplesHandler(mux mux_web_vuetify.Muxer, prefix string) {

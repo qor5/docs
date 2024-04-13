@@ -6,10 +6,10 @@ import (
 	"strings"
 
 	"github.com/qor/oss"
-	"github.com/qor5/admin/presets"
-	"github.com/qor5/admin/presets/gorm2op"
-	"github.com/qor5/admin/publish"
-	publish_view "github.com/qor5/admin/publish/views"
+	"github.com/qor5/admin/v3/presets"
+	"github.com/qor5/admin/v3/presets/gorm2op"
+	"github.com/qor5/admin/v3/publish"
+	publish_view "github.com/qor5/admin/v3/publish/views"
 	"gorm.io/gorm"
 )
 

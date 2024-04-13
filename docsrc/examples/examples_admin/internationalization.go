@@ -3,11 +3,11 @@ package examples_admin
 import (
 	"net/http"
 
-	"github.com/qor5/admin/presets"
-	"github.com/qor5/admin/presets/gorm2op"
-	v "github.com/qor5/ui/vuetify"
-	"github.com/qor5/web"
-	"github.com/qor5/x/i18n"
+	"github.com/qor5/admin/v3/presets"
+	"github.com/qor5/admin/v3/presets/gorm2op"
+	v "github.com/qor5/ui/v3/vuetify"
+	"github.com/qor5/web/v3"
+	"github.com/qor5/x/v3/i18n"
 	h "github.com/theplant/htmlgo"
 	"golang.org/x/text/language"
 	"gorm.io/gorm"

@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/qor5/web"
+	"github.com/qor5/web/v3"
 	. "github.com/theplant/htmlgo"
 )
 

@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/qor5/docs/cmd/qor5/admin-template/admin"
+	"github.com/qor5/docs/v3/cmd/qor5/admin-template/admin"
 )
 
 func main() {

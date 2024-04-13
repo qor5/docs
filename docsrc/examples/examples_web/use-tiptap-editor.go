@@ -2,8 +2,8 @@ package examples_web
 
 // @snippet_begin(HelloWorldTipTapSample)
 import (
-	"github.com/qor5/ui/tiptap"
-	"github.com/qor5/web"
+	"github.com/qor5/ui/v3/tiptap"
+	"github.com/qor5/web/v3"
 	. "github.com/theplant/htmlgo"
 	"github.com/yosssi/gohtml"
 )

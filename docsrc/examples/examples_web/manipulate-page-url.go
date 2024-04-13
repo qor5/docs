@@ -4,7 +4,7 @@ package examples_web
 import (
 	"net/url"
 
-	"github.com/qor5/web"
+	"github.com/qor5/web/v3"
 	. "github.com/theplant/htmlgo"
 )
 

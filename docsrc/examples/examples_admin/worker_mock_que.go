@@ -7,10 +7,10 @@ import (
 	"runtime/debug"
 	"time"
 
-	"github.com/qor5/admin/presets"
-	"github.com/qor5/admin/presets/gorm2op"
-	"github.com/qor5/admin/worker"
-	"github.com/qor5/admin/worker/mock"
+	"github.com/qor5/admin/v3/presets"
+	"github.com/qor5/admin/v3/presets/gorm2op"
+	"github.com/qor5/admin/v3/worker"
+	"github.com/qor5/admin/v3/worker/mock"
 )
 
 func WorkerExampleMock(b *presets.Builder) {

@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/qor5/web"
+	"github.com/qor5/web/v3"
 	"github.com/shurcooL/sanitized_anchor_name"
 	. "github.com/theplant/htmlgo"
 )

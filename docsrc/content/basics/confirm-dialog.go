@@ -2,12 +2,12 @@ package basics
 
 import (
 	"fmt"
-	"github.com/qor5/docs/docsrc/examples/examples_presets"
+	"github.com/qor5/docs/v3/docsrc/examples/examples_presets"
 	"path"
 	"strings"
 
-	"github.com/qor5/docs/docsrc/generated"
-	"github.com/qor5/docs/docsrc/utils"
+	"github.com/qor5/docs/v3/docsrc/generated"
+	"github.com/qor5/docs/v3/docsrc/utils"
 	. "github.com/theplant/docgo"
 	"github.com/theplant/docgo/ch"
 )

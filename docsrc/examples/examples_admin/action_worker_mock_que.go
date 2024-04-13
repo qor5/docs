@@ -1,9 +1,9 @@
 package examples_admin
 
 import (
-	"github.com/qor5/admin/presets"
-	"github.com/qor5/admin/presets/gorm2op"
-	"github.com/qor5/admin/worker"
+	"github.com/qor5/admin/v3/presets"
+	"github.com/qor5/admin/v3/presets/gorm2op"
+	"github.com/qor5/admin/v3/worker"
 )
 
 func ActionWorkerExampleMock(b *presets.Builder) {

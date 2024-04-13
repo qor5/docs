@@ -1,16 +1,17 @@
 package mux_web_vuetify
 
 import (
-	"github.com/qor5/docs/docsrc/assets"
-	"github.com/qor5/docs/docsrc/examples/examples_vuetify"
-	"github.com/qor5/docs/docsrc/examples/examples_vuetifyx"
-	"github.com/qor5/docs/docsrc/examples/examples_web"
-	"github.com/qor5/ui/tiptap"
-	. "github.com/qor5/ui/vuetify"
-	"github.com/qor5/web"
-	. "github.com/theplant/htmlgo"
 	"net/http"
 	"strings"
+
+	"github.com/qor5/docs/v3/docsrc/assets"
+	"github.com/qor5/docs/v3/docsrc/examples/examples_vuetify"
+	"github.com/qor5/docs/v3/docsrc/examples/examples_vuetifyx"
+	"github.com/qor5/docs/v3/docsrc/examples/examples_web"
+	"github.com/qor5/ui/v3/tiptap"
+	. "github.com/qor5/ui/v3/vuetify"
+	"github.com/qor5/web/v3"
+	. "github.com/theplant/htmlgo"
 )
 
 type IndexMux struct {

@@ -7,11 +7,11 @@ import (
 
 	"github.com/markbates/goth/providers/github"
 	"github.com/markbates/goth/providers/google"
-	plogin "github.com/qor5/admin/login"
-	"github.com/qor5/admin/presets"
-	. "github.com/qor5/ui/vuetify"
-	"github.com/qor5/web"
-	"github.com/qor5/x/login"
+	plogin "github.com/qor5/admin/v3/login"
+	"github.com/qor5/admin/v3/presets"
+	. "github.com/qor5/ui/v3/vuetify"
+	"github.com/qor5/web/v3"
+	"github.com/qor5/x/v3/login"
 	. "github.com/theplant/htmlgo"
 	"gorm.io/gorm"
 )
