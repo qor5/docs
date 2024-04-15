@@ -223,14 +223,12 @@
 <h1 class='mb-8'>Reload Page with a Flash</h1>
 
 <div class='border-t'><p>The results of an <code>web.EventFunc</code> could be:</p>
-
 <ul>
 <li>Go to a new page</li>
 <li>Reload the whole current page</li>
 <li>Refresh part of the current page</li>
 </ul>
-
-<p>Let&#39;s demonstrate reload the whole current page:</p>
+<p>Let's demonstrate reload the whole current page:</p>
 
 <highlightjs :language='"go"' :code='"import (\n\t\"fmt\"\n\t\"time\"\n\n\t\"github.com/qor5/web/v3\"\n\t. \"github.com/theplant/htmlgo\"\n)\n\nvar count int\n\nfunc ReloadWithFlash(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\tvar msg HTMLComponent\n\n\tif d, ok := ctx.Flash.(*Data1); ok {\n\t\tmsg = Div().Text(d.Msg).Style(\"border: 5px solid orange;\")\n\t} else {\n\t\tcount = 0\n\t}\n\n\tpr.Body = Div(\n\t\tH1(\"Whole Page Reload With a Flash\"),\n\t\tmsg,\n\t\tDiv().Text(time.Now().Format(time.RFC3339Nano)),\n\t\tButton(\"Do Something\").\n\t\t\tAttr(\"@click\", web.POST().EventFunc(\"update2\").Go()),\n\t)\n\treturn\n}\n\ntype Data1 struct {\n\tMsg string\n}\n\nfunc update2(ctx *web.EventContext) (er web.EventResponse, err error) {\n\tcount++\n\tctx.Flash = \u0026Data1{Msg: fmt.Sprintf(\"The page is reloaded: %d\", count)}\n\ter.Reload = true\n\treturn\n}\n\nvar ReloadWithFlashPB = web.Page(ReloadWithFlash).EventFunc(\"update2\", update2)\n\nconst ReloadWithFlashPath = \"/samples/reload_with_flash\"\n"'></highlightjs>
 
@@ -241,10 +239,9 @@
 <a href='https://github.com/qor5/docs/tree/main/docsrc/examples/e00_basics/reload-with-a-flash.go' target='_blank'>Source on GitHub</a>
 </div>
 </div>
-<p><code>ctx.Flash</code> Object is used to pass data between <code>web.EventFunc</code> to <code>web.PageFunc</code> just after the event func is executed. quite similar to <a href="https://api.rubyonrails.org/classes/ActionDispatch/Flash.html" rel="nofollow">Rails&#39;s Flash</a>.
+<p><code>ctx.Flash</code> Object is used to pass data between <code>web.EventFunc</code> to <code>web.PageFunc</code> just after the event func is executed. quite similar to <a href="https://api.rubyonrails.org/classes/ActionDispatch/Flash.html">Rails's Flash</a>.<br />
 Different is here you can pass in any complicated struct. as long as the page func to use that flash properly.</p>
-
-<p><code>er.Reload = true</code> tells it will reload the whole page by running page func again, and with the result&#39;s body to replace the browser&#39;s html content. the event func and page func are executed in one AJAX request in the server.</p>
+<p><code>er.Reload = true</code> tells it will reload the whole page by running page func again, and with the result's body to replace the browser's html content. the event func and page func are executed in one AJAX request in the server.</p>
 </div>
 </div>
 </div>

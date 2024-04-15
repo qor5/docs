@@ -225,34 +225,31 @@
 <div class='border-t'><p>Read this code first, Guess what it does.</p>
 
 <highlightjs :language='"go"' :code='"func demoLayout(in web.PageFunc) (out web.PageFunc) {\n\treturn func(ctx *web.EventContext) (pr web.PageResponse, err error) {\n\t\tAddGA(ctx)\n\n\t\tctx.Injector.HeadHTML(`\n\t\t\t\u003cscript src=&#39;/assets/vue.js&#39;\u003e\u003c/script\u003e\n\t\t`)\n\n\t\tctx.Injector.TailHTML(`\n\t\t\t\u003cscript src=&#39;/assets/main.js&#39;\u003e\u003c/script\u003e\n\t\t`)\n\t\tctx.Injector.HeadHTML(`\n\t\t\u003cstyle\u003e\n\t\t\t[v-cloak] {\n\t\t\t\tdisplay: none;\n\t\t\t}\n\t\t\u003c/style\u003e\n\t\t`)\n\n\t\tvar innerPr web.PageResponse\n\t\tinnerPr, err = in(ctx)\n\t\tif err != nil {\n\t\t\tpanic(err)\n\t\t}\n\n\t\tpr.Body = innerPr.Body\n\n\t\treturn\n\t}\n}\n"'></highlightjs>
-<p><code>ctx.Injector</code> is for inject html into default layout&#39;s html head, and bottom of body.
-html head normally for page title, keywords etc all kinds meta data, and css styles,
+<p><code>ctx.Injector</code> is for inject html into default layout's html head, and bottom of body.<br />
+html head normally for page title, keywords etc all kinds meta data, and css styles,<br />
 javascript libraries etc. You can see we put vue.js into head, but put main.js into the bottom of body.</p>
-
 <p>Next part describe about these asset references:</p>
 
 <highlightjs :language='"go"' :code='"mux.Handle(\"/assets/main.js\",\n\tweb.PacksHandler(\"text/javascript\",\n\t\tVuetify(\"\"),\n\t\tJSComponentsPack(),\n\t\tweb.JSComponentsPack(),\n\t),\n)\n\nmux.Handle(\"/assets/vue.js\",\n\tweb.PacksHandler(\"text/javascript\",\n\t\tweb.JSVueComponentsPack(),\n\t),\n)\n"'></highlightjs>
-<p><code>web.JSComponentsPack</code> is the production version of QOR5 core javascript code.
-Created by using <a href="https://cli.vuejs.org/guide/creating-a-project.html" rel="nofollow">@vue/cli</a>,
-It does the basic functions like render server side returned html as vue templates.
-Provide basic event functions that call to server, and manage push state
+<p><code>web.JSComponentsPack</code> is the production version of QOR5 core javascript code.<br />
+Created by using <a href="https://cli.vuejs.org/guide/creating-a-project.html">@vue/cli</a>,<br />
+It does the basic functions like render server side returned html as vue templates.<br />
+Provide basic event functions that call to server, and manage push state<br />
 (change browser address urls before or after do ajax requests). do page partial refresh etc.</p>
-
-<p>the javascript or css code are packed by using <a href="https://pkg.go.dev/embed" rel="nofollow">embed</a>.</p>
+<p>the javascript or css code are packed by using <a href="https://pkg.go.dev/embed">embed</a>.</p>
 
 <highlightjs :language='"go"' :code='"import (\n\t\"embed\"\n)\n\n//go:embed corejs/dist/*.js\nvar box embed.FS\n\nfunc JSComponentsPack() ComponentsPack {\n\tv, err := box.ReadFile(\"corejs/dist/index.js\")\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\n\treturn ComponentsPack(v)\n}\n\nfunc JSVueComponentsPack() ComponentsPack {\n\tv, err := box.ReadFile(\"corejs/dist/vue.global.prod.js\")\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\n\treturn ComponentsPack(v)\n}\n"'></highlightjs>
-<p>And with <code>web.PacksHandler</code>, You can merge multiple javascript or css assets together into one url.
-So that browser only need to request them one time. and cache them. The cache is set to the start
+<p>And with <code>web.PacksHandler</code>, You can merge multiple javascript or css assets together into one url.<br />
+So that browser only need to request them one time. and cache them. The cache is set to the start<br />
 time of the process. So next time the app restarts, it invalid the cache.</p>
 
 <h2 id='summary'>Summary
 <a href='#summary' class='anchor'></a>
 </h2>
 <p>For a new project:</p>
-
 <ul>
-<li>Use <a href="https://cli.vuejs.org/guide/creating-a-project.html" rel="nofollow">@vue/cli</a> to create an asset project that manage your javascript and css. and compile them for production use</li>
-<li>Use <a href="https://pkg.go.dev/embed" rel="nofollow">embed</a> to pack them into Go code as <code>ComponentPack</code>, which is a string</li>
+<li>Use <a href="https://cli.vuejs.org/guide/creating-a-project.html">@vue/cli</a> to create an asset project that manage your javascript and css. and compile them for production use</li>
+<li>Use <a href="https://pkg.go.dev/embed">embed</a> to pack them into Go code as <code>ComponentPack</code>, which is a string</li>
 <li>Use <code>PacksHandler</code> to mount them as available http urls</li>
 <li>Write Layout function to reference them inside head, or bottom of body</li>
 </ul>

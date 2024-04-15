@@ -223,18 +223,15 @@
 <h1 class='mb-8'>Slug</h1>
 
 <div class='border-t'><p>Slug provides an easy way to create pretty URLs for your model.</p>
-<h2><a name="usage" class="anchor" href="#usage" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
-Usage</h2>
-
+<h2 id="usage">Usage</h2>
 <p>If the source field called <code>Name</code>, Use <code>*WithSlug</code> which is <code>NameWithSlug</code> as the slug field name, the field type should be <code>slug.Slug</code>. Then the pretty URL would be derived from <code>Name</code> automatically on editing.</p>
-
-<div class="highlight highlight-go"><pre>
+<pre><code class="language-go">
 type User struct {
 	gorm.Model
 	Name            string
 	NameWithSlug    slug.Slug
 }
-</pre></div>
+</code></pre>
 </div>
 </div>
 </div>

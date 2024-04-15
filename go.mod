@@ -11,11 +11,11 @@ require (
 	github.com/qor/oss v0.0.0-20230717083721-c04686f83630
 	github.com/qor5/admin/v3 v3.0.0
 	github.com/qor5/ui/v3 v3.0.0
-	github.com/qor5/web/v3 v3.0.0
+	github.com/qor5/web/v3 v3.0.1-0.20240415033659-95e180dfdf80
 	github.com/qor5/x/v3 v3.0.1-0.20240413072413-0147d0c24d91
 	github.com/shurcooL/sanitized_anchor_name v1.0.0
 	github.com/sunfmin/reflectutils v1.0.3
-	github.com/theplant/docgo v0.0.17-0.20240413074719-754fab8529a1
+	github.com/theplant/docgo v0.0.17-0.20240415034737-f4b6f499c087
 	github.com/theplant/htmlgo v1.0.3
 	github.com/yosssi/gohtml v0.0.0-20201013000340-ee4748c638f4
 	golang.org/x/text v0.14.0
@@ -27,7 +27,6 @@ require (
 	cloud.google.com/go/compute v1.25.1 // indirect
 	cloud.google.com/go/compute/metadata v0.2.3 // indirect
 	github.com/NYTimes/gziphandler v1.1.1 // indirect
-	github.com/aymerick/douceur v0.2.0 // indirect
 	github.com/boombuler/barcode v1.0.1 // indirect
 	github.com/chzyer/readline v1.5.1 // indirect
 	github.com/disintegration/imaging v1.6.2 // indirect
@@ -35,7 +34,6 @@ require (
 	github.com/go-playground/form/v4 v4.2.1 // indirect
 	github.com/golang-jwt/jwt/v4 v4.5.0 // indirect
 	github.com/google/uuid v1.6.0 // indirect
-	github.com/gorilla/css v1.0.1 // indirect
 	github.com/gorilla/mux v1.8.1 // indirect
 	github.com/gorilla/securecookie v1.1.2 // indirect
 	github.com/gorilla/sessions v1.2.2 // indirect
@@ -54,21 +52,13 @@ require (
 	github.com/lib/pq v1.10.9 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
-	github.com/microcosm-cc/bluemonday v1.0.26 // indirect
 	github.com/ory/pagination v0.0.1 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pquerna/otp v1.4.0 // indirect
-	github.com/russross/blackfriday v1.6.0 // indirect
-	github.com/sergi/go-diff v1.3.1 // indirect
-	github.com/shurcooL/github_flavored_markdown v0.0.0-20210228213109-c3a9aa474629 // indirect
-	github.com/shurcooL/highlight_diff v0.0.0-20230708024848-22f825814995 // indirect
-	github.com/shurcooL/highlight_go v0.0.0-20230708025100-33e05792540a // indirect
-	github.com/shurcooL/octicon v0.0.0-20230705024016-66bff059edb8 // indirect
-	github.com/sourcegraph/annotate v0.0.0-20160123013949-f4cad6c6324d // indirect
-	github.com/sourcegraph/syntaxhighlight v0.0.0-20170531221838-bd320f5d308e // indirect
 	github.com/theplant/sliceutils v0.0.0-20200406042209-89153d988eb1 // indirect
 	github.com/thoas/go-funk v0.9.3 // indirect
 	github.com/tnclong/go-que v0.0.0-20240226030728-4e1f3c8ec781 // indirect
+	github.com/yuin/goldmark v1.7.1 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	go.uber.org/zap v1.27.0 // indirect
 	goji.io/v3 v3.0.0 // indirect

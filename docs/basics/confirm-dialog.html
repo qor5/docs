@@ -222,23 +222,19 @@
 <div id='docMainBox' class='px-16 pb-12 pt-4 overflow-auto'>
 <h1 class='mb-8'>Confirm Dialog</h1>
 
-<div class='border-t'><p><code>presets.OpenConfirmDialog</code>
- is a pre-defined event used to show a confirm dialog for user to do confirm before executing the actual action.</p>
-<h3><a name="queries" class="anchor" href="#queries" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
-Queries</h3>
-
-<p><code>presets.ConfirmDialogConfirmEvent</code><br>
-required<br>
+<div class='border-t'><p><code>presets.OpenConfirmDialog</code><br />
+is a pre-defined event used to show a confirm dialog for user to do confirm before executing the actual action.</p>
+<h3 id="queries">Queries</h3>
+<p><code>presets.ConfirmDialogConfirmEvent</code><br />
+required<br />
 Usually the value will be <em>web.Plaid().EventFunc(the actual action event)....Go()</em>.</p>
-
-<p><code>presets.ConfirmDialogPromptText</code><br>
-optional<br>
+<p><code>presets.ConfirmDialogPromptText</code><br />
+optional<br />
 To customize the prompt text.</p>
-
-<p><code>presets.ConfirmDialogDialogPortalName</code><br>
-optional<br>
+<p><code>presets.ConfirmDialogDialogPortalName</code><br />
+optional<br />
 To use a custom portal for dialog.</p>
-<h2><a name="example" class="anchor" href="#example" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example</h2>
+<h2 id="example">Example</h2>
 
 <highlightjs :language='"go"' :code='"vuetify.VBtn(\"Delete File\").\n\tAttr(\"@click\",\n\t\tweb.Plaid().\n\t\t\tEventFunc(presets.OpenConfirmDialog).\n\t\t\tQuery(presets.ConfirmDialogConfirmEvent,\n\t\t\t\t`alert(\"file deleted\")`,\n\t\t\t).\n\t\t\tGo(),\n\t),"'></highlightjs>
 

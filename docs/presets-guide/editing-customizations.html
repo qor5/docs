@@ -222,14 +222,14 @@
 <div id='docMainBox' class='px-16 pb-12 pt-4 overflow-auto'>
 <h1 class='mb-8'>Editing</h1>
 
-<div class='border-t'><p>Editing an object will be always in a drawer popup. select which fields can edit for each model
-by using the <code>.Only</code> func of <code>EditingBuilder</code>, There are different ways to configure the type
+<div class='border-t'><p>Editing an object will be always in a drawer popup. select which fields can edit for each model<br />
+by using the <code>.Only</code> func of <code>EditingBuilder</code>, There are different ways to configure the type<br />
 of component that is used to do the editing.</p>
 
 <h2 id='configure-field-for-a-single-model'>Configure field for a single model
 <a href='#configure-field-for-a-single-model' class='anchor'></a>
 </h2>
-<p>Use a customized component is as simple as add the extra asset to the preset instance.
+<p>Use a customized component is as simple as add the extra asset to the preset instance.<br />
 And configure the component func on the field:</p>
 
 <highlightjs :language='"go"' :code='"\nfunc PresetsEditingCustomizationDescription(b *presets.Builder) (\n\tcust *presets.ModelBuilder,\n\tcl *presets.ListingBuilder,\n\tce *presets.EditingBuilder,\n\tdb *gorm.DB,\n) {\n\tcust, cl, ce, db = PresetsListingCustomizationBulkActions(b)\n\tb.URIPrefix(PresetsEditingCustomizationDescriptionPath)\n\tb.ExtraAsset(\"/tiptap.js\", \"text/javascript\", tiptap.JSComponentsPack())\n\tb.ExtraAsset(\"/tiptap.css\", \"text/css\", tiptap.CSSComponentsPack())\n\n\tce.Only(\"Name\", \"CompanyID\", \"Description\")\n\n\tce.Field(\"Description\").ComponentFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) h.HTMLComponent {\n\t\treturn tiptap.TipTapEditor().\n\t\t\tAttr(web.VField(field.Name, field.Value(obj).(string))...)\n\t})\n\treturn\n}\n\nconst PresetsEditingCustomizationDescriptionPath = \"/samples/presets-editing-customization-description\"\n"'></highlightjs>
@@ -264,13 +264,12 @@ And configure the component func on the field:</p>
 <ul>
 <li>We define <code>MyFile</code> to actually be a string</li>
 <li>We set <code>FieldDefaults</code> for writing, which is the editing drawer popup to be a customized component</li>
-<li>The component show an img tag with the string as src if it&#39;s not empty</li>
+<li>The component show an img tag with the string as src if it's not empty</li>
 <li>The component add a file input for user to upload new file</li>
-<li>The <code>SetterFunc</code> is called before save the object, it uploads the file to transfer.sh, and get the url back,
+<li>The <code>SetterFunc</code> is called before save the object, it uploads the file to transfer.sh, and get the url back,<br />
 then set the value to <code>MainImage</code> field</li>
 </ul>
-
-<p>With <code>FieldDefaults</code> we can write libraries that add customized type for different models to reuse. It can take care
+<p>With <code>FieldDefaults</code> we can write libraries that add customized type for different models to reuse. It can take care<br />
 of how to display the edit controls, and How to save the object.</p>
 
 <h2 id='tabs'>Tabs
@@ -291,7 +290,7 @@ of how to display the edit controls, and How to save the object.</p>
 <h2 id='validation'>Validation
 <a href='#validation' class='anchor'></a>
 </h2>
-<p>Field level validation and display on field can be added by implement <code>ValidateFunc</code>,
+<p>Field level validation and display on field can be added by implement <code>ValidateFunc</code>,<br />
 and set the <code>web.ValidationErrors</code> result:</p>
 
 <highlightjs :language='"go"' :code='"\nfunc PresetsEditingCustomizationValidation(b *presets.Builder) (\n\tcust *presets.ModelBuilder,\n\tcl *presets.ListingBuilder,\n\tce *presets.EditingBuilder,\n\tdb *gorm.DB,\n) {\n\tcust, cl, ce, db = PresetsEditingCustomizationDescription(b)\n\tb.URIPrefix(PresetsEditingCustomizationValidationPath)\n\n\tce.ValidateFunc(func(obj interface{}, ctx *web.EventContext) (err web.ValidationErrors) {\n\t\tcus := obj.(*Customer)\n\t\tif len(cus.Name) \u003c 10 {\n\t\t\terr.FieldError(\"Name\", \"name is too short\")\n\t\t}\n\t\treturn\n\t})\n\treturn\n}\n\nconst PresetsEditingCustomizationValidationPath = \"/samples/presets-editing-customization-validation\"\n"'></highlightjs>

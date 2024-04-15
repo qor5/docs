@@ -225,7 +225,7 @@
 <div class='border-t'><p><code>PageFunc</code> is used to build a web page, <code>EventFunc</code> is called when user interact with the page, For example button or link clicks.</p>
 
 <highlightjs :language='"go"' :code='"type PageFunc func(ctx *EventContext) (r PageResponse, err error)\ntype EventFunc func(ctx *EventContext) (r EventResponse, err error)\n"'></highlightjs>
-<p><code>web.Page(...)</code> converts multiple <code>EventFunc</code>s along with one <code>PageFunc</code> to a <code>http.Handler</code>,
+<p><code>web.Page(...)</code> converts multiple <code>EventFunc</code>s along with one <code>PageFunc</code> to a <code>http.Handler</code>,<br />
 event func needs a name to be used by <code>web.POST().EventFunc(name).Go()</code> to attach to an html element that post http request to call the <code>EventFunc</code> when vue event like <code>@click</code> happens</p>
 <p>Here is a hello world with more interactions. User click the button will reload the page with latest time</p>
 
@@ -242,16 +242,16 @@ event func needs a name to be used by <code>web.POST().EventFunc(name).Go()</cod
 
 <highlightjs :language='"go"' :code='"mux.Handle(\n\texamples_web.HelloWorldReloadPath,\n\texamples_web.HelloWorldReloadPB.Wrap(demoLayout),\n)"'></highlightjs>
 <p><code>wb.Page(...)</code> convert any <code>PageFunc</code> into <code>http.Handler</code>, outside you can wrap any middleware that can use on Go standard <code>http.Handler</code>.</p>
-<p>In case you don&#39;t know what is a http.Handler middleware,
-It&#39;s a function that takes http.Handler as input, might also with other parameters,
-And also return a new http.Handler,
-<a href="https://github.com/nytimes/gziphandler" rel="nofollow">gziphandler</a> is an example.</p>
-<p>But What the heck is <code>demoLayout</code> there?
-Well it&#39;s a <code>PageFunc</code> middleware. That takes an <code>PageFunc</code> as input,
-wrap it&#39;s <code>PageResponse</code> with layout html and return a new <code>PageFunc</code>.
-If you follow the code to write your own <code>PageFunc</code>,
-The button click might not work without this.
-Since there is no layout to import needed javascript to make this work.
+<p>In case you don't know what is a http.Handler middleware,<br />
+It's a function that takes http.Handler as input, might also with other parameters,<br />
+And also return a new http.Handler,<br />
+<a href="https://github.com/nytimes/gziphandler">gziphandler</a> is an example.</p>
+<p>But What the heck is <code>demoLayout</code> there?<br />
+Well it's a <code>PageFunc</code> middleware. That takes an <code>PageFunc</code> as input,<br />
+wrap it's <code>PageResponse</code> with layout html and return a new <code>PageFunc</code>.<br />
+If you follow the code to write your own <code>PageFunc</code>,<br />
+The button click might not work without this.<br />
+Since there is no layout to import needed javascript to make this work.<br />
 continue to next page to checkout how to add necessary javascript, css etc to make the demo work.</p>
 </div>
 </div>

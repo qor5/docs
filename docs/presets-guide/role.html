@@ -223,11 +223,10 @@
 <h1 class='mb-8'>Role</h1>
 
 <div class='border-t'><p><strong>Role</strong> provides a UI interface to manage roles(subjects) and their permissions.</p>
-
 <p>1.  enable permission DBPolicy</p>
 
 <highlightjs :language='"go"' :code='"perm.New().\n\tPolicies(\n\t// static policies\n\t).\n\tDBPolicy(perm.NewDBPolicy(db))"'></highlightjs>
-<p>2. configure role<br>
+<p>2. configure role<br />
 set resources that you want to manage on interface</p>
 
 <highlightjs :language='"go"' :code='"rb := role.New(db).\n\tResources([]*vuetify.DefaultOptionItem{\n\t\t{Text: \"All\", Value: \"*\"},\n\t\t{Text: \"Posts\", Value: \"*:posts:*\"},\n\t\t{Text: \"Customers\", Value: \"*:customers:*\"},\n\t\t{Text: \"Products\", Value: \"*:products:*\"},\n\t})"'></highlightjs>

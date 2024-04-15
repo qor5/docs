@@ -1,3 +1,22 @@
+if ! command -v snippetgo &> /dev/null
+then
+    echo "snippetgo command not found. Installing..."
+
+    # Install snippetgo using 'go install'
+    go install github.com/sunfmin/snippetgo@latest
+
+    # Check if installation was successful
+    if command -v snippetgo &> /dev/null
+    then
+        echo "snippetgo successfully installed."
+    else
+        echo "Error: Failed to install snippetgo. Please check your Go environment and try again."
+        exit 1
+    fi
+else
+    echo "snippetgo is already installed."
+fi
+
 goModPath(){
     go list -m -json $1 | jq -r '.Dir'
 }

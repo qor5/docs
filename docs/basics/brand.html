@@ -223,9 +223,7 @@
 <h1 class='mb-8'>Brand</h1>
 
 <div class='border-t'><p>Brand refers to the top area of the left menu bar, we provide two functions <code>BrandTitle</code> and <code>BrandFunc</code> to customize it.</p>
-<h2><a name="simple-customization" class="anchor" href="#simple-customization" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
-Simple customization</h2>
-
+<h2 id="simple-customization">Simple customization</h2>
 <p>If you want only to change the brand string, you can use <code>BrandTitle</code> to set the string, the string will be displayed in the brand area with <code>&lt;H1&gt;</code> tag.</p>
 
 <highlightjs :language='"go"' :code='"b.URIPrefix(PresetsBrandTitlePath).\n\tBrandTitle(\"QOR5 Admin\")"'></highlightjs>
@@ -237,8 +235,7 @@ Simple customization</h2>
 <a href='https://github.com/qor5/docs/tree/main/docsrc/examples/e21_presents/brand.go' target='_blank'>Source on GitHub</a>
 </div>
 </div>
-<h2><a name="full-customization" class="anchor" href="#full-customization" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Full customization</h2>
-
+<h2 id="full-customization">Full customization</h2>
 <p>When you opt-in to full brand customization, you can use <code>BrandFunc</code> to be responsible for drawing for the entire brand area, such as you can put your own logo image in it.</p>
 
 <highlightjs :language='"go"' :code='"b.URIPrefix(PresetsBrandFuncPath).\n\tBrandFunc(func(ctx *web.EventContext) h.HTMLComponent {\n\t\treturn vuetify.VCardText(\n\t\t\th.H1(\"Admin\").Style(\"color: red;\"),\n\t\t).Class(\"pa-0\")\n\t})"'></highlightjs>
@@ -250,9 +247,8 @@ Simple customization</h2>
 <a href='https://github.com/qor5/docs/tree/main/docsrc/examples/e21_presents/brand.go' target='_blank'>Source on GitHub</a>
 </div>
 </div>
-<h2><a name="profile" class="anchor" href="#profile" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Profile</h2>
-
-<p>Profile is below the brand area, where you can put the current user&#39;s information or others. We provide <code>ProfileFunc</code> to customize it.</p>
+<h2 id="profile">Profile</h2>
+<p>Profile is below the brand area, where you can put the current user's information or others. We provide <code>ProfileFunc</code> to customize it.</p>
 
 <highlightjs :language='"go"' :code='"b.URIPrefix(PresetsProfilePath).BrandTitle(\"Admin\").\n\tProfileFunc(func(ctx *web.EventContext) h.HTMLComponent {\n\t\t// Demo\n\t\t// logoutURL := \"\"\n\t\tlogoutURL := \".\"\n\t\tname := \"QOR5\"\n\t\t// account := \"hello@getqor.com\"\n\t\troles := []string{\"Developer\"}\n\t\treturn VRow(\n\t\t\tVCol(\n\t\t\t\tVCard().Class(\"text-grey-darken-1\").Variant(\"text\").Title(name).Subtitle(roles[0]).Children(\n\t\t\t\t\tweb.Slot(\n\t\t\t\t\t\tVAvatar().Class(\"ml-1 rounded-lg\").Color(\"blue\").Size(48).Children(\n\t\t\t\t\t\t\th.Span(string(name[0])).Class(\"text-white text-h5\")),\n\t\t\t\t\t).Name(\"prepend\"),\n\t\t\t\t),\n\t\t\t\t// VAvatar(\n\t\t\t\t//\th.Span(\"QO\").Class(\"text-h5\"),\n\t\t\t\t// ).Attr(\"color\", \"blue\").Attr(\"size\", \"48\").Class(\"rounded-lg\"),\n\t\t\t\t// h.Span(name).Class(\"text-h6 mx-2 text-grey-darken-1\"),\n\t\t\t).Attr(\"cols\", \"8\"),\n\t\t\tVCol(\n\t\t\t\tVBtn(\"\").Attr(\"density\", \"compact\").\n\t\t\t\t\tAttr(\"variant\", \"text\").\n\t\t\t\t\tAttr(\"icon\", \"mdi-chevron-right\").\n\t\t\t\t\tClass(\"text-grey-darken-1\"),\n\t\t\t).Attr(\"cols\", \"2\").Class(\"d-flex justify-center align-center\").Attr(\"@click\", web.Plaid().URL(logoutURL).Go()),\n\t\t\tVCol(\n\t\t\t\tVBtn(\"\").Attr(\"density\", \"compact\").\n\t\t\t\t\tAttr(\"variant\", \"text\").\n\t\t\t\t\tAttr(\"icon\", \"mdi-bell-outline\").\n\t\t\t\t\tClass(\"text-grey-darken-1\"),\n\t\t\t).Attr(\"cols\", \"2\").Class(\"d-flex align-center justify-center\"),\n\t\t).Attr(\"align\", \"center\", \"justify\", \"center\")\n\t})\n\n// VMenu().Children(\n//\th.Template().Attr(\"v-slot:activator\", \"{isActive,props}\").Children(\n//\t\tVList(\n//\t\t\tVListItem(\n//\t\t\t\th.Template().Attr(\"v-slot:prepend\", \"{ isActive}\").Children(\n//\t\t\t\t\tVAvatar().Class(\"ml-1\").Color(\"surface-variant\").Size(40).Children(\n//\t\t\t\t\t\th.Span(string(name[0])).Class(\"text-white text-h5\")),\n//\t\t\t\t),\n//\t\t\t).Title(name).Subtitle(strings.Join(roles, \", \")).Class(\"pa-0 mb-2\"),\n//\t\t\tVListItem(\n//\t\t\t\th.Template().Attr(\"v-slot:append\", \"{ isActive}\").Children(\n//\t\t\t\t\tVIcon(\"mdi-logout\").Size(\"small\").Attr(\"@click\", web.Plaid().URL(logoutURL).Go()),\n//\t\t\t\t),\n//\t\t\t).Title(account).Class(\"pa-0 my-n2 ml-1\"),\n//\t\t).Class(\"pa-0 ma-n4\"),\n//\t),\n// )"'></highlightjs>
 
