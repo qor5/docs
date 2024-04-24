@@ -21,6 +21,7 @@ var DocTree = []interface{}{
 	&docgo.DocsGroup{
 		Title: "Building Admin",
 		Docs: []*docgo.DocBuilder{
+			basics.PresetsInstantCRUD,
 			// listing
 			basics.Listing,
 			basics.ListingCustomizations,
@@ -54,11 +55,10 @@ var DocTree = []interface{}{
 	&docgo.DocsGroup{
 		Title: "Web Application",
 		Docs: []*docgo.DocBuilder{
-			advanced_functions.PageFuncAndEventFunc,
 			advanced_functions.TheGoHTMLBuilder,
-			advanced_functions.ItsTheWholeHouse,
-			advanced_functions.LazyPortalsAndReload,
+			advanced_functions.PageFuncAndEventFunc,
 			advanced_functions.LayoutFunctionAndPageInjector,
+			advanced_functions.LazyPortalsAndReload,
 			advanced_functions.SwitchPagesWithPushState,
 			advanced_functions.ReloadPageWithAFlash,
 			advanced_functions.PartialRefreshWithPortal,

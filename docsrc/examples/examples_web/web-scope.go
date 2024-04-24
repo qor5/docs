@@ -48,7 +48,7 @@ if (locals.btnLabel == "Add") {
 				Attr("max-width", "300").
 				Attr("tile", ""),
 		).Init(`{ selectedItem: 0, btnLabel:"Add", items: [{text: "A", icon: "mdi-clock"}]}`).
-			VSlot("{ locals, form }"),
+			VSlot("{ locals }"),
 	)
 	return
 }

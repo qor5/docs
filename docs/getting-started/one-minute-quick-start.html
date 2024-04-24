@@ -36,6 +36,10 @@
 <li class='cursor-default px-4 py-1 truncate break-words w-64 m-0'>Building Admin</li>
 
 <li class='m-0'>
+<a href='basics/presets-instant-crud.html' id='basics/presets-instant-crud.html' onclick='window.storeMenuState("basics/presets-instant-crud.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>presets, Instant CRUD</a>
+</li>
+
+<li class='m-0'>
 <a href='basics/listing.html' id='basics/listing.html' onclick='window.storeMenuState("basics/listing.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Listing</a>
 </li>
 
@@ -122,23 +126,19 @@
 <li class='cursor-default px-4 py-1 truncate break-words w-64 m-0'>Web Application</li>
 
 <li class='m-0'>
-<a href='basics/page-func-and-event-func.html' id='basics/page-func-and-event-func.html' onclick='window.storeMenuState("basics/page-func-and-event-func.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Page Func and Event Func</a>
-</li>
-
-<li class='m-0'>
 <a href='advanced-functions/the-go-html-builder.html' id='advanced-functions/the-go-html-builder.html' onclick='window.storeMenuState("advanced-functions/the-go-html-builder.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>The Go HTML builder</a>
 </li>
 
 <li class='m-0'>
-<a href='presets-guide/its-the-whole-house.html' id='presets-guide/its-the-whole-house.html' onclick='window.storeMenuState("presets-guide/its-the-whole-house.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Not just scaffolding, it&#39;s the whole house</a>
-</li>
-
-<li class='m-0'>
-<a href='vuetify-components/lazy-portals.html' id='vuetify-components/lazy-portals.html' onclick='window.storeMenuState("vuetify-components/lazy-portals.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Lazy Portals</a>
+<a href='basics/page-func-and-event-func.html' id='basics/page-func-and-event-func.html' onclick='window.storeMenuState("basics/page-func-and-event-func.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Page Func and Event Func</a>
 </li>
 
 <li class='m-0'>
 <a href='basics/layout-function-and-page-injector.html' id='basics/layout-function-and-page-injector.html' onclick='window.storeMenuState("basics/layout-function-and-page-injector.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Layout Function and Page Injector</a>
+</li>
+
+<li class='m-0'>
+<a href='vuetify-components/lazy-portals.html' id='vuetify-components/lazy-portals.html' onclick='window.storeMenuState("vuetify-components/lazy-portals.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Lazy Portals</a>
 </li>
 
 <li class='m-0'>
@@ -162,7 +162,7 @@
 </li>
 
 <li class='m-0'>
-<a href='basics/scope-component.html' id='basics/scope-component.html' onclick='window.storeMenuState("basics/scope-component.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Scope Component</a>
+<a href='basics/web-scope.html' id='basics/web-scope.html' onclick='window.storeMenuState("basics/web-scope.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>web.Scope</a>
 </li>
 
 <li class='m-0'>
@@ -222,17 +222,33 @@
 <div id='docMainBox' class='px-16 pb-12 pt-4 overflow-auto'>
 <h1 class='mb-8'>1 Minute Quick Start</h1>
 
-<div class='border-t'><p>This article try to let you use the shortest time to get a taste of how powerful QOR5 is.</p>
-<p>One of the QOR5 module called <code>presets</code> that can quickly create admin interface like <a href="/samples/presets-detail-page-cards/customers">these</a>:</p>
-<p>Install the command line tool with:</p>
+<div class='border-t'><p>This brief tutorial aims to give you a rapid taste of QOR5's capabilities in the shortest possible time. One standout feature of QOR5 is its &quot;presets&quot; module, which swiftly generates <a href="/samples/presets-detail-page-cards/customers">fully functional admin interfaces</a> like those you see below.</p>
+<p>To get started right away:</p>
+<ol>
+<li><strong>Install the Command Line Tool</strong>: Run the following command to install the latest version of the QOR5 CLI tool:</li>
+</ol>
 <pre><code>$ go install github.com/qor5/docs/cmd/qor5@latest
 </code></pre>
-<p>And run:</p>
+<ol start="2">
+<li><strong>Launch QOR5</strong>: Execute the qor5 command:</li>
+</ol>
 <pre><code>$ qor5
 </code></pre>
-<p>It will promote you to input a Go package, and create the admin app in current directory.</p>
-<p>Change to the created package directory, and use <code>docker-compose up</code> to start the database, and then<br />
-Use a new terminal to run <code>source dev_env &amp;&amp; go run main.go</code> to start the admin app</p>
+<p>You'll be prompted to enter a Go package name. The tool will then create an admin app within your current working directory.</p>
+<ol start="3">
+<li><strong>Set Up the Database</strong>: Navigate to the newly created package directory and start the database using Docker Compose:</li>
+</ol>
+<pre><code>$ cd &lt;your_package_name&gt;
+$ docker-compose up
+</code></pre>
+<p>This command launches the necessary database services</p>
+<ol start="4">
+<li><strong>Run the Admin App</strong>: Open a new terminal window and execute the following commands to load the development environment variables and run the admin application:</li>
+</ol>
+<pre><code>$ source dev_env
+$ go run main.go
+</code></pre>
+<p>With these quick steps, you'll have a fully operational QOR5 admin interface up and running, showcasing the remarkable speed and efficiency at which QOR5 empowers you to build sophisticated web applications. Explore the interface to witness firsthand the extent of QOR5's power and versatility, all within just one minute!</p>
 </div>
 </div>
 </div>

@@ -1,4 +1,4 @@
-package advanced_functions
+package basics
 
 import (
 	"github.com/qor5/docs/v3/docsrc/examples/examples_presets"
@@ -8,7 +8,7 @@ import (
 	"github.com/theplant/docgo/ch"
 )
 
-var ItsTheWholeHouse = Doc(
+var PresetsInstantCRUD = Doc(
 	Markdown(`
 Presets let you config generalized data management UI interface for database.
 It's not a scaffolding to generate source code. But provide more abstract and
@@ -32,5 +32,5 @@ With ~r.Model(&Customer{})~:
 - It setup each row of data have a operation menu that you have edit and delete operations
 - It setup the global search box, can search the model's all string columns
 `),
-).Title("Not just scaffolding, it's the whole house").
-	Slug("presets-guide/its-the-whole-house")
+).Title("presets, Instant CRUD").
+	Slug("basics/presets-instant-crud")
