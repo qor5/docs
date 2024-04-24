@@ -1,40 +1,48 @@
 package content
 
 import (
-	"github.com/qor5/docs/v3/docsrc/utils"
 	. "github.com/theplant/docgo"
-	. "github.com/theplant/htmlgo"
 )
 
 var Home = Doc(
 	Markdown(`
-QOR5 is a Go library designed to help developers build web applications with ease and high customization. By focusing on static typing in the Go language and minimizing the need for JavaScript or TypeScript, QOR5 streamlines the development process and encourages reusability of components.
+QOR5 is a powerful Go library that empowers developers to craft web applications with exceptional ease and extensive customization potential. Leveraging Go's robust static typing and minimizing the need for JavaScript or TypeScript, QOR5 delivers a highly efficient development workflow while fostering a culture of component reuse.
 
-In QOR5, the traditional approach of using template languages for rendering HTML is discouraged. Instead, QOR5 encourages developers to write HTML [using static typing in the Go language](/advanced-functions/the-go-html-builder.html). This design choice provides several benefits:
+## Revolutionizing HTML Rendering
 
-- Improved Readability and Maintainability: By using Go's static typing, you can maintain a consistent coding style throughout the entire project, making it easier to read and maintain.
+QOR5 challenges conventional wisdom by advocating against the use of template languages for HTML generation. 
+It instead invites developers to harness the expressive power of [Go's static typing to author HTML](/advanced-functions/the-go-html-builder.html) directly within
+the codebase. This innovative approach confers several key advantages:
 
-- Better Error Checking: Static typing allows for compile-time error checking, which can help catch issues before they cause problems in production.
+- **Enhanced Readability and Maintainability**: By embracing Go's statically typed syntax, 
+projects maintain a cohesive coding style, resulting in cleaner, more comprehensible code that is effortless to navigate and update.
 
-- Enhanced Reusability: QOR5 promotes the use of components, which can be easily abstracted and reused across different parts of your application. Since components are written in Go, using third-party components from other Go packages is as simple as importing and using regular Go packages.
+- **Proactive Error Detection**: The static typing inherent to Go enables rigorous compile-time checks, 
+catching potential issues early in the development cycle and preventing them from surfacing as production bugs.
 
-- Simplified Development Process: By minimizing the need for JavaScript or TypeScript, QOR5 streamlines the development process and reduces the complexity of building interactive web applications.
+- **Unmatched Reusability**: QOR5 champions the modular nature of components, 
+which can be seamlessly abstracted and repurposed across various aspects of an application. As these components are written in pure Go, incorporating third-party libraries becomes a breeze—simply import and utilize them like any standard Go package.
 
-QOR5's approach to rendering HTML using Go's static typing eliminates the need for developers to learn and work with multiple template languages. This results in a more consistent and streamlined development experience, allowing developers to focus on the core functionality of their web applications.
+- **Streamlined Development**: By minimizing the need for JavaScript or TypeScript, 
+QOR5 simplifies the development process and significantly reduces the intricacies involved in creating dynamic, interactive web experiences. Developers can concentrate on delivering core functionality without being bogged down by the complexities of multiple scripting languages.
 
-	`),
+## A Unified Development Experience
 
-	utils.Anchor(H2(""), "How is this document organized"),
-	Markdown(`
-Most of latter examples are based on the initial sample project. In another word, we will demonstrate how to build a rich functioned website by this document.
+QOR5's innovative approach to HTML rendering through Go's static typing eliminates the learning curve and maintenance overhead associated with managing multiple template languages. As a result, developers enjoy a coherent, streamlined development journey that prioritizes their focus on the essence of their web applications.
 
-- Quick Sample Project: We will begin with a brief overview of a sample project, giving you a visual idea of QOR5's capabilities and functionalities.
 
-- Basic Functions: In this section, we will explore the core features of QOR5, starting from listing pages to editing pages. This section covers common features found in admin websites.
+## Document Structure
 
-- QOR5 Essentials and Advanced Functions: We will dive into the inner workings of QOR5, covering topics such as rendering pages and advanced features like partial page refreshing.
+This comprehensive guide is structured to facilitate a hands-on understanding of QOR5's capabilities and practical application. It is anchored around a sample project, which serves as a tangible reference point throughout the learning process.
 
-- Digging Deeper: In the final section, you will learn how to create new components for QOR5, extending its capabilities and adapting it to your specific needs.
+- **Quick Sample Project**: Our journey commences with a concise overview of a representative sample project, visually demonstrating QOR5's versatility and feature set.
+
+- **Basic Functions**: This section delves into the fundamental building blocks of QOR5, 
+walking you through essential features ranging from list pages to edit interfaces. It equips you with the knowledge needed to implement common administrative functionalities found in modern web applications.
+
+- QOR5 Essentials and Advanced Functions: Here, we delve beneath the surface, examining the inner workings of QOR5. Topics include sophisticated page rendering techniques and cutting-edge features such as partial page refreshing, providing you with a deeper understanding of QOR5's full potential.
+
+- **Digging Deeper**: In the culminating segment, you will learn how to unleash your creativity by designing and implementing custom components for QOR5. This empowering section teaches you how to extend QOR5's functionality and tailor it precisely to the unique requirements of your projects.
 
 
 **Join the Discord community**: https://discord.gg/76YPsVBE4E

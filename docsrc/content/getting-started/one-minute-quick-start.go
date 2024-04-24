@@ -6,26 +6,41 @@ import (
 
 var OneMinuteQuickStart = Doc(
 	Markdown(`
-This article try to let you use the shortest time to get a taste of how powerful QOR5 is.
+This brief tutorial aims to give you a rapid taste of QOR5's capabilities in the shortest possible time. One standout feature of QOR5 is its "presets" module, which swiftly generates [fully functional admin interfaces](/samples/presets-detail-page-cards/customers) like those you see below.
 
-One of the QOR5 module called ~presets~ that can quickly create admin interface like [these](/samples/presets-detail-page-cards/customers):
+To get started right away:
 
-Install the command line tool with:
+
+1. **Install the Command Line Tool**: Run the following command to install the latest version of the QOR5 CLI tool:
 
 ~~~
 $ go install github.com/qor5/docs/cmd/qor5@latest
 ~~~
 
-And run:
+2. **Launch QOR5**: Execute the qor5 command:
 
 ~~~
 $ qor5
 ~~~
 
-It will promote you to input a Go package, and create the admin app in current directory.
+You'll be prompted to enter a Go package name. The tool will then create an admin app within your current working directory.
 
-Change to the created package directory, and use ~docker-compose up~ to start the database, and then
-Use a new terminal to run ~source dev_env && go run main.go~ to start the admin app
+3. **Set Up the Database**: Navigate to the newly created package directory and start the database using Docker Compose:
+
+~~~
+$ cd <your_package_name>
+$ docker-compose up
+~~~
+This command launches the necessary database services
+
+4. **Run the Admin App**: Open a new terminal window and execute the following commands to load the development environment variables and run the admin application:
+
+~~~
+$ source dev_env
+$ go run main.go
+~~~
+
+With these quick steps, you'll have a fully operational QOR5 admin interface up and running, showcasing the remarkable speed and efficiency at which QOR5 empowers you to build sophisticated web applications. Explore the interface to witness firsthand the extent of QOR5's power and versatility, all within just one minute!
 
 `),
 ).Title("1 Minute Quick Start").

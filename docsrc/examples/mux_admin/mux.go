@@ -15,6 +15,7 @@ import (
 func Mux(mux *http.ServeMux, prefix string) http.Handler {
 	mux_web_vuetify.Mux(mux, prefix)
 	samplesMux := SamplesHandler(prefix)
+
 	mux.Handle("/samples/",
 		middleware.Logger(
 			middleware.RequestID(
@@ -34,7 +35,7 @@ func Mux(mux *http.ServeMux, prefix string) http.Handler {
 }
 
 func SamplesHandler(prefix string) http.Handler {
-	mux := http.NewServeMux()
+	mux := &mux_web_vuetify.IndexMux{Mux: http.NewServeMux()}
 	mux_web_vuetify.SamplesHandler(mux, prefix)
 	mux_presets.SamplesHandler(mux, prefix)
 	addGA := mux_web_vuetify.AddGA
@@ -71,5 +72,5 @@ func SamplesHandler(prefix string) http.Handler {
 		examples_admin.PublishExamplePath+"/",
 		c29)
 
-	return mux
+	return mux.Mux
 }
