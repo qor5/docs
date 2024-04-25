@@ -9,9 +9,9 @@ require (
 	github.com/markbates/goth v1.79.0
 	github.com/ory/ladon v1.3.0
 	github.com/qor/oss v0.0.0-20230717083721-c04686f83630
-	github.com/qor5/admin/v3 v3.0.0
-	github.com/qor5/ui/v3 v3.0.0
-	github.com/qor5/web/v3 v3.0.1-0.20240415033659-95e180dfdf80
+	github.com/qor5/admin/v3 v3.0.1-0.20240424102851-d75759576158
+	github.com/qor5/ui/v3 v3.0.1-0.20240418093719-268d4f3f6518
+	github.com/qor5/web/v3 v3.0.1-0.20240417133907-56112c26648a
 	github.com/qor5/x/v3 v3.0.1-0.20240413072413-0147d0c24d91
 	github.com/shurcooL/sanitized_anchor_name v1.0.0
 	github.com/sunfmin/reflectutils v1.0.4
@@ -70,8 +70,8 @@ require (
 	golang.org/x/time v0.5.0 // indirect
 )
 
-replace github.com/qor5/web/v3 => ../web
-
-replace github.com/qor5/ui/v3 => ../ui
-
-replace github.com/qor5/admin/v3 => ../admin
+//replace github.com/qor5/web/v3 => ../web
+//
+//replace github.com/qor5/ui/v3 => ../ui
+//
+//replace github.com/qor5/admin/v3 => ../admin
