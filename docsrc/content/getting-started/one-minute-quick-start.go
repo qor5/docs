@@ -23,7 +23,15 @@ $ go install github.com/qor5/docs/v3/cmd/qor5@latest
 $ qor5
 ~~~
 
-You'll be prompted to enter a Go package name. The tool will then create an admin app within your current working directory.
+You'll be prompted to enter a Go package name. 
+
+And then there are these template options,
+
+- Admin: Content Management System
+- Website: Content Management System with Website Examples
+- Bare: Simplest Workable Web App
+
+Here we select Admin, The tool will then create an admin app within your current working directory.
 
 3. **Set Up the Database**: Navigate to the newly created package directory and start the database using Docker Compose:
 
