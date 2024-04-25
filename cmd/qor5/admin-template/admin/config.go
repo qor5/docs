@@ -6,19 +6,19 @@ import (
 	"github.com/qor5/admin/v3/presets"
 	"github.com/qor5/admin/v3/presets/gorm2op"
 	"github.com/qor5/docs/v3/cmd/qor5/admin-template/models"
-	"github.com/qor5/ui/v3/vuetify"
+	. "github.com/qor5/ui/v3/vuetify"
 	"github.com/qor5/web/v3"
-	h "github.com/theplant/htmlgo"
+	. "github.com/theplant/htmlgo"
 )
 
 func Initialize() *http.ServeMux {
-	b := initializeProject()
-	mux := SetupRouter(b)
+	b := setupAdmin()
+	mux := setupRouter(b)
 
 	return mux
 }
 
-func initializeProject() (b *presets.Builder) {
+func setupAdmin() (b *presets.Builder) {
 	db := ConnectDB()
 
 	// Initialize the builder of QOR5
@@ -29,9 +29,9 @@ func initializeProject() (b *presets.Builder) {
 		BrandTitle("Admin").
 		DataOperator(gorm2op.DataOperator(db)).
 		HomePageFunc(func(ctx *web.EventContext) (r web.PageResponse, err error) {
-			r.Body = vuetify.VContainer(
-				h.H1("Home"),
-				h.P().Text("Change your home page here"))
+			r.Body = VContainer(
+				H1("Home"),
+				P().Text("Change your home page here"))
 			return
 		})
 

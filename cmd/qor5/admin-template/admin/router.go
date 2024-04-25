@@ -6,7 +6,7 @@ import (
 	"github.com/qor5/admin/v3/presets"
 )
 
-func SetupRouter(b *presets.Builder) (mux *http.ServeMux) {
+func setupRouter(b *presets.Builder) (mux *http.ServeMux) {
 	mux = http.NewServeMux()
 	mux.Handle("/", b)
 	return
