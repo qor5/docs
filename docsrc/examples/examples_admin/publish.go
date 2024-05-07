@@ -9,7 +9,6 @@ import (
 	"github.com/qor5/admin/v3/presets"
 	"github.com/qor5/admin/v3/presets/gorm2op"
 	"github.com/qor5/admin/v3/publish"
-	publish_view "github.com/qor5/admin/v3/publish/views"
 	"gorm.io/gorm"
 )
 
@@ -73,9 +72,8 @@ func PublishExample(b *presets.Builder) {
 	mb := b.Model(&Product{})
 	mb.Editing("StatusBar", "ScheduleBar", "Name", "Price")
 
-	publisher := publish.New(DB, nil)
-	publish_view.Configure(b, DB, nil, publisher, mb)
-
+	publisher := publish.New(DB, nil).Models(mb)
+	publisher.Install(b)
 	// run the publisher job if Schedule is used
 	go publish.RunPublisher(DB, nil, publisher)
 	// @snippet_end

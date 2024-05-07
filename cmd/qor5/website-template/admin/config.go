@@ -6,14 +6,12 @@ import (
 	"github.com/qor/oss/filesystem"
 	"github.com/qor5/admin/v3/activity"
 	"github.com/qor5/admin/v3/l10n"
-	l10n_view "github.com/qor5/admin/v3/l10n/views"
-	media_view "github.com/qor5/admin/v3/media/views"
+	"github.com/qor5/admin/v3/media"
 	"github.com/qor5/admin/v3/pagebuilder"
 	"github.com/qor5/admin/v3/pagebuilder/example"
 	"github.com/qor5/admin/v3/presets"
 	"github.com/qor5/admin/v3/presets/gorm2op"
 	"github.com/qor5/admin/v3/publish"
-	publish_view "github.com/qor5/admin/v3/publish/views"
 	"github.com/qor5/admin/v3/seo"
 	"github.com/qor5/admin/v3/utils"
 	"github.com/qor5/ui/v3/vuetify"
@@ -82,23 +80,23 @@ func newPB() Config {
 		),
 	)
 
-	utils.Configure(b)
-	media_view.Configure(b, db)
-	ab := activity.New(b, db).SetCreatorContextKey(login.UserKey)
-	l10nBuilder := l10n.New()
+	utils.Install(b)
+	media.New(db).Install(b)
+	ab := activity.New(db).CreatorContextKey(login.UserKey)
+	ab.Install(b)
 
 	pageBuilder := example.ConfigPageBuilder(db, "/admin/page_builder", ``, b.I18n())
 	storage := filesystem.New(PublishDir)
 	publisher := publish.New(db, storage).WithPageBuilder(pageBuilder)
 
-	seoBuilder := seo.NewBuilder(db)
-	pm := pageBuilder.Configure(b, db, l10nBuilder, ab, publisher, seoBuilder)
+	seoBuilder := seo.New(db)
+	l10nBuilder := l10n.New(db).Activity(ab)
+	pageBuilder.SEO(seoBuilder).Publisher(publisher).L10n(l10nBuilder).Activity(ab)
+	pm := pageBuilder.Install(b)
 	tm := pageBuilder.ConfigTemplate(b, db)
 	cm := pageBuilder.ConfigCategory(b, db, l10nBuilder)
 
 	ab.RegisterModels(pm, tm, cm)
-
-	publish_view.Configure(b, db, ab, publisher, pm)
 
 	l10nBuilder.
 		RegisterLocales("International", "International", "International").
@@ -106,7 +104,8 @@ func newPB() Config {
 		GetSupportLocaleCodesFromRequestFunc(func(R *http.Request) []string {
 			return l10nBuilder.GetSupportLocaleCodes()[:]
 		})
-	l10n_view.Configure(b, db, l10nBuilder, ab, pm)
+	l10nBuilder.Install(b)
+	publisher.Install(b)
 
 	b.I18n().
 		SupportLanguages(language.English, language.SimplifiedChinese).
