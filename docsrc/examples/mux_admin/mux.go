@@ -1,6 +1,8 @@
 package mux_admin
 
 import (
+	"net/http"
+
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/qor5/admin/v3/presets"
 	"github.com/qor5/docs/v3/docsrc"
@@ -9,7 +11,6 @@ import (
 	"github.com/qor5/docs/v3/docsrc/examples/mux_presets"
 	"github.com/qor5/docs/v3/docsrc/examples/mux_web_vuetify"
 	"github.com/theplant/docgo"
-	"net/http"
 )
 
 func Mux(mux *http.ServeMux, prefix string) http.Handler {
@@ -43,33 +44,33 @@ func SamplesHandler(prefix string) http.Handler {
 	c23 := presets.New().AssetFunc(addGA)
 	examples_admin.WorkerExampleMock(c23)
 	mux.Handle(
-		examples_admin.WorkerExamplePath+"/",
+		examples_admin.WorkerExamplePath,
 		c23,
 	)
 
 	c24 := presets.New().AssetFunc(addGA)
 	examples_admin.ActionWorkerExampleMock(c24)
 	mux.Handle(
-		examples_admin.ActionWorkerExamplePath+"/",
+		examples_admin.ActionWorkerExamplePath,
 		c24,
 	)
 
 	c27 := presets.New().AssetFunc(addGA)
 	examples_admin.InternationalizationExample(c27)
 	mux.Handle(
-		examples_admin.InternationalizationExamplePath+"/",
+		examples_admin.InternationalizationExamplePath,
 		c27)
 	c28 := presets.New().AssetFunc(addGA)
 	examples_admin.LocalizationExampleMock(c28)
 	mux.Handle(
-		examples_admin.LocalizationExamplePath+"/",
+		examples_admin.LocalizationExamplePath,
 		c28,
 	)
 
 	c29 := presets.New().AssetFunc(addGA)
 	examples_admin.PublishExample(c29)
 	mux.Handle(
-		examples_admin.PublishExamplePath+"/",
+		examples_admin.PublishExamplePath,
 		c29)
 
 	return mux.Mux
