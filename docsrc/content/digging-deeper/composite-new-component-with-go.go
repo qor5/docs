@@ -17,7 +17,7 @@ They can be composite into a new component very easy.
 This example is ported from [Bootstrap4 Navbar](https://getbootstrap.com/docs/4.3/components/navbar/):
 `),
 	ch.Code(generated.CompositeComponentSample1).Language("go"),
-	utils.Demo("Composite New Component With Go", examples_web.CompositeComponentSample1PagePath, "e00_basics/composite-components.go"),
+	utils.Demo("Composite New Component With Go", examples_web.CompositeComponentSample1PagePath, "examples_web/composite-components.go"),
 	Markdown(`
 You can see from the example, We have created ~Navbar~ and ~Carousel~ components by
 simply create Go func that returns ~htmlgo.HTMLComponent~.

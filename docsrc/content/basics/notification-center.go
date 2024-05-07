@@ -18,5 +18,5 @@ The second function is for rendering the number at the top right corner of the "
 `),
 
 	ch.Code(generated.NotificationCenterSample).Language("go"),
-	utils.Demo("Notification Center", examples_presets.NotificationCenterSamplePath+"/pages", "e00_basics/notification-center.go"),
+	utils.Demo("Notification Center", examples_presets.NotificationCenterSamplePath+"/pages", "examples_web/notification-center.go"),
 ).Slug("basics/notification-center").Title("Notification Center")

@@ -20,7 +20,7 @@ As said before, The results of an ~web.EventFunc~ could be:
 We have covered two. Now let's demonstrate refresh part of the current page:
 `),
 	ch.Code(generated.PartialUpdateSample).Language("go"),
-	utils.Demo("Partial Update", examples_web.PartialUpdatePagePath, "e00_basics/partial-update.go"),
+	utils.Demo("Partial Update", examples_web.PartialUpdatePagePath, "examples_web/partial-update.go"),
 	Markdown(`
 ~web.Portal().Name("part1")~ Place a placeholder inside you page, and append ~web.PortalUpdate~ to ~er.UpdatePortals~ to update the portal with that name.
 Multiple portal can be updated at the same time.
@@ -32,7 +32,7 @@ It is useful for the type of the content is not that important to the page, But 
 quite heavy. Like related products of a product detail page of a ECommerce site.
 `),
 	ch.Code(generated.PartialReloadSample).Language("go"),
-	utils.Demo("Partial Reload", examples_web.PartialReloadPagePath, "e00_basics/partial-reload.go"),
+	utils.Demo("Partial Reload", examples_web.PartialReloadPagePath, "examples_web/partial-reload.go"),
 	Markdown(`
 It is not only load the portal in separate AJAX request, Also you can reload it with ease ~er.ReloadPortals = []string{"related_products"}~ in an event func.
 

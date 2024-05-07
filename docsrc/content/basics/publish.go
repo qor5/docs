@@ -37,7 +37,7 @@ Implement the publish interfaces if there is a need to publish content to storag
 	utils.Demo(
 		"Publish",
 		path.Join(examples_admin.PublishExamplePath, "/products"),
-		"example_basics/publish.go",
+		"examples_admin/publish.go",
 	),
 	Markdown(fmt.Sprintf(`
 ## Modules

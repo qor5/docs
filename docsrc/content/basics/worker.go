@@ -33,7 +33,7 @@ Once registered with QOR Admin, Worker will provide a Workers section in the nav
 	utils.Demo(
 		"Worker",
 		path.Join(examples_admin.WorkerExamplePath, "/workers"),
-		"example_basics/worker.go",
+		"examples_admin/worker.go",
 	),
 	Markdown(`
 ## Action Worker
@@ -43,6 +43,6 @@ Action Worker is used to visualize the progress of long-running actions.
 	utils.Demo(
 		"Action Worker",
 		path.Join(examples_admin.ActionWorkerExamplePath, "/example-resources"),
-		"example_basics/action_worker.go",
+		"examples_admin/action_worker.go",
 	),
 ).Slug("basics/worker").Title("Worker")

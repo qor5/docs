@@ -34,7 +34,7 @@ And you can add any actions to the detail page with ease:
 	ch.Code(generated.PresetsDetailPageDetailsSample).Language("go"),
 	utils.Demo("Presets Detail Page Details", examples_presets.PresetsDetailPageDetailsPath+"/customers", "examples_presets/detailing.go"),
 	Markdown(`
-- The ~stripui.Card~ Actions links to two event functions: Agree Terms, and Update Details
+- The ~vx.Card~ Actions links to two event functions: Agree Terms, and Update Details
 - Agree Terms show a drawer popup that edit the ~term_agreed_at~ field
 - Update Details reuse the edit customer form
 `),

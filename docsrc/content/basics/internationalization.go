@@ -22,7 +22,7 @@ based on the user's preferences.
 	utils.Demo(
 		"I18n",
 		path.Join(examples_admin.InternationalizationExamplePath, "/home"),
-		"example_basics/internationalization.go",
+		"examples_admin/internationalization.go",
 	),
 	docgo.Markdown(`
 ## Getting Started

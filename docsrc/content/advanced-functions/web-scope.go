@@ -23,7 +23,7 @@ And the valid scopes of these values are all inside web.Scope().
 For example:
 `),
 	ch.Code(generated.WebScopeUseLocalsSample1).Language("go"),
-	utils.Demo("Web Scope Use Locals", examples_web.WebScopeUseLocalsPagePath, "e00_basics/web-scope.go"),
+	utils.Demo("Web Scope Use Locals", examples_web.WebScopeUseLocalsPagePath, "examples_web/web-scope.go"),
 	Markdown(`
 Use ~web.Scope()~ to determine the effective scope of the variable, then use ~.Init(...).VSlot("{ locals }")~ to initialize the variable and slot it into the ~locals~ object.
 
@@ -47,7 +47,7 @@ In this way, you can submit ~Raw Material ID~ directly in the ~Material Form~.
 For example:
 `),
 	ch.Code(generated.WebScopeUsePlaidFormSample1).Language("go"),
-	utils.Demo("Web Scope Use PlaidForm", examples_web.WebScopeUsePlaidFormPagePath, "e00_basics/web-scope.go"),
+	utils.Demo("Web Scope Use PlaidForm", examples_web.WebScopeUsePlaidFormPagePath, "examples_web/web-scope.go"),
 	Markdown(`
 Use ~web.Scope().VSlot("{ form }")~ to determine the scope of a form.
 `),

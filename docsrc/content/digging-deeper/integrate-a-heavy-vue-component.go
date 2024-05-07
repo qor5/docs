@@ -90,6 +90,6 @@ And we write a page func to use it like any other component:
 	Markdown(`
 And now let's check out our fruits:
 `),
-	utils.Demo("Integrate a Heavy Vue Component", examples_web.HelloWorldTipTapPath, "e00_basics/use-tiptap-editor.go"),
+	utils.Demo("Integrate a Heavy Vue Component", examples_web.HelloWorldTipTapPath, "examples_web/use-tiptap-editor.go"),
 ).Title("Integrate a heavy Vue Component").
 	Slug("components-guide/integrate-a-heavy-vue-component")
