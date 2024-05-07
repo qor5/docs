@@ -19,6 +19,6 @@ LinkageSelect is a component for multi-level linkage select.
 ### Filter intergation
     `),
 	ch.Code(generated.LinkageSelectFilterItem).Language("go"),
-	utils.Demo("LinkageSelect Filter Item", examples_presets.PresetsLinkageSelectFilterItemPath+"/addresses", "e21_presents/linkage_select_filter_item.go"),
+	utils.Demo("LinkageSelect Filter Item", examples_presets.PresetsLinkageSelectFilterItemPath+"/addresses", "examples_presets/linkage_select_filter_item.go"),
 ).Title("Linkage Select").
 	Slug("vuetify-components/linkage-select")

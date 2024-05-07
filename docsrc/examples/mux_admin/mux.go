@@ -41,6 +41,13 @@ func SamplesHandler(prefix string) http.Handler {
 	mux_presets.SamplesHandler(mux, prefix)
 	addGA := mux_web_vuetify.AddGA
 
+	c22 := presets.New().AssetFunc(addGA)
+	examples_admin.ListingSample(c22)
+	mux.Handle(
+		examples_admin.ListingSamplePath,
+		c22,
+	)
+
 	c23 := presets.New().AssetFunc(addGA)
 	examples_admin.WorkerExampleMock(c23)
 	mux.Handle(

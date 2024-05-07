@@ -39,6 +39,7 @@ done
 
 export DB_PARAMS="user=docs password=docs dbname=docs sslmode=disable host=localhost port=6532 TimeZone=Asia/Tokyo"
 export ENV="development"
+export GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 go run ./build/main.go
 
 function docsRestart() {

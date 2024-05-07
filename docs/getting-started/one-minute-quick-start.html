@@ -227,14 +227,21 @@
 <ol>
 <li><strong>Install the Command Line Tool</strong>: Run the following command to install the latest version of the QOR5 CLI tool:</li>
 </ol>
-<pre><code>$ go install github.com/qor5/docs/cmd/qor5@latest
+<pre><code>$ go install github.com/qor5/docs/v3/cmd/qor5@latest
 </code></pre>
 <ol start="2">
 <li><strong>Launch QOR5</strong>: Execute the qor5 command:</li>
 </ol>
 <pre><code>$ qor5
 </code></pre>
-<p>You'll be prompted to enter a Go package name. The tool will then create an admin app within your current working directory.</p>
+<p>You'll be prompted to enter a Go package name.</p>
+<p>And then there are these template options,</p>
+<ul>
+<li>Admin: Content Management System</li>
+<li>Website: Content Management System with Website Examples</li>
+<li>Bare: Simplest Workable Web App</li>
+</ul>
+<p>Here we select Admin, The tool will then create an admin app within your current working directory.</p>
 <ol start="3">
 <li><strong>Set Up the Database</strong>: Navigate to the newly created package directory and start the database using Docker Compose:</li>
 </ol>

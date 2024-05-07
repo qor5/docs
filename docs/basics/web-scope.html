@@ -222,7 +222,7 @@
 <div id='docMainBox' class='px-16 pb-12 pt-4 overflow-auto'>
 <h1 class='mb-8'>web.Scope</h1>
 
-<div class='border-t'><h3 id="to-initialize-form-and-locals-vue-variables">To initialize form and locals vue variables</h3>
+<div class='border-t'><h2 id="initialize-form-and-locals-vue-variables">Initialize form and locals vue variables</h2>
 <p>Since we we don't write vue javascript code,<br />
 It's not easy to add reactive object to that can be used in vue templates. which is returned from the server.<br />
 reactive object are used to trigger view updates,<br />
@@ -237,15 +237,16 @@ And the valid scopes of these values are all inside web.Scope().</p>
 <div class='demo'>
 <a href='/samples/web-scope-use-locals' target='_blank'>Check the demo</a>
  | 
-<a href='https://github.com/qor5/docs/tree/main/docsrc/examples/e00_basics/web-scope.go' target='_blank'>Source on GitHub</a>
+<a href='https://github.com/qor5/docs/tree/vue3/docsrc/examples/e00_basics/web-scope.go' target='_blank'>Source on GitHub</a>
 </div>
 </div>
 <p>Use <code>web.Scope()</code> to determine the effective scope of the variable, then use <code>.Init(...).VSlot(&quot;{ locals }&quot;)</code> to initialize the variable and slot it into the <code>locals</code> object.</p>
 <p>In <code>VBtn(&quot;&quot;)</code>, you can use the <code>click</code> event to change the variable value in <code>locals</code> to achieve the effect that the page changes with the click.</p>
 <p>In <code>VBtn(&quot;Test Can Not Change Other Scope&quot;)</code>, values in <code>locals</code> will not change with the click, because the button is not in <code>web.Scope()</code>.</p>
 <p>Video Tutorial (<a href="https://www.youtube.com/watch?v=UPuBvVRhUr0">https://www.youtube.com/watch?v=UPuBvVRhUr0</a>)</p>
-<h3 id="use-plaidform">Use PlaidForm</h3>
-<p>The main use of PlaidForm is to submit one form which is inside another form, and the two forms are completely independent forms.</p>
+<h2 id="use-form">Use form</h2>
+<p>The main use of <code>form</code> is to submit one form which is inside another form,<br />
+and the two forms are completely independent forms.</p>
 <p>In the following example, each color represents a completely separate form. The <code>Material Form</code> contains the <code>Raw Material Form</code>. You can submit the <code>Raw Material Form</code> to the server first. After receiving it, server will save the <code>Raw Material data</code> and return the <code>ID</code>.<br />
 In this way, you can submit <code>Raw Material ID</code> directly in the <code>Material Form</code>.</p>
 <p>For example:</p>
@@ -256,10 +257,10 @@ In this way, you can submit <code>Raw Material ID</code> directly in the <code>M
 <div class='demo'>
 <a href='/samples/web-scope-use-plaid-form' target='_blank'>Check the demo</a>
  | 
-<a href='https://github.com/qor5/docs/tree/main/docsrc/examples/e00_basics/web-scope.go' target='_blank'>Source on GitHub</a>
+<a href='https://github.com/qor5/docs/tree/vue3/docsrc/examples/e00_basics/web-scope.go' target='_blank'>Source on GitHub</a>
 </div>
 </div>
-<p>Use <code>web.Scope().VSlot(&quot;{ plaidForm }&quot;)</code> to determine the scope of a form.</p>
+<p>Use <code>web.Scope().VSlot(&quot;{ form }&quot;)</code> to determine the scope of a form.</p>
 </div>
 </div>
 </div>

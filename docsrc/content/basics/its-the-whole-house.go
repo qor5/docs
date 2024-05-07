@@ -21,9 +21,9 @@ And this ~*presets.Builder~ instance is actually also a ~http.Handler~, So that 
 to the http serve mux directly like this:
 `),
 	ch.Code(generated.MountPresetHelloWorldSample).Language("go"),
-	utils.Demo("Presets Hello World", examples_presets.PresetsHelloWorldPath+"/customers", "e21_presents/listing.go"),
+	utils.Demo("Presets Hello World", examples_presets.PresetsHelloWorldPath+"/customers", "examples_presets/listing.go"),
 	Markdown(`
-With ~r.Model(&Customer{})~:
+With ~b.Model(&Customer{})~:
 
 - It setup the global layout with the left navigation menu
 - It setup the listing page with a data table

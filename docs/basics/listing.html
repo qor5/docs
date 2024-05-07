@@ -242,7 +242,7 @@ The <code>obj</code> is the <code>Post</code> record, and <code>field</code> is 
 <highlightjs :language='"go"' :code='"postModelBuilder.Listing().Field(\"CategoryID\").Label(\"Category\").ComponentFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) h.HTMLComponent {\n\tc := models.Category{}\n\tcid, _ := field.Value(obj).(uint)\n\tif err := db.Where(\"id = ?\", cid).Find(\u0026c).Error; err != nil {\n\t\t// ignore err in the example\n\t}\n\treturn h.Td(h.Text(c.Name))\n})\n"'></highlightjs>
 <h2 id="display-virtual-fields">Display virtual fields</h2>
 
-<highlightjs :language='"go"' :code='"postModelBuilder.Listing(\"ID\", \"Title\", \"Body\", \"CategoryID\", \"VirtualValue\")\npostModelBuilder.Listing().Field(\"VirtualField\").ComponentFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) h.HTMLComponent {\n\treturn h.Td(h.Text(\"virtual field\"))\n})\n"'></highlightjs>
+<highlightjs :language='"go"' :code='"postModelBuilder.Listing(\"ID\", \"Title\", \"Body\", \"CategoryID\", \"VirtualField\")\npostModelBuilder.Listing().Field(\"VirtualField\").ComponentFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) h.HTMLComponent {\n\treturn h.Td(h.Text(\"virtual field\"))\n})\n"'></highlightjs>
 <h2 id="defaultscope">DefaultScope</h2>
 <p>If we want to display <code>Post</code> with <code>disabled=false</code> only. Use the <code>Listing().Searcher</code> to apply SQL conditions.</p>
 
@@ -259,7 +259,7 @@ The <code>obj</code> is the <code>Post</code> record, and <code>field</code> is 
 <div class='demo'>
 <a href='/samples/listing/posts' target='_blank'>Check the demo</a>
  | 
-<a href='https://github.com/qor5/docs/tree/main/docsrc/examples/example_basics/listing.go' target='_blank'>Source on GitHub</a>
+<a href='https://github.com/qor5/docs/tree/vue3/docsrc/examples/examples_admin/listing.go' target='_blank'>Source on GitHub</a>
 </div>
 </div>
 </div>

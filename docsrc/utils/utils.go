@@ -1,8 +1,10 @@
 package utils
 
 import (
+	"cmp"
 	"encoding/json"
 	"fmt"
+	"os"
 
 	"github.com/qor5/web/v3"
 	"github.com/shurcooL/sanitized_anchor_name"
@@ -25,11 +27,17 @@ type Example struct {
 
 var LiveExamples []*Example
 
+var buildGitBranch string
+
+func init() {
+	buildGitBranch = cmp.Or(os.Getenv("GIT_BRANCH"), "main")
+}
+
 func Demo(title string, demoPath string, sourcePath string) HTMLComponent {
 	ex := &Example{
 		Title:      title,
 		DemoPath:   demoPath,
-		SourcePath: fmt.Sprintf("https://github.com/qor5/docs/tree/main/docsrc/examples/%s", sourcePath),
+		SourcePath: fmt.Sprintf("https://github.com/qor5/docs/tree/%s/docsrc/examples/%s", buildGitBranch, sourcePath),
 	}
 
 	LiveExamples = append(LiveExamples, ex)

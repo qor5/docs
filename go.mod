@@ -70,8 +70,8 @@ require (
 	golang.org/x/time v0.5.0 // indirect
 )
 
-//replace github.com/qor5/web/v3 => ../web
-//
-//replace github.com/qor5/ui/v3 => ../ui
-//
-//replace github.com/qor5/admin/v3 => ../admin
+replace github.com/qor5/web/v3 => ../web
+
+replace github.com/qor5/ui/v3 => ../ui
+
+replace github.com/qor5/admin/v3 => ../admin

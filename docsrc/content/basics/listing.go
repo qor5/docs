@@ -66,7 +66,7 @@ The ~obj~ is the ~Post~ record, and ~field~ is the ~CategoryID~ field of this ~P
 	Markdown(`
 ## Display virtual fields
 `),
-	ch.Code(`postModelBuilder.Listing("ID", "Title", "Body", "CategoryID", "VirtualValue")
+	ch.Code(`postModelBuilder.Listing("ID", "Title", "Body", "CategoryID", "VirtualField")
 postModelBuilder.Listing().Field("VirtualField").ComponentFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) h.HTMLComponent {
 	return h.Td(h.Text("virtual field"))
 })
@@ -96,6 +96,6 @@ rmn.RowMenuItem("Show").ComponentFunc(func(obj interface{}, id string, ctx *web.
 ## Full Example
 `),
 	ch.Code(generated.PresetsListingSample).Language("go"),
-	utils.Demo("Presets Listing Customization Fields", examples_admin.ListingSamplePath+"/posts", "example_basics/listing.go"),
+	utils.Demo("Presets Listing Customization Fields", examples_admin.ListingSamplePath+"/posts", "examples_admin/listing.go"),
 ).Title("Listing").
 	Slug("basics/listing")
