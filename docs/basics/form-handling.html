@@ -232,9 +232,9 @@ is just to give an input a name.</p>
 <a href='https://github.com/qor5/docs/tree/vue3/docsrc/examples/examples_web/form-handling.go' target='_blank'>Source on GitHub</a>
 </div>
 </div>
-<p>Use <code>.Attr(web.VFieldName(&quot;Abc&quot;)...)</code> to set the field name, make the name matches your data struct field name.<br />
+<p>Use <code>.Attr(web.VField(&quot;Abc&quot;)...)</code> to set the field name, make the name matches your data struct field name.<br />
 So that you can <code>ctx.UnmarshalForm(&amp;fv)</code> to set the values to data object. value of input must be set manually to set the initial value of form field.</p>
-<p>The fields which are bind with <code>.Attr(web.VFieldName(&quot;Abc&quot;)...)</code> are always submitted with every event func. A browser refresh, new page load will clear the form value.</p>
+<p>The fields which are bind with <code>.Attr(web.VField(&quot;Abc&quot;)...)</code> are always submitted with every event func. A browser refresh, new page load will clear the form value.</p>
 <p><code>web.Scope(...).VSlot(&quot;{ plaidForm }&quot;)</code> to nest a new form inside outside form, EventFunc inside will only post form values inside the scope.</p>
 </div>
 </div>

@@ -75,7 +75,7 @@ func HelloVuetifyMenu(ctx *web.EventContext) (pr web.PageResponse, err error) {
 			).CloseOnContentClick(false).
 				Location("end").
 				Attr("v-model", "locals.myMenuShow"),
-		).VSlot("{ locals, form }").FormInit(JSONString(fv)),
+		).VSlot("{ locals, form }").Init("{ myMenuShow: false }").FormInit(JSONString(fv)),
 	)
 
 	return

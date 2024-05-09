@@ -10,6 +10,7 @@ import (
 	"github.com/qor5/web/v3"
 	"github.com/samber/lo"
 	. "github.com/theplant/htmlgo"
+	h "github.com/theplant/htmlgo"
 )
 
 // @snippet_begin(EventHandlingURLSample)
@@ -170,12 +171,22 @@ func EventHandlingEventFunc(ctx *web.EventContext) (pr web.PageResponse, err err
 
 // @snippet_begin(EventHandlingBeforeScriptSample)
 func EventHandlingScript(ctx *web.EventContext) (pr web.PageResponse, err error) {
+	addMessageScript := func(msg string) string {
+		return fmt.Sprintf(`vars.messages ||= []; vars.messages.push(%q)`, msg)
+	}
 	pr.Body = VContainer(
 		VCard(
 			VCardTitle(Text("Script")),
-			VCardActions(VBtn("Go").Attr("@click", web.POST().ThenScript(`alert("this is then script")`).AfterScript(`alert("this is after script")`).
-				BeforeScript(`alert("this is before script")`).Go())),
+			VCardActions(
+				VBtn("Go").Attr("@click",
+					web.POST().
+						BeforeScript(addMessageScript("this is before script")).
+						AfterScript(addMessageScript("this is after script")).
+						ThenScript(addMessageScript("this is then script")).
+						Go(),
+				)),
 		),
+		h.Div().Text(`{{ vars.messages }}`),
 	)
 	return
 }

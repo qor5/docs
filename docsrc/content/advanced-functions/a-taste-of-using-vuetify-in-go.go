@@ -30,9 +30,10 @@ buttons on the menu popup.
 `),
 	ch.Code(generated.VuetifyMenuSample).Language("go"),
 	Markdown(`
-~.Attr(web.InitContextVars, "{myMenuShow: false}")~ is a special vue directive that
-we created to initialize vue context component data variables. It will initialize
-~vars.myMenuShow~ to ~false~. So that you don't need to modify javascript code to do
+~.VSlot("{ locals, form }").Init("{ myMenuShow: false }").FormInit(JSONString(fv))~ used to initialize the variables of ~web.Scope~.
+~locals~ corresponds to the ~Init~ method and ~form~ corresponds to the ~FormInit~ method.
+
+~.Init~ will initialize ~locals.myMenuShow~ to ~false~. So that you don't need to modify javascript code to do
 the initialization. It's often useful to control dialog, popups. At this example,
 We add it, So that the cancel button on the menu, could actually close the menu without
 requesting server backend.
