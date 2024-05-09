@@ -226,7 +226,7 @@ html head normally for page title, keywords etc all kinds meta data, and css sty
 javascript libraries etc. You can see we put vue.js into head, but put main.js into the bottom of body.</p>
 <p>Next part describe about these asset references:</p>
 
-<highlightjs :language='"go"' :code='"mux.Handle(\"/assets/main.js\",\n\tweb.PacksHandler(\"text/javascript\",\n\t\tVuetify(\"\"),\n\t\tJSComponentsPack(),\n\t\tweb.JSComponentsPack(),\n\t),\n)\n\nmux.Handle(\"/assets/vue.js\",\n\tweb.PacksHandler(\"text/javascript\",\n\t\tweb.JSVueComponentsPack(),\n\t),\n)\n"'></highlightjs>
+<highlightjs :language='"go"' :code='"mux.Handle(\"/assets/main.js\",\n\tweb.PacksHandler(\"text/javascript\",\n\t\tvuetifyx.JSComponentsPack(),\n\t\tVuetify(\"\"),\n\t\tJSComponentsPack(),\n\t\tweb.JSComponentsPack(),\n\t),\n)\n\nmux.Handle(\"/assets/vue.js\",\n\tweb.PacksHandler(\"text/javascript\",\n\t\tweb.JSVueComponentsPack(),\n\t),\n)\n"'></highlightjs>
 <p><code>web.JSComponentsPack</code> is the production version of QOR5 core javascript code.<br />
 Created by using <a href="https://cli.vuejs.org/guide/creating-a-project.html">@vue/cli</a>,<br />
 It does the basic functions like render server side returned html as vue templates.<br />

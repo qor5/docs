@@ -46,6 +46,6 @@ func rolePieces() {
 
 	var presetsBuilder *presets.Builder
 	// @snippet_begin(RoleAttachToPresetsBuilder)
-	rb.Configure(presetsBuilder)
+	rb.Install(presetsBuilder)
 	// @snippet_end
 }

@@ -10,6 +10,7 @@ import (
 	"github.com/qor5/docs/v3/docsrc/examples/examples_web"
 	"github.com/qor5/ui/v3/tiptap"
 	. "github.com/qor5/ui/v3/vuetify"
+	"github.com/qor5/ui/v3/vuetifyx"
 	"github.com/qor5/web/v3"
 	. "github.com/theplant/htmlgo"
 )
@@ -207,6 +208,7 @@ func Mux(mux *http.ServeMux, prefix string) http.Handler {
 	// @snippet_begin(ComponentsPackSample)
 	mux.Handle("/assets/main.js",
 		web.PacksHandler("text/javascript",
+			vuetifyx.JSComponentsPack(),
 			Vuetify(""),
 			JSComponentsPack(),
 			web.JSComponentsPack(),
