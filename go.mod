@@ -56,6 +56,7 @@ require (
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pquerna/otp v1.4.0 // indirect
 	github.com/samber/lo v1.39.0 // indirect
+	github.com/sunfmin/snippetgo v0.0.1 // indirect
 	github.com/theplant/sliceutils v0.0.0-20200406042209-89153d988eb1 // indirect
 	github.com/tnclong/go-que v0.0.0-20240226030728-4e1f3c8ec781 // indirect
 	github.com/yuin/goldmark v1.7.1 // indirect
@@ -77,3 +78,5 @@ replace github.com/qor5/web/v3 => ../web
 replace github.com/qor5/ui/v3 => ../ui
 
 replace github.com/qor5/admin/v3 => ../admin
+
+replace github.com/sunfmin/snippetgo => ../../molon/snippetgo

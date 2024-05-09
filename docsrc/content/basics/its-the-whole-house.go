@@ -16,12 +16,12 @@ flexible API to enrich features along the way.
 
 `),
 	ch.Code(generated.PresetHelloWorldSample).Language("go"),
+	utils.DemoWithSnippetLocation("Presets Hello World", examples_presets.PresetsHelloWorldPath+"/customers", generated.PresetHelloWorldSampleLocation),
 	Markdown(`
 And this ~*presets.Builder~ instance is actually also a ~http.Handler~, So that we can mount it
 to the http serve mux directly like this:
 `),
 	ch.Code(generated.MountPresetHelloWorldSample).Language("go"),
-	utils.Demo("Presets Hello World", examples_presets.PresetsHelloWorldPath+"/customers", "examples_presets/listing.go"),
 	Markdown(`
 With ~b.Model(&Customer{})~:
 
