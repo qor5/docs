@@ -3,10 +3,12 @@ package examples_web
 import (
 	"fmt"
 	"net/url"
+	"sort"
 	"time"
 
 	. "github.com/qor5/ui/v3/vuetify"
 	"github.com/qor5/web/v3"
+	"github.com/samber/lo"
 	. "github.com/theplant/htmlgo"
 )
 
@@ -218,7 +220,9 @@ func EventHandlingPage(ctx *web.EventContext) (pr web.PageResponse, err error) {
 
 	body := Ul()
 
-	for k := range apiMap {
+	keys := lo.Keys(apiMap)
+	sort.Strings(keys)
+	for _, k := range keys {
 		body.AppendChildren(
 			Li(A().Text(k).Attr("href", "?api="+k)),
 		)

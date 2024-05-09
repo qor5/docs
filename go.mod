@@ -55,6 +55,7 @@ require (
 	github.com/ory/pagination v0.0.1 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pquerna/otp v1.4.0 // indirect
+	github.com/samber/lo v1.39.0 // indirect
 	github.com/theplant/sliceutils v0.0.0-20200406042209-89153d988eb1 // indirect
 	github.com/tnclong/go-que v0.0.0-20240226030728-4e1f3c8ec781 // indirect
 	github.com/yuin/goldmark v1.7.1 // indirect
@@ -62,6 +63,7 @@ require (
 	go.uber.org/zap v1.27.0 // indirect
 	goji.io/v3 v3.0.0 // indirect
 	golang.org/x/crypto v0.22.0 // indirect
+	golang.org/x/exp v0.0.0-20220303212507-bbda1eaf7a17 // indirect
 	golang.org/x/image v0.15.0 // indirect
 	golang.org/x/net v0.24.0 // indirect
 	golang.org/x/oauth2 v0.19.0 // indirect
