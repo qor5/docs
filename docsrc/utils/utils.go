@@ -27,17 +27,17 @@ type Example struct {
 
 var LiveExamples []*Example
 
-var buildGitBranch string
+var envGitBranch string
 
 func init() {
-	buildGitBranch = cmp.Or(os.Getenv("GIT_BRANCH"), "main")
+	envGitBranch = cmp.Or(os.Getenv("GIT_BRANCH"), "main")
 }
 
 func Demo(title string, demoPath string, sourcePath string) HTMLComponent {
 	ex := &Example{
 		Title:      title,
 		DemoPath:   demoPath,
-		SourcePath: fmt.Sprintf("https://github.com/qor5/docs/tree/%s/docsrc/examples/%s", buildGitBranch, sourcePath),
+		SourcePath: fmt.Sprintf("https://github.com/qor5/docs/tree/%s/docsrc/examples/%s", envGitBranch, sourcePath),
 	}
 
 	LiveExamples = append(LiveExamples, ex)

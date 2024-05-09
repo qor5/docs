@@ -42,9 +42,7 @@ Here we continue to add filters for the list
 	Markdown(`
 ~FilterDataFunc~ of ~presets.ListingBuilder~ setup to have the filter menu or not.
 And how it will combine the sql conditions when doing query. the filter menu will
-change the url query strings with the filter values, and for date type in url query
-string it uses unix epoch int value. So the sql condition has to convert the database
-column data to unix epoch in order to compare with the value in url query string.
+change the url query strings with the filter values.
 
 Current we support these types
 
