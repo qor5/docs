@@ -17,7 +17,7 @@ var PageFuncAndEventFunc = Doc(
 event func needs a name to be used by ~web.POST().EventFunc(name).Go()~ to attach to an html element that post http request to call the ~EventFunc~ when vue event like ~@click~ happens`),
 	Markdown("Here is a hello world with more interactions. User click the button will reload the page with latest time"),
 	ch.Code(generated.HelloWorldReloadSample).Language("go"),
-	utils.Demo("Page Func and Event Func", examples_web.HelloWorldReloadPath, "examples_web/hello-world-reload.go"),
+	utils.DemoWithSnippetLocation("Page Func and Event Func", examples_web.HelloWorldReloadPath, generated.HelloWorldReloadSampleLocation),
 	Markdown("Note that you have to mount the `web.Page(...)` instance to http.ServeMux with a path to be able to access the ~PageFunc~ in your browser, when mounting you can also wrap the ~PageFunc~ with middleware, which is ~func(in PageFunc) (out PageFunc)~ a func that take a page func and do some wrapping and return a new page func"),
 	ch.Code(generated.HelloWorldReloadMuxSample1).Language("go"),
 	Markdown("~wb.Page(...)~ convert any `PageFunc` into `http.Handler`, outside you can wrap any middleware that can use on Go standard `http.Handler`."),

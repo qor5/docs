@@ -20,5 +20,5 @@ In the example, the event would only be triggered when ~locals.shortCutEnabled~ 
 `),
 
 	ch.Code(generated.ShortCutSample).Language("go"),
-	utils.Demo("Shortcut", examples_web.ShortCutSamplePath, "examples_web/shortcut.go"),
+	utils.DemoWithSnippetLocation("Shortcut", examples_web.ShortCutSamplePath, generated.ShortCutSampleLocation),
 ).Slug("basics/shortcut").Title("Keyboard Shortcut")

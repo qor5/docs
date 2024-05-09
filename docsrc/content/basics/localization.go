@@ -39,9 +39,9 @@ The ~Localize~ ui will appear in the ~RowMenuItem~ under the ~Edit~ and the ~Del
 ## Full Example
 `),
 	ch.Code(generated.L10nFullExample).Language("go"),
-	utils.Demo(
+	utils.DemoWithSnippetLocation(
 		"L10n",
 		path.Join(examples_admin.LocalizationExamplePath, "/l10n-models"),
-		"examples_admin/localization.go",
+		generated.L10nFullExampleLocation,
 	),
 ).Slug("basics/l10n").Title("Localization")

@@ -17,7 +17,7 @@ If you want only to change the brand string, you can use ~BrandTitle~ to set the
 `),
 
 	ch.Code(generated.BrandTitleSample).Language("go"),
-	utils.Demo("Brand Title", examples_presets.PresetsBrandTitlePath+"/brands", "examples_presets/brand.go"),
+	utils.DemoWithSnippetLocation("Brand Title", examples_presets.PresetsBrandTitlePath+"/brands", generated.BrandTitleSampleLocation),
 
 	Markdown(`
 ## Full customization
@@ -25,7 +25,7 @@ When you opt-in to full brand customization, you can use ~BrandFunc~ to be respo
 `),
 
 	ch.Code(generated.BrandFuncSample).Language("go"),
-	utils.Demo("Brand Func", examples_presets.PresetsBrandFuncPath+"/brands", "examples_presets/brand.go"),
+	utils.DemoWithSnippetLocation("Brand Func", examples_presets.PresetsBrandFuncPath+"/brands", generated.BrandFuncSampleLocation),
 
 	Markdown(`
 ## Profile
@@ -33,6 +33,6 @@ Profile is below the brand area, where you can put the current user's informatio
 `),
 
 	ch.Code(generated.ProfileSample).Language("go"),
-	utils.Demo("Profile", examples_presets.PresetsProfilePath+"/brands", "examples_presets/profile.go"),
+	utils.DemoWithSnippetLocation("Profile", examples_presets.PresetsProfilePath+"/brands", generated.ProfileSampleLocation),
 ).Title("Brand").
 	Slug("basics/brand")

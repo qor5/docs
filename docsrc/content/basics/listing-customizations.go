@@ -20,7 +20,7 @@ columns rarely fit the needs for any real application.
 Here is how do we change the columns of the list and how to we change the content display of a columns.
 `),
 	ch.Code(generated.PresetsListingCustomizationFieldsSample).Language("go"),
-	utils.Demo("Presets Listing Customization Fields", examples_presets.PresetsListingCustomizationFieldsPath+"/customers", "examples_presets/listing.go"),
+	utils.DemoWithSnippetLocation("Presets Listing Customization Fields", examples_presets.PresetsListingCustomizationFieldsPath+"/customers", generated.PresetsListingCustomizationFieldsSampleLocation),
 	Markdown(`
 What we did with above code:
 
@@ -38,7 +38,7 @@ What we did with above code:
 Here we continue to add filters for the list
 `),
 	ch.Code(generated.PresetsListingCustomizationFiltersSample).Language("go"),
-	utils.Demo("Presets Listing Filters", examples_presets.PresetsListingCustomizationFiltersPath+"/customers", "examples_presets/listing.go"),
+	utils.DemoWithSnippetLocation("Presets Listing Filters", examples_presets.PresetsListingCustomizationFiltersPath+"/customers", generated.PresetsListingCustomizationFiltersSampleLocation),
 	Markdown(`
 ~FilterDataFunc~ of ~presets.ListingBuilder~ setup to have the filter menu or not.
 And how it will combine the sql conditions when doing query. the filter menu will
@@ -59,7 +59,7 @@ You can think it as a short cut that used very frequently to filter something in
 use the pop up panel of filter.
 `),
 	ch.Code(generated.PresetsListingCustomizationTabsSample).Language("go"),
-	utils.Demo("Presets Listing Filter Tabs", examples_presets.PresetsListingCustomizationTabsPath+"/customers", "examples_presets/listing.go"),
+	utils.DemoWithSnippetLocation("Presets Listing Filter Tabs", examples_presets.PresetsListingCustomizationTabsPath+"/customers", generated.PresetsListingCustomizationTabsSampleLocation),
 	Markdown(`
 ~Query~ string name must be from the Filter's item configuration key field.
 `),
@@ -72,7 +72,7 @@ Later do an bulk update data for all of them.
 Here is how to use it:
 `),
 	ch.Code(generated.PresetsListingCustomizationBulkActionsSample).Language("go"),
-	utils.Demo("Presets Listing Bulk Actions", examples_presets.PresetsListingCustomizationBulkActionsPath+"/customers", "examples_presets/listing.go"),
+	utils.DemoWithSnippetLocation("Presets Listing Bulk Actions", examples_presets.PresetsListingCustomizationBulkActionsPath+"/customers", generated.PresetsListingCustomizationBulkActionsSampleLocation),
 	Markdown(`
 - ~ComponentFunc~ of the bulk action configure the component that will show to user to input after user clicked the bulk action button
 - ~UpdateFunc~ configure the logic that the bulk action execute
@@ -87,6 +87,6 @@ You can process the data displayed on the listing page here based on context or 
 In the following example, the listing page only displays approved customers.
 `),
 	ch.Code(generated.PresetsListingCustomizationSearcherSample).Language("go"),
-	utils.Demo("Search Func", examples_presets.PresetsListingCustomizationSearcherPath+"/customers", "examples_presets/listing.go"),
+	utils.DemoWithSnippetLocation("Search Func", examples_presets.PresetsListingCustomizationSearcherPath+"/customers", generated.PresetsListingCustomizationSearcherSampleLocation),
 ).Title("Listing Customizations").
 	Slug("basics/listing-customizations")

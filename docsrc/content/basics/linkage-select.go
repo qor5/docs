@@ -14,11 +14,11 @@ var LinkageSelect = Doc(
 LinkageSelect is a component for multi-level linkage select.
     `),
 	ch.Code(generated.VuetifyComponentsLinkageSelect).Language("go"),
-	utils.Demo("Vuetify LinkageSelect", examples_vuetifyx.VuetifyComponentsLinkageSelectPath, "e24_vuetify_components_linkage_select/page.go"),
+	utils.DemoWithSnippetLocation("Vuetify LinkageSelect", examples_vuetifyx.VuetifyComponentsLinkageSelectPath, generated.VuetifyComponentsLinkageSelectLocation),
 	Markdown(`
 ### Filter intergation
     `),
 	ch.Code(generated.LinkageSelectFilterItem).Language("go"),
-	utils.Demo("LinkageSelect Filter Item", examples_presets.PresetsLinkageSelectFilterItemPath+"/addresses", "examples_presets/linkage_select_filter_item.go"),
+	utils.DemoWithSnippetLocation("LinkageSelect Filter Item", examples_presets.PresetsLinkageSelectFilterItemPath+"/addresses", generated.LinkageSelectFilterItemLocation),
 ).Title("Linkage Select").
 	Slug("vuetify-components/linkage-select")
