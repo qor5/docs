@@ -18,7 +18,7 @@ func WorkerExampleMock(b *presets.Builder) {
 		DataOperator(gorm2op.DataOperator(DB))
 
 	wb := worker.NewWithQueue(DB, Que)
-	wb.Configure(b)
+	wb.Install(b)
 	addJobs(wb)
 	wb.Listen()
 }

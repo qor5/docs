@@ -17,7 +17,8 @@ func NewActivitySample() {
 	if err != nil {
 		panic(err)
 	}
-	activityBuilder := activity.New(presetsBuilder, db)
+	activityBuilder := activity.New(db)
+	activityBuilder.Install(presetsBuilder)
 	// @snippet_end
 
 	// @snippet_begin(ActivityRegisterPresetsModelsSample)

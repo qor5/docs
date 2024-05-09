@@ -18,7 +18,7 @@ func ActionWorkerExampleMock(b *presets.Builder) {
 	mb.Listing().ActionsAsMenu(true)
 
 	wb := worker.NewWithQueue(DB, Que)
-	wb.Configure(b)
+	wb.Install(b)
 	addActionJobs(mb, wb)
 	wb.Listen()
 }

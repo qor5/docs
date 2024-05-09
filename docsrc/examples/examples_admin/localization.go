@@ -7,7 +7,6 @@ import (
 	"strings"
 
 	"github.com/qor5/admin/v3/l10n"
-	l10n_view "github.com/qor5/admin/v3/l10n/views"
 	"github.com/qor5/admin/v3/presets"
 	"github.com/qor5/admin/v3/presets/gorm2op"
 	"gorm.io/gorm"
@@ -48,7 +47,7 @@ func LocalizationExampleMock(b *presets.Builder) {
 		DataOperator(gorm2op.DataOperator(DB))
 
 	// @snippet_begin(L10nBuilderExample)
-	l10nBuilder := l10n.New()
+	l10nBuilder := l10n.New(DB)
 	l10nBuilder.
 		RegisterLocales("International", "international", "International").
 		RegisterLocales("China", "cn", "China").
@@ -60,7 +59,8 @@ func LocalizationExampleMock(b *presets.Builder) {
 
 	// @snippet_begin(L10nConfigureExample)
 	mb := b.Model(&L10nModel{}).URIName("l10n-models")
-	l10n_view.Configure(b, DB, l10nBuilder, nil, mb)
+	l10nBuilder.Models(mb)
+	l10nBuilder.Install(b)
 	mb.Listing("ID", "Title", "Locale")
 	// @snippet_end
 	// @snippet_end

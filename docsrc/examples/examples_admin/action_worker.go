@@ -24,7 +24,7 @@ func MountActionWorker(b *presets.Builder) {
 	mb.Listing().ActionsAsMenu(true)
 
 	wb := worker.New(DB)
-	wb.Configure(b)
+	wb.Install(b)
 	defer wb.Listen()
 
 	addActionJobs(mb, wb)

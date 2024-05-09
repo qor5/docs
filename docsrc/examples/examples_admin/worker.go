@@ -13,7 +13,7 @@ import (
 
 func MountWorker(b *presets.Builder) {
 	wb := worker.New(DB)
-	wb.Configure(b)
+	wb.Install(b)
 	defer wb.Listen()
 
 	addJobs(wb)
