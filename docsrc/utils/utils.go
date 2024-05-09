@@ -5,9 +5,11 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"strings"
 
 	"github.com/qor5/web/v3"
 	"github.com/shurcooL/sanitized_anchor_name"
+	"github.com/sunfmin/snippetgo/parse"
 	. "github.com/theplant/htmlgo"
 )
 
@@ -31,6 +33,10 @@ var envGitBranch string
 
 func init() {
 	envGitBranch = cmp.Or(os.Getenv("GIT_BRANCH"), "main")
+}
+
+func DemoWithSnippetLocation(title string, demoPath string, location parse.Location) HTMLComponent {
+	return Demo(title, demoPath, fmt.Sprintf("%s#L%d-L%d", strings.TrimPrefix(location.File, "examples/"), location.StartLine, location.EndLine))
 }
 
 func Demo(title string, demoPath string, sourcePath string) HTMLComponent {
