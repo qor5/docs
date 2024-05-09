@@ -27,11 +27,6 @@ you can also call Injector in AssetFunc to add meta, add custom HTML in HEAD and
 	Markdown(`
 ## Layout
 You can change the entire layout via *LayoutFunc*. The default layout is https://github.com/qor5/admin/blob/1e97c0dd45615fb7593245575ab0fea4f98c58b3/presets/presets.go#L860-L969
-### Layout Options
-We also provide some options to tweak the layout
-    `),
-	ch.Code(generated.ModelBuilderLayoutOptions).Language("go"),
-	Markdown(`
 ### Plain Layout
 And We provide [PlainLayout](https://github.com/qor5/admin/blob/1e97c0dd45615fb7593245575ab0fea4f98c58b3/presets/presets.go#L972) which has no UI content except necessary assets. 
 It will be helpful when there are some pages completely independent of Presets layout but still need to be consistent with the Presets theme.

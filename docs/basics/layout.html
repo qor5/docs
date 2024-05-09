@@ -84,10 +84,6 @@
 </li>
 
 <li class='m-0'>
-<a href='basics/notification-center.html' id='basics/notification-center.html' onclick='window.storeMenuState("basics/notification-center.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Notification Center</a>
-</li>
-
-<li class='m-0'>
 <a href='basics/shortcut.html' id='basics/shortcut.html' onclick='window.storeMenuState("basics/shortcut.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Keyboard Shortcut</a>
 </li>
 
@@ -238,10 +234,6 @@ you can inject them via the <em>ExtraAsset</em> method, and they will be automat
 <highlightjs :language='"go"' :code='"presetsBuilder.AssetFunc(func(ctx *web.EventContext) {\n\tctx.Injector.Meta(web.MetaKey(\"charset\"), \"charset\", \"utf8\")\n\tctx.Injector.HeadHTML(`\u003cscript src=\"https://cdn.example.com/hello.js\"\u003e\u003c/script\u003e`)\n})"'></highlightjs>
 <h2 id="layout">Layout</h2>
 <p>You can change the entire layout via <em>LayoutFunc</em>. The default layout is <a href="https://github.com/qor5/admin/blob/1e97c0dd45615fb7593245575ab0fea4f98c58b3/presets/presets.go#L860-L969">https://github.com/qor5/admin/blob/1e97c0dd45615fb7593245575ab0fea4f98c58b3/presets/presets.go#L860-L969</a></p>
-<h3 id="layout-options">Layout Options</h3>
-<p>We also provide some options to tweak the layout</p>
-
-<highlightjs :language='"go"' :code='"modelBuilder.LayoutConfig(\u0026presets.LayoutConfig{\n\tSearchBoxInvisible:          true,\n\tNotificationCenterInvisible: true,\n})"'></highlightjs>
 <h3 id="plain-layout">Plain Layout</h3>
 <p>And We provide <a href="https://github.com/qor5/admin/blob/1e97c0dd45615fb7593245575ab0fea4f98c58b3/presets/presets.go#L972">PlainLayout</a> which has no UI content except necessary assets.<br />
 It will be helpful when there are some pages completely independent of Presets layout but still need to be consistent with the Presets theme.</p>

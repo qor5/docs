@@ -43,12 +43,4 @@ func layoutPieces() {
 		ctx.Injector.HeadHTML(`<script src="https://cdn.example.com/hello.js"></script>`)
 	})
 	// @snippet_end
-
-	var modelBuilder *presets.ModelBuilder
-	// @snippet_begin(ModelBuilderLayoutOptions)
-	modelBuilder.LayoutConfig(&presets.LayoutConfig{
-		SearchBoxInvisible:          true,
-		NotificationCenterInvisible: true,
-	})
-	// @snippet_end
 }

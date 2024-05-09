@@ -39,7 +39,7 @@ var DocTree = []interface{}{
 			basics.Permissions,
 			basics.Role,
 			// other basics
-			basics.NotificationCenter,
+			// basics.NotificationCenter, // 历史遗产，先去除掉
 			basics.ShortCut,
 			basics.ConfirmDialog,
 			basics.Slug,

@@ -80,17 +80,19 @@ func ListingSample(b *presets.Builder) {
 	}
 
 	rmn := postModelBuilder.Listing().RowMenu()
-	rmn.RowMenuItem("Show").ComponentFunc(func(obj interface{}, id string, ctx *web.EventContext) h.HTMLComponent {
-		return v.VListItem(
-
-			h.Template(
-				v.VIcon("mdi-menu"),
-			).Name("prepend"),
-			v.VListItemTitle(h.Text("Show")),
-		)
-	})
-
+	rmn.RowMenuItem("Show").
+		ComponentFunc(func(obj interface{}, id string, ctx *web.EventContext) h.HTMLComponent {
+			return v.VListItem(
+				web.Slot(
+					v.VIcon("mdi-menu"),
+				).Name("prepend"),
+				v.VListItemTitle(
+					h.Text("Show"),
+				),
+			)
+		})
 	postModelBuilder.Listing().ActionsAsMenu(true)
+	postModelBuilder.Listing().Action("Action0")
 
 	postModelBuilder.Editing().Field("CategoryID").ComponentFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) h.HTMLComponent {
 		categories := []Category{}
@@ -100,7 +102,7 @@ func ListingSample(b *presets.Builder) {
 
 		return v.VAutocomplete().
 			Chips(true).
-			Attr(web.VField(field.Name, field.Value(obj))).Label(field.Label).
+			Attr(web.VField(field.Name, field.Value(obj))...).Label(field.Label).
 			Items(categories).
 			ItemTitle("Name").
 			ItemValue("ID")

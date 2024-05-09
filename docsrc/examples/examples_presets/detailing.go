@@ -189,9 +189,12 @@ func PresetsDetailPageDetails(b *presets.Builder) (
 				Elevation(2)
 		}
 
+		var agreedAt *time.Time
+		db.Model(&Customer{}).Select("term_agreed_at").Where("id = ?", id).Scan(&agreedAt)
+
 		return h.Components(
 			alert,
-			VCheckbox().Attr(web.VField("Agree", ctx.R.FormValue("Agree"))...).Label("Agree the terms"),
+			VCheckbox().Attr(web.VField("Agree", agreedAt != nil && agreedAt.IsZero())...).Label("Agree the terms"),
 		)
 	})
 	return

@@ -7,13 +7,11 @@ import (
 	h "github.com/theplant/htmlgo"
 )
 
+// @snippet_begin(ProfileSample)
 func PresetsProfile(b *presets.Builder) {
-	// @snippet_begin(ProfileSample)
 	b.URIPrefix(PresetsProfilePath).BrandTitle("Admin").
 		ProfileFunc(func(ctx *web.EventContext) h.HTMLComponent {
 			// Demo
-			// logoutURL := ""
-			logoutURL := "."
 			name := "QOR5"
 			// account := "hello@getqor.com"
 			roles := []string{"Developer"}
@@ -35,7 +33,7 @@ func PresetsProfile(b *presets.Builder) {
 						Attr("variant", "text").
 						Attr("icon", "mdi-chevron-right").
 						Class("text-grey-darken-1"),
-				).Attr("cols", "2").Class("d-flex justify-center align-center").Attr("@click", web.Plaid().URL(logoutURL).Go()),
+				).Attr("cols", "2").Class("d-flex justify-center align-center").Attr("@click", "(e) => {e.view.window.alert('logout')}"),
 				VCol(
 					VBtn("").Attr("density", "compact").
 						Attr("variant", "text").
@@ -62,11 +60,12 @@ func PresetsProfile(b *presets.Builder) {
 	//		).Class("pa-0 ma-n4"),
 	//	),
 	// )
-	// @snippet_end
 	b.Model(&brand{}).Listing().PageFunc(func(ctx *web.EventContext) (r web.PageResponse, err error) {
 		r.Body = VContainer()
 		return
 	})
 }
+
+// @snippet_end
 
 const PresetsProfilePath = "/samples/profile"
