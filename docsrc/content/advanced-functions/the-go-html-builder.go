@@ -30,6 +30,6 @@ Consider the following code:
 	Markdown(`
 It's basically assembled what Kotlin can do, Also is legitimate Go code.
 `),
-	utils.Demo("The Go HTML Builder", examples_web.TypeSafeBuilderSamplePath, "examples_web/type-safe-builder-sample.go"),
+	utils.DemoWithSnippetLocation("The Go HTML Builder", examples_web.TypeSafeBuilderSamplePath, generated.TypeSafeBuilderSampleLocation),
 ).Title("The Go HTML builder").
 	Slug("advanced-functions/the-go-html-builder")

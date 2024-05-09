@@ -34,10 +34,10 @@ Create publisher and configure Publish view for model, and remember to display S
 Implement the publish interfaces if there is a need to publish content to storage(filesystem, AWS S3, ...)
     `),
 	ch.Code(generated.PublishImplementPublishInterfaces).Language("go"),
-	utils.Demo(
+	utils.DemoWithSnippetLocation(
 		"Publish",
 		path.Join(examples_admin.PublishExamplePath, "/products"),
-		"examples_admin/publish.go",
+		generated.PublishImplementPublishInterfacesLocation,
 	),
 	Markdown(fmt.Sprintf(`
 ## Modules

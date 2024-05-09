@@ -15,7 +15,7 @@ Assume we have a ~status~ filed in Post. It has 2 possible values, "draft" and "
 
 `),
 	ch.Code(generated.FilterSample).Language("go"),
-	utils.Demo("Basic filter", examples_presets.PresetsBasicFilterPath+"/posts", "examples_presets/filter.go"),
+	utils.DemoWithSnippetLocation("Basic filter", examples_presets.PresetsBasicFilterPath+"/posts", generated.FilterSampleLocation),
 
 	Markdown(`
 ### QOR5 now supports 7 types of filter option.

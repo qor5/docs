@@ -22,7 +22,7 @@ Use a customized component is as simple as add the extra asset to the preset ins
 And configure the component func on the field:
 `),
 	ch.Code(generated.PresetsEditingCustomizationDescriptionSample).Language("go"),
-	utils.Demo("Presets Editing Customization Description Field", examples_presets.PresetsEditingCustomizationDescriptionPath+"/customers", "examples_presets/editing.go"),
+	utils.DemoWithSnippetLocation("Presets Editing Customization Description Field", examples_presets.PresetsEditingCustomizationDescriptionPath+"/customers", generated.PresetsEditingCustomizationDescriptionSampleLocation),
 	Markdown(`
 - Added the tiptap javascript and css component pack as an extra asset
 - Configure the description field to use the component func that returns the ~tiptap.TipTapEditor()~ component
@@ -33,7 +33,7 @@ And configure the component func on the field:
 Set a global field type to component func like the following:
 `),
 	ch.Code(generated.PresetsEditingCustomizationFileTypeSample).Language("go"),
-	utils.Demo("Presets Editing Customization File Type", examples_presets.PresetsEditingCustomizationFileTypePath+"/products", "examples_presets/editing.go"),
+	utils.DemoWithSnippetLocation("Presets Editing Customization File Type", examples_presets.PresetsEditingCustomizationFileTypePath+"/products", generated.PresetsEditingCustomizationFileTypeSampleLocation),
 	Markdown(`
 - We define ~MyFile~ to actually be a string
 - We set ~FieldDefaults~ for writing, which is the editing drawer popup to be a customized component
@@ -51,14 +51,14 @@ of how to display the edit controls, and How to save the object.
 Tabs can be added by using ~AppendTabsPanelFunc~ func on ~EditingBuilder~:
 `),
 	ch.Code(generated.PresetsEditingCustomizationTabsSample).Language("go"),
-	utils.Demo("Presets Editing Customization Tabs", examples_presets.PresetsEditingCustomizationTabsPath+"/companies", "examples_presets/editing.go"),
+	utils.DemoWithSnippetLocation("Presets Editing Customization Tabs", examples_presets.PresetsEditingCustomizationTabsPath+"/companies", generated.PresetsEditingCustomizationTabsSampleLocation),
 	utils.Anchor(H2(""), "Validation"),
 	Markdown(`
 Field level validation and display on field can be added by implement ~ValidateFunc~,
 and set the ~web.ValidationErrors~ result:
 `),
 	ch.Code(generated.PresetsEditingCustomizationValidationSample).Language("go"),
-	utils.Demo("Presets Editing Customization Validation", examples_presets.PresetsEditingCustomizationValidationPath+"/customers", "examples_presets/editing.go"),
+	utils.DemoWithSnippetLocation("Presets Editing Customization Validation", examples_presets.PresetsEditingCustomizationValidationPath+"/customers", generated.PresetsEditingCustomizationValidationSampleLocation),
 	Markdown(`
 - We validate the ~Name~ of the customer must be longer than 10
 - If the error happens, If will show below the field
