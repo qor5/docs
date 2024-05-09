@@ -87,16 +87,12 @@ func newPB() Config {
 
 	pageBuilder := example.ConfigPageBuilder(db, "/admin/page_builder", ``, b.I18n())
 	storage := filesystem.New(PublishDir)
-	publisher := publish.New(db, storage).WithPageBuilder(pageBuilder)
+	publisher := publish.New(db, storage).ContextValueFuncs(pageBuilder.ContextValueProvider)
 
 	seoBuilder := seo.New(db)
 	l10nBuilder := l10n.New(db).Activity(ab)
 	pageBuilder.SEO(seoBuilder).Publisher(publisher).L10n(l10nBuilder).Activity(ab)
-	pm := pageBuilder.Install(b)
-	tm := pageBuilder.ConfigTemplate(b, db)
-	cm := pageBuilder.ConfigCategory(b, db, l10nBuilder)
-
-	ab.RegisterModels(pm, tm, cm)
+	pageBuilder.Install(b)
 
 	l10nBuilder.
 		RegisterLocales("International", "International", "International").
