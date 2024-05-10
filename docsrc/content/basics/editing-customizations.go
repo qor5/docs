@@ -24,8 +24,8 @@ And configure the component func on the field:
 	ch.Code(generated.PresetsEditingCustomizationDescriptionSample).Language("go"),
 	utils.DemoWithSnippetLocation("Presets Editing Customization Description Field", examples_presets.PresetsEditingCustomizationDescriptionPath+"/customers", generated.PresetsEditingCustomizationDescriptionSampleLocation),
 	Markdown(`
-- Added the tiptap javascript and css component pack as an extra asset
-- Configure the description field to use the component func that returns the ~tiptap.TipTapEditor()~ component
+- Added the redactor javascript and css component pack as an extra asset
+- Configure the description field to use the component func that returns the ~richeditor.RichEditor~ component
 - Set the field name and value of the component
 `),
 	utils.Anchor(H2(""), "Configure field type for all models"),

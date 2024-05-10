@@ -1,13 +1,14 @@
 package examples_presets
 
 import (
+	"embed"
 	"fmt"
 	"io"
 	"net/http"
 
 	"github.com/qor5/admin/v3/presets"
 	"github.com/qor5/admin/v3/presets/gorm2op"
-	"github.com/qor5/ui/v3/tiptap"
+	"github.com/qor5/admin/v3/richeditor"
 	v "github.com/qor5/ui/v3/vuetify"
 	"github.com/qor5/web/v3"
 	"github.com/sunfmin/reflectutils"
@@ -16,6 +17,9 @@ import (
 )
 
 // @snippet_begin(PresetsEditingCustomizationDescriptionSample)
+//
+//go:embed assets
+var assets embed.FS
 
 func PresetsEditingCustomizationDescription(b *presets.Builder) (
 	cust *presets.ModelBuilder,
@@ -23,16 +27,19 @@ func PresetsEditingCustomizationDescription(b *presets.Builder) (
 	ce *presets.EditingBuilder,
 	db *gorm.DB,
 ) {
+	js, _ := assets.ReadFile("assets/fontcolor.min.js")
+	richeditor.Plugins = []string{"alignment", "table", "video", "imageinsert", "fontcolor"}
+	richeditor.PluginsJS = [][]byte{js}
+	b.ExtraAsset("/redactor.js", "text/javascript", richeditor.JSComponentsPack())
+	b.ExtraAsset("/redactor.css", "text/css", richeditor.CSSComponentsPack())
+
 	cust, cl, ce, db = PresetsListingCustomizationBulkActions(b)
 	b.URIPrefix(PresetsEditingCustomizationDescriptionPath)
-	b.ExtraAsset("/tiptap.js", "text/javascript", tiptap.JSComponentsPack())
-	b.ExtraAsset("/tiptap.css", "text/css", tiptap.CSSComponentsPack())
 
 	ce.Only("Name", "CompanyID", "Description")
 
 	ce.Field("Description").ComponentFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) h.HTMLComponent {
-		return tiptap.TipTapEditor().
-			Attr(web.VField(field.Name, field.Value(obj).(string))...)
+		return richeditor.RichEditor(db, "Body").Plugins([]string{"alignment", "video", "imageinsert", "fontcolor"}).Value(obj.(*Customer).Description).Label(field.Label)
 	})
 	return
 }

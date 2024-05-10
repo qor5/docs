@@ -228,18 +228,18 @@ of component that is used to do the editing.</p>
 <p>Use a customized component is as simple as add the extra asset to the preset instance.<br />
 And configure the component func on the field:</p>
 
-<highlightjs :language='"go"' :code='"\nfunc PresetsEditingCustomizationDescription(b *presets.Builder) (\n\tcust *presets.ModelBuilder,\n\tcl *presets.ListingBuilder,\n\tce *presets.EditingBuilder,\n\tdb *gorm.DB,\n) {\n\tcust, cl, ce, db = PresetsListingCustomizationBulkActions(b)\n\tb.URIPrefix(PresetsEditingCustomizationDescriptionPath)\n\tb.ExtraAsset(\"/tiptap.js\", \"text/javascript\", tiptap.JSComponentsPack())\n\tb.ExtraAsset(\"/tiptap.css\", \"text/css\", tiptap.CSSComponentsPack())\n\n\tce.Only(\"Name\", \"CompanyID\", \"Description\")\n\n\tce.Field(\"Description\").ComponentFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) h.HTMLComponent {\n\t\treturn tiptap.TipTapEditor().\n\t\t\tAttr(web.VField(field.Name, field.Value(obj).(string))...)\n\t})\n\treturn\n}\n\nconst PresetsEditingCustomizationDescriptionPath = \"/samples/presets-editing-customization-description\"\n"'></highlightjs>
+<highlightjs :language='"go"' :code='"//\n//go:embed assets\nvar assets embed.FS\n\nfunc PresetsEditingCustomizationDescription(b *presets.Builder) (\n\tcust *presets.ModelBuilder,\n\tcl *presets.ListingBuilder,\n\tce *presets.EditingBuilder,\n\tdb *gorm.DB,\n) {\n\tjs, _ := assets.ReadFile(\"assets/fontcolor.min.js\")\n\tricheditor.Plugins = []string{\"alignment\", \"table\", \"video\", \"imageinsert\", \"fontcolor\"}\n\tricheditor.PluginsJS = [][]byte{js}\n\tb.ExtraAsset(\"/redactor.js\", \"text/javascript\", richeditor.JSComponentsPack())\n\tb.ExtraAsset(\"/redactor.css\", \"text/css\", richeditor.CSSComponentsPack())\n\n\tcust, cl, ce, db = PresetsListingCustomizationBulkActions(b)\n\tb.URIPrefix(PresetsEditingCustomizationDescriptionPath)\n\n\tce.Only(\"Name\", \"CompanyID\", \"Description\")\n\n\tce.Field(\"Description\").ComponentFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) h.HTMLComponent {\n\t\treturn richeditor.RichEditor(db, \"Body\").Plugins([]string{\"alignment\", \"video\", \"imageinsert\", \"fontcolor\"}).Value(obj.(*Customer).Description).Label(field.Label)\n\t})\n\treturn\n}\n\nconst PresetsEditingCustomizationDescriptionPath = \"/samples/presets-editing-customization-description\"\n"'></highlightjs>
 
 <div>
 <div class='demo'>
 <a href='/samples/presets-editing-customization-description/customers' target='_blank'>Check the demo</a>
  | 
-<a href='https://github.com/qor5/docs/tree/vue3/docsrc/examples/examples_presets/editing.go#L18-L42' target='_blank'>Source on GitHub</a>
+<a href='https://github.com/qor5/docs/tree/vue3/docsrc/examples/examples_presets/editing.go#L19-L49' target='_blank'>Source on GitHub</a>
 </div>
 </div>
 <ul>
-<li>Added the tiptap javascript and css component pack as an extra asset</li>
-<li>Configure the description field to use the component func that returns the <code>tiptap.TipTapEditor()</code> component</li>
+<li>Added the redactor javascript and css component pack as an extra asset</li>
+<li>Configure the description field to use the component func that returns the <code>richeditor.RichEditor</code> component</li>
 <li>Set the field name and value of the component</li>
 </ul>
 
@@ -254,7 +254,7 @@ And configure the component func on the field:</p>
 <div class='demo'>
 <a href='/samples/presets-editing-customization-file-type/products' target='_blank'>Check the demo</a>
  | 
-<a href='https://github.com/qor5/docs/tree/vue3/docsrc/examples/examples_presets/editing.go#L44-L121' target='_blank'>Source on GitHub</a>
+<a href='https://github.com/qor5/docs/tree/vue3/docsrc/examples/examples_presets/editing.go#L51-L128' target='_blank'>Source on GitHub</a>
 </div>
 </div>
 <ul>
@@ -279,7 +279,7 @@ of how to display the edit controls, and How to save the object.</p>
 <div class='demo'>
 <a href='/samples/presets_editing_customization_tabs/companies' target='_blank'>Check the demo</a>
  | 
-<a href='https://github.com/qor5/docs/tree/vue3/docsrc/examples/examples_presets/editing.go#L148-L165' target='_blank'>Source on GitHub</a>
+<a href='https://github.com/qor5/docs/tree/vue3/docsrc/examples/examples_presets/editing.go#L155-L172' target='_blank'>Source on GitHub</a>
 </div>
 </div>
 
@@ -295,7 +295,7 @@ and set the <code>web.ValidationErrors</code> result:</p>
 <div class='demo'>
 <a href='/samples/presets-editing-customization-validation/customers' target='_blank'>Check the demo</a>
  | 
-<a href='https://github.com/qor5/docs/tree/vue3/docsrc/examples/examples_presets/editing.go#L123-L146' target='_blank'>Source on GitHub</a>
+<a href='https://github.com/qor5/docs/tree/vue3/docsrc/examples/examples_presets/editing.go#L130-L153' target='_blank'>Source on GitHub</a>
 </div>
 </div>
 <ul>

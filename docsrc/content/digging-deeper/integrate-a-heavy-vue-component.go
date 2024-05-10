@@ -15,7 +15,7 @@ But a lots of components in the modern web have done many things on the client s
 happens before the it interact with server side.
 
 Here is an example, a rich text editor. you have a toolbar of buttons that you can interact, most of them won't
-need to communicate with server. We are going to integrate the fantastic rich text editor [tiptap](https://tiptap.scrumpy.io/)
+need to communicate with server. We are going to integrate the fantastic rich text editor [tiptap](https://tiptap.dev/)
 to be used as any ~htmlgo.HTMLComponent~.
 
 **Step 1**: [Create a vue3 project](https://vuejs.org/guide/quick-start.html):
