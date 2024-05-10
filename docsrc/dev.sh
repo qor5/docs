@@ -3,7 +3,7 @@ then
     echo "snippetgo command not found. Installing..."
 
     # Install snippetgo using 'go install'
-    go install github.com/sunfmin/snippetgo@latest
+    go install github.com/sunfmin/snippetgo@v0.0.2
 
     # Check if installation was successful
     if command -v snippetgo &> /dev/null
