@@ -16,7 +16,7 @@ require (
 	github.com/samber/lo v1.39.0
 	github.com/shurcooL/sanitized_anchor_name v1.0.0
 	github.com/sunfmin/reflectutils v1.0.4
-	github.com/sunfmin/snippetgo v0.0.2-0.20240510013922-ebbdaca5ee1f
+	github.com/sunfmin/snippetgo v0.0.2
 	github.com/theplant/docgo v0.0.17-0.20240415034737-f4b6f499c087
 	github.com/theplant/htmlgo v1.0.3
 	github.com/yosssi/gohtml v0.0.0-20201013000340-ee4748c638f4
@@ -78,5 +78,3 @@ replace github.com/qor5/web/v3 => ../web
 replace github.com/qor5/ui/v3 => ../ui
 
 replace github.com/qor5/admin/v3 => ../admin
-
-replace github.com/sunfmin/snippetgo => ../../molon/snippetgo
