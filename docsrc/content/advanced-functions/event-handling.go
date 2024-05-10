@@ -72,11 +72,6 @@ The default http request method is ~~~Post~~~, if you want to use the ~~~Get~~~ 
 	ch.Code(generated.EventHandlingFieldValueSample).Language("go"),
 	utils.DemoWithSnippetLocation("Event Handling", examples_web.EventHandlingPagePath+"?api=fieldvalue", generated.EventHandlingFieldValueSampleLocation),
 
-	utils.Anchor(H2(""), "FormClear"),
-	Markdown(`Clear all form data.`),
-	ch.Code(generated.EventHandlingFieldValueSample).Language("go"),
-	utils.DemoWithSnippetLocation("Event Handling", examples_web.EventHandlingPagePath+"?api=formclear", generated.EventHandlingFieldValueSampleLocation),
-
 	utils.Anchor(H2(""), "EventFunc"),
 	Markdown(`Register an event func and call it when the event is triggered.`),
 	ch.Code(generated.EventHandlingEventFuncSample).Language("go"),
