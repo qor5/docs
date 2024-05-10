@@ -113,12 +113,8 @@ github.com/stretchr/testify v1.3.0/go.mod h1:M5WIy9Dh21IEIfnGCwXGc5bZfKNJtfHm1UV
 github.com/stretchr/testify v1.7.0/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=
 github.com/stretchr/testify v1.9.0 h1:HtqpIVDClZ4nwg75+f6Lvsy/wHu+3BoSGCbBAcpTsTg=
 github.com/stretchr/testify v1.9.0/go.mod h1:r2ic/lqez/lEtzL7wO/rwa5dbSLXVDPFyf8C91i36aY=
-github.com/sunfmin/gogen v0.0.0-20190729023015-b62f6c8c554a h1:px4HxcGWRh7pLNy1WIfbIgnyvVr3pHW77oV5A+aa5eQ=
-github.com/sunfmin/gogen v0.0.0-20190729023015-b62f6c8c554a/go.mod h1:j68UhnsQE0rdZ7U/KO32huo8Wa8U9PAW+w2MFdx0PQQ=
 github.com/sunfmin/reflectutils v1.0.4 h1:H3Py82ZE/XW4fi2/nXObxuNv4jkvd3lfz6ZZT30jw4I=
 github.com/sunfmin/reflectutils v1.0.4/go.mod h1:ao2bbF4RZrTe2PboJKdZoC3BA71gdU6rFkCuUjoeqMw=
-github.com/sunfmin/snippetgo v0.0.1 h1:e3kWDxqzNF6AyossXad5vqtVljqlkWasUf9YagvPYgY=
-github.com/sunfmin/snippetgo v0.0.1/go.mod h1:Ue+VuRdcJfuRkdxawPJOYYqKw1MgeJNwAz1qCc1pazQ=
 github.com/theplant/docgo v0.0.17-0.20240415034737-f4b6f499c087 h1:1VwOn1JXLfmLlAG163BGokk+qd6KbcdZS/6LTXdUHP4=
 github.com/theplant/docgo v0.0.17-0.20240415034737-f4b6f499c087/go.mod h1:7mFVFNxuKVAHyuwb7OWOv36JcQJ4j76dotiV/ug7xGw=
 github.com/theplant/gofixtures v1.1.0 h1:gooxE6aXGn06UnibuUfBYKYiSLEEyk1dOki3MINPfyg=
