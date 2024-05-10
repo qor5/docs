@@ -56,7 +56,8 @@ require (
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pquerna/otp v1.4.0 // indirect
 	github.com/samber/lo v1.39.0 // indirect
-	github.com/sunfmin/snippetgo v0.0.1 // indirect
+	github.com/sunfmin/gogen v0.0.0-20190729023015-b62f6c8c554a // indirect
+	github.com/sunfmin/snippetgo v0.0.2-0.20240510013922-ebbdaca5ee1f // indirect
 	github.com/theplant/sliceutils v0.0.0-20200406042209-89153d988eb1 // indirect
 	github.com/tnclong/go-que v0.0.0-20240226030728-4e1f3c8ec781 // indirect
 	github.com/yuin/goldmark v1.7.1 // indirect
