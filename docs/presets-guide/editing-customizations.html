@@ -273,7 +273,7 @@ of how to display the edit controls, and How to save the object.</p>
 </h2>
 <p>Tabs can be added by using <code>AppendTabsPanelFunc</code> func on <code>EditingBuilder</code>:</p>
 
-<highlightjs :language='"go"' :code='"\nfunc PresetsEditingCustomizationTabs(b *presets.Builder) {\n\tdb := setupDB()\n\tb.URIPrefix(PresetsEditingCustomizationTabsPath).DataOperator(gorm2op.DataOperator(db))\n\tmb := b.Model(\u0026Company{})\n\tmb.Listing(\"ID\", \"Name\")\n\tmb.Editing().AppendTabsPanelFunc(func(obj interface{}, ctx *web.EventContext) (tab, content h.HTMLComponent) {\n\t\tc := obj.(*Company)\n\t\ttab = v.VTab(h.Text(\"New Tab\")).Value(\"2\")\n\t\tcontent = v.VWindowItem(\n\t\t\tv.VListItemTitle(h.Text(fmt.Sprintf(\"Name: %s\", c.Name))),\n\t\t).Value(\"2\").Class(\"pa-4\")\n\t\treturn\n\t})\n}\n"'></highlightjs>
+<highlightjs :language='"go"' :code='"\nfunc PresetsEditingCustomizationTabs(b *presets.Builder) {\n\tdb := setupDB()\n\tb.URIPrefix(PresetsEditingCustomizationTabsPath).DataOperator(gorm2op.DataOperator(db))\n\tmb := b.Model(\u0026Company{})\n\tmb.Listing(\"ID\", \"Name\")\n\tmb.Editing().AppendTabsPanelFunc(func(obj interface{}, ctx *web.EventContext) (tab, content h.HTMLComponent) {\n\t\tc := obj.(*Company)\n\t\ttab = v.VTab(h.Text(\"New Tab\")).Value(\"2\")\n\t\tcontent = v.VTabsWindowItem(\n\t\t\tv.VListItemTitle(h.Text(fmt.Sprintf(\"Name: %s\", c.Name))),\n\t\t).Value(\"2\").Class(\"pa-4\")\n\t\treturn\n\t})\n}\n"'></highlightjs>
 
 <div>
 <div class='demo'>

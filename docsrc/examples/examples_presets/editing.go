@@ -162,7 +162,7 @@ func PresetsEditingCustomizationTabs(b *presets.Builder) {
 	mb.Editing().AppendTabsPanelFunc(func(obj interface{}, ctx *web.EventContext) (tab, content h.HTMLComponent) {
 		c := obj.(*Company)
 		tab = v.VTab(h.Text("New Tab")).Value("2")
-		content = v.VWindowItem(
+		content = v.VTabsWindowItem(
 			v.VListItemTitle(h.Text(fmt.Sprintf("Name: %s", c.Name))),
 		).Value("2").Class("pa-4")
 		return
