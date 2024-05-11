@@ -14,12 +14,6 @@ import (
 	"gorm.io/gorm/logger"
 )
 
-var DB *gorm.DB
-
-func init() {
-	DB = setupDB()
-}
-
 func setupDB() (db *gorm.DB) {
 	var err error
 	db, err = gorm.Open(postgres.Open(os.Getenv("DB_PARAMS")), &gorm.Config{})
@@ -64,7 +58,7 @@ type Category struct {
 }
 
 func ListingSample(b *presets.Builder) {
-	db := DB
+	db := setupDB()
 
 	// Setup the project name, ORM and Homepage
 	b.URIPrefix(ListingSamplePath).DataOperator(gorm2op.DataOperator(db))

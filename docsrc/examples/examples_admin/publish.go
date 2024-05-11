@@ -64,7 +64,16 @@ func (p *Product) GetUnPublishActions(db *gorm.DB, ctx context.Context, storage 
 
 // @snippet_end
 
-func PublishExample(b *presets.Builder) {
+func PublishExample(b *presets.Builder, db *gorm.DB) {
+	DB := db
+	if DB == nil {
+		DB = setupDB()
+	}
+	err := DB.AutoMigrate(&Product{})
+	if err != nil {
+		panic(err)
+	}
+
 	b.URIPrefix(PublishExamplePath).
 		DataOperator(gorm2op.DataOperator(DB))
 

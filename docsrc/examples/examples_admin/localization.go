@@ -39,6 +39,8 @@ func (lm *L10nModel) PrimaryColumnValuesBySlug(slug string) map[string]string {
 // @snippet_end
 
 func LocalizationExampleMock(b *presets.Builder) {
+	DB := setupDB()
+
 	if err := DB.AutoMigrate(&L10nModel{}); err != nil {
 		panic(err)
 	}

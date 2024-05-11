@@ -20,6 +20,7 @@ type ExampleResource struct {
 }
 
 func MountActionWorker(b *presets.Builder) {
+	DB := setupDB()
 	mb := b.Model(&ExampleResource{})
 	mb.Listing().ActionsAsMenu(true)
 

@@ -234,7 +234,7 @@ Provide basic event functions that call to server, and manage push state<br />
 (change browser address urls before or after do ajax requests). do page partial refresh etc.</p>
 <p>the javascript or css code are packed by using <a href="https://pkg.go.dev/embed">embed</a>.</p>
 
-<highlightjs :language='"go"' :code='"import (\n\t\"embed\"\n)\n\n//go:embed corejs/dist/*.js\nvar box embed.FS\n\nfunc JSComponentsPack() ComponentsPack {\n\tv, err := box.ReadFile(\"corejs/dist/index.js\")\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\n\treturn ComponentsPack(v)\n}\n\nfunc JSVueComponentsPack() ComponentsPack {\n\tv, err := box.ReadFile(\"corejs/dist/vue.global.dev.js\")\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\n\treturn ComponentsPack(v)\n}\n\nfunc JSVueComponentsPackDev() ComponentsPack {\n\tv, err := box.ReadFile(\"corejs/dist/vue.global.dev.js\")\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\n\treturn ComponentsPack(v)\n}\n"'></highlightjs>
+<highlightjs :language='"go"' :code='"import (\n\t\"embed\"\n)\n\n//go:embed corejs/dist/*.js\nvar box embed.FS\n\nfunc JSComponentsPack() ComponentsPack {\n\tv, err := box.ReadFile(\"corejs/dist/index.js\")\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\n\treturn ComponentsPack(v)\n}\n\nfunc JSVueComponentsPack() ComponentsPack {\n\tv, err := box.ReadFile(\"corejs/dist/vue.global.prod.js\")\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\n\treturn ComponentsPack(v)\n}\n"'></highlightjs>
 <p>And with <code>web.PacksHandler</code>, You can merge multiple javascript or css assets together into one url.<br />
 So that browser only need to request them one time. and cache them. The cache is set to the start<br />
 time of the process. So next time the app restarts, it invalid the cache.</p>

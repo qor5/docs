@@ -12,6 +12,8 @@ import (
 )
 
 func MountWorker(b *presets.Builder) {
+	DB := setupDB()
+
 	wb := worker.New(DB)
 	wb.Install(b)
 	defer wb.Listen()
