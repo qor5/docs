@@ -28,7 +28,6 @@ func DoAction1(ctx *web.EventContext) (r web.EventResponse, err error) {
 
 func layout(in web.PageFunc) (out web.PageFunc) {
 	return func(ctx *web.EventContext) (pr web.PageResponse, err error) {
-
 		ctx.Injector.TailHTML(`
 			<script src='/main.js'></script>
 		`)

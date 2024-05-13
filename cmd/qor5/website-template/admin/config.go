@@ -61,7 +61,6 @@ func newPB() Config {
 
 	b.URIPrefix("/admin").DataOperator(gorm2op.DataOperator(db)).
 		BrandFunc(func(ctx *web.EventContext) h.HTMLComponent {
-
 			return vuetify.VContainer(
 				h.Img(logo).Attr("width", "150"),
 			).Class("ma-n4")

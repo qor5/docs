@@ -72,7 +72,7 @@ func main() {
 
 	dir := filepath.Base(pkg)
 
-	err = os.MkdirAll(dir, 0755)
+	err = os.MkdirAll(dir, 0o755)
 	if err != nil {
 		panic(err)
 	}
@@ -105,7 +105,7 @@ func copyAndReplaceFiles(box embed.FS, dir string, template string, pkg string) 
 		}
 		newPath := strings.ReplaceAll(path, template+"/", "")
 		fp := filepath.Join(dir, newPath)
-		err := os.MkdirAll(filepath.Dir(fp), 0755)
+		err := os.MkdirAll(filepath.Dir(fp), 0o755)
 		if err != nil {
 			panic(err)
 		}
@@ -121,7 +121,7 @@ func copyAndReplaceFiles(box embed.FS, dir string, template string, pkg string) 
 			panic(err)
 		}
 
-		err = os.WriteFile(fp, []byte(content), 0644)
+		err = os.WriteFile(fp, []byte(content), 0o644)
 		if err != nil {
 			panic(err)
 		}

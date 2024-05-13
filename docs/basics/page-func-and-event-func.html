@@ -220,7 +220,7 @@
 
 <div class='border-t'><p><code>PageFunc</code> is used to build a web page, <code>EventFunc</code> is called when user interact with the page, For example button or link clicks.</p>
 
-<highlightjs :language='"go"' :code='"type PageFunc func(ctx *EventContext) (r PageResponse, err error)\ntype EventFunc func(ctx *EventContext) (r EventResponse, err error)\n"'></highlightjs>
+<highlightjs :language='"go"' :code='"type (\n\tPageFunc  func(ctx *EventContext) (r PageResponse, err error)\n\tEventFunc func(ctx *EventContext) (r EventResponse, err error)\n)\n"'></highlightjs>
 <p><code>web.Page(...)</code> converts multiple <code>EventFunc</code>s along with one <code>PageFunc</code> to a <code>http.Handler</code>,<br />
 event func needs a name to be used by <code>web.POST().EventFunc(name).Go()</code> to attach to an html element that post http request to call the <code>EventFunc</code> when vue event like <code>@click</code> happens</p>
 <p>Here is a hello world with more interactions. User click the button will reload the page with latest time</p>
