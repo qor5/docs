@@ -10,8 +10,7 @@ type mystate struct {
 }
 
 func HelloButton(ctx *web.EventContext) (pr web.PageResponse, err error) {
-
-	var s = &mystate{}
+	s := &mystate{}
 	if ctx.Flash != nil {
 		s = ctx.Flash.(*mystate)
 	}
@@ -33,7 +32,7 @@ func HelloButton(ctx *web.EventContext) (pr web.PageResponse, err error) {
 }
 
 func reload(ctx *web.EventContext) (r web.EventResponse, err error) {
-	var s = &mystate{}
+	s := &mystate{}
 	ctx.MustUnmarshalForm(s)
 	ctx.Flash = s
 

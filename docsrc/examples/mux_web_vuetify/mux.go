@@ -204,7 +204,6 @@ func DemoVuetifyLayout(in web.PageFunc) (out web.PageFunc) {
 // @snippet_end
 
 func Mux(mux *http.ServeMux, prefix string) http.Handler {
-
 	// @snippet_begin(ComponentsPackSample)
 	mux.Handle("/assets/main.js",
 		web.PacksHandler("text/javascript",

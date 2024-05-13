@@ -66,7 +66,6 @@ func LocalizationExampleMock(b *presets.Builder) {
 	mb.Listing("ID", "Title", "Locale")
 	// @snippet_end
 	// @snippet_end
-
 }
 
 const LocalizationExamplePath = "/samples/l10n"

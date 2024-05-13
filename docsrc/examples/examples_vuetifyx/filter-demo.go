@@ -7,7 +7,6 @@ import (
 )
 
 func FilterDemo(ctx *web.EventContext) (pr web.PageResponse, err error) {
-
 	fd := vuetifyx.FilterData([]*vuetifyx.FilterItem{
 		{
 			Key:          "invoiceDate",

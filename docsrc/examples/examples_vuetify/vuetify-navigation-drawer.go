@@ -11,7 +11,6 @@ import (
 )
 
 func VuetifyNavigationDrawer(ctx *web.EventContext) (pr web.PageResponse, err error) {
-
 	pr.Body = VContainer(
 		h.H2("A drawer that has close button"),
 

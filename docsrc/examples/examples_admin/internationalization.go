@@ -25,10 +25,12 @@ var Messages_en_US = &Messages{
 	Admin:   "Admin",
 	Welcome: "Welcome",
 }
+
 var Messages_zh_CN = &Messages{
 	Admin:   "管理系统",
 	Welcome: "欢迎",
 }
+
 var Messages_ja_JP = &Messages{
 	Admin:   "管理システム",
 	Welcome: "ようこそ",
@@ -51,6 +53,7 @@ var Messages_zh_CN_ModelsI18nModuleKey = &Messages_ModelsI18nModuleKey{
 	VideosName:        "视频名称",
 	VideosDescription: "视频描述",
 }
+
 var Messages_ja_JP_ModelsI18nModuleKey = &Messages_ModelsI18nModuleKey{
 	Homes:             "ホーム",
 	Videos:            "ビデオ",

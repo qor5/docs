@@ -33,7 +33,6 @@ var fv = formVals{
 }
 
 func VuetifyComponentsKitchen(ctx *web.EventContext) (pr web.PageResponse, err error) {
-
 	var chips h.HTMLComponents
 	for _, city := range globalCities {
 		chips = append(chips,
@@ -120,7 +119,7 @@ func submit2(ctx *web.EventContext) (r web.EventResponse, err error) {
 
 func removeCity(ctx *web.EventContext) (r web.EventResponse, err error) {
 	city := ctx.R.FormValue("city")
-	var newCities = make([]string, 0)
+	newCities := make([]string, 0)
 	for _, c := range globalCities {
 		if c != city {
 			newCities = append(newCities, c)

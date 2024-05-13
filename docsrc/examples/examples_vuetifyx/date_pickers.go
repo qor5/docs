@@ -4,6 +4,7 @@ package examples_vuetifyx
 
 import (
 	"context"
+
 	"github.com/qor5/web/v3"
 	h "github.com/theplant/htmlgo"
 )
@@ -18,9 +19,11 @@ func Vxdatepicker(children ...h.HTMLComponent) (r *VXDateBuilder) {
 	}
 	return
 }
+
 func (b *VXDateBuilder) MarshalHTML(ctx context.Context) (r []byte, err error) {
 	return b.tag.MarshalHTML(ctx)
 }
+
 func VuetifyxDatePickers(ctx *web.EventContext) (pr web.PageResponse, err error) {
 	pr.Body = h.Div(
 		Vxdatepicker(),

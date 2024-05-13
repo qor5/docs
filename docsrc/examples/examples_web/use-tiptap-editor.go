@@ -9,7 +9,6 @@ import (
 )
 
 func HelloWorldTipTap(ctx *web.EventContext) (pr web.PageResponse, err error) {
-
 	defaultValue := ctx.R.FormValue("Content1")
 	if len(defaultValue) == 0 {
 		defaultValue = `

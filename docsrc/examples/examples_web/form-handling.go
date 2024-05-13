@@ -33,7 +33,6 @@ type NestForm2 struct {
 }
 
 func FormHandlingPage(ctx *web.EventContext) (pr web.PageResponse, err error) {
-
 	var fv MyData
 	ctx.MustUnmarshalForm(&fv)
 
@@ -194,7 +193,7 @@ func (m *MyData) File1Bytes() string {
 	if err != nil {
 		panic(err)
 	}
-	var b = make([]byte, 200)
+	b := make([]byte, 200)
 	_, err = io.ReadFull(f, b)
 	if err != nil {
 		panic(err)

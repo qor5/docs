@@ -2,12 +2,13 @@ package examples_presets
 
 // @snippet_begin(FilterSample)
 import (
+	"time"
+
 	"github.com/qor5/admin/v3/presets"
 	"github.com/qor5/admin/v3/presets/gorm2op"
 	"github.com/qor5/ui/v3/vuetifyx"
 	"github.com/qor5/web/v3"
 	"gorm.io/gorm"
-	"time"
 )
 
 type Post struct {

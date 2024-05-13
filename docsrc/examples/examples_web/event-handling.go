@@ -146,7 +146,6 @@ func EventHandlingLocation(ctx *web.EventContext) (pr web.PageResponse, err erro
 
 // @snippet_begin(EventHandlingFieldValueSample)
 func EventHandlingFieldValue(ctx *web.EventContext) (pr web.PageResponse, err error) {
-
 	pr.Body = VContainer(
 		VCard(
 			VCardTitle(Text("FieldValue")),
@@ -160,7 +159,6 @@ func EventHandlingFieldValue(ctx *web.EventContext) (pr web.PageResponse, err er
 
 // @snippet_begin(EventHandlingEventFuncSample)
 func EventHandlingEventFunc(ctx *web.EventContext) (pr web.PageResponse, err error) {
-
 	pr.Body = VContainer(
 		VBtn("Go").Attr("@click", web.POST().EventFunc("hello").Go()),
 	)
@@ -262,5 +260,7 @@ var EventHandlingPagePB = web.Page(EventHandlingPage).
 		return
 	})
 
-const EventHandlingPagePath = "/samples/event_handling"
-const EventExamplePagePath = "/samples/event_handling/example"
+const (
+	EventHandlingPagePath = "/samples/event_handling"
+	EventExamplePagePath  = "/samples/event_handling/example"
+)

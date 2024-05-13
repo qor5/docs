@@ -19,7 +19,6 @@ var globalFavored bool
 const favoredIconPortalName = "favoredIcon"
 
 func HelloVuetifyMenu(ctx *web.EventContext) (pr web.PageResponse, err error) {
-
 	var fv formData
 	err = ctx.UnmarshalForm(&fv)
 	if err != nil {

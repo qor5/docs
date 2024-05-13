@@ -68,7 +68,6 @@ func KeyInfoDemo(ctx *web.EventContext) (pr web.PageResponse, err error) {
 		LoadMoreURL("/e20_vuetify_expansion_panels").
 		RowExpandFunc(func(obj interface{}, ctx *web.EventContext) h.HTMLComponent {
 			return h.Div().Text(h.JSONString(obj)).Class("pa-5")
-
 		})
 
 	logsDt.Column("Title").CellComponentFunc(func(obj interface{}, fieldName string, ctx *web.EventContext) h.HTMLComponent {

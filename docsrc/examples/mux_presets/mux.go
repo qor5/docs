@@ -7,7 +7,6 @@ import (
 )
 
 func SamplesHandler(mux mux_web_vuetify.Muxer, prefix string) {
-
 	addGA := mux_web_vuetify.AddGA
 	// @snippet_begin(MountPresetHelloWorldSample)
 	c00 := presets.New().AssetFunc(addGA)

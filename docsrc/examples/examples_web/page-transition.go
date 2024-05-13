@@ -12,8 +12,10 @@ var page1Title = "Page 1"
 
 // @snippet_begin(PageTransitionSample)
 
-const Page1Path = "/samples/page_1"
-const Page2Path = "/samples/page_2"
+const (
+	Page1Path = "/samples/page_1"
+	Page2Path = "/samples/page_2"
+)
 
 func Page1(ctx *web.EventContext) (pr web.PageResponse, err error) {
 	pr.Body = Div(
@@ -35,7 +37,6 @@ func Page1(ctx *web.EventContext) (pr web.PageResponse, err error) {
 }
 
 func Page2(ctx *web.EventContext) (pr web.PageResponse, err error) {
-
 	pr.Body = Div(
 		H1("Page 2"),
 		Ul(

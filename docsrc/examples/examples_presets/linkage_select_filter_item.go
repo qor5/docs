@@ -23,7 +23,6 @@ func PresetsLinkageSelectFilterItem(b *presets.Builder) {
 			Attr(web.VField(field.Name, []string{m.Province, m.City, m.District})...).
 			Items(getLinkageProvinceCityDistrictItems()...).
 			Labels(getLinkageProvinceCityDistrictLabels()...)
-
 	}).SetterFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) (err error) {
 		vs := ctx.R.Form["ProvinceCityDistrict"]
 		m := obj.(*Address)

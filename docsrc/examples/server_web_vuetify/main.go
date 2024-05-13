@@ -2,11 +2,12 @@ package main
 
 import (
 	"fmt"
+	"net/http"
+	"os"
+
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/qor5/docs/v3/docsrc/examples/mux_web_vuetify"
 	"github.com/qor5/web/v3"
-	"net/http"
-	"os"
 )
 
 func main() {
@@ -17,7 +18,7 @@ func main() {
 
 	fmt.Println("Starting docs at :" + port)
 	mux := http.NewServeMux()
-	var im = &mux_web_vuetify.IndexMux{Mux: http.NewServeMux()}
+	im := &mux_web_vuetify.IndexMux{Mux: http.NewServeMux()}
 	mux_web_vuetify.SamplesHandler(im, "/samples")
 	mux.Handle("/samples/",
 		middleware.Logger(

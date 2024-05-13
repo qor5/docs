@@ -55,8 +55,8 @@ type CarouselItem struct {
 }
 
 func Carousel(carouselId string, activeIndex int, items []*CarouselItem) HTMLComponent {
-	var indicators = Ol().Class("carousel-indicators")
-	var carouselInners = Div().Class("carousel-inner")
+	indicators := Ol().Class("carousel-indicators")
+	carouselInners := Div().Class("carousel-inner")
 
 	for i, item := range items {
 		indicators.AppendChildren(

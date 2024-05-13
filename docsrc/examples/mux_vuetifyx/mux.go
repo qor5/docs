@@ -1,17 +1,17 @@
 package mux_vuetifyx
 
 import (
+	"net/http"
+
 	"github.com/qor5/docs/v3/docsrc/assets"
 	"github.com/qor5/docs/v3/docsrc/examples/examples_vuetifyx"
 	"github.com/qor5/docs/v3/docsrc/examples/mux_web_vuetify"
 	. "github.com/qor5/ui/v3/vuetify"
 	"github.com/qor5/ui/v3/vuetifyx"
 	"github.com/qor5/web/v3"
-	"net/http"
 )
 
 func Mux(mux *http.ServeMux, prefix string) http.Handler {
-
 	mux.Handle("/assets/main.js",
 		web.PacksHandler("text/javascript",
 			JSComponentsPack(),
@@ -42,7 +42,6 @@ func Mux(mux *http.ServeMux, prefix string) http.Handler {
 }
 
 func SamplesHandler(mux mux_web_vuetify.Muxer, prefix string) {
-
 	mux.Handle(
 		examples_vuetifyx.VuetifyComponentsLinkageSelectPath,
 		examples_vuetifyx.VuetifyComponentsLinkageSelectPB.Wrap(mux_web_vuetify.DemoVuetifyLayout),

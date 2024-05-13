@@ -7,9 +7,11 @@ import (
 	h "github.com/theplant/htmlgo"
 )
 
-type music struct{}
-type video struct{}
-type book struct{}
+type (
+	music struct{}
+	video struct{}
+	book  struct{}
+)
 
 func PresetsOrderMenu(b *presets.Builder) {
 	b.Model(&music{}).Listing().PageFunc(func(ctx *web.EventContext) (r web.PageResponse, err error) {
@@ -86,5 +88,7 @@ func PresetsGroupMenu(b *presets.Builder) {
 	// @snippet_end
 }
 
-const PresetsMenuOrderPath = "/samples/menu_order"
-const PresetsMenuGroupPath = "/samples/menu_group"
+const (
+	PresetsMenuOrderPath = "/samples/menu_order"
+	PresetsMenuGroupPath = "/samples/menu_group"
+)

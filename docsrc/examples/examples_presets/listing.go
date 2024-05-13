@@ -351,7 +351,6 @@ func PresetsListingCustomizationSearcher(b *presets.Builder) {
 		qdb := db.Where("approved_at IS NOT NULL")
 		return gorm2op.DataOperator(qdb).Search(model, params, ctx)
 	})
-
 }
 
 // @snippet_end

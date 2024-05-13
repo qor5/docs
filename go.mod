@@ -19,7 +19,7 @@ require (
 	github.com/sunfmin/snippetgo v0.0.2
 	github.com/theplant/docgo v0.0.17-0.20240415034737-f4b6f499c087
 	github.com/theplant/htmlgo v1.0.3
-	github.com/theplant/testenv v0.0.0-20240511100802-155db018b191
+	github.com/theplant/testenv v0.0.0-20240513012518-1c94c8c84239
 	github.com/yosssi/gohtml v0.0.0-20201013000340-ee4748c638f4
 	golang.org/x/text v0.15.0
 	gorm.io/driver/postgres v1.5.7
@@ -90,7 +90,6 @@ require (
 	github.com/shirou/gopsutil/v3 v3.24.4 // indirect
 	github.com/shoenig/go-m1cpu v0.1.6 // indirect
 	github.com/sirupsen/logrus v1.9.3 // indirect
-	github.com/sunfmin/gogen v0.0.0-20190729023015-b62f6c8c554a // indirect
 	github.com/testcontainers/testcontainers-go v0.31.0 // indirect
 	github.com/theplant/sliceutils v0.0.0-20200406042209-89153d988eb1 // indirect
 	github.com/tklauser/go-sysconf v0.3.14 // indirect
@@ -108,7 +107,7 @@ require (
 	golang.org/x/crypto v0.23.0 // indirect
 	golang.org/x/exp v0.0.0-20231006140011-7918f672742d // indirect
 	golang.org/x/image v0.15.0 // indirect
-	golang.org/x/net v0.24.0 // indirect
+	golang.org/x/net v0.25.0 // indirect
 	golang.org/x/oauth2 v0.19.0 // indirect
 	golang.org/x/sync v0.7.0 // indirect
 	golang.org/x/sys v0.20.0 // indirect

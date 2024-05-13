@@ -33,7 +33,6 @@ var s = &myFormValue{
 }
 
 func VuetifyBasicInputs(ctx *web.EventContext) (pr web.PageResponse, err error) {
-
 	var verr web.ValidationErrors
 	if ve, ok := ctx.Flash.(web.ValidationErrors); ok {
 		verr = ve

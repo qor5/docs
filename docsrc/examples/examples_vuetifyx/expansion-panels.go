@@ -8,7 +8,6 @@ import (
 )
 
 func ExpansionPanelDemo(ctx *web.EventContext) (pr web.PageResponse, err error) {
-
 	pr.Body = VApp(
 		VMain(
 			VExpansionPanels(

@@ -2,10 +2,11 @@ package main
 
 import (
 	"fmt"
-	"github.com/qor5/docs/v3/docsrc/examples/mux_admin"
 	"net/http"
 	"os"
 	"time"
+
+	"github.com/qor5/docs/v3/docsrc/examples/mux_admin"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"

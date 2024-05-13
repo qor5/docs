@@ -7,7 +7,6 @@ import (
 )
 
 func result(args ...HTMLComponent) HTMLComponent {
-
 	var converted []HTMLComponent
 	for _, arg := range args {
 		converted = append(converted, Div(arg).Class("wrapped"))

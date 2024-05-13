@@ -19,7 +19,6 @@ type mystate struct {
 var listItems = []string{"Apple", "Microsoft", "Google"}
 
 func LazyPortalsAndReload(ctx *web.EventContext) (pr web.PageResponse, err error) {
-
 	pr.Body = VApp(
 		VMain(
 			VContainer(
@@ -60,7 +59,7 @@ func LazyPortalsAndReload(ctx *web.EventContext) (pr web.PageResponse, err error
 }
 
 func menuItems(ctx *web.EventContext) (r web.EventResponse, err error) {
-	var s = &mystate{}
+	s := &mystate{}
 
 	var items []HTMLComponent
 	for _, item := range listItems {
@@ -89,7 +88,7 @@ func menuItems(ctx *web.EventContext) (r web.EventResponse, err error) {
 }
 
 func addItemForm(ctx *web.EventContext) (r web.EventResponse, err error) {
-	var s = &mystate{}
+	s := &mystate{}
 	ctx.MustUnmarshalForm(s)
 
 	textField := VTextField().
@@ -99,20 +98,19 @@ func addItemForm(ctx *web.EventContext) (r web.EventResponse, err error) {
 		textField.Error(true).ErrorMessages(s.Error)
 	}
 
-	r.Body =
-		VCard(
-			VCardText(
-				textField,
-			),
-			VCardActions(
-				VBtn("Create").Color("bg-primary").OnClick("addItem"),
-			),
-		)
+	r.Body = VCard(
+		VCardText(
+			textField,
+		),
+		VCardActions(
+			VBtn("Create").Color("bg-primary").OnClick("addItem"),
+		),
+	)
 	return
 }
 
 func addItem(ctx *web.EventContext) (r web.EventResponse, err error) {
-	var s = &mystate{}
+	s := &mystate{}
 	ctx.MustUnmarshalForm(s)
 
 	if len(s.Company) < 5 {

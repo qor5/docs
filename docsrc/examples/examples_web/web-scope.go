@@ -61,7 +61,6 @@ var UseLocalsPB = web.Page(UseLocals)
 var materialID, materialName, rawMaterialID, rawMaterialName, countryID, countryName, productName string
 
 func UsePlaidForm(ctx *web.EventContext) (pr web.PageResponse, err error) {
-
 	pr.Body = Div(
 		H3("Form Content"),
 		utils.PrettyFormAsJSON(ctx),
@@ -177,5 +176,7 @@ var UsePlaidFormPB = web.Page(UsePlaidForm).
 
 // @snippet_end
 
-const WebScopeUseLocalsPagePath = "/samples/web-scope-use-locals"
-const WebScopeUsePlaidFormPagePath = "/samples/web-scope-use-plaid-form"
+const (
+	WebScopeUseLocalsPagePath    = "/samples/web-scope-use-locals"
+	WebScopeUsePlaidFormPagePath = "/samples/web-scope-use-plaid-form"
+)

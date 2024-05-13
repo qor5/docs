@@ -230,19 +230,19 @@
 <highlightjs :language='"go"' :code='"type Product struct {\n\tgorm.Model\n\n\tName  string\n\tPrice int\n\n\tpublish.Status\n\tpublish.Schedule\n\tpublish.Version\n}\n"'></highlightjs>
 <p>Implement primary slug interfaces for passing the values of primary keys between events</p>
 
-<highlightjs :language='"go"' :code='"var _ presets.SlugEncoder = (*Product)(nil)\nvar _ presets.SlugDecoder = (*Product)(nil)\n\nfunc (p *Product) PrimarySlug() string {\n\treturn fmt.Sprintf(\"%v_%v\", p.ID, p.Version.Version)\n}\n\nfunc (p *Product) PrimaryColumnValuesBySlug(slug string) map[string]string {\n\tsegs := strings.Split(slug, \"_\")\n\tif len(segs) != 2 {\n\t\tpanic(\"wrong slug\")\n\t}\n\n\treturn map[string]string{\n\t\t\"id\":      segs[0],\n\t\t\"version\": segs[1],\n\t}\n}\n"'></highlightjs>
+<highlightjs :language='"go"' :code='"var (\n\t_ presets.SlugEncoder = (*Product)(nil)\n\t_ presets.SlugDecoder = (*Product)(nil)\n)\n\nfunc (p *Product) PrimarySlug() string {\n\treturn fmt.Sprintf(\"%v_%v\", p.ID, p.Version.Version)\n}\n\nfunc (p *Product) PrimaryColumnValuesBySlug(slug string) map[string]string {\n\tsegs := strings.Split(slug, \"_\")\n\tif len(segs) != 2 {\n\t\tpanic(\"wrong slug\")\n\t}\n\n\treturn map[string]string{\n\t\t\"id\":      segs[0],\n\t\t\"version\": segs[1],\n\t}\n}\n"'></highlightjs>
 <p>Create publisher and configure Publish view for model, and remember to display Status and Schedule fields in Editing</p>
 
 <highlightjs :language='"go"' :code='"mb := b.Model(\u0026Product{})\nmb.Editing(\"StatusBar\", \"ScheduleBar\", \"Name\", \"Price\")\n\npublisher := publish.New(DB, nil).Models(mb)\npublisher.Install(b)\n// run the publisher job if Schedule is used\ngo publish.RunPublisher(DB, nil, publisher)"'></highlightjs>
 <p>Implement the publish interfaces if there is a need to publish content to storage(filesystem, AWS S3, ...)</p>
 
-<highlightjs :language='"go"' :code='"var _ publish.PublishInterface = (*Product)(nil)\nvar _ publish.UnPublishInterface = (*Product)(nil)\n\nfunc (p *Product) GetPublishActions(db *gorm.DB, ctx context.Context, storage oss.StorageInterface) (objs []*publish.PublishAction, err error) {\n\t// create publish actions\n\treturn\n}\n\nfunc (p *Product) GetUnPublishActions(db *gorm.DB, ctx context.Context, storage oss.StorageInterface) (objs []*publish.PublishAction, err error) {\n\t// create unpublish actions\n\treturn\n}\n"'></highlightjs>
+<highlightjs :language='"go"' :code='"var (\n\t_ publish.PublishInterface   = (*Product)(nil)\n\t_ publish.UnPublishInterface = (*Product)(nil)\n)\n\nfunc (p *Product) GetPublishActions(db *gorm.DB, ctx context.Context, storage oss.StorageInterface) (objs []*publish.PublishAction, err error) {\n\t// create publish actions\n\treturn\n}\n\nfunc (p *Product) GetUnPublishActions(db *gorm.DB, ctx context.Context, storage oss.StorageInterface) (objs []*publish.PublishAction, err error) {\n\t// create unpublish actions\n\treturn\n}\n"'></highlightjs>
 
 <div>
 <div class='demo'>
 <a href='/samples/publish/products' target='_blank'>Check the demo</a>
  | 
-<a href='https://github.com/qor5/docs/tree/vue3/docsrc/examples/examples_admin/publish.go#L51-L65' target='_blank'>Source on GitHub</a>
+<a href='https://github.com/qor5/docs/tree/vue3/docsrc/examples/examples_admin/publish.go#L53-L69' target='_blank'>Source on GitHub</a>
 </div>
 </div>
 <h2 id="modules">Modules</h2>

@@ -27,8 +27,10 @@ type Product struct {
 // @snippet_end
 
 // @snippet_begin(PublishImplementSlugInterfaces)
-var _ presets.SlugEncoder = (*Product)(nil)
-var _ presets.SlugDecoder = (*Product)(nil)
+var (
+	_ presets.SlugEncoder = (*Product)(nil)
+	_ presets.SlugDecoder = (*Product)(nil)
+)
 
 func (p *Product) PrimarySlug() string {
 	return fmt.Sprintf("%v_%v", p.ID, p.Version.Version)
@@ -49,8 +51,10 @@ func (p *Product) PrimaryColumnValuesBySlug(slug string) map[string]string {
 // @snippet_end
 
 // @snippet_begin(PublishImplementPublishInterfaces)
-var _ publish.PublishInterface = (*Product)(nil)
-var _ publish.UnPublishInterface = (*Product)(nil)
+var (
+	_ publish.PublishInterface   = (*Product)(nil)
+	_ publish.UnPublishInterface = (*Product)(nil)
+)
 
 func (p *Product) GetPublishActions(db *gorm.DB, ctx context.Context, storage oss.StorageInterface) (objs []*publish.PublishAction, err error) {
 	// create publish actions

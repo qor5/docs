@@ -35,5 +35,7 @@ func PresetsBrandFunc(b *presets.Builder) {
 	})
 }
 
-const PresetsBrandTitlePath = "/samples/brand_title"
-const PresetsBrandFuncPath = "/samples/brand_func"
+const (
+	PresetsBrandTitlePath = "/samples/brand_title"
+	PresetsBrandFuncPath  = "/samples/brand_func"
+)

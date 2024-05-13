@@ -259,13 +259,13 @@ and a pointer to a struct that implements the Messages interface.<br />
 The Messages interface is an empty interface that you can use to define your own messages.</p>
 <p>Such a struct might look like this:</p>
 
-<highlightjs :language='"go"' :code='"const I18nExampleKey i18n.ModuleKey = \"I18nExampleKey\"\n\ntype Messages struct {\n\tAdmin   string\n\tWelcome string\n}\n\nvar Messages_en_US = \u0026Messages{\n\tAdmin:   \"Admin\",\n\tWelcome: \"Welcome\",\n}\nvar Messages_zh_CN = \u0026Messages{\n\tAdmin:   \"管理系统\",\n\tWelcome: \"欢迎\",\n}\nvar Messages_ja_JP = \u0026Messages{\n\tAdmin:   \"管理システム\",\n\tWelcome: \"ようこそ\",\n}\n"'></highlightjs>
+<highlightjs :language='"go"' :code='"const I18nExampleKey i18n.ModuleKey = \"I18nExampleKey\"\n\ntype Messages struct {\n\tAdmin   string\n\tWelcome string\n}\n\nvar Messages_en_US = \u0026Messages{\n\tAdmin:   \"Admin\",\n\tWelcome: \"Welcome\",\n}\n\nvar Messages_zh_CN = \u0026Messages{\n\tAdmin:   \"管理系统\",\n\tWelcome: \"欢迎\",\n}\n\nvar Messages_ja_JP = \u0026Messages{\n\tAdmin:   \"管理システム\",\n\tWelcome: \"ようこそ\",\n}\n"'></highlightjs>
 <p>If you want to define messages inside the system,<br />
 you can add new variables to the message structure associated with <code>presets.ModelsI18nModuleKey</code>,<br />
 and the variable name definitions follow the camel case.</p>
 <p>Such a struct might look like this:</p>
 
-<highlightjs :language='"go"' :code='"\ntype Messages_ModelsI18nModuleKey struct {\n\tHomes             string\n\tVideos            string\n\tVideosName        string\n\tVideosDescription string\n}\n\nvar Messages_zh_CN_ModelsI18nModuleKey = \u0026Messages_ModelsI18nModuleKey{\n\tHomes:             \"主页\",\n\tVideos:            \"视频\",\n\tVideosName:        \"视频名称\",\n\tVideosDescription: \"视频描述\",\n}\nvar Messages_ja_JP_ModelsI18nModuleKey = \u0026Messages_ModelsI18nModuleKey{\n\tHomes:             \"ホーム\",\n\tVideos:            \"ビデオ\",\n\tVideosName:        \"ビデオの名前\",\n\tVideosDescription: \"ビデオの説明\",\n}\n"'></highlightjs>
+<highlightjs :language='"go"' :code='"\ntype Messages_ModelsI18nModuleKey struct {\n\tHomes             string\n\tVideos            string\n\tVideosName        string\n\tVideosDescription string\n}\n\nvar Messages_zh_CN_ModelsI18nModuleKey = \u0026Messages_ModelsI18nModuleKey{\n\tHomes:             \"主页\",\n\tVideos:            \"视频\",\n\tVideosName:        \"视频名称\",\n\tVideosDescription: \"视频描述\",\n}\n\nvar Messages_ja_JP_ModelsI18nModuleKey = \u0026Messages_ModelsI18nModuleKey{\n\tHomes:             \"ホーム\",\n\tVideos:            \"ビデオ\",\n\tVideosName:        \"ビデオの名前\",\n\tVideosDescription: \"ビデオの説明\",\n}\n"'></highlightjs>
 <p>The <code>GetSupportLanguagesFromRequestFunc</code> is a method of the <code>Builder</code> struct in the i18n package.<br />
 It allows you to set a function that retrieves the list of supported languages<br />
 from an HTTP request, which can be useful in scenarios where the list of supported<br />

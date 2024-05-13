@@ -30,7 +30,6 @@ const WorkerExamplePath = "/samples/worker"
 var Que = &mock.QueueMock{
 	AddFunc: func(ctx context.Context, job worker.QueJobInterface) error {
 		jobInfo, err := job.GetJobInfo()
-
 		if err != nil {
 			return err
 		}

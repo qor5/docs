@@ -21,7 +21,6 @@ type myFormValue1 struct {
 }
 
 func VuetifyVariantSubForm(ctx *web.EventContext) (pr web.PageResponse, err error) {
-
 	var fv myFormValue1
 	ctx.MustUnmarshalForm(&fv)
 	if fv.Type == "" {
@@ -57,7 +56,6 @@ func VuetifyVariantSubForm(ctx *web.EventContext) (pr web.PageResponse, err erro
 }
 
 func form1(ctx *web.EventContext, fv *myFormValue1) h.HTMLComponent {
-
 	return VContainer(
 		h.H1("Form1"),
 		VRadioGroup(
@@ -68,8 +66,8 @@ func form1(ctx *web.EventContext, fv *myFormValue1) h.HTMLComponent {
 			Label("Gender"),
 	)
 }
-func form2(ctx *web.EventContext, fv *myFormValue1, verr *web.ValidationErrors) h.HTMLComponent {
 
+func form2(ctx *web.EventContext, fv *myFormValue1, verr *web.ValidationErrors) h.HTMLComponent {
 	return VContainer(
 		h.H1("Form2"),
 

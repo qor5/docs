@@ -19,7 +19,6 @@ var multiStateFd = multiStateFormData{
 }
 
 func MultiStatePage(ctx *web.EventContext) (pr web.PageResponse, err error) {
-
 	title := "Multi State Page"
 	if len(ctx.R.URL.Query().Get("title")) > 0 {
 		title = ctx.R.URL.Query().Get("title")

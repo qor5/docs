@@ -8,7 +8,6 @@ import (
 )
 
 func VuetifySnackBars(ctx *web.EventContext) (pr web.PageResponse, err error) {
-
 	pr.Body = VContainer(
 		VBtn("Show Snack Bar").OnClick("showSnackBar"),
 		web.Portal().Name("snackbar"),

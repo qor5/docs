@@ -9,7 +9,6 @@ import (
 )
 
 func HelloVuetifyGrid(ctx *web.EventContext) (pr web.PageResponse, err error) {
-
 	row := func(col int, count int, color string) (r h.HTMLComponent) {
 		rw := VRow()
 		for i := 0; i < count; i++ {

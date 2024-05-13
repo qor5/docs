@@ -319,13 +319,13 @@ It returns the search results along with the total count of matching records.<br
 You can process the data displayed on the listing page here based on context or custom conditions before pagination.</p>
 <p>In the following example, the listing page only displays approved customers.</p>
 
-<highlightjs :language='"go"' :code='"\nfunc PresetsListingCustomizationSearcher(b *presets.Builder) {\n\tdb := setupDB()\n\tb.URIPrefix(PresetsListingCustomizationSearcherPath).DataOperator(gorm2op.DataOperator(db))\n\tmb := b.Model(\u0026Customer{})\n\tmb.Listing().SearchFunc(func(model interface{}, params *presets.SearchParams, ctx *web.EventContext) (r interface{}, totalCount int, err error) {\n\t\t// only display approved customers\n\t\tqdb := db.Where(\"approved_at IS NOT NULL\")\n\t\treturn gorm2op.DataOperator(qdb).Search(model, params, ctx)\n\t})\n\n}\n"'></highlightjs>
+<highlightjs :language='"go"' :code='"\nfunc PresetsListingCustomizationSearcher(b *presets.Builder) {\n\tdb := setupDB()\n\tb.URIPrefix(PresetsListingCustomizationSearcherPath).DataOperator(gorm2op.DataOperator(db))\n\tmb := b.Model(\u0026Customer{})\n\tmb.Listing().SearchFunc(func(model interface{}, params *presets.SearchParams, ctx *web.EventContext) (r interface{}, totalCount int, err error) {\n\t\t// only display approved customers\n\t\tqdb := db.Where(\"approved_at IS NOT NULL\")\n\t\treturn gorm2op.DataOperator(qdb).Search(model, params, ctx)\n\t})\n}\n"'></highlightjs>
 
 <div>
 <div class='demo'>
 <a href='/samples/presets_listing_customization_searcher/customers' target='_blank'>Check the demo</a>
  | 
-<a href='https://github.com/qor5/docs/tree/vue3/docsrc/examples/examples_presets/listing.go#L343-L357' target='_blank'>Source on GitHub</a>
+<a href='https://github.com/qor5/docs/tree/vue3/docsrc/examples/examples_presets/listing.go#L343-L356' target='_blank'>Source on GitHub</a>
 </div>
 </div>
 </div>
