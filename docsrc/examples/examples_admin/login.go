@@ -28,7 +28,7 @@ type User struct {
 }
 
 func serve() {
-	DB := setupDB()
+	DB := ExampleDB()
 
 	pb := presets.New()
 	lb := plogin.New(pb).

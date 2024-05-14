@@ -12,7 +12,7 @@ import (
 )
 
 func MountWorker(b *presets.Builder) {
-	DB := setupDB()
+	DB := ExampleDB()
 
 	wb := worker.New(DB)
 	wb.Install(b)

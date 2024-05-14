@@ -14,7 +14,7 @@ import (
 )
 
 func WorkerExampleMock(b *presets.Builder) {
-	DB := setupDB()
+	DB := ExampleDB()
 
 	b.URIPrefix(WorkerExamplePath).
 		DataOperator(gorm2op.DataOperator(DB))

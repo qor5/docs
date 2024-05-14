@@ -70,7 +70,7 @@ type video struct {
 }
 
 func InternationalizationExample(b *presets.Builder) {
-	DB := setupDB()
+	DB := ExampleDB()
 
 	if err := DB.AutoMigrate(&video{}); err != nil {
 		panic(err)

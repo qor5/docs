@@ -69,26 +69,22 @@ func (p *Product) GetUnPublishActions(db *gorm.DB, ctx context.Context, storage 
 // @snippet_end
 
 func PublishExample(b *presets.Builder, db *gorm.DB) {
-	DB := db
-	if DB == nil {
-		DB = setupDB()
-	}
-	err := DB.AutoMigrate(&Product{})
+	err := db.AutoMigrate(&Product{})
 	if err != nil {
 		panic(err)
 	}
 
 	b.URIPrefix(PublishExamplePath).
-		DataOperator(gorm2op.DataOperator(DB))
+		DataOperator(gorm2op.DataOperator(db))
 
 	// @snippet_begin(PublishConfigureView)
 	mb := b.Model(&Product{})
 	mb.Editing("StatusBar", "ScheduleBar", "Name", "Price")
 
-	publisher := publish.New(DB, nil).Models(mb)
+	publisher := publish.New(db, nil).Models(mb)
 	publisher.Install(b)
 	// run the publisher job if Schedule is used
-	go publish.RunPublisher(DB, nil, publisher)
+	go publish.RunPublisher(db, nil, publisher)
 	// @snippet_end
 }
 

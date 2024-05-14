@@ -7,7 +7,7 @@ import (
 )
 
 func ActionWorkerExampleMock(b *presets.Builder) {
-	DB := setupDB()
+	DB := ExampleDB()
 
 	if err := DB.AutoMigrate(&ExampleResource{}); err != nil {
 		panic(err)

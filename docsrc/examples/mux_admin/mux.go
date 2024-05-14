@@ -75,10 +75,16 @@ func SamplesHandler(prefix string) http.Handler {
 	)
 
 	c29 := presets.New().AssetFunc(addGA)
-	examples_admin.PublishExample(c29, nil)
+	examples_admin.PublishExample(c29, examples_admin.ExampleDB())
 	mux.Handle(
 		examples_admin.PublishExamplePath,
 		c29)
+
+	c30 := presets.New().AssetFunc(addGA)
+	examples_admin.SEOExampleBasic(c30, examples_admin.ExampleDB())
+	mux.Handle(
+		examples_admin.SEOExampleBasicPath,
+		c30)
 
 	return mux.Mux
 }
