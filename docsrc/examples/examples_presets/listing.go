@@ -4,7 +4,6 @@ package examples_presets
 import (
 	"fmt"
 	"net/url"
-	"os"
 	"time"
 
 	"github.com/qor5/admin/v3/presets"
@@ -15,6 +14,7 @@ import (
 	"github.com/qor5/web/v3"
 	"github.com/qor5/x/v3/i18n"
 	h "github.com/theplant/htmlgo"
+	"github.com/theplant/osenv"
 	"golang.org/x/text/language"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -47,9 +47,11 @@ func init() {
 	DB = setupDB()
 }
 
+var dbParamsString = osenv.Get("DB_PARAMS", "database connection string", "")
+
 func setupDB() (db *gorm.DB) {
 	var err error
-	db, err = gorm.Open(postgres.Open(os.Getenv("DB_PARAMS")), &gorm.Config{})
+	db, err = gorm.Open(postgres.Open(dbParamsString), &gorm.Config{})
 	if err != nil {
 		panic(err)
 	}

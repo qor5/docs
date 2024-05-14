@@ -3,7 +3,6 @@ package examples_admin
 // @snippet_begin(LoginBasicUsage)
 import (
 	"net/http"
-	"os"
 
 	"github.com/markbates/goth/providers/github"
 	"github.com/markbates/goth/providers/google"
@@ -13,6 +12,7 @@ import (
 	"github.com/qor5/web/v3"
 	"github.com/qor5/x/v3/login"
 	. "github.com/theplant/htmlgo"
+	"github.com/theplant/osenv"
 	"gorm.io/gorm"
 )
 
@@ -27,6 +27,16 @@ type User struct {
 	login.SessionSecure
 }
 
+var (
+	baseURL           = osenv.Get("BASE_URL", "Base URL for Login", "")
+	loginSecret       = osenv.Get("LOGIN_SECRET", "Login secret use to sign session", "")
+	loginGoogleKey    = osenv.Get("LOGIN_GOOGLE_KEY", "Google client key for Login with Google", "")
+	loginGoogleSecret = osenv.Get("LOGIN_GOOGLE_SECRET", "Google client secret for Login with Google", "")
+
+	loginGithubKey    = osenv.Get("LOGIN_GITHUB_KEY", "Github client key for Login with Github", "")
+	loginGithubSecret = osenv.Get("LOGIN_GITHUB_SECRET", "Github client secret for Login with Github", "")
+)
+
 func serve() {
 	DB := ExampleDB()
 
@@ -34,15 +44,15 @@ func serve() {
 	lb := plogin.New(pb).
 		DB(DB).
 		UserModel(&User{}).
-		Secret(os.Getenv("LOGIN_SECRET")).
+		Secret(loginSecret).
 		OAuthProviders(
 			&login.Provider{
-				Goth: google.New(os.Getenv("LOGIN_GOOGLE_KEY"), os.Getenv("LOGIN_GOOGLE_SECRET"), os.Getenv("BASE_URL")+"/auth/callback?provider=google"),
+				Goth: google.New(loginGoogleKey, loginGoogleSecret, baseURL+"/auth/callback?provider=google"),
 				Key:  "google",
 				Text: "Google",
 			},
 			&login.Provider{
-				Goth: github.New(os.Getenv("LOGIN_GITHUB_KEY"), os.Getenv("LOGIN_GITHUB_SECRET"), os.Getenv("BASE_URL")+"/auth/callback?provider=github"),
+				Goth: github.New(loginGithubKey, loginGithubSecret, baseURL+"/auth/callback?provider=github"),
 				Key:  "github",
 				Text: "Login with Github",
 			},

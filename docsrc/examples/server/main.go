@@ -3,22 +3,23 @@ package main
 import (
 	"fmt"
 	"net/http"
-	"os"
 	"time"
 
 	"github.com/qor5/docs/v3/docsrc/examples/mux_admin"
+	"github.com/theplant/osenv"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
-func main() {
-	port := os.Getenv("PORT")
-	if len(port) == 0 {
-		port = "8800"
-	}
+var (
+	dbParamsString = osenv.Get("DB_PARAMS", "database connection string", "")
+	port           = osenv.Get("PORT", "The port to serve on", "8800")
+	envString      = osenv.Get("ENV", "environment flag", "development")
+)
 
-	db, err := gorm.Open(postgres.Open(os.Getenv("DB_PARAMS")), &gorm.Config{})
+func main() {
+	db, err := gorm.Open(postgres.Open(dbParamsString), &gorm.Config{})
 	if err != nil {
 		panic(err)
 	}
@@ -39,7 +40,7 @@ func main() {
 }
 
 func runAtMidNight(db *gorm.DB) {
-	if os.Getenv("ENV") == "development" {
+	if envString == "development" {
 		return
 	}
 

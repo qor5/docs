@@ -1,7 +1,6 @@
 package examples_admin
 
 import (
-	"os"
 	"time"
 
 	"github.com/qor5/admin/v3/presets"
@@ -21,7 +20,7 @@ func ExampleDB() (db *gorm.DB) {
 		return exampleDB
 	}
 	var err error
-	db, err = gorm.Open(postgres.Open(os.Getenv("DB_PARAMS")), &gorm.Config{})
+	db, err = gorm.Open(postgres.Open(dbParamsString), &gorm.Config{})
 	if err != nil {
 		panic(err)
 	}

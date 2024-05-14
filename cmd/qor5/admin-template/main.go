@@ -3,19 +3,16 @@ package main
 import (
 	"fmt"
 	"net/http"
-	"os"
 
 	"github.com/qor5/docs/v3/cmd/qor5/admin-template/admin"
+	"github.com/theplant/osenv"
 )
 
 func main() {
 	// Setup project
 	mux := admin.Initialize()
 
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "9000"
-	}
+	port := osenv.Get("PORT", "The port to serve the admin on", "9000")
 
 	fmt.Println("Served at http://localhost:" + port + "/admin")
 

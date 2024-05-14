@@ -1,15 +1,14 @@
 package utils
 
 import (
-	"cmp"
 	"encoding/json"
 	"fmt"
-	"os"
 
 	"github.com/qor5/web/v3"
 	"github.com/shurcooL/sanitized_anchor_name"
 	"github.com/sunfmin/snippetgo/parse"
 	. "github.com/theplant/htmlgo"
+	"github.com/theplant/osenv"
 )
 
 func Anchor(h *HTMLTagBuilder, text string) HTMLComponent {
@@ -28,11 +27,7 @@ type Example struct {
 
 var LiveExamples []*Example
 
-var envGitBranch string
-
-func init() {
-	envGitBranch = cmp.Or(os.Getenv("GIT_BRANCH"), "main")
-}
+var envGitBranch = osenv.Get("GIT_BRANCH", "demo source code link git branch", "main")
 
 func DemoWithSnippetLocation(title string, demoPath string, location parse.Location) HTMLComponent {
 	return Demo(title, demoPath, fmt.Sprintf("%s#L%d-L%d", location.File, location.StartLine, location.EndLine))

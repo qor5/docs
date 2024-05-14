@@ -1,6 +1,6 @@
 module github.com/qor5/docs/v3
 
-go 1.22
+go 1.22.2
 
 require (
 	github.com/fatih/color v1.16.0
@@ -19,6 +19,7 @@ require (
 	github.com/sunfmin/snippetgo v0.0.2
 	github.com/theplant/docgo v0.0.17-0.20240415034737-f4b6f499c087
 	github.com/theplant/htmlgo v1.0.3
+	github.com/theplant/osenv v0.0.1
 	github.com/theplant/testenv v0.0.0-20240513012518-1c94c8c84239
 	github.com/yosssi/gohtml v0.0.0-20201013000340-ee4748c638f4
 	golang.org/x/text v0.15.0

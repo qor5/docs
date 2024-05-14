@@ -3,20 +3,17 @@ package main
 import (
 	"fmt"
 	"net/http"
-	"os"
 
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/qor5/docs/v3/docsrc/examples/mux_presets"
 	"github.com/qor5/docs/v3/docsrc/examples/mux_web_vuetify"
 	"github.com/qor5/web/v3"
+	"github.com/theplant/osenv"
 )
 
-func main() {
-	port := os.Getenv("PORT")
-	if len(port) == 0 {
-		port = "7800"
-	}
+var port = osenv.Get("PORT", "The port to serve on", "7800")
 
+func main() {
 	fmt.Println("Starting docs at :" + port)
 	mux := http.NewServeMux()
 	im := &mux_web_vuetify.IndexMux{Mux: http.NewServeMux()}

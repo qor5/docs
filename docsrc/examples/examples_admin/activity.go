@@ -2,18 +2,20 @@ package examples_admin
 
 import (
 	"context"
-	"os"
 
 	"github.com/qor5/admin/v3/activity"
 	"github.com/qor5/admin/v3/presets"
+	"github.com/theplant/osenv"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
+var dbParamsString = osenv.Get("DB_PARAMS", "admin example database connection string", "")
+
 func NewActivitySample() {
 	// @snippet_begin(NewActivitySample)
 	presetsBuilder := presets.New()
-	db, err := gorm.Open(postgres.Open(os.Getenv("DB_PARAMS")), &gorm.Config{})
+	db, err := gorm.Open(postgres.Open(dbParamsString), &gorm.Config{})
 	if err != nil {
 		panic(err)
 	}
