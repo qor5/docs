@@ -208,7 +208,7 @@ func Mux(mux *http.ServeMux, prefix string) http.Handler {
 	mux.Handle("/assets/main.js",
 		web.PacksHandler("text/javascript",
 			vuetifyx.JSComponentsPack(),
-			Vuetify(""),
+			Vuetify(),
 			JSComponentsPack(),
 			web.JSComponentsPack(),
 		),
