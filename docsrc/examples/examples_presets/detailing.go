@@ -97,7 +97,7 @@ func PresetsDetailPageTopNotes(b *presets.Builder) (
 		Editing("Content").
 		SetterFunc(func(obj interface{}, ctx *web.EventContext) {
 			note := obj.(*Note)
-			note.SourceID = ctx.QueryAsInt("model_id")
+			note.SourceID = ctx.ParamAsInt("model_id")
 			note.SourceType = ctx.R.FormValue("model")
 		})
 	return
@@ -284,7 +284,7 @@ func PresetsDetailPageCards(b *presets.Builder) (
 	ccedit := cc.Editing("ExpireYearMonth", "Phone", "Email").
 		SetterFunc(func(obj interface{}, ctx *web.EventContext) {
 			card := obj.(*CreditCard)
-			card.CustomerID = ctx.QueryAsInt("customerID")
+			card.CustomerID = ctx.ParamAsInt("customerID")
 		})
 
 	ccedit.Creating("Number")

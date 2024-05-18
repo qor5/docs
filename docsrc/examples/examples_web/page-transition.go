@@ -74,13 +74,13 @@ func fromParam(ctx *web.EventContext) HTMLComponent {
 }
 
 func doAction1(ctx *web.EventContext) (er web.EventResponse, err error) {
-	updateDatabase(ctx.QueryAsInt("id"))
+	updateDatabase(ctx.ParamAsInt("id"))
 	er.RedirectURL = Page1Path + "?" + url.Values{"from": []string{"page2 with redirect"}}.Encode()
 	return
 }
 
 func doAction2(ctx *web.EventContext) (er web.EventResponse, err error) {
-	updateDatabase(ctx.QueryAsInt("id"))
+	updateDatabase(ctx.ParamAsInt("id"))
 	er.PushState = web.Location(url.Values{"from": []string{"page2"}}).
 		URL(Page1Path)
 	return

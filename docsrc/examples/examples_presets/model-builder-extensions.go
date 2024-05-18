@@ -63,7 +63,7 @@ func changeNameEventFunc(mb *presets.ModelBuilder) web.EventFunc {
 	return func(ctx *web.EventContext) (r web.EventResponse, err error) {
 		eb := mb.Editing()
 		obj := mb.NewModel()
-		id := ctx.R.FormValue(presets.ParamID)
+		id := ctx.Param(presets.ParamID)
 		obj, err = eb.Fetcher(obj, id, ctx)
 		obj.(*Customer).Name = "Darwin"
 		err = eb.Saver(obj, id, ctx)

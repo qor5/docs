@@ -137,7 +137,7 @@ func PresetsListingCustomizationFields(b *presets.Builder) (
 	ce = cust.Editing("Name", "CompanyID")
 
 	cust.RegisterEventFunc("updateCompanyList", func(ctx *web.EventContext) (r web.EventResponse, err error) {
-		companyID := ctx.QueryAsInt(presets.ParamOverlayUpdateID)
+		companyID := ctx.ParamAsInt(presets.ParamOverlayUpdateID)
 		r.UpdatePortals = append(r.UpdatePortals, &web.PortalUpdate{
 			Name: "companyListPortal",
 			Body: companyList(ctx, db, companyID),
