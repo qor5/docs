@@ -1,6 +1,6 @@
 module github.com/qor5/docs/v3
 
-go 1.22.2
+go 1.22.3
 
 require (
 	github.com/fatih/color v1.16.0
@@ -18,6 +18,7 @@ require (
 	github.com/sunfmin/reflectutils v1.0.4
 	github.com/sunfmin/snippetgo v0.0.2
 	github.com/theplant/docgo v0.0.17-0.20240415034737-f4b6f499c087
+	github.com/theplant/gofixtures v1.1.0
 	github.com/theplant/htmlgo v1.0.3
 	github.com/theplant/osenv v0.0.1
 	github.com/theplant/testenv v0.0.0-20240513012518-1c94c8c84239
@@ -104,7 +105,6 @@ require (
 	go.opentelemetry.io/otel/trace v1.26.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	go.uber.org/zap v1.27.0 // indirect
-	goji.io/v3 v3.0.0 // indirect
 	golang.org/x/crypto v0.23.0 // indirect
 	golang.org/x/exp v0.0.0-20231006140011-7918f672742d // indirect
 	golang.org/x/image v0.15.0 // indirect

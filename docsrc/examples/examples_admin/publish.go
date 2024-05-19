@@ -13,7 +13,7 @@ import (
 )
 
 // @snippet_begin(PublishInjectModules)
-type Product struct {
+type WithPublishProduct struct {
 	gorm.Model
 
 	Name  string
@@ -28,15 +28,15 @@ type Product struct {
 
 // @snippet_begin(PublishImplementSlugInterfaces)
 var (
-	_ presets.SlugEncoder = (*Product)(nil)
-	_ presets.SlugDecoder = (*Product)(nil)
+	_ presets.SlugEncoder = (*WithPublishProduct)(nil)
+	_ presets.SlugDecoder = (*WithPublishProduct)(nil)
 )
 
-func (p *Product) PrimarySlug() string {
+func (p *WithPublishProduct) PrimarySlug() string {
 	return fmt.Sprintf("%v_%v", p.ID, p.Version.Version)
 }
 
-func (p *Product) PrimaryColumnValuesBySlug(slug string) map[string]string {
+func (p *WithPublishProduct) PrimaryColumnValuesBySlug(slug string) map[string]string {
 	segs := strings.Split(slug, "_")
 	if len(segs) != 2 {
 		panic("wrong slug")
@@ -52,16 +52,16 @@ func (p *Product) PrimaryColumnValuesBySlug(slug string) map[string]string {
 
 // @snippet_begin(PublishImplementPublishInterfaces)
 var (
-	_ publish.PublishInterface   = (*Product)(nil)
-	_ publish.UnPublishInterface = (*Product)(nil)
+	_ publish.PublishInterface   = (*WithPublishProduct)(nil)
+	_ publish.UnPublishInterface = (*WithPublishProduct)(nil)
 )
 
-func (p *Product) GetPublishActions(db *gorm.DB, ctx context.Context, storage oss.StorageInterface) (objs []*publish.PublishAction, err error) {
+func (p *WithPublishProduct) GetPublishActions(db *gorm.DB, ctx context.Context, storage oss.StorageInterface) (objs []*publish.PublishAction, err error) {
 	// create publish actions
 	return
 }
 
-func (p *Product) GetUnPublishActions(db *gorm.DB, ctx context.Context, storage oss.StorageInterface) (objs []*publish.PublishAction, err error) {
+func (p *WithPublishProduct) GetUnPublishActions(db *gorm.DB, ctx context.Context, storage oss.StorageInterface) (objs []*publish.PublishAction, err error) {
 	// create unpublish actions
 	return
 }
@@ -69,7 +69,7 @@ func (p *Product) GetUnPublishActions(db *gorm.DB, ctx context.Context, storage 
 // @snippet_end
 
 func PublishExample(b *presets.Builder, db *gorm.DB) {
-	err := db.AutoMigrate(&Product{})
+	err := db.AutoMigrate(&WithPublishProduct{})
 	if err != nil {
 		panic(err)
 	}
@@ -78,12 +78,14 @@ func PublishExample(b *presets.Builder, db *gorm.DB) {
 		DataOperator(gorm2op.DataOperator(db))
 
 	// @snippet_begin(PublishConfigureView)
-	mb := b.Model(&Product{})
+	mb := b.Model(&WithPublishProduct{})
 	mb.RightDrawerWidth("1000")
-	mb.Editing(publish.EditingFieldControlBar, "Name", "Price")
+	mb.Editing(publish.EditingFieldControlBar, "Name", "Price").
+		Creating("Name", "Price")
 
-	publisher := publish.New(db, nil).Models(mb)
-	publisher.Install(b)
+	publisher := publish.New(db, nil)
+	b.Plugins(publisher)
+	mb.Plugins(publisher)
 	// run the publisher job if Schedule is used
 	go publish.RunPublisher(db, nil, publisher)
 	// @snippet_end

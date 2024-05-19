@@ -28,7 +28,7 @@ func ExampleDB() (db *gorm.DB) {
 	err = db.AutoMigrate(
 		&Post{},
 		&Category{},
-		&Product{},
+		&WithPublishProduct{},
 	)
 	if err != nil {
 		panic(err)

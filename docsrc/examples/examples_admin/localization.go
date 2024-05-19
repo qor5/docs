@@ -61,8 +61,8 @@ func LocalizationExampleMock(b *presets.Builder) {
 
 	// @snippet_begin(L10nConfigureExample)
 	mb := b.Model(&L10nModel{}).URIName("l10n-models")
-	l10nBuilder.Models(mb)
-	l10nBuilder.Install(b)
+	b.Plugins(l10nBuilder)
+	mb.Plugins(l10nBuilder)
 	mb.Listing("ID", "Title", "Locale")
 	// @snippet_end
 	// @snippet_end
