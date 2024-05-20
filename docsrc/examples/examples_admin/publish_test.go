@@ -45,6 +45,7 @@ func TestPublish(t *testing.T) {
 					BuildEventFuncRequest()
 				return req
 			},
+			ExpectPortalUpdate0Contains:    []string{"Price"},
 			ExpectPortalUpdate0NotContains: []string{`"/samples/publish/with-publish-products-version-list-dialog"`},
 		},
 		{

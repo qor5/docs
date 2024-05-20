@@ -227,16 +227,16 @@
 <h2 id="usage">Usage</h2>
 <p>Inject modules to the resource model.</p>
 
-<highlightjs :language='"go"' :code='"type Product struct {\n\tgorm.Model\n\n\tName  string\n\tPrice int\n\n\tpublish.Status\n\tpublish.Schedule\n\tpublish.Version\n}\n"'></highlightjs>
+<highlightjs :language='"go"' :code='"type WithPublishProduct struct {\n\tgorm.Model\n\n\tName  string\n\tPrice int\n\n\tpublish.Status\n\tpublish.Schedule\n\tpublish.Version\n}\n"'></highlightjs>
 <p>Implement primary slug interfaces for passing the values of primary keys between events</p>
 
-<highlightjs :language='"go"' :code='"var (\n\t_ presets.SlugEncoder = (*Product)(nil)\n\t_ presets.SlugDecoder = (*Product)(nil)\n)\n\nfunc (p *Product) PrimarySlug() string {\n\treturn fmt.Sprintf(\"%v_%v\", p.ID, p.Version.Version)\n}\n\nfunc (p *Product) PrimaryColumnValuesBySlug(slug string) map[string]string {\n\tsegs := strings.Split(slug, \"_\")\n\tif len(segs) != 2 {\n\t\tpanic(\"wrong slug\")\n\t}\n\n\treturn map[string]string{\n\t\t\"id\":      segs[0],\n\t\t\"version\": segs[1],\n\t}\n}\n"'></highlightjs>
+<highlightjs :language='"go"' :code='"var (\n\t_ presets.SlugEncoder = (*WithPublishProduct)(nil)\n\t_ presets.SlugDecoder = (*WithPublishProduct)(nil)\n)\n\nfunc (p *WithPublishProduct) PrimarySlug() string {\n\treturn fmt.Sprintf(\"%v_%v\", p.ID, p.Version.Version)\n}\n\nfunc (p *WithPublishProduct) PrimaryColumnValuesBySlug(slug string) map[string]string {\n\tsegs := strings.Split(slug, \"_\")\n\tif len(segs) != 2 {\n\t\tpanic(\"wrong slug\")\n\t}\n\n\treturn map[string]string{\n\t\t\"id\":      segs[0],\n\t\t\"version\": segs[1],\n\t}\n}\n"'></highlightjs>
 <p>Create publisher and configure Publish view for model, and remember to display Status and Schedule fields in Editing</p>
 
-<highlightjs :language='"go"' :code='"mb := b.Model(\u0026Product{})\nmb.RightDrawerWidth(\"1000\")\nmb.Editing(publish.EditingFieldControlBar, \"Name\", \"Price\")\n\npublisher := publish.New(db, nil)\nb.Plugins(publisher)\nmb.Plugins(publisher)\n// run the publisher job if Schedule is used\ngo publish.RunPublisher(db, nil, publisher)"'></highlightjs>
+<highlightjs :language='"go"' :code='"mb := b.Model(\u0026WithPublishProduct{})\nmb.RightDrawerWidth(\"1000\")\nmb.Editing(publish.EditingFieldControlBar, \"Name\", \"Price\")\n\npublisher := publish.New(db, nil)\nb.Plugins(publisher)\nmb.Plugins(publisher)\n// run the publisher job if Schedule is used\ngo publish.RunPublisher(db, nil, publisher)"'></highlightjs>
 <p>Implement the publish interfaces if there is a need to publish content to storage(filesystem, AWS S3, ...)</p>
 
-<highlightjs :language='"go"' :code='"var (\n\t_ publish.PublishInterface   = (*Product)(nil)\n\t_ publish.UnPublishInterface = (*Product)(nil)\n)\n\nfunc (p *Product) GetPublishActions(db *gorm.DB, ctx context.Context, storage oss.StorageInterface) (objs []*publish.PublishAction, err error) {\n\t// create publish actions\n\treturn\n}\n\nfunc (p *Product) GetUnPublishActions(db *gorm.DB, ctx context.Context, storage oss.StorageInterface) (objs []*publish.PublishAction, err error) {\n\t// create unpublish actions\n\treturn\n}\n"'></highlightjs>
+<highlightjs :language='"go"' :code='"var (\n\t_ publish.PublishInterface   = (*WithPublishProduct)(nil)\n\t_ publish.UnPublishInterface = (*WithPublishProduct)(nil)\n)\n\nfunc (p *WithPublishProduct) GetPublishActions(db *gorm.DB, ctx context.Context, storage oss.StorageInterface) (objs []*publish.PublishAction, err error) {\n\t// create publish actions\n\treturn\n}\n\nfunc (p *WithPublishProduct) GetUnPublishActions(db *gorm.DB, ctx context.Context, storage oss.StorageInterface) (objs []*publish.PublishAction, err error) {\n\t// create unpublish actions\n\treturn\n}\n"'></highlightjs>
 
 <div>
 <div class='demo'>
@@ -260,7 +260,7 @@ If a record has <code>ScheduledEndAt</code> set, and the current time is larger 
 <h3 id="version">Version</h3>
 <p><code>Version</code> module allows one record to have multiple copies, with Schedule, you can even schedule different prices of a product for a whole year.</p>
 
-<highlightjs :language='"go"' :code='"type Version struct {\n\tVersion       string `gorm:\"primary_key;size:128\"`\n\tVersionName   string\n\tParentVersion string\n}\n"'></highlightjs>
+<highlightjs :language='"go"' :code='"type Version struct {\n\tVersion       string `gorm:\"primary_key;size:128;not null;default:null\"`\n\tVersionName   string\n\tParentVersion string\n}\n"'></highlightjs>
 <p>The <code>Version</code> will be the primary key. By default, the <code>Version</code> value will be <code>YYYY-MM-DD-vSeq</code>, e.g. <code>2006-01-02-v01</code>. And you can rename a version on interface, which will modify the value of <code>VersionName</code>.</p>
 <h3 id="list">List</h3>
 <p><code>List</code> module publishes list page of resource.</p>
