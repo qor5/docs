@@ -22,14 +22,13 @@ type Group struct {
 	Name string
 }
 
-func PresetsPermissions(b *presets.Builder) (
+func PresetsPermissions(b *presets.Builder, db *gorm.DB) (
 	cust *presets.ModelBuilder,
 	cl *presets.ListingBuilder,
 	ce *presets.EditingBuilder,
 	dp *presets.DetailingBuilder,
-	db *gorm.DB,
 ) {
-	cust, cl, ce, dp, db = PresetsDetailPageCards(b)
+	cust, cl, ce, dp = PresetsDetailPageCards(b, db)
 	b.URIPrefix(PresetsPermissionsPath)
 
 	b.ProfileFunc(func(ctx *web.EventContext) h.HTMLComponent {

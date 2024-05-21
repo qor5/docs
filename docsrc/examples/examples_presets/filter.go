@@ -24,7 +24,7 @@ type Post struct {
 	CategoryID uint
 }
 
-func PresetsBasicFilter(db *gorm.DB, b *presets.Builder) {
+func PresetsBasicFilter(b *presets.Builder, db *gorm.DB) {
 	b.URIPrefix(PresetsBasicFilterPath).
 		DataOperator(gorm2op.DataOperator(db))
 	err := db.AutoMigrate(&Post{})

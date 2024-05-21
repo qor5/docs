@@ -21,11 +21,10 @@ import (
 //go:embed assets
 var assets embed.FS
 
-func PresetsEditingCustomizationDescription(b *presets.Builder) (
+func PresetsEditingCustomizationDescription(b *presets.Builder, db *gorm.DB) (
 	cust *presets.ModelBuilder,
 	cl *presets.ListingBuilder,
 	ce *presets.EditingBuilder,
-	db *gorm.DB,
 ) {
 	js, _ := assets.ReadFile("assets/fontcolor.min.js")
 	richeditor.Plugins = []string{"alignment", "table", "video", "imageinsert", "fontcolor"}
@@ -33,7 +32,7 @@ func PresetsEditingCustomizationDescription(b *presets.Builder) (
 	b.ExtraAsset("/redactor.js", "text/javascript", richeditor.JSComponentsPack())
 	b.ExtraAsset("/redactor.css", "text/css", richeditor.CSSComponentsPack())
 
-	cust, cl, ce, db = PresetsListingCustomizationBulkActions(b)
+	cust, cl, ce = PresetsListingCustomizationBulkActions(b, db)
 	b.URIPrefix(PresetsEditingCustomizationDescriptionPath)
 
 	ce.Only("Name", "CompanyID", "Description")
@@ -58,13 +57,12 @@ type Product struct {
 	MainImage MyFile
 }
 
-func PresetsEditingCustomizationFileType(b *presets.Builder) (
+func PresetsEditingCustomizationFileType(b *presets.Builder, db *gorm.DB) (
 	cust *presets.ModelBuilder,
 	cl *presets.ListingBuilder,
 	ce *presets.EditingBuilder,
-	db *gorm.DB,
 ) {
-	cust, cl, ce, db = PresetsEditingCustomizationDescription(b)
+	cust, cl, ce = PresetsEditingCustomizationDescription(b, db)
 	err := db.AutoMigrate(&Product{})
 	if err != nil {
 		panic(err)
@@ -129,13 +127,12 @@ const PresetsEditingCustomizationFileTypePath = "/samples/presets-editing-custom
 
 // @snippet_begin(PresetsEditingCustomizationValidationSample)
 
-func PresetsEditingCustomizationValidation(b *presets.Builder) (
+func PresetsEditingCustomizationValidation(b *presets.Builder, db *gorm.DB) (
 	cust *presets.ModelBuilder,
 	cl *presets.ListingBuilder,
 	ce *presets.EditingBuilder,
-	db *gorm.DB,
 ) {
-	cust, cl, ce, db = PresetsEditingCustomizationDescription(b)
+	cust, cl, ce = PresetsEditingCustomizationDescription(b, db)
 	b.URIPrefix(PresetsEditingCustomizationValidationPath)
 
 	ce.ValidateFunc(func(obj interface{}, ctx *web.EventContext) (err web.ValidationErrors) {
@@ -154,8 +151,7 @@ const PresetsEditingCustomizationValidationPath = "/samples/presets-editing-cust
 
 // @snippet_begin(PresetsEditingCustomizationTabsSample)
 
-func PresetsEditingCustomizationTabs(b *presets.Builder) {
-	db := setupDB()
+func PresetsEditingCustomizationTabs(b *presets.Builder, db *gorm.DB) {
 	b.URIPrefix(PresetsEditingCustomizationTabsPath).DataOperator(gorm2op.DataOperator(db))
 	mb := b.Model(&Company{})
 	mb.Listing("ID", "Name")

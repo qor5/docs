@@ -11,7 +11,7 @@ import (
 
 type confirmDialog struct{}
 
-func PresetsConfirmDialog(db *gorm.DB, b *presets.Builder) {
+func PresetsConfirmDialog(b *presets.Builder, db *gorm.DB) {
 	_ = []interface{}{
 		// @snippet_begin(OpenConfirmDialog)
 		presets.OpenConfirmDialog,

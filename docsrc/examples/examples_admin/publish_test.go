@@ -36,6 +36,19 @@ func TestPublish(t *testing.T) {
 			ExpectPageBodyContains: []string{"Hello Product"},
 		},
 		{
+			Name:  "Not Found Page",
+			Debug: true,
+			ReqFunc: func() *http.Request {
+				publishData.TruncatePut(dbr)
+				return httptest.NewRequest("GET", "/samples/publish/products", nil)
+			},
+			ResponseMatch: func(t *testing.T, w *httptest.ResponseRecorder) {
+				if w.Header().Get("Content-Type") != "text/html; charset=utf-8" {
+					t.Errorf("Expected text/html; charset=utf-8, got %v", w.Header().Get("Content-Type"))
+				}
+			},
+		},
+		{
 			Name:  "Publish Model New should not have publish bar",
 			Debug: true,
 			ReqFunc: func() *http.Request {

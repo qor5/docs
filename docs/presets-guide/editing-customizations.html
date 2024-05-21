@@ -228,13 +228,13 @@ of component that is used to do the editing.</p>
 <p>Use a customized component is as simple as add the extra asset to the preset instance.<br />
 And configure the component func on the field:</p>
 
-<highlightjs :language='"go"' :code='"//\n//go:embed assets\nvar assets embed.FS\n\nfunc PresetsEditingCustomizationDescription(b *presets.Builder) (\n\tcust *presets.ModelBuilder,\n\tcl *presets.ListingBuilder,\n\tce *presets.EditingBuilder,\n\tdb *gorm.DB,\n) {\n\tjs, _ := assets.ReadFile(\"assets/fontcolor.min.js\")\n\tricheditor.Plugins = []string{\"alignment\", \"table\", \"video\", \"imageinsert\", \"fontcolor\"}\n\tricheditor.PluginsJS = [][]byte{js}\n\tb.ExtraAsset(\"/redactor.js\", \"text/javascript\", richeditor.JSComponentsPack())\n\tb.ExtraAsset(\"/redactor.css\", \"text/css\", richeditor.CSSComponentsPack())\n\n\tcust, cl, ce, db = PresetsListingCustomizationBulkActions(b)\n\tb.URIPrefix(PresetsEditingCustomizationDescriptionPath)\n\n\tce.Only(\"Name\", \"CompanyID\", \"Description\")\n\n\tce.Field(\"Description\").ComponentFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) h.HTMLComponent {\n\t\treturn richeditor.RichEditor(db, \"Body\").Plugins([]string{\"alignment\", \"video\", \"imageinsert\", \"fontcolor\"}).Value(obj.(*Customer).Description).Label(field.Label)\n\t})\n\treturn\n}\n\nconst PresetsEditingCustomizationDescriptionPath = \"/samples/presets-editing-customization-description\"\n"'></highlightjs>
+<highlightjs :language='"go"' :code='"//\n//go:embed assets\nvar assets embed.FS\n\nfunc PresetsEditingCustomizationDescription(b *presets.Builder, db *gorm.DB) (\n\tcust *presets.ModelBuilder,\n\tcl *presets.ListingBuilder,\n\tce *presets.EditingBuilder,\n) {\n\tjs, _ := assets.ReadFile(\"assets/fontcolor.min.js\")\n\tricheditor.Plugins = []string{\"alignment\", \"table\", \"video\", \"imageinsert\", \"fontcolor\"}\n\tricheditor.PluginsJS = [][]byte{js}\n\tb.ExtraAsset(\"/redactor.js\", \"text/javascript\", richeditor.JSComponentsPack())\n\tb.ExtraAsset(\"/redactor.css\", \"text/css\", richeditor.CSSComponentsPack())\n\n\tcust, cl, ce = PresetsListingCustomizationBulkActions(b, db)\n\tb.URIPrefix(PresetsEditingCustomizationDescriptionPath)\n\n\tce.Only(\"Name\", \"CompanyID\", \"Description\")\n\n\tce.Field(\"Description\").ComponentFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) h.HTMLComponent {\n\t\treturn richeditor.RichEditor(db, \"Body\").Plugins([]string{\"alignment\", \"video\", \"imageinsert\", \"fontcolor\"}).Value(obj.(*Customer).Description).Label(field.Label)\n\t})\n\treturn\n}\n\nconst PresetsEditingCustomizationDescriptionPath = \"/samples/presets-editing-customization-description\"\n"'></highlightjs>
 
 <div>
 <div class='demo'>
 <a href='/samples/presets-editing-customization-description/customers' target='_blank'>Check the demo</a>
  | 
-<a href='https://github.com/qor5/docs/tree/vue3/docsrc/examples/examples_presets/editing.go#L19-L49' target='_blank'>Source on GitHub</a>
+<a href='https://github.com/qor5/docs/tree/vue3/docsrc/examples/examples_presets/editing.go#L19-L48' target='_blank'>Source on GitHub</a>
 </div>
 </div>
 <ul>
@@ -248,13 +248,13 @@ And configure the component func on the field:</p>
 </h2>
 <p>Set a global field type to component func like the following:</p>
 
-<highlightjs :language='"go"' :code='"\ntype MyFile string\n\ntype Product struct {\n\tID        int\n\tTitle     string\n\tMainImage MyFile\n}\n\nfunc PresetsEditingCustomizationFileType(b *presets.Builder) (\n\tcust *presets.ModelBuilder,\n\tcl *presets.ListingBuilder,\n\tce *presets.EditingBuilder,\n\tdb *gorm.DB,\n) {\n\tcust, cl, ce, db = PresetsEditingCustomizationDescription(b)\n\terr := db.AutoMigrate(\u0026Product{})\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\n\tb.URIPrefix(PresetsEditingCustomizationFileTypePath)\n\tb.FieldDefaults(presets.WRITE).\n\t\tFieldType(MyFile(\"\")).\n\t\tComponentFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) h.HTMLComponent {\n\t\t\tval := field.Value(obj).(MyFile)\n\t\t\tvar img h.HTMLComponent\n\t\t\tif len(string(val)) \u003e 0 {\n\t\t\t\timg = h.Img(string(val))\n\t\t\t}\n\t\t\tvar er h.HTMLComponent\n\t\t\tif len(field.Errors) \u003e 0 {\n\t\t\t\ter = h.Div().Text(field.Errors[0]).Style(\"color:red\")\n\t\t\t}\n\t\t\treturn h.Div(\n\t\t\t\timg,\n\t\t\t\ter,\n\t\t\t\th.Input(\"\").Type(\"file\").Attr(\"@change\", fmt.Sprintf(\"form.%s_NewFile = $event.target.files[0]\", field.Name)),\n\t\t\t)\n\t\t}).\n\t\tSetterFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) (err error) {\n\t\t\tff, _, _ := ctx.R.FormFile(fmt.Sprintf(\"%s_NewFile\", field.Name))\n\n\t\t\tif ff == nil {\n\t\t\t\treturn\n\t\t\t}\n\t\t\tvar req *http.Request\n\t\t\treq, err = http.NewRequest(\"PUT\", \"https://transfer.sh/myfile.png\", ff)\n\t\t\tif err != nil {\n\t\t\t\treturn\n\t\t\t}\n\t\t\tvar res *http.Response\n\t\t\tres, err = http.DefaultClient.Do(req)\n\t\t\tif err != nil {\n\t\t\t\tpanic(err)\n\t\t\t}\n\t\t\tvar b []byte\n\t\t\tb, err = io.ReadAll(res.Body)\n\t\t\tif err != nil {\n\t\t\t\treturn\n\t\t\t}\n\t\t\tif res.StatusCode == 500 {\n\t\t\t\terr = fmt.Errorf(\"%s\", string(b))\n\t\t\t\treturn\n\t\t\t}\n\t\t\terr = reflectutils.Set(obj, field.Name, MyFile(b))\n\t\t\treturn\n\t\t})\n\n\tmb := b.Model(\u0026Product{})\n\tmb.Editing(\"Title\", \"MainImage\")\n\treturn\n}\n\nconst PresetsEditingCustomizationFileTypePath = \"/samples/presets-editing-customization-file-type\"\n"'></highlightjs>
+<highlightjs :language='"go"' :code='"\ntype MyFile string\n\ntype Product struct {\n\tID        int\n\tTitle     string\n\tMainImage MyFile\n}\n\nfunc PresetsEditingCustomizationFileType(b *presets.Builder, db *gorm.DB) (\n\tcust *presets.ModelBuilder,\n\tcl *presets.ListingBuilder,\n\tce *presets.EditingBuilder,\n) {\n\tcust, cl, ce = PresetsEditingCustomizationDescription(b, db)\n\terr := db.AutoMigrate(\u0026Product{})\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\n\tb.URIPrefix(PresetsEditingCustomizationFileTypePath)\n\tb.FieldDefaults(presets.WRITE).\n\t\tFieldType(MyFile(\"\")).\n\t\tComponentFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) h.HTMLComponent {\n\t\t\tval := field.Value(obj).(MyFile)\n\t\t\tvar img h.HTMLComponent\n\t\t\tif len(string(val)) \u003e 0 {\n\t\t\t\timg = h.Img(string(val))\n\t\t\t}\n\t\t\tvar er h.HTMLComponent\n\t\t\tif len(field.Errors) \u003e 0 {\n\t\t\t\ter = h.Div().Text(field.Errors[0]).Style(\"color:red\")\n\t\t\t}\n\t\t\treturn h.Div(\n\t\t\t\timg,\n\t\t\t\ter,\n\t\t\t\th.Input(\"\").Type(\"file\").Attr(\"@change\", fmt.Sprintf(\"form.%s_NewFile = $event.target.files[0]\", field.Name)),\n\t\t\t)\n\t\t}).\n\t\tSetterFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) (err error) {\n\t\t\tff, _, _ := ctx.R.FormFile(fmt.Sprintf(\"%s_NewFile\", field.Name))\n\n\t\t\tif ff == nil {\n\t\t\t\treturn\n\t\t\t}\n\t\t\tvar req *http.Request\n\t\t\treq, err = http.NewRequest(\"PUT\", \"https://transfer.sh/myfile.png\", ff)\n\t\t\tif err != nil {\n\t\t\t\treturn\n\t\t\t}\n\t\t\tvar res *http.Response\n\t\t\tres, err = http.DefaultClient.Do(req)\n\t\t\tif err != nil {\n\t\t\t\tpanic(err)\n\t\t\t}\n\t\t\tvar b []byte\n\t\t\tb, err = io.ReadAll(res.Body)\n\t\t\tif err != nil {\n\t\t\t\treturn\n\t\t\t}\n\t\t\tif res.StatusCode == 500 {\n\t\t\t\terr = fmt.Errorf(\"%s\", string(b))\n\t\t\t\treturn\n\t\t\t}\n\t\t\terr = reflectutils.Set(obj, field.Name, MyFile(b))\n\t\t\treturn\n\t\t})\n\n\tmb := b.Model(\u0026Product{})\n\tmb.Editing(\"Title\", \"MainImage\")\n\treturn\n}\n\nconst PresetsEditingCustomizationFileTypePath = \"/samples/presets-editing-customization-file-type\"\n"'></highlightjs>
 
 <div>
 <div class='demo'>
 <a href='/samples/presets-editing-customization-file-type/products' target='_blank'>Check the demo</a>
  | 
-<a href='https://github.com/qor5/docs/tree/vue3/docsrc/examples/examples_presets/editing.go#L51-L128' target='_blank'>Source on GitHub</a>
+<a href='https://github.com/qor5/docs/tree/vue3/docsrc/examples/examples_presets/editing.go#L50-L126' target='_blank'>Source on GitHub</a>
 </div>
 </div>
 <ul>
@@ -273,13 +273,13 @@ of how to display the edit controls, and How to save the object.</p>
 </h2>
 <p>Tabs can be added by using <code>AppendTabsPanelFunc</code> func on <code>EditingBuilder</code>:</p>
 
-<highlightjs :language='"go"' :code='"\nfunc PresetsEditingCustomizationTabs(b *presets.Builder) {\n\tdb := setupDB()\n\tb.URIPrefix(PresetsEditingCustomizationTabsPath).DataOperator(gorm2op.DataOperator(db))\n\tmb := b.Model(\u0026Company{})\n\tmb.Listing(\"ID\", \"Name\")\n\tmb.Editing().AppendTabsPanelFunc(func(obj interface{}, ctx *web.EventContext) (tab, content h.HTMLComponent) {\n\t\tc := obj.(*Company)\n\t\ttab = v.VTab(h.Text(\"New Tab\")).Value(\"2\")\n\t\tcontent = v.VTabsWindowItem(\n\t\t\tv.VListItemTitle(h.Text(fmt.Sprintf(\"Name: %s\", c.Name))),\n\t\t).Value(\"2\").Class(\"pa-4\")\n\t\treturn\n\t})\n}\n"'></highlightjs>
+<highlightjs :language='"go"' :code='"\nfunc PresetsEditingCustomizationTabs(b *presets.Builder, db *gorm.DB) {\n\tb.URIPrefix(PresetsEditingCustomizationTabsPath).DataOperator(gorm2op.DataOperator(db))\n\tmb := b.Model(\u0026Company{})\n\tmb.Listing(\"ID\", \"Name\")\n\tmb.Editing().AppendTabsPanelFunc(func(obj interface{}, ctx *web.EventContext) (tab, content h.HTMLComponent) {\n\t\tc := obj.(*Company)\n\t\ttab = v.VTab(h.Text(\"New Tab\")).Value(\"2\")\n\t\tcontent = v.VTabsWindowItem(\n\t\t\tv.VListItemTitle(h.Text(fmt.Sprintf(\"Name: %s\", c.Name))),\n\t\t).Value(\"2\").Class(\"pa-4\")\n\t\treturn\n\t})\n}\n"'></highlightjs>
 
 <div>
 <div class='demo'>
 <a href='/samples/presets_editing_customization_tabs/companies' target='_blank'>Check the demo</a>
  | 
-<a href='https://github.com/qor5/docs/tree/vue3/docsrc/examples/examples_presets/editing.go#L155-L172' target='_blank'>Source on GitHub</a>
+<a href='https://github.com/qor5/docs/tree/vue3/docsrc/examples/examples_presets/editing.go#L152-L168' target='_blank'>Source on GitHub</a>
 </div>
 </div>
 
@@ -289,13 +289,13 @@ of how to display the edit controls, and How to save the object.</p>
 <p>Field level validation and display on field can be added by implement <code>ValidateFunc</code>,<br />
 and set the <code>web.ValidationErrors</code> result:</p>
 
-<highlightjs :language='"go"' :code='"\nfunc PresetsEditingCustomizationValidation(b *presets.Builder) (\n\tcust *presets.ModelBuilder,\n\tcl *presets.ListingBuilder,\n\tce *presets.EditingBuilder,\n\tdb *gorm.DB,\n) {\n\tcust, cl, ce, db = PresetsEditingCustomizationDescription(b)\n\tb.URIPrefix(PresetsEditingCustomizationValidationPath)\n\n\tce.ValidateFunc(func(obj interface{}, ctx *web.EventContext) (err web.ValidationErrors) {\n\t\tcus := obj.(*Customer)\n\t\tif len(cus.Name) \u003c 10 {\n\t\t\terr.FieldError(\"Name\", \"name is too short\")\n\t\t}\n\t\treturn\n\t})\n\treturn\n}\n\nconst PresetsEditingCustomizationValidationPath = \"/samples/presets-editing-customization-validation\"\n"'></highlightjs>
+<highlightjs :language='"go"' :code='"\nfunc PresetsEditingCustomizationValidation(b *presets.Builder, db *gorm.DB) (\n\tcust *presets.ModelBuilder,\n\tcl *presets.ListingBuilder,\n\tce *presets.EditingBuilder,\n) {\n\tcust, cl, ce = PresetsEditingCustomizationDescription(b, db)\n\tb.URIPrefix(PresetsEditingCustomizationValidationPath)\n\n\tce.ValidateFunc(func(obj interface{}, ctx *web.EventContext) (err web.ValidationErrors) {\n\t\tcus := obj.(*Customer)\n\t\tif len(cus.Name) \u003c 10 {\n\t\t\terr.FieldError(\"Name\", \"name is too short\")\n\t\t}\n\t\treturn\n\t})\n\treturn\n}\n\nconst PresetsEditingCustomizationValidationPath = \"/samples/presets-editing-customization-validation\"\n"'></highlightjs>
 
 <div>
 <div class='demo'>
 <a href='/samples/presets-editing-customization-validation/customers' target='_blank'>Check the demo</a>
  | 
-<a href='https://github.com/qor5/docs/tree/vue3/docsrc/examples/examples_presets/editing.go#L130-L153' target='_blank'>Source on GitHub</a>
+<a href='https://github.com/qor5/docs/tree/vue3/docsrc/examples/examples_presets/editing.go#L128-L150' target='_blank'>Source on GitHub</a>
 </div>
 </div>
 <ul>

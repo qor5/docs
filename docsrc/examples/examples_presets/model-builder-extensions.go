@@ -13,11 +13,10 @@ import (
 
 // @snippet_begin(PresetsModelBuilderExtensionsSample)
 
-func PresetsModelBuilderExtensions(b *presets.Builder) (
+func PresetsModelBuilderExtensions(b *presets.Builder, db *gorm.DB) (
 	mb *presets.ModelBuilder,
-	db *gorm.DB,
 ) {
-	mb, db = PresetsHelloWorld(b)
+	mb = PresetsHelloWorld(b, db)
 	b.URIPrefix(PresetsModelBuilderExtensionsPath)
 	mb.LayoutConfig(&presets.LayoutConfig{SearchBoxInvisible: true})
 

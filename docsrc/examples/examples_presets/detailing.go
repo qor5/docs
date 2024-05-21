@@ -25,14 +25,13 @@ type Note struct {
 	UpdatedAt  time.Time
 }
 
-func PresetsDetailPageTopNotes(b *presets.Builder) (
+func PresetsDetailPageTopNotes(b *presets.Builder, db *gorm.DB) (
 	cust *presets.ModelBuilder,
 	cl *presets.ListingBuilder,
 	ce *presets.EditingBuilder,
 	dp *presets.DetailingBuilder,
-	db *gorm.DB,
 ) {
-	cust, cl, ce, db = PresetsEditingCustomizationValidation(b)
+	cust, cl, ce = PresetsEditingCustomizationValidation(b, db)
 	b.URIPrefix(PresetsDetailPageTopNotesPath)
 	err := db.AutoMigrate(&Note{})
 	if err != nil {
@@ -109,14 +108,13 @@ const PresetsDetailPageTopNotesPath = "/samples/presets-detail-page-top-notes"
 
 // @snippet_begin(PresetsDetailPageDetailsSample)
 
-func PresetsDetailPageDetails(b *presets.Builder) (
+func PresetsDetailPageDetails(b *presets.Builder, db *gorm.DB) (
 	cust *presets.ModelBuilder,
 	cl *presets.ListingBuilder,
 	ce *presets.EditingBuilder,
 	dp *presets.DetailingBuilder,
-	db *gorm.DB,
 ) {
-	cust, cl, ce, dp, db = PresetsDetailPageTopNotes(b)
+	cust, cl, ce, dp = PresetsDetailPageTopNotes(b, db)
 	b.URIPrefix(PresetsDetailPageDetailsPath)
 	err := db.AutoMigrate(&CreditCard{})
 	if err != nil {
@@ -217,14 +215,13 @@ type CreditCard struct {
 	Email           string
 }
 
-func PresetsDetailPageCards(b *presets.Builder) (
+func PresetsDetailPageCards(b *presets.Builder, db *gorm.DB) (
 	cust *presets.ModelBuilder,
 	cl *presets.ListingBuilder,
 	ce *presets.EditingBuilder,
 	dp *presets.DetailingBuilder,
-	db *gorm.DB,
 ) {
-	cust, cl, ce, dp, db = PresetsDetailPageDetails(b)
+	cust, cl, ce, dp = PresetsDetailPageDetails(b, db)
 	b.URIPrefix(PresetsDetailPageCardsPath)
 	err := db.AutoMigrate(&CreditCard{})
 	if err != nil {

@@ -7,11 +7,12 @@ import (
 	vx "github.com/qor5/ui/v3/vuetifyx"
 	"github.com/qor5/web/v3"
 	h "github.com/theplant/htmlgo"
+	"gorm.io/gorm"
 )
 
-func PresetsLinkageSelectFilterItem(b *presets.Builder) {
+func PresetsLinkageSelectFilterItem(b *presets.Builder, db *gorm.DB) {
 	b.URIPrefix(PresetsLinkageSelectFilterItemPath).
-		DataOperator(gorm2op.DataOperator(DB))
+		DataOperator(gorm2op.DataOperator(db))
 
 	mb := b.Model(&Address{})
 

@@ -7,10 +7,10 @@ import (
 	v "github.com/qor5/ui/v3/vuetify"
 	"github.com/qor5/web/v3"
 	h "github.com/theplant/htmlgo"
+	"gorm.io/gorm"
 )
 
-func PresetsNotificationCenterSample(b *presets.Builder) {
-	db := InitDB()
+func PresetsNotificationCenterSample(b *presets.Builder, db *gorm.DB) {
 	b.URIPrefix(NotificationCenterSamplePath).
 		DataOperator(gorm2op.DataOperator(db))
 

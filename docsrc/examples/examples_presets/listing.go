@@ -14,11 +14,8 @@ import (
 	"github.com/qor5/web/v3"
 	"github.com/qor5/x/v3/i18n"
 	h "github.com/theplant/htmlgo"
-	"github.com/theplant/osenv"
 	"golang.org/x/text/language"
-	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
-	"gorm.io/gorm/logger"
 )
 
 type Customer struct {
@@ -41,22 +38,8 @@ type Address struct {
 	District string
 }
 
-var DB *gorm.DB
-
-func init() {
-	DB = setupDB()
-}
-
-var dbParamsString = osenv.Get("DB_PARAMS", "database connection string", "")
-
-func setupDB() (db *gorm.DB) {
-	var err error
-	db, err = gorm.Open(postgres.Open(dbParamsString), &gorm.Config{})
-	if err != nil {
-		panic(err)
-	}
-	db.Logger.LogMode(logger.Info)
-	err = db.AutoMigrate(
+func PresetsHelloWorld(b *presets.Builder, db *gorm.DB) (m *presets.ModelBuilder) {
+	err := db.AutoMigrate(
 		&Customer{},
 		&Company{},
 		&Address{},
@@ -64,11 +47,6 @@ func setupDB() (db *gorm.DB) {
 	if err != nil {
 		panic(err)
 	}
-	return
-}
-
-func PresetsHelloWorld(b *presets.Builder) (m *presets.ModelBuilder, db *gorm.DB) {
-	db = DB
 
 	b.URIPrefix(PresetsHelloWorldPath).
 		DataOperator(gorm2op.DataOperator(db))
@@ -88,17 +66,16 @@ type Company struct {
 	Name string
 }
 
-func PresetsListingCustomizationFields(b *presets.Builder) (
+func PresetsListingCustomizationFields(b *presets.Builder, db *gorm.DB) (
 	cust *presets.ModelBuilder,
 	cl *presets.ListingBuilder,
 	ce *presets.EditingBuilder,
-	db *gorm.DB,
 ) {
 	b.I18n().
 		SupportLanguages(language.English, language.SimplifiedChinese).
 		RegisterForModule(language.SimplifiedChinese, presets.ModelsI18nModuleKey, Messages_zh_CN)
 
-	cust, db = PresetsHelloWorld(b)
+	cust = PresetsHelloWorld(b, db)
 	b.URIPrefix(PresetsListingCustomizationFieldsPath)
 
 	cl = cust.Listing("ID", "Name", "Company", "Email").
@@ -193,13 +170,12 @@ const PresetsListingCustomizationFieldsPath = "/samples/presets_listing_customiz
 
 // @snippet_begin(PresetsListingCustomizationFiltersSample)
 
-func PresetsListingCustomizationFilters(b *presets.Builder) (
+func PresetsListingCustomizationFilters(b *presets.Builder, db *gorm.DB) (
 	cust *presets.ModelBuilder,
 	cl *presets.ListingBuilder,
 	ce *presets.EditingBuilder,
-	db *gorm.DB,
 ) {
-	cust, cl, ce, db = PresetsListingCustomizationFields(b)
+	cust, cl, ce = PresetsListingCustomizationFields(b, db)
 	b.URIPrefix(PresetsListingCustomizationFiltersPath)
 
 	cl.FilterDataFunc(func(ctx *web.EventContext) vuetifyx.FilterData {
@@ -249,13 +225,12 @@ const PresetsListingCustomizationFiltersPath = "/samples/presets-listing-customi
 
 // @snippet_begin(PresetsListingCustomizationTabsSample)
 
-func PresetsListingCustomizationTabs(b *presets.Builder) (
+func PresetsListingCustomizationTabs(b *presets.Builder, db *gorm.DB) (
 	cust *presets.ModelBuilder,
 	cl *presets.ListingBuilder,
 	ce *presets.EditingBuilder,
-	db *gorm.DB,
 ) {
-	cust, cl, ce, db = PresetsListingCustomizationFilters(b)
+	cust, cl, ce = PresetsListingCustomizationFilters(b, db)
 	b.URIPrefix(PresetsListingCustomizationTabsPath)
 
 	cl.FilterTabsFunc(func(ctx *web.EventContext) []*presets.FilterTab {
@@ -289,13 +264,12 @@ const PresetsListingCustomizationTabsPath = "/samples/presets-listing-customizat
 
 // @snippet_begin(PresetsListingCustomizationBulkActionsSample)
 
-func PresetsListingCustomizationBulkActions(b *presets.Builder) (
+func PresetsListingCustomizationBulkActions(b *presets.Builder, db *gorm.DB) (
 	cust *presets.ModelBuilder,
 	cl *presets.ListingBuilder,
 	ce *presets.EditingBuilder,
-	db *gorm.DB,
 ) {
-	cust, cl, ce, db = PresetsListingCustomizationTabs(b)
+	cust, cl, ce = PresetsListingCustomizationTabs(b, db)
 	b.URIPrefix(PresetsListingCustomizationBulkActionsPath)
 
 	cl.BulkAction("Approve").Label("Approve").
@@ -344,8 +318,7 @@ const PresetsListingCustomizationBulkActionsPath = "/samples/presets-listing-cus
 
 // @snippet_begin(PresetsListingCustomizationSearcherSample)
 
-func PresetsListingCustomizationSearcher(b *presets.Builder) {
-	db := setupDB()
+func PresetsListingCustomizationSearcher(b *presets.Builder, db *gorm.DB) {
 	b.URIPrefix(PresetsListingCustomizationSearcherPath).DataOperator(gorm2op.DataOperator(db))
 	mb := b.Model(&Customer{})
 	mb.Listing().SearchFunc(func(model interface{}, params *presets.SearchParams, ctx *web.EventContext) (r interface{}, totalCount int, err error) {
