@@ -41,7 +41,7 @@ func TestPresetsCommon(t *testing.T) {
 			ReqFunc: func() *http.Request {
 				return httptest.NewRequest("GET", "/samples/publish/products", nil)
 			},
-			ExpectPageBodyContains: []string{"page cannot be found"},
+			ExpectPageBodyContainsInOrder: []string{"page cannot be found"},
 			ResponseMatch: func(t *testing.T, w *httptest.ResponseRecorder) {
 				if w.Code != http.StatusNotFound {
 					t.Errorf("Expected HTTP 404, got %v", w.Code)

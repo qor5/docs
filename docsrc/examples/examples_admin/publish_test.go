@@ -33,7 +33,7 @@ func TestPublish(t *testing.T) {
 				publishData.TruncatePut(dbr)
 				return httptest.NewRequest("GET", "/samples/publish/with-publish-products", nil)
 			},
-			ExpectPageBodyContains: []string{"Hello Product"},
+			ExpectPageBodyContainsInOrder: []string{"Hello Product"},
 		},
 		{
 			Name:  "Not Found Page",
@@ -58,8 +58,8 @@ func TestPublish(t *testing.T) {
 					BuildEventFuncRequest()
 				return req
 			},
-			ExpectPortalUpdate0Contains:    []string{"Price"},
-			ExpectPortalUpdate0NotContains: []string{`"/samples/publish/with-publish-products-version-list-dialog"`},
+			ExpectPortalUpdate0ContainsInOrder: []string{"Price"},
+			ExpectPortalUpdate0NotContains:     []string{`"/samples/publish/with-publish-products-version-list-dialog"`},
 		},
 		{
 			Name:  "Create should have first version",
@@ -80,6 +80,30 @@ func TestPublish(t *testing.T) {
 					t.Errorf("version not updated for publish product %#+v", p)
 				}
 			},
+		},
+		{
+			Name:  "Default Right Drawer Width should be 600",
+			Debug: true,
+			ReqFunc: func() *http.Request {
+				publishData.TruncatePut(dbr)
+				req := multipartestutils.NewMultipartBuilder().
+					PageURL("/samples/publish/with-publish-products?__execute_event__=presets_Edit&id=1_2024-05-20-v01").
+					BuildEventFuncRequest()
+				return req
+			},
+			ExpectPortalUpdate0ContainsInOrder: []string{`:width='"600"'`},
+		},
+		{
+			Name:  "Detailing drawer control bar should be on top",
+			Debug: true,
+			ReqFunc: func() *http.Request {
+				publishData.TruncatePut(dbr)
+				req := multipartestutils.NewMultipartBuilder().
+					PageURL("/samples/publish/with-publish-products?__execute_event__=presets_DetailingDrawer&id=1_2024-05-20-v01").
+					BuildEventFuncRequest()
+				return req
+			},
+			ExpectPortalUpdate0ContainsInOrder: []string{"publish_EventDuplicateVersion", "Price"},
 		},
 	}
 

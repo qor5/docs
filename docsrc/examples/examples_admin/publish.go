@@ -79,8 +79,7 @@ func PublishExample(b *presets.Builder, db *gorm.DB) {
 
 	// @snippet_begin(PublishConfigureView)
 	mb := b.Model(&WithPublishProduct{})
-	mb.RightDrawerWidth("1000")
-	mb.Editing(publish.EditingFieldControlBar, "Name", "Price")
+	mb.Editing("Name", "Price")
 
 	publisher := publish.New(db, nil)
 	b.Plugins(publisher)
