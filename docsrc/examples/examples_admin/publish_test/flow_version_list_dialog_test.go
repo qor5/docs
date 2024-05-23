@@ -27,30 +27,37 @@ func flowVersionListDialog(t *testing.T, h http.Handler, db *gorm.DB) {
 		// assert.Contains(t, w.Body.String(), "xx")
 	})
 
+	// online_version tab
 	flowVersionListDialog_Step02_Event_presets_UpdateListingDialog(t, h).Then(func(t *testing.T, w *httptest.ResponseRecorder, r *http.Request) {
 		// assert.Contains(t, w.Body.String(), "xx")
 	})
 
+	// named_version tab
 	flowVersionListDialog_Step03_Event_presets_UpdateListingDialog(t, h).Then(func(t *testing.T, w *httptest.ResponseRecorder, r *http.Request) {
 		// assert.Contains(t, w.Body.String(), "xx")
 	})
 
+	// all tab
 	flowVersionListDialog_Step04_Event_presets_UpdateListingDialog(t, h).Then(func(t *testing.T, w *httptest.ResponseRecorder, r *http.Request) {
 		// assert.Contains(t, w.Body.String(), "xx")
 	})
 
+	// keyword 2025
 	flowVersionListDialog_Step05_Event_presets_UpdateListingDialog(t, h).Then(func(t *testing.T, w *httptest.ResponseRecorder, r *http.Request) {
 		// assert.Contains(t, w.Body.String(), "xx")
 	})
 
+	// keyword 2024
 	flowVersionListDialog_Step06_Event_presets_UpdateListingDialog(t, h).Then(func(t *testing.T, w *httptest.ResponseRecorder, r *http.Request) {
 		// assert.Contains(t, w.Body.String(), "xx")
 	})
 
+	// select
 	flowVersionListDialog_Step07_Event_publish_eventSelectVersion(t, h).Then(func(t *testing.T, w *httptest.ResponseRecorder, r *http.Request) {
 		// assert.Contains(t, w.Body.String(), "xx")
 	})
 
+	// click save
 	flowVersionListDialog_Step08_Event_presets_DetailingDrawer(t, h).Then(func(t *testing.T, w *httptest.ResponseRecorder, r *http.Request) {
 		// assert.Contains(t, w.Body.String(), "xx")
 	})
