@@ -31,8 +31,8 @@ func (lm *L10nModel) PrimaryColumnValuesBySlug(slug string) map[string]string {
 	}
 
 	return map[string]string{
-		"id":          segs[0],
-		"locale_code": segs[1],
+		"id":                segs[0],
+		l10n.SlugLocaleCode: segs[1],
 	}
 }
 
