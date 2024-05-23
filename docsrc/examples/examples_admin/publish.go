@@ -80,6 +80,7 @@ func PublishExample(b *presets.Builder, db *gorm.DB) {
 	// @snippet_begin(PublishConfigureView)
 	mb := b.Model(&WithPublishProduct{})
 	mb.Editing("Name", "Price")
+	mb.Detailing(publish.VersionsPublishBar, "Name", "Price").Drawer(true)
 
 	publisher := publish.New(db, nil)
 	b.Use(publisher)
