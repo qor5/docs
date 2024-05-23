@@ -60,9 +60,9 @@ func flowNew_Step00_Event_presets_New(t *testing.T, h http.Handler) *multipartes
 	assert.Empty(t, resp.RedirectURL)
 	assert.Empty(t, resp.ReloadPortals)
 	assert.Len(t, resp.UpdatePortals, 1)
-	assert.Equal(t, resp.UpdatePortals[0].Name, "presets_RightDrawerPortalName")
+	assert.Equal(t, "presets_RightDrawerPortalName", resp.UpdatePortals[0].Name)
 	assert.Nil(t, resp.Data)
-	assert.Equal(t, resp.RunScript, "setTimeout(function(){ vars.presetsRightDrawer = true }, 100)")
+	assert.Equal(t, "setTimeout(function(){ vars.presetsRightDrawer = true }, 100)", resp.RunScript)
 
 	multipartestutils.OpenRightDrawer("New WithPublishProduct")
 
@@ -89,7 +89,7 @@ func flowNew_Step01_Event_presets_Update(t *testing.T, h http.Handler) *multipar
 	assert.Empty(t, resp.ReloadPortals)
 	assert.Empty(t, resp.UpdatePortals)
 	assert.Nil(t, resp.Data)
-	assert.Equal(t, resp.RunScript, "vars.presetsRightDrawer = false; vars.presetsMessage = { show: true, message: \"Successfully Updated\", color: \"success\"}")
+	assert.Equal(t, "vars.presetsRightDrawer = false; vars.presetsMessage = { show: true, message: \"Successfully Updated\", color: \"success\"}", resp.RunScript)
 
 	return multipartestutils.NewThen(t, w, r)
 }
@@ -105,7 +105,7 @@ func flowNew_Step02_Event___reload__(t *testing.T, h http.Handler) *multipartest
 
 	var resp multipartestutils.TestEventResponse
 	require.NoError(t, json.Unmarshal(w.Body.Bytes(), &resp))
-	assert.Equal(t, resp.PageTitle, "Listing WithPublishProducts - Admin")
+	assert.Equal(t, "Listing WithPublishProducts - Admin", resp.PageTitle)
 	assert.True(t, resp.Reload)
 	assert.Nil(t, resp.PushState)
 	assert.Empty(t, resp.RedirectURL)

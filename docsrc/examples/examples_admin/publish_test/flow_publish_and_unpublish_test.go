@@ -54,9 +54,9 @@ func flowPublishAndUnpublish_Step00_Event_presets_DetailingDrawer(t *testing.T, 
 	assert.Empty(t, resp.RedirectURL)
 	assert.Empty(t, resp.ReloadPortals)
 	assert.Len(t, resp.UpdatePortals, 1)
-	assert.Equal(t, resp.UpdatePortals[0].Name, "presets_RightDrawerPortalName")
+	assert.Equal(t, "presets_RightDrawerPortalName", resp.UpdatePortals[0].Name)
 	assert.Nil(t, resp.Data)
-	assert.Equal(t, resp.RunScript, "setTimeout(function(){ vars.presetsRightDrawer = true }, 100)")
+	assert.Equal(t, "setTimeout(function(){ vars.presetsRightDrawer = true }, 100)", resp.RunScript)
 
 	multipartestutils.OpenRightDrawer("WithPublishProduct 6_2024-05-22-v01")
 
@@ -75,14 +75,14 @@ func flowPublishAndUnpublish_Step01_Event_publish_EventPublish(t *testing.T, h h
 
 	var resp multipartestutils.TestEventResponse
 	require.NoError(t, json.Unmarshal(w.Body.Bytes(), &resp))
-	assert.Equal(t, resp.PageTitle, "Listing WithPublishProducts - Admin")
+	assert.Equal(t, "Listing WithPublishProducts - Admin", resp.PageTitle)
 	assert.True(t, resp.Reload)
 	assert.Nil(t, resp.PushState)
 	assert.Empty(t, resp.RedirectURL)
 	assert.Empty(t, resp.ReloadPortals)
 	assert.Empty(t, resp.UpdatePortals)
 	assert.Nil(t, resp.Data)
-	assert.Equal(t, resp.RunScript, "vars.presetsMessage = { show: true, message: \"success\", color: \"success\"}")
+	assert.Equal(t, "vars.presetsMessage = { show: true, message: \"success\", color: \"success\"}", resp.RunScript)
 
 	return multipartestutils.NewThen(t, w, r)
 }
@@ -105,9 +105,9 @@ func flowPublishAndUnpublish_Step02_Event_presets_DetailingDrawer(t *testing.T, 
 	assert.Empty(t, resp.RedirectURL)
 	assert.Empty(t, resp.ReloadPortals)
 	assert.Len(t, resp.UpdatePortals, 1)
-	assert.Equal(t, resp.UpdatePortals[0].Name, "presets_RightDrawerPortalName")
+	assert.Equal(t, "presets_RightDrawerPortalName", resp.UpdatePortals[0].Name)
 	assert.Nil(t, resp.Data)
-	assert.Equal(t, resp.RunScript, "setTimeout(function(){ vars.presetsRightDrawer = true }, 100)")
+	assert.Equal(t, "setTimeout(function(){ vars.presetsRightDrawer = true }, 100)", resp.RunScript)
 
 	multipartestutils.OpenRightDrawer("WithPublishProduct 6_2024-05-22-v01")
 
@@ -126,14 +126,14 @@ func flowPublishAndUnpublish_Step03_Event_publish_EventUnpublish(t *testing.T, h
 
 	var resp multipartestutils.TestEventResponse
 	require.NoError(t, json.Unmarshal(w.Body.Bytes(), &resp))
-	assert.Equal(t, resp.PageTitle, "Listing WithPublishProducts - Admin")
+	assert.Equal(t, "Listing WithPublishProducts - Admin", resp.PageTitle)
 	assert.True(t, resp.Reload)
 	assert.Nil(t, resp.PushState)
 	assert.Empty(t, resp.RedirectURL)
 	assert.Empty(t, resp.ReloadPortals)
 	assert.Empty(t, resp.UpdatePortals)
 	assert.Nil(t, resp.Data)
-	assert.Equal(t, resp.RunScript, "vars.presetsMessage = { show: true, message: \"success\", color: \"success\"}")
+	assert.Equal(t, "vars.presetsMessage = { show: true, message: \"success\", color: \"success\"}", resp.RunScript)
 
 	return multipartestutils.NewThen(t, w, r)
 }

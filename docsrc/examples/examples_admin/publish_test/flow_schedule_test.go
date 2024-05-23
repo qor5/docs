@@ -41,11 +41,12 @@ func flowSchedule(t *testing.T, h http.Handler, db *gorm.DB) {
 		// assert.Contains(t, w.Body.String(), "xx")
 	})
 
-	// end < start < now // TODO: 目前是通过的，应该报错才对
+	// end < start < now
 	flowSchedule_Step05_Event_publish_eventSchedulePublishDialog(t, h).Then(func(t *testing.T, w *httptest.ResponseRecorder, r *http.Request) {
 		// assert.Contains(t, w.Body.String(), "xx")
 	})
 
+	// TODO: 目前是通过的，应该报错才对
 	flowSchedule_Step06_Event_publish_eventSchedulePublish(t, h).Then(func(t *testing.T, w *httptest.ResponseRecorder, r *http.Request) {
 		// assert.Contains(t, w.Body.String(), "xx")
 	})
@@ -69,9 +70,9 @@ func flowSchedule_Step00_Event_presets_DetailingDrawer(t *testing.T, h http.Hand
 	assert.Empty(t, resp.RedirectURL)
 	assert.Empty(t, resp.ReloadPortals)
 	assert.Len(t, resp.UpdatePortals, 1)
-	assert.Equal(t, resp.UpdatePortals[0].Name, "presets_RightDrawerPortalName")
+	assert.Equal(t, "presets_RightDrawerPortalName", resp.UpdatePortals[0].Name)
 	assert.Nil(t, resp.Data)
-	assert.Equal(t, resp.RunScript, "setTimeout(function(){ vars.presetsRightDrawer = true }, 100)")
+	assert.Equal(t, "setTimeout(function(){ vars.presetsRightDrawer = true }, 100)", resp.RunScript)
 
 	multipartestutils.OpenRightDrawer("WithPublishProduct 7_2024-05-23-v01")
 
@@ -97,7 +98,7 @@ func flowSchedule_Step01_Event_publish_eventSchedulePublishDialog(t *testing.T, 
 	assert.Empty(t, resp.RedirectURL)
 	assert.Empty(t, resp.ReloadPortals)
 	assert.Len(t, resp.UpdatePortals, 1)
-	assert.Equal(t, resp.UpdatePortals[0].Name, "publish_PortalSchedulePublishDialog")
+	assert.Equal(t, "publish_PortalSchedulePublishDialog", resp.UpdatePortals[0].Name)
 	assert.Nil(t, resp.Data)
 	assert.Empty(t, resp.RunScript)
 
@@ -125,7 +126,7 @@ func flowSchedule_Step02_Event_publish_eventSchedulePublish(t *testing.T, h http
 	assert.Empty(t, resp.RedirectURL)
 	assert.Empty(t, resp.ReloadPortals)
 	assert.Len(t, resp.UpdatePortals, 1)
-	assert.Equal(t, resp.UpdatePortals[0].Name, "publish_PortalSchedulePublishDialog")
+	assert.Equal(t, "publish_PortalSchedulePublishDialog", resp.UpdatePortals[0].Name)
 	assert.Nil(t, resp.Data)
 	assert.Empty(t, resp.RunScript)
 
@@ -153,7 +154,7 @@ func flowSchedule_Step03_Event_publish_eventSchedulePublishDialog(t *testing.T, 
 	assert.Empty(t, resp.RedirectURL)
 	assert.Empty(t, resp.ReloadPortals)
 	assert.Len(t, resp.UpdatePortals, 1)
-	assert.Equal(t, resp.UpdatePortals[0].Name, "publish_PortalSchedulePublishDialog")
+	assert.Equal(t, "publish_PortalSchedulePublishDialog", resp.UpdatePortals[0].Name)
 	assert.Nil(t, resp.Data)
 	assert.Empty(t, resp.RunScript)
 
@@ -181,7 +182,7 @@ func flowSchedule_Step04_Event_publish_eventSchedulePublish(t *testing.T, h http
 	assert.Empty(t, resp.RedirectURL)
 	assert.Empty(t, resp.ReloadPortals)
 	assert.Len(t, resp.UpdatePortals, 1)
-	assert.Equal(t, resp.UpdatePortals[0].Name, "publish_PortalSchedulePublishDialog")
+	assert.Equal(t, "publish_PortalSchedulePublishDialog", resp.UpdatePortals[0].Name)
 	assert.Nil(t, resp.Data)
 	assert.Empty(t, resp.RunScript)
 
@@ -209,7 +210,7 @@ func flowSchedule_Step05_Event_publish_eventSchedulePublishDialog(t *testing.T, 
 	assert.Empty(t, resp.RedirectURL)
 	assert.Empty(t, resp.ReloadPortals)
 	assert.Len(t, resp.UpdatePortals, 1)
-	assert.Equal(t, resp.UpdatePortals[0].Name, "publish_PortalSchedulePublishDialog")
+	assert.Equal(t, "publish_PortalSchedulePublishDialog", resp.UpdatePortals[0].Name)
 	assert.Nil(t, resp.Data)
 	assert.Empty(t, resp.RunScript)
 
@@ -237,7 +238,7 @@ func flowSchedule_Step06_Event_publish_eventSchedulePublish(t *testing.T, h http
 	assert.Empty(t, resp.RedirectURL)
 	assert.Empty(t, resp.ReloadPortals)
 	assert.Len(t, resp.UpdatePortals, 1)
-	assert.Equal(t, resp.UpdatePortals[0].Name, "publish_PortalSchedulePublishDialog")
+	assert.Equal(t, "publish_PortalSchedulePublishDialog", resp.UpdatePortals[0].Name)
 	assert.Nil(t, resp.Data)
 	assert.Empty(t, resp.RunScript)
 

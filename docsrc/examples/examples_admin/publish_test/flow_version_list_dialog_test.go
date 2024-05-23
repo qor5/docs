@@ -81,9 +81,9 @@ func flowVersionListDialog_Step00_Event_presets_DetailingDrawer(t *testing.T, h 
 	assert.Empty(t, resp.RedirectURL)
 	assert.Empty(t, resp.ReloadPortals)
 	assert.Len(t, resp.UpdatePortals, 1)
-	assert.Equal(t, resp.UpdatePortals[0].Name, "presets_RightDrawerPortalName")
+	assert.Equal(t, "presets_RightDrawerPortalName", resp.UpdatePortals[0].Name)
 	assert.Nil(t, resp.Data)
-	assert.Equal(t, resp.RunScript, "setTimeout(function(){ vars.presetsRightDrawer = true }, 100)")
+	assert.Equal(t, "setTimeout(function(){ vars.presetsRightDrawer = true }, 100)", resp.RunScript)
 
 	multipartestutils.OpenRightDrawer("WithPublishProduct 6_2024-05-22-v02")
 
@@ -108,9 +108,9 @@ func flowVersionListDialog_Step01_Event_presets_OpenListingDialog(t *testing.T, 
 	assert.Empty(t, resp.RedirectURL)
 	assert.Empty(t, resp.ReloadPortals)
 	assert.Len(t, resp.UpdatePortals, 1)
-	assert.Equal(t, resp.UpdatePortals[0].Name, "presets_listingDialogPortalName")
+	assert.Equal(t, "presets_listingDialogPortalName", resp.UpdatePortals[0].Name)
 	assert.Nil(t, resp.Data)
-	assert.Equal(t, resp.RunScript, "setTimeout(function(){ vars.presetsListingDialog = true }, 100)")
+	assert.Equal(t, "setTimeout(function(){ vars.presetsListingDialog = true }, 100)", resp.RunScript)
 
 	return multipartestutils.NewThen(t, w, r)
 }
@@ -135,9 +135,9 @@ func flowVersionListDialog_Step02_Event_presets_UpdateListingDialog(t *testing.T
 	assert.Empty(t, resp.RedirectURL)
 	assert.Empty(t, resp.ReloadPortals)
 	assert.Len(t, resp.UpdatePortals, 1)
-	assert.Equal(t, resp.UpdatePortals[0].Name, "listingDialogContentPortal")
+	assert.Equal(t, "listingDialogContentPortal", resp.UpdatePortals[0].Name)
 	assert.Nil(t, resp.Data)
-	assert.Equal(t, resp.RunScript, "\nvar listingDialogElem = document.getElementById('listingDialog'); \nif (listingDialogElem.offsetHeight > parseInt(listingDialogElem.style.minHeight || '0', 10)) {\n    listingDialogElem.style.minHeight = listingDialogElem.offsetHeight+'px';\n};")
+	assert.Equal(t, "\nvar listingDialogElem = document.getElementById('listingDialog'); \nif (listingDialogElem.offsetHeight > parseInt(listingDialogElem.style.minHeight || '0', 10)) {\n    listingDialogElem.style.minHeight = listingDialogElem.offsetHeight+'px';\n};", resp.RunScript)
 
 	return multipartestutils.NewThen(t, w, r)
 }
@@ -162,9 +162,9 @@ func flowVersionListDialog_Step03_Event_presets_UpdateListingDialog(t *testing.T
 	assert.Empty(t, resp.RedirectURL)
 	assert.Empty(t, resp.ReloadPortals)
 	assert.Len(t, resp.UpdatePortals, 1)
-	assert.Equal(t, resp.UpdatePortals[0].Name, "listingDialogContentPortal")
+	assert.Equal(t, "listingDialogContentPortal", resp.UpdatePortals[0].Name)
 	assert.Nil(t, resp.Data)
-	assert.Equal(t, resp.RunScript, "\nvar listingDialogElem = document.getElementById('listingDialog'); \nif (listingDialogElem.offsetHeight > parseInt(listingDialogElem.style.minHeight || '0', 10)) {\n    listingDialogElem.style.minHeight = listingDialogElem.offsetHeight+'px';\n};")
+	assert.Equal(t, "\nvar listingDialogElem = document.getElementById('listingDialog'); \nif (listingDialogElem.offsetHeight > parseInt(listingDialogElem.style.minHeight || '0', 10)) {\n    listingDialogElem.style.minHeight = listingDialogElem.offsetHeight+'px';\n};", resp.RunScript)
 
 	return multipartestutils.NewThen(t, w, r)
 }
@@ -189,9 +189,9 @@ func flowVersionListDialog_Step04_Event_presets_UpdateListingDialog(t *testing.T
 	assert.Empty(t, resp.RedirectURL)
 	assert.Empty(t, resp.ReloadPortals)
 	assert.Len(t, resp.UpdatePortals, 1)
-	assert.Equal(t, resp.UpdatePortals[0].Name, "listingDialogContentPortal")
+	assert.Equal(t, "listingDialogContentPortal", resp.UpdatePortals[0].Name)
 	assert.Nil(t, resp.Data)
-	assert.Equal(t, resp.RunScript, "\nvar listingDialogElem = document.getElementById('listingDialog'); \nif (listingDialogElem.offsetHeight > parseInt(listingDialogElem.style.minHeight || '0', 10)) {\n    listingDialogElem.style.minHeight = listingDialogElem.offsetHeight+'px';\n};")
+	assert.Equal(t, "\nvar listingDialogElem = document.getElementById('listingDialog'); \nif (listingDialogElem.offsetHeight > parseInt(listingDialogElem.style.minHeight || '0', 10)) {\n    listingDialogElem.style.minHeight = listingDialogElem.offsetHeight+'px';\n};", resp.RunScript)
 
 	return multipartestutils.NewThen(t, w, r)
 }
@@ -217,9 +217,9 @@ func flowVersionListDialog_Step05_Event_presets_UpdateListingDialog(t *testing.T
 	assert.Empty(t, resp.RedirectURL)
 	assert.Empty(t, resp.ReloadPortals)
 	assert.Len(t, resp.UpdatePortals, 1)
-	assert.Equal(t, resp.UpdatePortals[0].Name, "listingDialogContentPortal")
+	assert.Equal(t, "listingDialogContentPortal", resp.UpdatePortals[0].Name)
 	assert.Nil(t, resp.Data)
-	assert.Equal(t, resp.RunScript, "\nvar listingDialogElem = document.getElementById('listingDialog'); \nif (listingDialogElem.offsetHeight > parseInt(listingDialogElem.style.minHeight || '0', 10)) {\n    listingDialogElem.style.minHeight = listingDialogElem.offsetHeight+'px';\n};")
+	assert.Equal(t, "\nvar listingDialogElem = document.getElementById('listingDialog'); \nif (listingDialogElem.offsetHeight > parseInt(listingDialogElem.style.minHeight || '0', 10)) {\n    listingDialogElem.style.minHeight = listingDialogElem.offsetHeight+'px';\n};", resp.RunScript)
 
 	return multipartestutils.NewThen(t, w, r)
 }
@@ -245,9 +245,9 @@ func flowVersionListDialog_Step06_Event_presets_UpdateListingDialog(t *testing.T
 	assert.Empty(t, resp.RedirectURL)
 	assert.Empty(t, resp.ReloadPortals)
 	assert.Len(t, resp.UpdatePortals, 1)
-	assert.Equal(t, resp.UpdatePortals[0].Name, "listingDialogContentPortal")
+	assert.Equal(t, "listingDialogContentPortal", resp.UpdatePortals[0].Name)
 	assert.Nil(t, resp.Data)
-	assert.Equal(t, resp.RunScript, "\nvar listingDialogElem = document.getElementById('listingDialog'); \nif (listingDialogElem.offsetHeight > parseInt(listingDialogElem.style.minHeight || '0', 10)) {\n    listingDialogElem.style.minHeight = listingDialogElem.offsetHeight+'px';\n};")
+	assert.Equal(t, "\nvar listingDialogElem = document.getElementById('listingDialog'); \nif (listingDialogElem.offsetHeight > parseInt(listingDialogElem.style.minHeight || '0', 10)) {\n    listingDialogElem.style.minHeight = listingDialogElem.offsetHeight+'px';\n};", resp.RunScript)
 
 	return multipartestutils.NewThen(t, w, r)
 }
@@ -271,7 +271,7 @@ func flowVersionListDialog_Step07_Event_publish_eventSelectVersion(t *testing.T,
 	assert.Empty(t, resp.ReloadPortals)
 	assert.Empty(t, resp.UpdatePortals)
 	assert.Nil(t, resp.Data)
-	assert.Equal(t, resp.RunScript, "vars.presetsListingDialog = false;plaid().vars(vars).locals(locals).form(form).eventFunc(\"presets_DetailingDrawer\").queries({\"id\":[\"6_2024-05-22-v01\"]}).go()")
+	assert.Equal(t, "vars.presetsListingDialog = false;plaid().vars(vars).locals(locals).form(form).eventFunc(\"presets_DetailingDrawer\").queries({\"id\":[\"6_2024-05-22-v01\"]}).go()", resp.RunScript)
 
 	return multipartestutils.NewThen(t, w, r)
 }
@@ -294,9 +294,9 @@ func flowVersionListDialog_Step08_Event_presets_DetailingDrawer(t *testing.T, h 
 	assert.Empty(t, resp.RedirectURL)
 	assert.Empty(t, resp.ReloadPortals)
 	assert.Len(t, resp.UpdatePortals, 1)
-	assert.Equal(t, resp.UpdatePortals[0].Name, "presets_RightDrawerPortalName")
+	assert.Equal(t, "presets_RightDrawerPortalName", resp.UpdatePortals[0].Name)
 	assert.Nil(t, resp.Data)
-	assert.Equal(t, resp.RunScript, "setTimeout(function(){ vars.presetsRightDrawer = true }, 100)")
+	assert.Equal(t, "setTimeout(function(){ vars.presetsRightDrawer = true }, 100)", resp.RunScript)
 
 	multipartestutils.OpenRightDrawer("WithPublishProduct 6_2024-05-22-v01")
 
