@@ -113,12 +113,3 @@ func TestPublish(t *testing.T) {
 		})
 	}
 }
-
-// TODO: listing field display
-// TODO: editing filed display
-// TODO: publish events: publish/unpublish/republish
-// TODO: version list dialog display and select version ...
-// TODO: delete all versions
-// TODO: version duplicate
-// TODO: version delete to switch another...
-// TODO: schedule ...
