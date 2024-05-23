@@ -82,8 +82,8 @@ func PublishExample(b *presets.Builder, db *gorm.DB) {
 	mb.Editing("Name", "Price")
 
 	publisher := publish.New(db, nil)
-	b.Plugins(publisher)
-	mb.Plugins(publisher)
+	b.Use(publisher)
+	mb.Use(publisher)
 	// run the publisher job if Schedule is used
 	go publish.RunPublisher(db, nil, publisher)
 	// @snippet_end
