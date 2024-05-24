@@ -18,7 +18,7 @@ func TestFlowSchedule(t *testing.T) {
 	flowSchedule(t, PresetsBuilder, DB)
 }
 
-func flowSchedule(t *testing.T, h http.Handler, db *gorm.DB) {
+func flowSchedule(t *testing.T, h http.Handler, _ *gorm.DB) {
 	flowSchedule_Step00_Event_presets_DetailingDrawer(t, h).Then(func(t *testing.T, w *httptest.ResponseRecorder, r *http.Request) {
 		// assert.Contains(t, w.Body.String(), "xx")
 	})

@@ -2,45 +2,63 @@ package publish_test
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"net/http/httptest"
+	"strconv"
+	"strings"
 	"testing"
+	"time"
 
 	"github.com/qor5/web/v3/multipartestutils"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"gorm.io/gorm"
 )
+
+type FlowDuplicate struct {
+	*Flow
+
+	DuplicateID string
+}
 
 func TestFlowDuplicate(t *testing.T) {
 	dataSeed.TruncatePut(SQLDB)
 
-	flowDuplicate(t, PresetsBuilder, DB)
-}
-
-func flowDuplicate(t *testing.T, h http.Handler, db *gorm.DB) {
-	flowDuplicate_Step00_Event_presets_DetailingDrawer(t, h).Then(func(t *testing.T, w *httptest.ResponseRecorder, r *http.Request) {
-		// assert.Contains(t, w.Body.String(), "xx")
-	})
-
-	flowDuplicate_Step01_Event_publish_EventDuplicateVersion(t, h).Then(func(t *testing.T, w *httptest.ResponseRecorder, r *http.Request) {
-		// assert.Contains(t, w.Body.String(), "xx")
-	})
-
-	flowDuplicate_Step02_Event___reload__(t, h).Then(func(t *testing.T, w *httptest.ResponseRecorder, r *http.Request) {
-		// assert.Contains(t, w.Body.String(), "xx")
+	flowDuplicate(t, &FlowDuplicate{
+		Flow: &Flow{
+			db: DB, h: PresetsBuilder,
+			ID: "6_2024-05-22-v01",
+		},
 	})
 }
 
-func flowDuplicate_Step00_Event_presets_DetailingDrawer(t *testing.T, h http.Handler) *multipartestutils.Then {
+func flowDuplicate(t *testing.T, f *FlowDuplicate) {
+	flowDuplicate_Step00_Event_presets_DetailingDrawer(t, f).Then(func(t *testing.T, w *httptest.ResponseRecorder, r *http.Request) {
+		// assert.Contains(t, w.Body.String(), "xx")
+	})
+
+	flowDuplicate_Step01_Event_publish_EventDuplicateVersion(t, f).Then(func(t *testing.T, w *httptest.ResponseRecorder, r *http.Request) {
+		// assert.Contains(t, w.Body.String(), "xx")
+		var err error
+		f.DuplicateID, err = getNextVersion(f.ID)
+		assert.NoError(t, err)
+	})
+
+	flowDuplicate_Step02_Event___reload__(t, f).Then(func(t *testing.T, w *httptest.ResponseRecorder, r *http.Request) {
+		// assert.Contains(t, w.Body.String(), "xx")
+	})
+}
+
+func flowDuplicate_Step00_Event_presets_DetailingDrawer(t *testing.T, f *FlowDuplicate) *multipartestutils.Then {
 	r := multipartestutils.NewMultipartBuilder().
 		PageURL("/samples/publish/with-publish-products").
 		EventFunc("presets_DetailingDrawer").
-		Query("id", "6_2024-05-22-v01").
+		// Query("id", "6_2024-05-22-v01").
+		Query("id", f.ID).
 		BuildEventFuncRequest()
 
 	w := httptest.NewRecorder()
-	h.ServeHTTP(w, r)
+	f.h.ServeHTTP(w, r)
 
 	var resp multipartestutils.TestEventResponse
 	require.NoError(t, json.Unmarshal(w.Body.Bytes(), &resp))
@@ -54,20 +72,22 @@ func flowDuplicate_Step00_Event_presets_DetailingDrawer(t *testing.T, h http.Han
 	assert.Nil(t, resp.Data)
 	assert.Equal(t, "setTimeout(function(){ vars.presetsRightDrawer = true }, 100)", resp.RunScript)
 
-	multipartestutils.OpenRightDrawer("WithPublishProduct 6_2024-05-22-v01")
+	// multipartestutils.OpenRightDrawer("WithPublishProduct 6_2024-05-22-v01")
+	multipartestutils.OpenRightDrawer("WithPublishProduct " + f.ID)
 
 	return multipartestutils.NewThen(t, w, r)
 }
 
-func flowDuplicate_Step01_Event_publish_EventDuplicateVersion(t *testing.T, h http.Handler) *multipartestutils.Then {
+func flowDuplicate_Step01_Event_publish_EventDuplicateVersion(t *testing.T, f *FlowDuplicate) *multipartestutils.Then {
 	r := multipartestutils.NewMultipartBuilder().
 		PageURL("/samples/publish/with-publish-products").
 		EventFunc("publish_EventDuplicateVersion").
-		Query("id", "6_2024-05-22-v01").
+		// Query("id", "6_2024-05-22-v01").
+		Query("id", f.ID).
 		BuildEventFuncRequest()
 
 	w := httptest.NewRecorder()
-	h.ServeHTTP(w, r)
+	f.h.ServeHTTP(w, r)
 
 	var resp multipartestutils.TestEventResponse
 	require.NoError(t, json.Unmarshal(w.Body.Bytes(), &resp))
@@ -83,19 +103,20 @@ func flowDuplicate_Step01_Event_publish_EventDuplicateVersion(t *testing.T, h ht
 	return multipartestutils.NewThen(t, w, r)
 }
 
-func flowDuplicate_Step02_Event___reload__(t *testing.T, h http.Handler) *multipartestutils.Then {
-	// TODO: should handle now func or calc now new version name
+func flowDuplicate_Step02_Event___reload__(t *testing.T, f *FlowDuplicate) *multipartestutils.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/samples/publish/with-publish-products/6_2024-05-23-v01").
+		// PageURL("/samples/publish/with-publish-products/6_2024-05-23-v01").
+		PageURL("/samples/publish/with-publish-products/" + f.DuplicateID).
 		EventFunc("__reload__").
 		BuildEventFuncRequest()
 
 	w := httptest.NewRecorder()
-	h.ServeHTTP(w, r)
+	f.h.ServeHTTP(w, r)
 
 	var resp multipartestutils.TestEventResponse
 	require.NoError(t, json.Unmarshal(w.Body.Bytes(), &resp))
-	assert.Equal(t, "WithPublishProduct 6_2024-05-23-v01 - Admin", resp.PageTitle)
+	// assert.Equal(t, "WithPublishProduct 6_2024-05-23-v01 - Admin", resp.PageTitle)
+	assert.Equal(t, "WithPublishProduct "+f.DuplicateID+" - Admin", resp.PageTitle)
 	assert.True(t, resp.Reload)
 	assert.Nil(t, resp.PushState)
 	assert.Empty(t, resp.RedirectURL)
@@ -105,4 +126,36 @@ func flowDuplicate_Step02_Event___reload__(t *testing.T, h http.Handler) *multip
 	assert.Empty(t, resp.RunScript)
 
 	return multipartestutils.NewThen(t, w, r)
+}
+
+func getNextVersion(currentVersion string) (string, error) {
+	parts := strings.Split(currentVersion, "_")
+	if len(parts) != 2 {
+		return "", fmt.Errorf("invalid version format")
+	}
+
+	id := parts[0]
+	dateVersionPart := parts[1]
+	dateVersion := strings.Split(dateVersionPart, "-")
+	if len(dateVersion) != 4 {
+		return "", fmt.Errorf("invalid date-version part format")
+	}
+
+	dateStr, versionStr := strings.Join(dateVersion[0:3], "-"), dateVersion[3]
+	versionNumberStr := strings.TrimPrefix(versionStr, "v")
+	versionNumber, err := strconv.Atoi(versionNumberStr)
+	if err != nil {
+		return "", fmt.Errorf("invalid version number")
+	}
+
+	currentDate := time.Now().UTC().Format("2006-01-02")
+
+	var nextVersion string
+	if dateStr == currentDate {
+		nextVersion = fmt.Sprintf("%s_%s-v%02d", id, currentDate, versionNumber+1)
+	} else {
+		nextVersion = fmt.Sprintf("%s_%s-v01", id, currentDate)
+	}
+
+	return nextVersion, nil
 }

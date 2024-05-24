@@ -2,6 +2,7 @@ package publish_test
 
 import (
 	"database/sql"
+	"net/http"
 	"testing"
 
 	"github.com/qor5/admin/v3/presets"
@@ -41,3 +42,10 @@ INSERT INTO "public"."with_publish_products" ("id", "created_at", "updated_at", 
 `, []string{"with_publish_products"}))
 
 var dataEmpty = gofixtures.Data(gofixtures.Sql(``, []string{"with_publish_products"}))
+
+type Flow struct {
+	db *gorm.DB
+	h  http.Handler
+
+	ID string
+}
