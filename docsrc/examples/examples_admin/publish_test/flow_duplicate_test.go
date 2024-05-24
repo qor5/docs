@@ -10,6 +10,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/qor5/admin/v3/utils/testflow"
 	"github.com/qor5/web/v3/multipartestutils"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -18,6 +19,7 @@ import (
 type FlowDuplicate struct {
 	*Flow
 
+	// local vars
 	DuplicateID string
 }
 
@@ -49,7 +51,7 @@ func flowDuplicate(t *testing.T, f *FlowDuplicate) {
 	})
 }
 
-func flowDuplicate_Step00_Event_presets_DetailingDrawer(t *testing.T, f *FlowDuplicate) *multipartestutils.Then {
+func flowDuplicate_Step00_Event_presets_DetailingDrawer(t *testing.T, f *FlowDuplicate) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
 		PageURL("/samples/publish/with-publish-products").
 		EventFunc("presets_DetailingDrawer").
@@ -72,13 +74,15 @@ func flowDuplicate_Step00_Event_presets_DetailingDrawer(t *testing.T, f *FlowDup
 	assert.Nil(t, resp.Data)
 	assert.Equal(t, "setTimeout(function(){ vars.presetsRightDrawer = true }, 100)", resp.RunScript)
 
-	// multipartestutils.OpenRightDrawer("WithPublishProduct 6_2024-05-22-v01")
-	multipartestutils.OpenRightDrawer("WithPublishProduct " + f.ID)
+	testflow.Validate(t, w, r,
+		// multipartestutils.OpenRightDrawer("WithPublishProduct 6_2024-05-22-v01")
+		testflow.OpenRightDrawer("WithPublishProduct "+f.ID),
+	)
 
-	return multipartestutils.NewThen(t, w, r)
+	return testflow.NewThen(t, w, r)
 }
 
-func flowDuplicate_Step01_Event_publish_EventDuplicateVersion(t *testing.T, f *FlowDuplicate) *multipartestutils.Then {
+func flowDuplicate_Step01_Event_publish_EventDuplicateVersion(t *testing.T, f *FlowDuplicate) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
 		PageURL("/samples/publish/with-publish-products").
 		EventFunc("publish_EventDuplicateVersion").
@@ -100,10 +104,10 @@ func flowDuplicate_Step01_Event_publish_EventDuplicateVersion(t *testing.T, f *F
 	assert.Nil(t, resp.Data)
 	assert.Equal(t, "vars.presetsMessage = { show: true, message: \"Successfully Created\", color: \"success\"}", resp.RunScript)
 
-	return multipartestutils.NewThen(t, w, r)
+	return testflow.NewThen(t, w, r)
 }
 
-func flowDuplicate_Step02_Event___reload__(t *testing.T, f *FlowDuplicate) *multipartestutils.Then {
+func flowDuplicate_Step02_Event___reload__(t *testing.T, f *FlowDuplicate) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
 		// PageURL("/samples/publish/with-publish-products/6_2024-05-23-v01").
 		PageURL("/samples/publish/with-publish-products/" + f.DuplicateID).
@@ -125,7 +129,7 @@ func flowDuplicate_Step02_Event___reload__(t *testing.T, f *FlowDuplicate) *mult
 	assert.Nil(t, resp.Data)
 	assert.Empty(t, resp.RunScript)
 
-	return multipartestutils.NewThen(t, w, r)
+	return testflow.NewThen(t, w, r)
 }
 
 func getNextVersion(currentVersion string) (string, error) {

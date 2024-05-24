@@ -47,5 +47,6 @@ type Flow struct {
 	db *gorm.DB
 	h  http.Handler
 
+	// global vars
 	ID string
 }

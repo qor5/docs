@@ -6,45 +6,55 @@ import (
 	"net/http/httptest"
 	"testing"
 
+	"github.com/qor5/admin/v3/utils/testflow"
 	"github.com/qor5/web/v3/multipartestutils"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"gorm.io/gorm"
 )
+
+type FlowPublishAndUnpublish struct {
+	*Flow
+}
 
 func TestFlowPublishAndUnpublish(t *testing.T) {
 	dataSeed.TruncatePut(SQLDB)
 
-	flowPublishAndUnpublish(t, PresetsBuilder, DB)
-}
-
-func flowPublishAndUnpublish(t *testing.T, h http.Handler, _ *gorm.DB) {
-	flowPublishAndUnpublish_Step00_Event_presets_DetailingDrawer(t, h).Then(func(t *testing.T, w *httptest.ResponseRecorder, r *http.Request) {
-		// assert.Contains(t, w.Body.String(), "xx")
-	})
-
-	flowPublishAndUnpublish_Step01_Event_publish_EventPublish(t, h).Then(func(t *testing.T, w *httptest.ResponseRecorder, r *http.Request) {
-		// assert.Contains(t, w.Body.String(), "xx")
-	})
-
-	flowPublishAndUnpublish_Step02_Event_presets_DetailingDrawer(t, h).Then(func(t *testing.T, w *httptest.ResponseRecorder, r *http.Request) {
-		// assert.Contains(t, w.Body.String(), "xx")
-	})
-
-	flowPublishAndUnpublish_Step03_Event_publish_EventUnpublish(t, h).Then(func(t *testing.T, w *httptest.ResponseRecorder, r *http.Request) {
-		// assert.Contains(t, w.Body.String(), "xx")
+	flowPublishAndUnpublish(t, &FlowPublishAndUnpublish{
+		Flow: &Flow{
+			db: DB, h: PresetsBuilder,
+			ID: "6_2024-05-22-v01",
+		},
 	})
 }
 
-func flowPublishAndUnpublish_Step00_Event_presets_DetailingDrawer(t *testing.T, h http.Handler) *multipartestutils.Then {
+func flowPublishAndUnpublish(t *testing.T, f *FlowPublishAndUnpublish) {
+	flowPublishAndUnpublish_Step00_Event_presets_DetailingDrawer(t, f).Then(func(t *testing.T, w *httptest.ResponseRecorder, r *http.Request) {
+		// assert.Contains(t, w.Body.String(), "xx")
+	})
+
+	flowPublishAndUnpublish_Step01_Event_publish_EventPublish(t, f).Then(func(t *testing.T, w *httptest.ResponseRecorder, r *http.Request) {
+		// assert.Contains(t, w.Body.String(), "xx")
+	})
+
+	flowPublishAndUnpublish_Step02_Event_presets_DetailingDrawer(t, f).Then(func(t *testing.T, w *httptest.ResponseRecorder, r *http.Request) {
+		// assert.Contains(t, w.Body.String(), "xx")
+	})
+
+	flowPublishAndUnpublish_Step03_Event_publish_EventUnpublish(t, f).Then(func(t *testing.T, w *httptest.ResponseRecorder, r *http.Request) {
+		// assert.Contains(t, w.Body.String(), "xx")
+	})
+}
+
+func flowPublishAndUnpublish_Step00_Event_presets_DetailingDrawer(t *testing.T, f *FlowPublishAndUnpublish) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
 		PageURL("/samples/publish/with-publish-products").
 		EventFunc("presets_DetailingDrawer").
-		Query("id", "6_2024-05-22-v01").
+		// Query("id", "6_2024-05-22-v01").
+		Query("id", f.ID).
 		BuildEventFuncRequest()
 
 	w := httptest.NewRecorder()
-	h.ServeHTTP(w, r)
+	f.h.ServeHTTP(w, r)
 
 	var resp multipartestutils.TestEventResponse
 	require.NoError(t, json.Unmarshal(w.Body.Bytes(), &resp))
@@ -58,20 +68,24 @@ func flowPublishAndUnpublish_Step00_Event_presets_DetailingDrawer(t *testing.T, 
 	assert.Nil(t, resp.Data)
 	assert.Equal(t, "setTimeout(function(){ vars.presetsRightDrawer = true }, 100)", resp.RunScript)
 
-	multipartestutils.OpenRightDrawer("WithPublishProduct 6_2024-05-22-v01")
+	testflow.Validate(t, w, r,
+		// testflow.OpenRightDrawer("WithPublishProduct 6_2024-05-22-v01")
+		testflow.OpenRightDrawer("WithPublishProduct "+f.ID),
+	)
 
-	return multipartestutils.NewThen(t, w, r)
+	return testflow.NewThen(t, w, r)
 }
 
-func flowPublishAndUnpublish_Step01_Event_publish_EventPublish(t *testing.T, h http.Handler) *multipartestutils.Then {
+func flowPublishAndUnpublish_Step01_Event_publish_EventPublish(t *testing.T, f *FlowPublishAndUnpublish) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
 		PageURL("/samples/publish/with-publish-products").
 		EventFunc("publish_EventPublish").
-		Query("id", "6_2024-05-22-v01").
+		// Query("id", "6_2024-05-22-v01").
+		Query("id", f.ID).
 		BuildEventFuncRequest()
 
 	w := httptest.NewRecorder()
-	h.ServeHTTP(w, r)
+	f.h.ServeHTTP(w, r)
 
 	var resp multipartestutils.TestEventResponse
 	require.NoError(t, json.Unmarshal(w.Body.Bytes(), &resp))
@@ -84,18 +98,19 @@ func flowPublishAndUnpublish_Step01_Event_publish_EventPublish(t *testing.T, h h
 	assert.Nil(t, resp.Data)
 	assert.Equal(t, "vars.presetsMessage = { show: true, message: \"success\", color: \"success\"}", resp.RunScript)
 
-	return multipartestutils.NewThen(t, w, r)
+	return testflow.NewThen(t, w, r)
 }
 
-func flowPublishAndUnpublish_Step02_Event_presets_DetailingDrawer(t *testing.T, h http.Handler) *multipartestutils.Then {
+func flowPublishAndUnpublish_Step02_Event_presets_DetailingDrawer(t *testing.T, f *FlowPublishAndUnpublish) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
 		PageURL("/samples/publish/with-publish-products").
 		EventFunc("presets_DetailingDrawer").
-		Query("id", "6_2024-05-22-v01").
+		// Query("id", "6_2024-05-22-v01").
+		Query("id", f.ID).
 		BuildEventFuncRequest()
 
 	w := httptest.NewRecorder()
-	h.ServeHTTP(w, r)
+	f.h.ServeHTTP(w, r)
 
 	var resp multipartestutils.TestEventResponse
 	require.NoError(t, json.Unmarshal(w.Body.Bytes(), &resp))
@@ -109,20 +124,24 @@ func flowPublishAndUnpublish_Step02_Event_presets_DetailingDrawer(t *testing.T, 
 	assert.Nil(t, resp.Data)
 	assert.Equal(t, "setTimeout(function(){ vars.presetsRightDrawer = true }, 100)", resp.RunScript)
 
-	multipartestutils.OpenRightDrawer("WithPublishProduct 6_2024-05-22-v01")
+	testflow.Validate(t, w, r,
+		// testflow.OpenRightDrawer("WithPublishProduct 6_2024-05-22-v01")
+		testflow.OpenRightDrawer("WithPublishProduct "+f.ID),
+	)
 
-	return multipartestutils.NewThen(t, w, r)
+	return testflow.NewThen(t, w, r)
 }
 
-func flowPublishAndUnpublish_Step03_Event_publish_EventUnpublish(t *testing.T, h http.Handler) *multipartestutils.Then {
+func flowPublishAndUnpublish_Step03_Event_publish_EventUnpublish(t *testing.T, f *FlowPublishAndUnpublish) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
 		PageURL("/samples/publish/with-publish-products").
 		EventFunc("publish_EventUnpublish").
-		Query("id", "6_2024-05-22-v01").
+		// Query("id", "6_2024-05-22-v01").
+		Query("id", f.ID).
 		BuildEventFuncRequest()
 
 	w := httptest.NewRecorder()
-	h.ServeHTTP(w, r)
+	f.h.ServeHTTP(w, r)
 
 	var resp multipartestutils.TestEventResponse
 	require.NoError(t, json.Unmarshal(w.Body.Bytes(), &resp))
@@ -135,5 +154,5 @@ func flowPublishAndUnpublish_Step03_Event_publish_EventUnpublish(t *testing.T, h
 	assert.Nil(t, resp.Data)
 	assert.Equal(t, "vars.presetsMessage = { show: true, message: \"success\", color: \"success\"}", resp.RunScript)
 
-	return multipartestutils.NewThen(t, w, r)
+	return testflow.NewThen(t, w, r)
 }

@@ -8,6 +8,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/qor5/admin/v3/utils/testflow"
 	"github.com/qor5/docs/v3/docsrc/examples/examples_admin"
 	"github.com/qor5/web/v3/multipartestutils"
 	"github.com/stretchr/testify/assert"
@@ -17,6 +18,7 @@ import (
 type FlowNew struct {
 	*Flow
 
+	// local vars
 	Name  string
 	Price int
 }
@@ -61,7 +63,7 @@ func flowNew(t *testing.T, f *FlowNew) {
 	}
 }
 
-func flowNew_Step00_Event_presets_New(t *testing.T, f *FlowNew) *multipartestutils.Then {
+func flowNew_Step00_Event_presets_New(t *testing.T, f *FlowNew) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
 		PageURL("/samples/publish/with-publish-products").
 		EventFunc("presets_New").
@@ -82,12 +84,14 @@ func flowNew_Step00_Event_presets_New(t *testing.T, f *FlowNew) *multipartestuti
 	assert.Nil(t, resp.Data)
 	assert.Equal(t, "setTimeout(function(){ vars.presetsRightDrawer = true }, 100)", resp.RunScript)
 
-	multipartestutils.OpenRightDrawer("New WithPublishProduct")
+	testflow.Validate(t, w, r,
+		testflow.OpenRightDrawer("New WithPublishProduct"),
+	)
 
-	return multipartestutils.NewThen(t, w, r)
+	return testflow.NewThen(t, w, r)
 }
 
-func flowNew_Step01_Event_presets_Update(t *testing.T, f *FlowNew) *multipartestutils.Then {
+func flowNew_Step01_Event_presets_Update(t *testing.T, f *FlowNew) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
 		PageURL("/samples/publish/with-publish-products").
 		EventFunc("presets_Update").
@@ -111,10 +115,10 @@ func flowNew_Step01_Event_presets_Update(t *testing.T, f *FlowNew) *multipartest
 	assert.Nil(t, resp.Data)
 	assert.Equal(t, "vars.presetsRightDrawer = false; vars.presetsMessage = { show: true, message: \"Successfully Updated\", color: \"success\"}", resp.RunScript)
 
-	return multipartestutils.NewThen(t, w, r)
+	return testflow.NewThen(t, w, r)
 }
 
-func flowNew_Step02_Event___reload__(t *testing.T, f *FlowNew) *multipartestutils.Then {
+func flowNew_Step02_Event___reload__(t *testing.T, f *FlowNew) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
 		PageURL("/samples/publish/with-publish-products").
 		EventFunc("__reload__").
@@ -134,5 +138,5 @@ func flowNew_Step02_Event___reload__(t *testing.T, f *FlowNew) *multipartestutil
 	assert.Nil(t, resp.Data)
 	assert.Empty(t, resp.RunScript)
 
-	return multipartestutils.NewThen(t, w, r)
+	return testflow.NewThen(t, w, r)
 }

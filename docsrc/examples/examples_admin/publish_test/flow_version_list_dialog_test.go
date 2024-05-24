@@ -6,6 +6,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
+	"github.com/qor5/admin/v3/utils/testflow"
 	"github.com/qor5/web/v3/multipartestutils"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -63,7 +64,7 @@ func flowVersionListDialog(t *testing.T, h http.Handler, _ *gorm.DB) {
 	})
 }
 
-func flowVersionListDialog_Step00_Event_presets_DetailingDrawer(t *testing.T, h http.Handler) *multipartestutils.Then {
+func flowVersionListDialog_Step00_Event_presets_DetailingDrawer(t *testing.T, h http.Handler) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
 		PageURL("/samples/publish/with-publish-products").
 		EventFunc("presets_DetailingDrawer").
@@ -85,12 +86,13 @@ func flowVersionListDialog_Step00_Event_presets_DetailingDrawer(t *testing.T, h 
 	assert.Nil(t, resp.Data)
 	assert.Equal(t, "setTimeout(function(){ vars.presetsRightDrawer = true }, 100)", resp.RunScript)
 
-	multipartestutils.OpenRightDrawer("WithPublishProduct 6_2024-05-22-v02")
+	testflow.Validate(t, w, r) // TODO: this flow should dep duplicate
+	// testflow.OpenRightDrawer("WithPublishProduct 6_2024-05-22-v02"),
 
-	return multipartestutils.NewThen(t, w, r)
+	return testflow.NewThen(t, w, r)
 }
 
-func flowVersionListDialog_Step01_Event_presets_OpenListingDialog(t *testing.T, h http.Handler) *multipartestutils.Then {
+func flowVersionListDialog_Step01_Event_presets_OpenListingDialog(t *testing.T, h http.Handler) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
 		PageURL("/samples/publish/with-publish-products-version-list-dialog").
 		EventFunc("presets_OpenListingDialog").
@@ -112,10 +114,10 @@ func flowVersionListDialog_Step01_Event_presets_OpenListingDialog(t *testing.T, 
 	assert.Nil(t, resp.Data)
 	assert.Equal(t, "setTimeout(function(){ vars.presetsListingDialog = true }, 100)", resp.RunScript)
 
-	return multipartestutils.NewThen(t, w, r)
+	return testflow.NewThen(t, w, r)
 }
 
-func flowVersionListDialog_Step02_Event_presets_UpdateListingDialog(t *testing.T, h http.Handler) *multipartestutils.Then {
+func flowVersionListDialog_Step02_Event_presets_UpdateListingDialog(t *testing.T, h http.Handler) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
 		PageURL("/samples/publish/with-publish-products-version-list-dialog").
 		EventFunc("presets_UpdateListingDialog").
@@ -139,10 +141,10 @@ func flowVersionListDialog_Step02_Event_presets_UpdateListingDialog(t *testing.T
 	assert.Nil(t, resp.Data)
 	assert.Equal(t, "\nvar listingDialogElem = document.getElementById('listingDialog'); \nif (listingDialogElem.offsetHeight > parseInt(listingDialogElem.style.minHeight || '0', 10)) {\n    listingDialogElem.style.minHeight = listingDialogElem.offsetHeight+'px';\n};", resp.RunScript)
 
-	return multipartestutils.NewThen(t, w, r)
+	return testflow.NewThen(t, w, r)
 }
 
-func flowVersionListDialog_Step03_Event_presets_UpdateListingDialog(t *testing.T, h http.Handler) *multipartestutils.Then {
+func flowVersionListDialog_Step03_Event_presets_UpdateListingDialog(t *testing.T, h http.Handler) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
 		PageURL("/samples/publish/with-publish-products-version-list-dialog").
 		EventFunc("presets_UpdateListingDialog").
@@ -166,10 +168,10 @@ func flowVersionListDialog_Step03_Event_presets_UpdateListingDialog(t *testing.T
 	assert.Nil(t, resp.Data)
 	assert.Equal(t, "\nvar listingDialogElem = document.getElementById('listingDialog'); \nif (listingDialogElem.offsetHeight > parseInt(listingDialogElem.style.minHeight || '0', 10)) {\n    listingDialogElem.style.minHeight = listingDialogElem.offsetHeight+'px';\n};", resp.RunScript)
 
-	return multipartestutils.NewThen(t, w, r)
+	return testflow.NewThen(t, w, r)
 }
 
-func flowVersionListDialog_Step04_Event_presets_UpdateListingDialog(t *testing.T, h http.Handler) *multipartestutils.Then {
+func flowVersionListDialog_Step04_Event_presets_UpdateListingDialog(t *testing.T, h http.Handler) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
 		PageURL("/samples/publish/with-publish-products-version-list-dialog").
 		EventFunc("presets_UpdateListingDialog").
@@ -193,10 +195,10 @@ func flowVersionListDialog_Step04_Event_presets_UpdateListingDialog(t *testing.T
 	assert.Nil(t, resp.Data)
 	assert.Equal(t, "\nvar listingDialogElem = document.getElementById('listingDialog'); \nif (listingDialogElem.offsetHeight > parseInt(listingDialogElem.style.minHeight || '0', 10)) {\n    listingDialogElem.style.minHeight = listingDialogElem.offsetHeight+'px';\n};", resp.RunScript)
 
-	return multipartestutils.NewThen(t, w, r)
+	return testflow.NewThen(t, w, r)
 }
 
-func flowVersionListDialog_Step05_Event_presets_UpdateListingDialog(t *testing.T, h http.Handler) *multipartestutils.Then {
+func flowVersionListDialog_Step05_Event_presets_UpdateListingDialog(t *testing.T, h http.Handler) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
 		PageURL("/samples/publish/with-publish-products-version-list-dialog").
 		EventFunc("presets_UpdateListingDialog").
@@ -221,10 +223,10 @@ func flowVersionListDialog_Step05_Event_presets_UpdateListingDialog(t *testing.T
 	assert.Nil(t, resp.Data)
 	assert.Equal(t, "\nvar listingDialogElem = document.getElementById('listingDialog'); \nif (listingDialogElem.offsetHeight > parseInt(listingDialogElem.style.minHeight || '0', 10)) {\n    listingDialogElem.style.minHeight = listingDialogElem.offsetHeight+'px';\n};", resp.RunScript)
 
-	return multipartestutils.NewThen(t, w, r)
+	return testflow.NewThen(t, w, r)
 }
 
-func flowVersionListDialog_Step06_Event_presets_UpdateListingDialog(t *testing.T, h http.Handler) *multipartestutils.Then {
+func flowVersionListDialog_Step06_Event_presets_UpdateListingDialog(t *testing.T, h http.Handler) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
 		PageURL("/samples/publish/with-publish-products-version-list-dialog").
 		EventFunc("presets_UpdateListingDialog").
@@ -249,10 +251,10 @@ func flowVersionListDialog_Step06_Event_presets_UpdateListingDialog(t *testing.T
 	assert.Nil(t, resp.Data)
 	assert.Equal(t, "\nvar listingDialogElem = document.getElementById('listingDialog'); \nif (listingDialogElem.offsetHeight > parseInt(listingDialogElem.style.minHeight || '0', 10)) {\n    listingDialogElem.style.minHeight = listingDialogElem.offsetHeight+'px';\n};", resp.RunScript)
 
-	return multipartestutils.NewThen(t, w, r)
+	return testflow.NewThen(t, w, r)
 }
 
-func flowVersionListDialog_Step07_Event_publish_eventSelectVersion(t *testing.T, h http.Handler) *multipartestutils.Then {
+func flowVersionListDialog_Step07_Event_publish_eventSelectVersion(t *testing.T, h http.Handler) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
 		PageURL("/samples/publish/with-publish-products-version-list-dialog").
 		EventFunc("publish_eventSelectVersion").
@@ -273,10 +275,10 @@ func flowVersionListDialog_Step07_Event_publish_eventSelectVersion(t *testing.T,
 	assert.Nil(t, resp.Data)
 	assert.Equal(t, "vars.presetsListingDialog = false;plaid().vars(vars).locals(locals).form(form).eventFunc(\"presets_DetailingDrawer\").queries({\"id\":[\"6_2024-05-22-v01\"]}).go()", resp.RunScript)
 
-	return multipartestutils.NewThen(t, w, r)
+	return testflow.NewThen(t, w, r)
 }
 
-func flowVersionListDialog_Step08_Event_presets_DetailingDrawer(t *testing.T, h http.Handler) *multipartestutils.Then {
+func flowVersionListDialog_Step08_Event_presets_DetailingDrawer(t *testing.T, h http.Handler) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
 		PageURL("/samples/publish/with-publish-products").
 		EventFunc("presets_DetailingDrawer").
@@ -298,7 +300,8 @@ func flowVersionListDialog_Step08_Event_presets_DetailingDrawer(t *testing.T, h 
 	assert.Nil(t, resp.Data)
 	assert.Equal(t, "setTimeout(function(){ vars.presetsRightDrawer = true }, 100)", resp.RunScript)
 
-	multipartestutils.OpenRightDrawer("WithPublishProduct 6_2024-05-22-v01")
+	testflow.Validate(t, w, r) // TODO: this flow should dep duplicate
+	// testflow.OpenRightDrawer("WithPublishProduct 6_2024-05-22-v01"),
 
-	return multipartestutils.NewThen(t, w, r)
+	return testflow.NewThen(t, w, r)
 }
