@@ -10,9 +10,9 @@ require (
 	github.com/ory/ladon v1.3.0
 	github.com/qor/oss v0.0.0-20230717083721-c04686f83630
 	github.com/qor5/admin/v3 v3.0.1-0.20240424102851-d75759576158
-	github.com/qor5/ui/v3 v3.0.1-0.20240522100633-1204255d817c
-	github.com/qor5/web/v3 v3.0.1-0.20240523063248-715a79848a75
-	github.com/qor5/x/v3 v3.0.1-0.20240523063436-222afbf265ce
+	github.com/qor5/ui/v3 v3.0.1-0.20240524013545-782b2a42c4da
+	github.com/qor5/web/v3 v3.0.1-0.20240524024727-eeafb73657ae
+	github.com/qor5/x/v3 v3.0.1-0.20240524053613-e27975834223
 	github.com/samber/lo v1.39.0
 	github.com/shurcooL/sanitized_anchor_name v1.0.0
 	github.com/stretchr/testify v1.9.0

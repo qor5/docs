@@ -132,6 +132,7 @@ func flowDuplicate_Step02_Event___reload__(t *testing.T, f *FlowDuplicate) *test
 	return testflow.NewThen(t, w, r)
 }
 
+// TODO: maybe version name be renamed
 func getNextVersion(currentVersion string) (string, error) {
 	parts := strings.Split(currentVersion, "_")
 	if len(parts) != 2 {
