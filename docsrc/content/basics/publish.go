@@ -36,7 +36,7 @@ Implement the publish interfaces if there is a need to publish content to storag
 	ch.Code(generated.PublishImplementPublishInterfaces).Language("go"),
 	utils.DemoWithSnippetLocation(
 		"Publish",
-		path.Join(examples_admin.PublishExamplePath, "/products"),
+		path.Join(examples_admin.PublishExamplePath, "/with-publish-products"),
 		generated.PublishImplementPublishInterfacesLocation,
 	),
 	Markdown(fmt.Sprintf(`
