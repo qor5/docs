@@ -74,12 +74,12 @@ postModelBuilder.Listing().Field("VirtualField").ComponentFunc(func(obj interfac
 
 	Markdown(`
 ## DefaultScope
-If we want to display ~Post~ with ~disabled=false~ only. Use the ~Listing().Searcher~ to apply SQL conditions.
+If we want to display ~Post~ with ~disabled=false~ only. Use the ~Listing().SearcherFunc(...)~ to apply SQL conditions.
 `),
-	ch.Code(`postModelBuilder.Listing().Searcher = func(model interface{}, params *presets.SearchParams, ctx *web.EventContext) (r interface{}, totalCount int, err error){
+	ch.Code(`postModelBuilder.Listing().SearcherFunc(func(model interface{}, params *presets.SearchParams, ctx *web.EventContext) (r interface{}, totalCount int, err error){
 	qdb := db.Where("disabled != true")
 	return gorm2op.DataOperator(qdb).Search(model, params, ctx)
-}
+})
 `),
 
 	Markdown(`

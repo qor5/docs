@@ -72,10 +72,10 @@ func ListingSample(b *presets.Builder) {
 	postModelBuilder := b.Model(&Post{})
 	postModelBuilder.Listing("ID", "Title", "Body", "CategoryID", "VirtualField")
 
-	postModelBuilder.Listing().Searcher = func(model interface{}, params *presets.SearchParams, ctx *web.EventContext) (r interface{}, totalCount int, err error) {
+	postModelBuilder.Listing().SearchFunc(func(model interface{}, params *presets.SearchParams, ctx *web.EventContext) (r interface{}, totalCount int, err error) {
 		qdb := db.Where("disabled != true")
 		return gorm2op.DataOperator(qdb).Search(model, params, ctx)
-	}
+	})
 
 	rmn := postModelBuilder.Listing().RowMenu()
 	rmn.RowMenuItem("Show").
