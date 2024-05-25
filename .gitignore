@@ -1,3 +1,4 @@
 .idea
 .DS_Store
 _tmp
+__debug_*
