@@ -2,47 +2,30 @@ package integration_test
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http/httptest"
-	"strconv"
-	"strings"
 	"testing"
-	"time"
 
 	"github.com/qor5/admin/v3/utils/testflow"
 	"github.com/qor5/web/v3/multipartestutils"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/theplant/gofixtures"
 )
-
-var dataSeedForFlowDuplicate = gofixtures.Data(gofixtures.Sql(`
-INSERT INTO "public"."with_publish_products" ("id", "created_at", "updated_at", "deleted_at", "name", "price", "status", "online_url", "scheduled_start_at", "scheduled_end_at", "actual_start_at", "actual_end_at", "version", "version_name", "parent_version") VALUES ('1', '2024-05-26 13:12:06.408234+00', '2024-05-26 13:12:06.408234+00', NULL, 'FirstProduct', '123', 'draft', '', NULL, NULL, NULL, NULL, '2024-05-26-v01', '2024-05-26-v01', '');
-`, []string{"with_publish_products"}))
 
 type FlowDuplicate struct {
 	*Flow
-
-	ID          string
-	DuplicateID string
 }
 
 func TestFlowDuplicate(t *testing.T) {
-	dataSeedForFlowDuplicate.TruncatePut(SQLDB)
 	flowDuplicate(t, &FlowDuplicate{
 		Flow: &Flow{
 			db: DB, h: PresetsBuilder,
 		},
-		ID: "1_2024-05-26-v01",
 	})
 }
 
 func flowDuplicate(t *testing.T, f *FlowDuplicate) {
 	flowDuplicate_Step00_Event_presets_DetailingDrawer(t, f)
 
-	var err error
-	f.DuplicateID, err = getNextVersion(f.ID)
-	assert.NoError(t, err)
 	flowDuplicate_Step01_Event_publish_EventDuplicateVersion(t, f)
 
 	flowDuplicate_Step02_Event___reload__(t, f)
@@ -54,7 +37,7 @@ func flowDuplicate_Step00_Event_presets_DetailingDrawer(t *testing.T, f *FlowDup
 	r := multipartestutils.NewMultipartBuilder().
 		PageURL("/samples/publish/with-publish-products").
 		EventFunc("presets_DetailingDrawer").
-		Query("id", f.ID).
+		Query("id", "1_2024-05-26-v01").
 		BuildEventFuncRequest()
 
 	w := httptest.NewRecorder()
@@ -73,7 +56,7 @@ func flowDuplicate_Step00_Event_presets_DetailingDrawer(t *testing.T, f *FlowDup
 	assert.Equal(t, "setTimeout(function(){ vars.presetsRightDrawer = true }, 100)", resp.RunScript)
 
 	testflow.Validate(t, w, r,
-		testflow.OpenRightDrawer("WithPublishProduct "+f.ID),
+		testflow.OpenRightDrawer("WithPublishProduct 1_2024-05-26-v01"),
 	)
 
 	return testflow.NewThen(t, w, r)
@@ -83,7 +66,7 @@ func flowDuplicate_Step01_Event_publish_EventDuplicateVersion(t *testing.T, f *F
 	r := multipartestutils.NewMultipartBuilder().
 		PageURL("/samples/publish/with-publish-products").
 		EventFunc("publish_EventDuplicateVersion").
-		Query("id", f.ID).
+		Query("id", "1_2024-05-26-v01").
 		BuildEventFuncRequest()
 
 	w := httptest.NewRecorder()
@@ -98,7 +81,7 @@ func flowDuplicate_Step01_Event_publish_EventDuplicateVersion(t *testing.T, f *F
 	assert.Empty(t, resp.ReloadPortals)
 	assert.Empty(t, resp.UpdatePortals)
 	assert.Nil(t, resp.Data)
-	assert.Equal(t, "plaid().vars(vars).locals(locals).form(form).go().then(function(r){ vars.presetsListingDialog = false; vars.presetsRightDrawer = false; plaid().vars(vars).locals(locals).form(form).eventFunc(\"presets_DetailingDrawer\").query(\"id\", \""+f.DuplicateID+"\").go(); vars.presetsMessage = { show: true, message: \"Successfully Created\", color: \"success\"} })", resp.RunScript)
+	assert.Equal(t, "plaid().vars(vars).locals(locals).form(form).go().then(function(r){ vars.presetsListingDialog = false; vars.presetsRightDrawer = false; plaid().vars(vars).locals(locals).form(form).eventFunc(\"presets_DetailingDrawer\").query(\"id\", \"1_2024-05-26-v02\").go(); vars.presetsMessage = { show: true, message: \"Successfully Created\", color: \"success\"} })", resp.RunScript)
 
 	return testflow.NewThen(t, w, r)
 }
@@ -130,7 +113,7 @@ func flowDuplicate_Step03_Event_presets_DetailingDrawer(t *testing.T, f *FlowDup
 	r := multipartestutils.NewMultipartBuilder().
 		PageURL("/samples/publish/with-publish-products").
 		EventFunc("presets_DetailingDrawer").
-		Query("id", f.DuplicateID).
+		Query("id", "1_2024-05-26-v02").
 		BuildEventFuncRequest()
 
 	w := httptest.NewRecorder()
@@ -149,40 +132,8 @@ func flowDuplicate_Step03_Event_presets_DetailingDrawer(t *testing.T, f *FlowDup
 	assert.Equal(t, "setTimeout(function(){ vars.presetsRightDrawer = true }, 100)", resp.RunScript)
 
 	testflow.Validate(t, w, r,
-		testflow.OpenRightDrawer("WithPublishProduct "+f.DuplicateID),
+		testflow.OpenRightDrawer("WithPublishProduct 1_2024-05-26-v02"),
 	)
 
 	return testflow.NewThen(t, w, r)
-}
-
-func getNextVersion(currentVersion string) (string, error) {
-	parts := strings.Split(currentVersion, "_")
-	if len(parts) != 2 {
-		return "", fmt.Errorf("invalid version format")
-	}
-
-	id := parts[0]
-	dateVersionPart := parts[1]
-	dateVersion := strings.Split(dateVersionPart, "-")
-	if len(dateVersion) != 4 {
-		return "", fmt.Errorf("invalid date-version part format")
-	}
-
-	dateStr, versionStr := strings.Join(dateVersion[0:3], "-"), dateVersion[3]
-	versionNumberStr := strings.TrimPrefix(versionStr, "v")
-	versionNumber, err := strconv.Atoi(versionNumberStr)
-	if err != nil {
-		return "", fmt.Errorf("invalid version number")
-	}
-
-	currentDate := time.Now().UTC().Format("2006-01-02")
-
-	var nextVersion string
-	if dateStr == currentDate {
-		nextVersion = fmt.Sprintf("%s_%s-v%02d", id, currentDate, versionNumber+1)
-	} else {
-		nextVersion = fmt.Sprintf("%s_%s-v01", id, currentDate)
-	}
-
-	return nextVersion, nil
 }

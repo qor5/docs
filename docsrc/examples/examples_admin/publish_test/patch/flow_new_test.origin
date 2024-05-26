@@ -2,55 +2,33 @@ package integration_test
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http/httptest"
 	"testing"
-	"time"
 
 	"github.com/qor5/admin/v3/utils/testflow"
-	"github.com/qor5/docs/v3/docsrc/examples/examples_admin"
 	"github.com/qor5/web/v3/multipartestutils"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/theplant/gofixtures"
 )
-
-var dataEmptyForFlowNew = gofixtures.Data(gofixtures.Sql(``, []string{"with_publish_products"}))
 
 type FlowNew struct {
 	*Flow
-
-	Name  string
-	Price int
 }
 
 func TestFlowNew(t *testing.T) {
-	dataEmptyForFlowNew.TruncatePut(SQLDB)
-
 	flowNew(t, &FlowNew{
 		Flow: &Flow{
 			db: DB, h: PresetsBuilder,
 		},
-		Name:  "TestProduct",
-		Price: 234,
 	})
 }
 
 func flowNew(t *testing.T, f *FlowNew) {
-	previous := time.Now()
-
 	flowNew_Step00_Event_presets_New(t, f)
 
 	flowNew_Step01_Event_presets_Update(t, f)
 
 	flowNew_Step02_Event___reload__(t, f)
-
-	{
-		var m examples_admin.WithPublishProduct
-		assert.NoError(t, f.db.Where("created_at > ?", previous).Order("created_at DESC").First(&m).Error)
-		assert.Equal(t, f.Name, m.Name)
-		assert.Equal(t, f.Price, m.Price)
-	}
 }
 
 func flowNew_Step00_Event_presets_New(t *testing.T, f *FlowNew) *testflow.Then {
@@ -85,8 +63,8 @@ func flowNew_Step01_Event_presets_Update(t *testing.T, f *FlowNew) *testflow.The
 	r := multipartestutils.NewMultipartBuilder().
 		PageURL("/samples/publish/with-publish-products").
 		EventFunc("presets_Update").
-		AddField("Name", f.Name).
-		AddField("Price", fmt.Sprint(f.Price)).
+		AddField("Name", "FirstProduct").
+		AddField("Price", "123").
 		BuildEventFuncRequest()
 
 	w := httptest.NewRecorder()
