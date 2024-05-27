@@ -1,6 +1,7 @@
 package examples_presets
 
 import (
+	"database/sql"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -12,7 +13,10 @@ import (
 	"gorm.io/gorm"
 )
 
-var TestDB *gorm.DB
+var (
+	TestDB *gorm.DB
+	SqlDB  *sql.DB
+)
 
 func TestMain(m *testing.M) {
 	env, err := testenv.New().DBEnable(true).SetUp()
@@ -21,6 +25,7 @@ func TestMain(m *testing.M) {
 	}
 	defer env.TearDown()
 	TestDB = env.DB
+	SqlDB, _ = TestDB.DB()
 	m.Run()
 }
 
