@@ -109,8 +109,8 @@ github.com/jackc/pgpassfile v1.0.0 h1:/6Hmqy13Ss2zCq62VdNG8tM1wchn8zjSGOBJ6icpsI
 github.com/jackc/pgpassfile v1.0.0/go.mod h1:CEx0iS5ambNFdcRtxPj5JhEz+xB6uRky5eyVu/W2HEg=
 github.com/jackc/pgservicefile v0.0.0-20231201235250-de7065d80cb9 h1:L0QtFUgDarD7Fpv9jeVMgy/+Ec0mtnmYuImjTz6dtDA=
 github.com/jackc/pgservicefile v0.0.0-20231201235250-de7065d80cb9/go.mod h1:5TJZWKEWniPve33vlWYSoGYefn3gLQRzjfDlhSJ9ZKM=
-github.com/jackc/pgx/v5 v5.5.5 h1:amBjrZVmksIdNjxGW/IiIMzxMKZFelXbUoPNb+8sjQw=
-github.com/jackc/pgx/v5 v5.5.5/go.mod h1:ez9gk+OAat140fv9ErkZDYFWmXLfV+++K0uAOiwgm1A=
+github.com/jackc/pgx/v5 v5.6.0 h1:SWJzexBzPL5jb0GEsrPMLIsi/3jOo7RHlzTjcAeDrPY=
+github.com/jackc/pgx/v5 v5.6.0/go.mod h1:DNZ/vlrUnhWCoFGxHAG8U2ljioxukquj7utPDgtQdTw=
 github.com/jackc/puddle/v2 v2.2.1 h1:RhxXJtFG022u4ibrCSMSiu5aOq1i77R3OHKNJj77OAk=
 github.com/jackc/puddle/v2 v2.2.1/go.mod h1:vriiEXHvEE654aYKXXjOvZM39qJ0q+azkZFrfEOc3H4=
 github.com/jinzhu/inflection v1.0.0 h1:K317FqzuhWc8YvSVlFMCCUb36O/S9MCKRDI7QkRKD/E=
@@ -211,8 +211,8 @@ github.com/testcontainers/testcontainers-go v0.31.0 h1:W0VwIhcEVhRflwL9as3dhY6jX
 github.com/testcontainers/testcontainers-go v0.31.0/go.mod h1:D2lAoA0zUFiSY+eAflqK5mcUx/A5hrrORaEQrd0SefI=
 github.com/theplant/docgo v0.0.17-0.20240415034737-f4b6f499c087 h1:1VwOn1JXLfmLlAG163BGokk+qd6KbcdZS/6LTXdUHP4=
 github.com/theplant/docgo v0.0.17-0.20240415034737-f4b6f499c087/go.mod h1:7mFVFNxuKVAHyuwb7OWOv36JcQJ4j76dotiV/ug7xGw=
-github.com/theplant/gofixtures v1.1.1 h1:E+rppASWGnBlSj227DNaj8TpSKr0k2kEpmiwkmYQNdY=
-github.com/theplant/gofixtures v1.1.1/go.mod h1:xj1FH4LEkMrDAT9A/c7S6Pe8w+mwtc66NWWn0H4MhPg=
+github.com/theplant/gofixtures v1.1.2 h1:moZsJvcLtpz6deUmsoxb1VUacey3vrG+xJo7ku3diFQ=
+github.com/theplant/gofixtures v1.1.2/go.mod h1:d1zNj4SxUry0gSJc12ODB/kx6SxO09XTGDTWYgIvY4M=
 github.com/theplant/htmlgo v1.0.3 h1:G7/YSf8OrOIRHVQ13avd78T/GV1kDl/jMwpQURrXB0o=
 github.com/theplant/htmlgo v1.0.3/go.mod h1:pCKSFJsoVNkyW+yN2i1Mst+8130NSQzIU7L2IbnuyKg=
 github.com/theplant/htmltestingutils v0.0.0-20190423050759-0e06de7b6967 h1:yPrgtU8bj7Q/XbXgjjmngZtOhsUufBAraruNwxv/eXM=
@@ -223,8 +223,8 @@ github.com/theplant/sliceutils v0.0.0-20200406042209-89153d988eb1 h1:EP+XW/tiUH8
 github.com/theplant/sliceutils v0.0.0-20200406042209-89153d988eb1/go.mod h1:+y978w//UsVK85wVF9XJey9qTGDv+4kQc8v3Mf/ZjmE=
 github.com/theplant/testenv v0.0.0-20240513012518-1c94c8c84239 h1:hoqkz7fn4LHAQFKDoY086SNsGG0l9oNgJp0CTkczIlU=
 github.com/theplant/testenv v0.0.0-20240513012518-1c94c8c84239/go.mod h1:sjXyolZ/Mkuh4i5GlAk0NJSPmjJVWgyeMjts0jCV/Xg=
-github.com/theplant/testingutils v0.0.0-20240326065615-ab2586803ce4 h1:3c6o1DpsFq4u6q7twLE3GxoBERsFNI5+tg+7k8Ivh00=
-github.com/theplant/testingutils v0.0.0-20240326065615-ab2586803ce4/go.mod h1:nh7wj3YTJehg0PBHnPXtvqIqdnBUn0Gqb79JHnblFuc=
+github.com/theplant/testingutils v0.0.1 h1:wlvFtKSahEdUXDO8QPsb8AdjEg5L1MypEr/KNGfcsHE=
+github.com/theplant/testingutils v0.0.1/go.mod h1:nh7wj3YTJehg0PBHnPXtvqIqdnBUn0Gqb79JHnblFuc=
 github.com/tklauser/go-sysconf v0.3.12/go.mod h1:Ho14jnntGE1fpdOqQEEaiKRpvIavV0hSfmBq8nJbHYI=
 github.com/tklauser/go-sysconf v0.3.14 h1:g5vzr9iPFFz24v2KZXs/pvpvh8/V9Fw6vQK5ZZb78yU=
 github.com/tklauser/go-sysconf v0.3.14/go.mod h1:1ym4lWMLUOhuBOPGtRcJm7tEGX4SCYNEEEtghGG/8uY=

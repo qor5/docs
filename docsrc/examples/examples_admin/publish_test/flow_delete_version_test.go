@@ -1,4 +1,4 @@
-package integration_test
+package publish_test
 
 import (
 	"encoding/json"

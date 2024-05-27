@@ -1,19 +1,23 @@
-package integration_test
+package publish_test
 
 import (
 	"encoding/json"
 	"fmt"
+	"net/http"
 	"net/http/httptest"
 	"strconv"
 	"strings"
 	"testing"
 	"time"
 
+	"github.com/qor5/admin/v3/publish"
 	"github.com/qor5/admin/v3/utils/testflow"
+	"github.com/qor5/docs/v3/docsrc/examples/examples_admin"
 	"github.com/qor5/web/v3/multipartestutils"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"github.com/theplant/gofixtures"
+	"gorm.io/gorm"
 )
 
 var dataSeedForFlowDuplicate = gofixtures.Data(gofixtures.Sql(`
@@ -38,15 +42,48 @@ func TestFlowDuplicate(t *testing.T) {
 }
 
 func flowDuplicate(t *testing.T, f *FlowDuplicate) {
-	flowDuplicate_Step00_Event_presets_DetailingDrawer(t, f)
+	oid, over := mustIDVersion(f.ID)
 
+	// ensure old
+	var from examples_admin.WithPublishProduct
+	require.NoError(t, f.db.Where("id = ? AND version = ?", oid, over).First(&from).Error)
+
+	flowDuplicate_Step00_Event_presets_DetailingDrawer(t, f).Then(func(t *testing.T, w *httptest.ResponseRecorder, r *http.Request) {
+		assert.True(t, ContainsVersionBar(w.Body.String()))
+	})
+
+	// ensure new not exists
 	var err error
 	f.DuplicateID, err = getNextVersion(f.ID)
 	assert.NoError(t, err)
+
+	nid, nver := mustIDVersion(f.DuplicateID)
+	assert.ErrorIs(t, f.db.Where("id = ? AND version = ?", nid, nver).First(&examples_admin.WithPublishProduct{}).Error, gorm.ErrRecordNotFound)
+
+	// RunScript inside ensures its interaction: reload.then(openDrawer)
 	flowDuplicate_Step01_Event_publish_EventDuplicateVersion(t, f)
 
+	// ensure new exists
+	var m examples_admin.WithPublishProduct
+	require.NoError(t, f.db.Where("id = ? AND version = ?", nid, nver).First(&m).Error)
+
+	// for compare, change from to as expected
+	// TODO: maybe need handle multiple pkey ?
+	from.Model = gorm.Model{}
+	from.Status = publish.Status{Status: publish.StatusDraft}
+	from.Schedule = publish.Schedule{}
+	from.Version = publish.Version{
+		Version:       nver,
+		VersionName:   nver,
+		ParentVersion: from.Version.Version,
+	}
+	m.Model = gorm.Model{}
+	assert.Equal(t, from, m)
+
+	// ensure the list reload first
 	flowDuplicate_Step02_Event___reload__(t, f)
 
+	// ensure it can be opened
 	flowDuplicate_Step03_Event_presets_DetailingDrawer(t, f)
 }
 

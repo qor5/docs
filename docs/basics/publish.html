@@ -240,7 +240,7 @@
 
 <div>
 <div class='demo'>
-<a href='/samples/publish/products' target='_blank'>Check the demo</a>
+<a href='/samples/publish/with-publish-products' target='_blank'>Check the demo</a>
  | 
 <a href='https://github.com/qor5/docs/tree/vue3/docsrc/examples/examples_admin/publish.go#L53-L69' target='_blank'>Source on GitHub</a>
 </div>
@@ -260,7 +260,7 @@ If a record has <code>ScheduledEndAt</code> set, and the current time is larger 
 <h3 id="version">Version</h3>
 <p><code>Version</code> module allows one record to have multiple copies, with Schedule, you can even schedule different prices of a product for a whole year.</p>
 
-<highlightjs :language='"go"' :code='"type Version struct {\n\tVersion       string `gorm:\"primary_key;size:128;not null;default:null\"`\n\tVersionName   string\n\tParentVersion string\n}\n"'></highlightjs>
+<highlightjs :language='"go"' :code='"type Version struct {\n\tVersion       string `gorm:\"primary_key;size:128;not null;\"`\n\tVersionName   string\n\tParentVersion string\n}\n"'></highlightjs>
 <p>The <code>Version</code> will be the primary key. By default, the <code>Version</code> value will be <code>YYYY-MM-DD-vSeq</code>, e.g. <code>2006-01-02-v01</code>. And you can rename a version on interface, which will modify the value of <code>VersionName</code>.</p>
 <h3 id="list">List</h3>
 <p><code>List</code> module publishes list page of resource.</p>

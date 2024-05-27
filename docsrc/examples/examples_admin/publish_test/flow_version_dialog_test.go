@@ -1,4 +1,4 @@
-package integration_test
+package publish_test
 
 import (
 	"encoding/json"
@@ -23,6 +23,9 @@ INSERT INTO "public"."with_publish_products" ("id", "created_at", "updated_at", 
 
 type FlowVersionDialog struct {
 	*Flow
+
+	SelectID  string
+	DisplayID string
 }
 
 func TestFlowVersionDialog(t *testing.T) {
@@ -35,43 +38,69 @@ func TestFlowVersionDialog(t *testing.T) {
 }
 
 func flowVersionDialog(t *testing.T, f *FlowVersionDialog) {
-	flowVersionDialog_Step00_Event_presets_DetailingDrawer(t, f)
+	// 强依赖种子数据，所以写死在这里
+	f.SelectID = "1_2024-05-26-v06"
+	f.DisplayID = "1_2024-05-26-v06"
 
+	flowVersionDialog_Step00_Event_presets_DetailingDrawer(t, f)
+	// TODO: 需要确认返回内容里的 vars.publish_VarCurrentDisplayID = xxx 的这句
+
+	ensureListDisplay := func() testflow.ValidatorFunc {
+		return testflow.ContainsInOrderAtUpdatePortal(0,
+			// 确认 tab 显示
+			"active_filter_tab", "all", "f_all", "f_select_id", f.SelectID, "All Versions",
+			"active_filter_tab", "online_versions", "f_online_versions", "f_select_id", f.SelectID, "Online Versions",
+			"active_filter_tab", "named_versions", "f_named_versions", "f_select_id", f.SelectID, "Named Versions",
+			// 确认列名显示
+			"<tr>", "<th>Version</th>", "<th>State</th>", "<th>Start at</th>", "<th>End at</th>", "<th>Unread Notes</th>", "<th>Option</th>", "</tr>",
+			// TODO: 确认显示的是 version_name 而并非是 version
+
+			// TODO: 需要确认 vars.publish_VarCurrentDisplayID 是否匹配
+		)
+	}
 	// 打开版本列表
-	flowVersionDialog_Step01_Event_presets_OpenListingDialog(t, f)
+	flowVersionDialog_Step01_Event_presets_OpenListingDialog(t, f).ThenValidate(ensureListDisplay())
 
 	// 切换选择
-	flowVersionDialog_Step02_Event_presets_UpdateListingDialog(t, f)
+	f.SelectID = "1_2024-05-26-v05"
+	flowVersionDialog_Step02_Event_presets_UpdateListingDialog(t, f).ThenValidate(ensureListDisplay())
 
 	// 切换 tab
-	flowVersionDialog_Step03_Event_presets_UpdateListingDialog(t, f)
+	flowVersionDialog_Step03_Event_presets_UpdateListingDialog(t, f).ThenValidate(ensureListDisplay())
 
 	// 切换选择
-	flowVersionDialog_Step04_Event_presets_UpdateListingDialog(t, f)
+	f.SelectID = "1_2024-05-26-v04"
+	flowVersionDialog_Step04_Event_presets_UpdateListingDialog(t, f).ThenValidate(ensureListDisplay())
 
 	// 关键词 A
-	flowVersionDialog_Step05_Event_presets_UpdateListingDialog(t, f)
+	flowVersionDialog_Step05_Event_presets_UpdateListingDialog(t, f).ThenValidate(ensureListDisplay())
+	// TODO: 需要确认结果对不对
 
 	// 关键词 B
-	flowVersionDialog_Step06_Event_presets_UpdateListingDialog(t, f)
+	flowVersionDialog_Step06_Event_presets_UpdateListingDialog(t, f).ThenValidate(ensureListDisplay())
+	// TODO: 需要确认结果对不对
 
 	// 选中当前显示
-	flowVersionDialog_Step07_Event_presets_UpdateListingDialog(t, f)
+	f.SelectID = f.DisplayID
+	flowVersionDialog_Step07_Event_presets_UpdateListingDialog(t, f).ThenValidate(ensureListDisplay())
 
 	// 确认选择，即点击 Save
 	flowVersionDialog_Step08_Event_publish_eventSelectVersion(t, f)
 
 	// 再次打开版本列表
-	flowVersionDialog_Step09_Event_presets_OpenListingDialog(t, f)
+	flowVersionDialog_Step09_Event_presets_OpenListingDialog(t, f).ThenValidate(ensureListDisplay())
 
 	// 选择非当前显示
-	flowVersionDialog_Step10_Event_presets_UpdateListingDialog(t, f)
+	f.SelectID = "1_2024-05-26-v05"
+	flowVersionDialog_Step10_Event_presets_UpdateListingDialog(t, f).ThenValidate(ensureListDisplay())
 
 	// 确认选择
 	flowVersionDialog_Step11_Event_publish_eventSelectVersion(t, f)
 
 	// 被要求打开新选择的 Drawer
+	f.DisplayID = f.SelectID
 	flowVersionDialog_Step12_Event_presets_DetailingDrawer(t, f)
+	// TODO: 这点需要 check
 }
 
 func flowVersionDialog_Step00_Event_presets_DetailingDrawer(t *testing.T, f *FlowVersionDialog) *testflow.Then {
@@ -79,7 +108,6 @@ func flowVersionDialog_Step00_Event_presets_DetailingDrawer(t *testing.T, f *Flo
 		PageURL("/samples/publish/with-publish-products").
 		EventFunc("presets_DetailingDrawer").
 		Query("id", "1_2024-05-26-v06").
-		AddField("VersionName", "2024-05-26-x04").
 		BuildEventFuncRequest()
 
 	w := httptest.NewRecorder()

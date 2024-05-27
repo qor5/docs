@@ -19,7 +19,7 @@ require (
 	github.com/sunfmin/reflectutils v1.0.4
 	github.com/sunfmin/snippetgo v0.0.2
 	github.com/theplant/docgo v0.0.17-0.20240415034737-f4b6f499c087
-	github.com/theplant/gofixtures v1.1.1
+	github.com/theplant/gofixtures v1.1.2
 	github.com/theplant/htmlgo v1.0.3
 	github.com/theplant/osenv v0.0.1
 	github.com/theplant/testenv v0.0.0-20240513012518-1c94c8c84239
@@ -68,7 +68,7 @@ require (
 	github.com/iancoleman/strcase v0.3.0 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20231201235250-de7065d80cb9 // indirect
-	github.com/jackc/pgx/v5 v5.5.5 // indirect
+	github.com/jackc/pgx/v5 v5.6.0 // indirect
 	github.com/jackc/puddle/v2 v2.2.1 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
