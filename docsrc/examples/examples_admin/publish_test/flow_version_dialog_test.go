@@ -2,11 +2,18 @@ package publish_test
 
 import (
 	"encoding/json"
+	"fmt"
+	"net/http"
 	"net/http/httptest"
+	"regexp"
+	"strconv"
+	"strings"
 	"testing"
 
 	"github.com/qor5/admin/v3/utils/testflow"
+	"github.com/qor5/docs/v3/docsrc/examples/examples_admin"
 	"github.com/qor5/web/v3/multipartestutils"
+	"github.com/samber/lo"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"github.com/theplant/gofixtures"
@@ -23,9 +30,6 @@ INSERT INTO "public"."with_publish_products" ("id", "created_at", "updated_at", 
 
 type FlowVersionDialog struct {
 	*Flow
-
-	SelectID  string
-	DisplayID string
 }
 
 func TestFlowVersionDialog(t *testing.T) {
@@ -38,67 +42,100 @@ func TestFlowVersionDialog(t *testing.T) {
 }
 
 func flowVersionDialog(t *testing.T, f *FlowVersionDialog) {
-	// 强依赖种子数据，所以写死在这里
-	f.SelectID = "1_2024-05-26-v06"
-	f.DisplayID = "1_2024-05-26-v06"
+	displayID := "1_2024-05-26-v06"
 
-	flowVersionDialog_Step00_Event_presets_DetailingDrawer(t, f)
-	// TODO: 需要确认返回内容里的 vars.publish_VarCurrentDisplayID = xxx 的这句
+	models := []*examples_admin.WithPublishProduct{}
+	id, _ := mustIDVersion(displayID)
+	require.NoError(t, f.db.Where("id = ?", id).Order("version DESC").Find(&models).Error)
+	assert.Len(t, models, 6)
 
+	flowVersionDialog_Step00_Event_presets_DetailingDrawer(t, f).ThenValidate(
+		// ensure current display id would be set
+		testflow.ContainsInOrderAtUpdatePortal(0, "<v-chip", fmt.Sprintf(`vars.publish_VarCurrentDisplayID = %q`, displayID), "</v-chip>"),
+	)
+
+	selectID := displayID
+	dislayModels := models
 	ensureListDisplay := func() testflow.ValidatorFunc {
-		return testflow.ContainsInOrderAtUpdatePortal(0,
-			// 确认 tab 显示
-			"active_filter_tab", "all", "f_all", "f_select_id", f.SelectID, "All Versions",
-			"active_filter_tab", "online_versions", "f_online_versions", "f_select_id", f.SelectID, "Online Versions",
-			"active_filter_tab", "named_versions", "f_named_versions", "f_select_id", f.SelectID, "Named Versions",
-			// 确认列名显示
-			"<tr>", "<th>Version</th>", "<th>State</th>", "<th>Start at</th>", "<th>End at</th>", "<th>Unread Notes</th>", "<th>Option</th>", "</tr>",
-			// TODO: 确认显示的是 version_name 而并非是 version
-
+		return testflow.Combine(
+			// ensure list head display
+			testflow.ContainsInOrderAtUpdatePortal(0,
+				// 确认 tab 显示
+				"<v-tabs",
+				"active_filter_tab", "all", "f_all", "f_select_id", selectID, "All Versions",
+				"active_filter_tab", "online_versions", "f_online_versions", "f_select_id", selectID, "Online Versions",
+				"active_filter_tab", "named_versions", "f_named_versions", "f_select_id", selectID, "Named Versions",
+				"</v-tabs>",
+				// 确认列名显示
+				"<tr>", "<th>Version</th>", "<th>State</th>", "<th>Start at</th>", "<th>End at</th>", "<th>Unread Notes</th>", "<th>Option</th>", "</tr>",
 			// TODO: 需要确认 vars.publish_VarCurrentDisplayID 是否匹配
+			),
+			// ensure list content display
+			testflow.WrapEvent(func(t *testing.T, w *httptest.ResponseRecorder, r *http.Request, e multipartestutils.TestEventResponse) {
+				subs := regexp.MustCompile(`<tr[\s\S]+?<td>[\s\S]+?<v-radio :model-value='([^']+)'\s*:true-value='([^']+)'[\s\S]+?</v-radio>\s*([^<]+)?\s*</div>[\s\S]+?</tr>`).FindAllStringSubmatch(e.UpdatePortals[0].Body, -1)
+				assert.Len(t, subs, len(dislayModels))
+				for i, sub := range subs {
+					// 确认只有被选择项目被打标，确认显示的是版本名称，而非原始版本号
+					modelValue, _ := strconv.Unquote(sub[1])
+					trueValue, _ := strconv.Unquote(sub[2])
+					assert.Equal(t, dislayModels[i].PrimarySlug(), modelValue)
+					assert.Equal(t, selectID, trueValue)
+					assert.Equal(t, dislayModels[i].Version.VersionName, sub[3])
+				}
+			}),
 		)
 	}
+
 	// 打开版本列表
 	flowVersionDialog_Step01_Event_presets_OpenListingDialog(t, f).ThenValidate(ensureListDisplay())
 
 	// 切换选择
-	f.SelectID = "1_2024-05-26-v05"
+	selectID = "1_2024-05-26-v05"
 	flowVersionDialog_Step02_Event_presets_UpdateListingDialog(t, f).ThenValidate(ensureListDisplay())
 
-	// 切换 tab
+	// 切换 tab 至 named_version
+	namedModels := lo.Filter(models, func(item *examples_admin.WithPublishProduct, index int) bool {
+		return item.Version.VersionName != item.Version.Version
+	})
+	dislayModels = namedModels
 	flowVersionDialog_Step03_Event_presets_UpdateListingDialog(t, f).ThenValidate(ensureListDisplay())
 
 	// 切换选择
-	f.SelectID = "1_2024-05-26-v04"
+	selectID = "1_2024-05-26-v04"
 	flowVersionDialog_Step04_Event_presets_UpdateListingDialog(t, f).ThenValidate(ensureListDisplay())
 
 	// 关键词 A
+	dislayModels = lo.Filter(namedModels, func(item *examples_admin.WithPublishProduct, index int) bool {
+		return strings.Contains(item.Version.VersionName, "2025") // TODO: 需要优化
+	})
 	flowVersionDialog_Step05_Event_presets_UpdateListingDialog(t, f).ThenValidate(ensureListDisplay())
-	// TODO: 需要确认结果对不对
 
 	// 关键词 B
+	dislayModels = lo.Filter(namedModels, func(item *examples_admin.WithPublishProduct, index int) bool {
+		return strings.Contains(item.Version.VersionName, "2024") // TODO: 需要优化
+	})
 	flowVersionDialog_Step06_Event_presets_UpdateListingDialog(t, f).ThenValidate(ensureListDisplay())
-	// TODO: 需要确认结果对不对
 
 	// 选中当前显示
-	f.SelectID = f.DisplayID
+	selectID = displayID
 	flowVersionDialog_Step07_Event_presets_UpdateListingDialog(t, f).ThenValidate(ensureListDisplay())
 
 	// 确认选择，即点击 Save
 	flowVersionDialog_Step08_Event_publish_eventSelectVersion(t, f)
 
 	// 再次打开版本列表
+	dislayModels = models
 	flowVersionDialog_Step09_Event_presets_OpenListingDialog(t, f).ThenValidate(ensureListDisplay())
 
 	// 选择非当前显示
-	f.SelectID = "1_2024-05-26-v05"
+	selectID = "1_2024-05-26-v05"
 	flowVersionDialog_Step10_Event_presets_UpdateListingDialog(t, f).ThenValidate(ensureListDisplay())
 
 	// 确认选择
 	flowVersionDialog_Step11_Event_publish_eventSelectVersion(t, f)
 
 	// 被要求打开新选择的 Drawer
-	f.DisplayID = f.SelectID
+	displayID = selectID
 	flowVersionDialog_Step12_Event_presets_DetailingDrawer(t, f)
 	// TODO: 这点需要 check
 }
