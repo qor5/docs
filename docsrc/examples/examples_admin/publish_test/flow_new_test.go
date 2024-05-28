@@ -43,7 +43,7 @@ func flowNew(t *testing.T, f *FlowNew) {
 	previous := time.Now()
 
 	flowNew_Step00_Event_presets_New(t, f).Then(func(t *testing.T, w *httptest.ResponseRecorder, r *http.Request) {
-		assert.False(t, ContainsVersionBar(w.Body.String()))
+		assert.False(t, containsVersionBar(w.Body.String()))
 	})
 
 	// PushStateNotNil inside ensures its interaction: reload

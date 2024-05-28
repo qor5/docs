@@ -2,13 +2,9 @@ package publish_test
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"net/http/httptest"
-	"strconv"
-	"strings"
 	"testing"
-	"time"
 
 	"github.com/qor5/admin/v3/publish"
 	"github.com/qor5/admin/v3/utils/testflow"
@@ -27,7 +23,10 @@ INSERT INTO "public"."with_publish_products" ("id", "created_at", "updated_at", 
 type FlowDuplicate struct {
 	*Flow
 
-	ID          string
+	// params
+	ID string
+
+	// flow vars
 	DuplicateID string
 }
 
@@ -44,18 +43,18 @@ func TestFlowDuplicate(t *testing.T) {
 func flowDuplicate(t *testing.T, f *FlowDuplicate) {
 	oid, over := mustIDVersion(f.ID)
 
-	// ensure old
+	// ensure old exists
 	var from examples_admin.WithPublishProduct
 	require.NoError(t, f.db.Where("id = ? AND version = ?", oid, over).First(&from).Error)
 
 	flowDuplicate_Step00_Event_presets_DetailingDrawer(t, f).Then(func(t *testing.T, w *httptest.ResponseRecorder, r *http.Request) {
-		assert.True(t, ContainsVersionBar(w.Body.String()))
+		assert.True(t, containsVersionBar(w.Body.String()))
 	})
 
 	// ensure new not exists
-	var err error
-	f.DuplicateID, err = getNextVersion(f.ID)
+	nextVersion, err := getNextVersion(f.ID)
 	assert.NoError(t, err)
+	f.DuplicateID = nextVersion
 
 	nid, nver := mustIDVersion(f.DuplicateID)
 	assert.ErrorIs(t, f.db.Where("id = ? AND version = ?", nid, nver).First(&examples_admin.WithPublishProduct{}).Error, gorm.ErrRecordNotFound)
@@ -112,7 +111,6 @@ func flowDuplicate_Step00_Event_presets_DetailingDrawer(t *testing.T, f *FlowDup
 	testflow.Validate(t, w, r,
 		testflow.OpenRightDrawer("WithPublishProduct "+f.ID),
 	)
-
 	return testflow.NewThen(t, w, r)
 }
 
@@ -190,36 +188,4 @@ func flowDuplicate_Step03_Event_presets_DetailingDrawer(t *testing.T, f *FlowDup
 	)
 
 	return testflow.NewThen(t, w, r)
-}
-
-func getNextVersion(currentVersion string) (string, error) {
-	parts := strings.Split(currentVersion, "_")
-	if len(parts) != 2 {
-		return "", fmt.Errorf("invalid version format")
-	}
-
-	id := parts[0]
-	dateVersionPart := parts[1]
-	dateVersion := strings.Split(dateVersionPart, "-")
-	if len(dateVersion) != 4 {
-		return "", fmt.Errorf("invalid date-version part format")
-	}
-
-	dateStr, versionStr := strings.Join(dateVersion[0:3], "-"), dateVersion[3]
-	versionNumberStr := strings.TrimPrefix(versionStr, "v")
-	versionNumber, err := strconv.Atoi(versionNumberStr)
-	if err != nil {
-		return "", fmt.Errorf("invalid version number")
-	}
-
-	currentDate := time.Now().UTC().Format("2006-01-02")
-
-	var nextVersion string
-	if dateStr == currentDate {
-		nextVersion = fmt.Sprintf("%s_%s-v%02d", id, currentDate, versionNumber+1)
-	} else {
-		nextVersion = fmt.Sprintf("%s_%s-v01", id, currentDate)
-	}
-
-	return nextVersion, nil
 }
