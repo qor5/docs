@@ -41,22 +41,22 @@ func TestFlowDuplicate(t *testing.T) {
 }
 
 func flowDuplicate(t *testing.T, f *FlowDuplicate) {
-	oid, over := mustIDVersion(f.ID)
+	oid, over := MustIDVersion(f.ID)
 
 	// ensure old exists
 	var from examples_admin.WithPublishProduct
 	require.NoError(t, f.db.Where("id = ? AND version = ?", oid, over).First(&from).Error)
 
 	flowDuplicate_Step00_Event_presets_DetailingDrawer(t, f).Then(func(t *testing.T, w *httptest.ResponseRecorder, r *http.Request) {
-		assert.True(t, containsVersionBar(w.Body.String()))
+		assert.True(t, ContainsVersionBar(w.Body.String()))
 	})
 
 	// ensure new not exists
-	nextVersion, err := getNextVersion(f.ID)
+	nextVersion, err := GetNextVersion(f.ID)
 	assert.NoError(t, err)
 	f.DuplicateID = nextVersion
 
-	nid, nver := mustIDVersion(f.DuplicateID)
+	nid, nver := MustIDVersion(f.DuplicateID)
 	assert.ErrorIs(t, f.db.Where("id = ? AND version = ?", nid, nver).First(&examples_admin.WithPublishProduct{}).Error, gorm.ErrRecordNotFound)
 
 	// RunScript inside ensures its interaction: reload.then(openDrawer)

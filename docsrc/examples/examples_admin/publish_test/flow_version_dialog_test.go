@@ -2,11 +2,7 @@ package publish_test
 
 import (
 	"encoding/json"
-	"fmt"
-	"net/http"
 	"net/http/httptest"
-	"regexp"
-	"strconv"
 	"strings"
 	"testing"
 
@@ -42,7 +38,7 @@ func TestFlowVersionDialog(t *testing.T) {
 }
 
 func flowVersionDialog(t *testing.T, f *FlowVersionDialog) {
-	// Add a new resource to test whether the current use case will be affected
+	// Add a new resource to test whether the current case will be affected
 	flowNew(t, &FlowNew{
 		Flow:  f.Flow,
 		Name:  "TheTroublemakerProduct",
@@ -50,53 +46,21 @@ func flowVersionDialog(t *testing.T, f *FlowVersionDialog) {
 	})
 
 	displayID := "1_2024-05-26-v06"
+	id, _ := MustIDVersion(displayID)
 
 	models := []*examples_admin.WithPublishProduct{}
-	id, _ := mustIDVersion(displayID)
 	require.NoError(t, f.db.Where("id = ?", id).Order("version DESC").Find(&models).Error)
 	assert.Len(t, models, 6)
 
 	selectID := displayID
 	dislayModels := models
 
-	ensureCurrentDisplayID := func() testflow.ValidatorFunc {
-		// Ensure the button that opens the version list sets vars.publish_VarCurrentDisplayID and that the version opened is as expected
-		return testflow.ContainsInOrderAtUpdatePortal(0, "<v-chip", fmt.Sprintf(`vars.publish_VarCurrentDisplayID = %q`, displayID), "</v-chip>")
-	}
-
-	reListContent := regexp.MustCompile(`<tr[\s\S]+?<td>[\s\S]+?<v-radio :model-value='([^']+)'\s*:true-value='([^']+)'[\s\S]+?</v-radio>\s*([^<]+)?\s*</div>[\s\S]+?</tr>`)
 	ensureListDisplay := func() testflow.ValidatorFunc {
-		return testflow.Combine(
-			// Ensure list head display
-			testflow.ContainsInOrderAtUpdatePortal(0,
-				// Ensure tabs display
-				"<v-tabs",
-				"active_filter_tab", "all", "f_all", "f_select_id", selectID, "All Versions",
-				"active_filter_tab", "online_versions", "f_online_versions", "f_select_id", selectID, "Online Versions",
-				"active_filter_tab", "named_versions", "f_named_versions", "f_select_id", selectID, "Named Versions",
-				"</v-tabs>",
-				// Ensure columns display
-				"<tr>", "<th>Version</th>", "<th>State</th>", "<th>Start at</th>", "<th>End at</th>", "<th>Unread Notes</th>", "<th>Option</th>", "</tr>",
-			),
-			// Ensure list content display
-			testflow.WrapEvent(func(t *testing.T, w *httptest.ResponseRecorder, r *http.Request, e multipartestutils.TestEventResponse) {
-				subs := reListContent.FindAllStringSubmatch(e.UpdatePortals[0].Body, -1)
-				assert.Len(t, subs, len(dislayModels))
-				for i, sub := range subs {
-					// ensure only selected item be marked
-					modelValue, _ := strconv.Unquote(sub[1])
-					trueValue, _ := strconv.Unquote(sub[2])
-					assert.Equal(t, dislayModels[i].PrimarySlug(), modelValue)
-					assert.Equal(t, selectID, trueValue)
-					// ensure display version name , not version
-					assert.Equal(t, dislayModels[i].Version.VersionName, sub[3])
-				}
-			}),
-		)
+		return EnsureListDisplay(selectID, dislayModels)
 	}
 
 	// Open drawer
-	flowVersionDialog_Step00_Event_presets_DetailingDrawer(t, f).ThenValidate(ensureCurrentDisplayID())
+	flowVersionDialog_Step00_Event_presets_DetailingDrawer(t, f).ThenValidate(EnsureCurrentDisplayID(displayID))
 
 	// Open version list
 	flowVersionDialog_Step01_Event_presets_OpenListingDialog(t, f).ThenValidate(ensureListDisplay())
@@ -148,7 +112,7 @@ func flowVersionDialog(t *testing.T, f *FlowVersionDialog) {
 
 	// The previous step will ask you to open the newly selected version of Drawer.
 	displayID = selectID
-	flowVersionDialog_Step12_Event_presets_DetailingDrawer(t, f).ThenValidate(ensureCurrentDisplayID())
+	flowVersionDialog_Step12_Event_presets_DetailingDrawer(t, f).ThenValidate(EnsureCurrentDisplayID(displayID))
 }
 
 func flowVersionDialog_Step00_Event_presets_DetailingDrawer(t *testing.T, f *FlowVersionDialog) *testflow.Then {

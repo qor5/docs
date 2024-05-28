@@ -6,6 +6,7 @@ import (
 	"testing"
 
 	"github.com/qor5/admin/v3/utils/testflow"
+	"github.com/qor5/docs/v3/docsrc/examples/examples_admin"
 	"github.com/qor5/web/v3/multipartestutils"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -35,54 +36,80 @@ func TestFlowDeleteVersion(t *testing.T) {
 }
 
 func flowDeleteVersion(t *testing.T, f *FlowDeleteVersion) {
-	flowDeleteVersion_Step00_Event_presets_DetailingDrawer(t, f)
+	displayID := "1_2024-05-26-v06"
+	id, _ := MustIDVersion(displayID)
 
-	// 打开版本列表
-	flowDeleteVersion_Step01_Event_presets_OpenListingDialog(t, f)
+	models := []*examples_admin.WithPublishProduct{}
+	ensureAndUpdateModels := func(expectedCount int) {
+		require.NoError(t, f.db.Where("id = ?", id).Order("version DESC").Find(&models).Error)
+		assert.Len(t, models, expectedCount)
+	}
+	ensureAndUpdateModels(6)
 
-	// 删除非当前选中也非当前显示
+	selectID := displayID
+
+	ensureListDisplay := func() testflow.ValidatorFunc {
+		return EnsureListDisplay(selectID, models)
+	}
+
+	flowDeleteVersion_Step00_Event_presets_DetailingDrawer(t, f).ThenValidate(EnsureCurrentDisplayID(displayID))
+
+	// Open version list
+	flowDeleteVersion_Step01_Event_presets_OpenListingDialog(t, f).ThenValidate(ensureListDisplay())
+
+	// Delete versions that are neither currently selected nor currently displayed
 	flowDeleteVersion_Step02_Event_publish_eventDeleteVersionDialog(t, f)
 
 	flowDeleteVersion_Step03_Event_publish_eventDeleteVersion(t, f)
+	ensureAndUpdateModels(5)
 
-	flowDeleteVersion_Step04_Event_presets_UpdateListingDialog(t, f)
+	flowDeleteVersion_Step04_Event_presets_UpdateListingDialog(t, f).ThenValidate(ensureListDisplay())
 
-	// 选中其他项目，并删除当前选中
-	flowDeleteVersion_Step05_Event_presets_UpdateListingDialog(t, f)
+	// Select another item and delete the currently selected
+	selectID = "1_2024-05-26-v04"
+	flowDeleteVersion_Step05_Event_presets_UpdateListingDialog(t, f).ThenValidate(ensureListDisplay())
 
 	flowDeleteVersion_Step06_Event_publish_eventDeleteVersionDialog(t, f)
 
 	flowDeleteVersion_Step07_Event_publish_eventDeleteVersion(t, f)
+	ensureAndUpdateModels(4)
 
-	flowDeleteVersion_Step08_Event_presets_UpdateListingDialog(t, f)
+	selectID = displayID // Re-select to the currently displayed
+	flowDeleteVersion_Step08_Event_presets_UpdateListingDialog(t, f).ThenValidate(ensureListDisplay())
 
-	// 删除当前显示
+	// Delete the currently displayed
 	flowDeleteVersion_Step09_Event_publish_eventDeleteVersionDialog(t, f)
 
 	flowDeleteVersion_Step10_Event_publish_eventDeleteVersion(t, f)
+	ensureAndUpdateModels(3)
 
-	// 注意此时会切换至于另外一个版本显示
-	flowDeleteVersion_Step11_Event_presets_DetailingDrawer(t, f)
+	// Note that this will switch to another version to display
+	displayID = "1_2024-05-26-v03" // Switch to another version
+	selectID = displayID           // Because the previous current display was also the current selection, it will now revert to the new current display
+	flowDeleteVersion_Step11_Event_presets_DetailingDrawer(t, f).ThenValidate(EnsureCurrentDisplayID(displayID))
 
-	flowDeleteVersion_Step12_Event_presets_UpdateListingDialog(t, f)
+	flowDeleteVersion_Step12_Event_presets_UpdateListingDialog(t, f).ThenValidate(ensureListDisplay())
 
-	// 删除所有剩余版本 // TODO: 这块可能需要精简一下
+	// Delete all remaining versions
 	flowDeleteVersion_Step13_Event_publish_eventDeleteVersionDialog(t, f)
 
 	flowDeleteVersion_Step14_Event_publish_eventDeleteVersion(t, f)
+	ensureAndUpdateModels(2)
 
-	flowDeleteVersion_Step15_Event_presets_UpdateListingDialog(t, f)
+	flowDeleteVersion_Step15_Event_presets_UpdateListingDialog(t, f).ThenValidate(ensureListDisplay())
 
 	flowDeleteVersion_Step16_Event_publish_eventDeleteVersionDialog(t, f)
 
 	flowDeleteVersion_Step17_Event_publish_eventDeleteVersion(t, f)
+	ensureAndUpdateModels(1)
 
-	flowDeleteVersion_Step18_Event_presets_UpdateListingDialog(t, f)
+	flowDeleteVersion_Step18_Event_presets_UpdateListingDialog(t, f).ThenValidate(ensureListDisplay())
 
 	flowDeleteVersion_Step19_Event_publish_eventDeleteVersionDialog(t, f)
 
-	// 最后的那个删掉之后，就不是 UpdateListingDialog 了，而是应该返回到列表页面
+	// After the final one is deleted, it should no longer be UpdateListingDialog, but should return to the list page
 	flowDeleteVersion_Step20_Event_publish_eventDeleteVersion(t, f)
+	ensureAndUpdateModels(0)
 
 	flowDeleteVersion_Step21_Event___reload__(t, f)
 }
