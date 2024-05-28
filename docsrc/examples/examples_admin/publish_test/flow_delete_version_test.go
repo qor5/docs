@@ -40,11 +40,11 @@ func flowDeleteVersion(t *testing.T, f *FlowDeleteVersion) {
 	id, _ := MustIDVersion(displayID)
 
 	models := []*examples_admin.WithPublishProduct{}
-	ensureAndUpdateModels := func(expectedCount int) {
+	updateExpectedModels := func(expectedCount int) {
 		require.NoError(t, f.db.Where("id = ?", id).Order("version DESC").Find(&models).Error)
 		assert.Len(t, models, expectedCount)
 	}
-	ensureAndUpdateModels(6)
+	updateExpectedModels(6)
 
 	selectID := displayID
 
@@ -61,7 +61,7 @@ func flowDeleteVersion(t *testing.T, f *FlowDeleteVersion) {
 	flowDeleteVersion_Step02_Event_publish_eventDeleteVersionDialog(t, f)
 
 	flowDeleteVersion_Step03_Event_publish_eventDeleteVersion(t, f)
-	ensureAndUpdateModels(5)
+	updateExpectedModels(5)
 
 	flowDeleteVersion_Step04_Event_presets_UpdateListingDialog(t, f).ThenValidate(ensureListDisplay())
 
@@ -72,7 +72,7 @@ func flowDeleteVersion(t *testing.T, f *FlowDeleteVersion) {
 	flowDeleteVersion_Step06_Event_publish_eventDeleteVersionDialog(t, f)
 
 	flowDeleteVersion_Step07_Event_publish_eventDeleteVersion(t, f)
-	ensureAndUpdateModels(4)
+	updateExpectedModels(4)
 
 	selectID = displayID // Re-select to the currently displayed
 	flowDeleteVersion_Step08_Event_presets_UpdateListingDialog(t, f).ThenValidate(ensureListDisplay())
@@ -81,7 +81,7 @@ func flowDeleteVersion(t *testing.T, f *FlowDeleteVersion) {
 	flowDeleteVersion_Step09_Event_publish_eventDeleteVersionDialog(t, f)
 
 	flowDeleteVersion_Step10_Event_publish_eventDeleteVersion(t, f)
-	ensureAndUpdateModels(3)
+	updateExpectedModels(3)
 
 	// Note that this will switch to another version to display
 	displayID = "1_2024-05-26-v03" // Switch to another version
@@ -94,22 +94,23 @@ func flowDeleteVersion(t *testing.T, f *FlowDeleteVersion) {
 	flowDeleteVersion_Step13_Event_publish_eventDeleteVersionDialog(t, f)
 
 	flowDeleteVersion_Step14_Event_publish_eventDeleteVersion(t, f)
-	ensureAndUpdateModels(2)
+	updateExpectedModels(2)
 
 	flowDeleteVersion_Step15_Event_presets_UpdateListingDialog(t, f).ThenValidate(ensureListDisplay())
 
 	flowDeleteVersion_Step16_Event_publish_eventDeleteVersionDialog(t, f)
 
 	flowDeleteVersion_Step17_Event_publish_eventDeleteVersion(t, f)
-	ensureAndUpdateModels(1)
+	updateExpectedModels(1)
 
 	flowDeleteVersion_Step18_Event_presets_UpdateListingDialog(t, f).ThenValidate(ensureListDisplay())
 
 	flowDeleteVersion_Step19_Event_publish_eventDeleteVersionDialog(t, f)
 
 	// After the final one is deleted, it should no longer be UpdateListingDialog, but should return to the list page
+	// This is confirmed by PushState not nil inside this method
 	flowDeleteVersion_Step20_Event_publish_eventDeleteVersion(t, f)
-	ensureAndUpdateModels(0)
+	updateExpectedModels(0)
 
 	flowDeleteVersion_Step21_Event___reload__(t, f)
 }

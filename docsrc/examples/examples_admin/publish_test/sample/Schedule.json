@@ -1,0 +1,1226 @@
+[
+    {
+        "status": "COMPLETE",
+        "method": "POST",
+        "protocolVersion": "HTTP/1.1",
+        "scheme": "http",
+        "host": "local.theplant",
+        "port": 8800,
+        "actualPort": 8800,
+        "path": "/samples/publish/with-publish-products",
+        "query": "__execute_event__=presets_DetailingDrawer&id=6_2024-05-28-v01",
+        "tunnel": false,
+        "keptAlive": true,
+        "webSocket": false,
+        "remoteAddress": "local.theplant/127.0.0.1",
+        "clientAddress": "/127.0.0.1",
+        "clientPort": 64824,
+        "times": {
+            "start": "2024-05-28T14:44:40.740+08:00",
+            "requestBegin": "2024-05-28T14:44:40.746+08:00",
+            "requestComplete": "2024-05-28T14:44:40.750+08:00",
+            "responseBegin": "2024-05-28T14:44:40.754+08:00",
+            "end": "2024-05-28T14:44:40.758+08:00"
+        },
+        "durations": {
+            "total": 12,
+            "dns": null,
+            "connect": null,
+            "ssl": null,
+            "request": 4,
+            "response": 4,
+            "latency": 4
+        },
+        "speeds": {
+            "overall": 455500,
+            "request": 217500,
+            "response": 1149000
+        },
+        "totalSize": 5466,
+        "request": {
+            "sizes": {
+                "headers": 826,
+                "body": 44
+            },
+            "mimeType": "multipart/form-data",
+            "charset": null,
+            "contentEncoding": null,
+            "header": {
+                "firstLine": "POST /samples/publish/with-publish-products?__execute_event__=presets_DetailingDrawer&id=6_2024-05-28-v01 HTTP/1.1",
+                "headers": [
+                    {
+                        "name": "Host",
+                        "value": "local.theplant:8800"
+                    },
+                    {
+                        "name": "Content-Length",
+                        "value": "44"
+                    },
+                    {
+                        "name": "User-Agent",
+                        "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+                    },
+                    {
+                        "name": "Content-Type",
+                        "value": "multipart/form-data; boundary=----WebKitFormBoundaryt3Dox8Vs6HyNgPzJ"
+                    },
+                    {
+                        "name": "Accept",
+                        "value": "*/*"
+                    },
+                    {
+                        "name": "Origin",
+                        "value": "http://local.theplant:8800"
+                    },
+                    {
+                        "name": "Referer",
+                        "value": "http://local.theplant:8800/samples/publish/with-publish-products"
+                    },
+                    {
+                        "name": "Accept-Encoding",
+                        "value": "gzip, deflate"
+                    },
+                    {
+                        "name": "Accept-Language",
+                        "value": "zh-CN,zh;q=0.9,en;q=0.8"
+                    },
+                    {
+                        "name": "Cookie",
+                        "value": "menuState={\"activeMenuURL\":\"basics/publish.html\",\"scrollTop\":213}; _gid=GA1.2.488615216.1716877970; _ga_T4L00Y3EM7=GS1.1.1716877970.12.1.1716878676.59.0.0; _ga=GA1.2.114363727.1715697980; _gat_gtag_UA_149605708_1=1"
+                    },
+                    {
+                        "name": "Connection",
+                        "value": "keep-alive"
+                    }
+                ]
+            },
+            "body": {
+                "text": "------WebKitFormBoundaryt3Dox8Vs6HyNgPzJ--\r\n",
+                "charset": null
+            }
+        },
+        "response": {
+            "status": 200,
+            "sizes": {
+                "headers": 228,
+                "body": 4368
+            },
+            "mimeType": "application/json",
+            "charset": "utf-8",
+            "contentEncoding": null,
+            "header": {
+                "firstLine": "HTTP/1.1 200 OK",
+                "headers": [
+                    {
+                        "name": "Content-Type",
+                        "value": "application/json; charset=utf-8"
+                    },
+                    {
+                        "name": "Date",
+                        "value": "Tue, 28 May 2024 06:44:40 GMT"
+                    },
+                    {
+                        "name": "Transfer-Encoding",
+                        "value": "chunked"
+                    },
+                    {
+                        "name": "Proxy-Connection",
+                        "value": "keep-alive"
+                    }
+                ]
+            },
+            "body": {
+                "text": "{\"body\":\"\",\"pushState\":null,\"updatePortals\":[{\"name\":\"presets_RightDrawerPortalName\",\"body\":\"\\n\\u003cv-navigation-drawer v-model='vars.presetsRightDrawer' :location='\\\"right\\\"' :temporary='true' :width='\\\"600\\\"' :height='\\\"100%\\\"' class='v-navigation-drawer--temporary'\\u003e\\n\\u003cglobal-events @keyup.esc='vars.presetsRightDrawer = false'\\u003e\\u003c/global-events\\u003e\\n\\n\\u003cgo-plaid-portal :visible='true' :form='form' :locals='locals' portal-name='presets_RightDrawerContentPortalName'\\u003e\\n\\u003cgo-plaid-scope v-slot='{ form }'\\u003e\\n\\u003cv-layout\\u003e\\n\\u003cv-app-bar color='white' :elevation='0'\\u003e\\n\\u003cv-app-bar-title class='pl-2'\\u003e\\n\\u003cdiv class='d-flex'\\u003eWithPublishProduct 6_2024-05-28-v01\\u003c/div\\u003e\\n\\u003c/v-app-bar-title\\u003e\\n\\n\\u003cv-btn :icon='\\\"mdi-close\\\"' @click.stop='vars.presetsRightDrawer = false'\\u003e\\u003c/v-btn\\u003e\\n\\u003c/v-app-bar\\u003e\\n\\n\\u003cv-main\\u003e\\n\\u003cv-sheet class='pa-2'\\u003e\\n\\u003cv-card :flat='true' class='pa-1'\\u003e\\n\\u003cv-container :fluid='true'\\u003e\\n\\u003cgo-plaid-scope v-slot='{form}'\\u003e\\n\\u003cgo-plaid-scope v-slot=' { locals } ' :init='{action: \\\"\\\", commonConfirmDialog: false }'\\u003e\\n\\u003cdiv class='w-100 d-inline-flex'\\u003e\\n\\u003cv-chip :label='true' :variant='\\\"outlined\\\"' style='height:40px;' v-on:click='vars.publish_VarCurrentDisplayID ||= \\u0026#39;\\u0026#39;; plaid().vars(vars).locals(locals).form(form).eventFunc(\\\"presets_OpenListingDialog\\\").url(\\\"/samples/publish/with-publish-products-version-list-dialog\\\").query(\\\"select_id\\\", \\\"6_2024-05-28-v01\\\").go().then(function(r){ vars.publish_VarCurrentDisplayID = \\\"6_2024-05-28-v01\\\" })' :append-icon='\\\"mdi-chevron-down\\\"' class='w-100'\\u003e2024-05-28-v01\\n\\u003cv-chip :label='true' color='warning' :size='\\\"small\\\"' class='px-1 mx-1 ml-2'\\u003eDraft\\u003c/v-chip\\u003e\\n\\u003c/v-chip\\u003e\\n\\n\\u003cv-btn :prepend-icon='\\\"mdi-file-document-multiple\\\"' :height='40' :variant='\\\"outlined\\\"' @click='locals.action=\\\"publish_EventDuplicateVersion\\\";locals.commonConfirmDialog = true' class='ml-2'\\u003eDuplicate\\u003c/v-btn\\u003e\\n\\n\\u003cdiv\\u003e\\n\\u003cv-btn @click='locals.action=\\\"publish_EventPublish\\\";locals.commonConfirmDialog = true' :rounded='\\\"0\\\"' :variant='\\\"flat\\\"' color='primary' :height='40' class='rounded-s ml-2'\\u003ePublish\\u003c/v-btn\\u003e\\n\\u003c/div\\u003e\\n\\n\\u003cv-dialog :max-width='\\\"600px\\\"' v-model='locals.commonConfirmDialog'\\u003e\\n\\u003cv-card\\u003e\\n\\u003cv-card-title\\u003eAre you sure?\\u003c/v-card-title\\u003e\\n\\n\\u003cv-card-actions\\u003e\\n\\u003cv-spacer\\u003e\\u003c/v-spacer\\u003e\\n\\n\\u003cv-btn :variant='\\\"flat\\\"' v-on:click='locals.commonConfirmDialog = false' class='ml-2'\\u003eCancel\\u003c/v-btn\\u003e\\n\\n\\u003cv-btn color='primary' :variant='\\\"flat\\\"' theme='dark' @click='plaid().vars(vars).locals(locals).form(form).eventFunc(locals.action).query(\\\"id\\\", \\\"6_2024-05-28-v01\\\").go()'\\u003eOK\\u003c/v-btn\\u003e\\n\\u003c/v-card-actions\\u003e\\n\\u003c/v-card\\u003e\\n\\u003c/v-dialog\\u003e\\n\\n\\u003cv-btn :rounded='\\\"0\\\"' :variant='\\\"flat\\\"' color='primary' :height='40' @click='plaid().vars(vars).locals(locals).form(form).method(\\\"POST\\\").eventFunc(\\\"publish_eventSchedulePublishDialog\\\").query(\\\"overlay\\\", \\\"dialog\\\").query(\\\"id\\\", \\\"6_2024-05-28-v01\\\").url(\\\"/samples/publish/with-publish-products\\\").go()' class='ml-1 rounded-e'\\u003e\\n\\u003cv-icon :icon='\\\"mdi-alarm\\\"' :size='\\\"x-large\\\"'\\u003e\\u003c/v-icon\\u003e\\n\\u003c/v-btn\\u003e\\n\\n\\u003cgo-plaid-portal :visible='true' :form='form' :locals='locals' portal-name='publish_PortalSchedulePublishDialog'\\u003e\\u003c/go-plaid-portal\\u003e\\n\\u003c/div\\u003e\\n\\u003c/go-plaid-scope\\u003e\\n\\n\\u003cdiv class='mb-4'\\u003e\\n\\u003clabel class='v-label theme--light text-caption'\\u003eName\\u003c/label\\u003e\\n\\n\\u003cdiv class='pt-1'\\u003eFirstProduct\\u003c/div\\u003e\\n\\u003c/div\\u003e\\n\\n\\u003cdiv class='mb-4'\\u003e\\n\\u003clabel class='v-label theme--light text-caption'\\u003ePrice\\u003c/label\\u003e\\n\\n\\u003cdiv class='pt-1'\\u003e456\\u003c/div\\u003e\\n\\u003c/div\\u003e\\n\\u003c/go-plaid-scope\\u003e\\n\\u003c/v-container\\u003e\\n\\u003c/v-card\\u003e\\n\\u003c/v-sheet\\u003e\\n\\u003c/v-main\\u003e\\n\\u003c/v-layout\\u003e\\n\\u003c/go-plaid-scope\\u003e\\n\\u003c/go-plaid-portal\\u003e\\n\\u003c/v-navigation-drawer\\u003e\\n\"}],\"runScript\":\"setTimeout(function(){ vars.presetsRightDrawer = true }, 100)\"}\n",
+                "charset": "utf-8"
+            }
+        }
+    },
+    {
+        "status": "COMPLETE",
+        "method": "POST",
+        "protocolVersion": "HTTP/1.1",
+        "scheme": "http",
+        "host": "local.theplant",
+        "port": 8800,
+        "actualPort": 8800,
+        "path": "/samples/publish/with-publish-products",
+        "query": "__execute_event__=publish_eventSchedulePublishDialog&id=6_2024-05-28-v01&overlay=dialog",
+        "tunnel": false,
+        "keptAlive": true,
+        "webSocket": false,
+        "remoteAddress": "local.theplant/127.0.0.1",
+        "clientAddress": "/127.0.0.1",
+        "clientPort": 64824,
+        "times": {
+            "start": "2024-05-28T14:44:42.949+08:00",
+            "requestBegin": "2024-05-28T14:44:42.952+08:00",
+            "requestComplete": "2024-05-28T14:44:42.953+08:00",
+            "responseBegin": "2024-05-28T14:44:42.958+08:00",
+            "end": "2024-05-28T14:44:42.959+08:00"
+        },
+        "durations": {
+            "total": 7,
+            "dns": null,
+            "connect": null,
+            "ssl": null,
+            "request": 1,
+            "response": 1,
+            "latency": 5
+        },
+        "speeds": {
+            "overall": 384428,
+            "request": 896000,
+            "response": 1795000
+        },
+        "totalSize": 2691,
+        "request": {
+            "sizes": {
+                "headers": 852,
+                "body": 44
+            },
+            "mimeType": "multipart/form-data",
+            "charset": null,
+            "contentEncoding": null,
+            "header": {
+                "firstLine": "POST /samples/publish/with-publish-products?__execute_event__=publish_eventSchedulePublishDialog&id=6_2024-05-28-v01&overlay=dialog HTTP/1.1",
+                "headers": [
+                    {
+                        "name": "Host",
+                        "value": "local.theplant:8800"
+                    },
+                    {
+                        "name": "Content-Length",
+                        "value": "44"
+                    },
+                    {
+                        "name": "User-Agent",
+                        "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+                    },
+                    {
+                        "name": "Content-Type",
+                        "value": "multipart/form-data; boundary=----WebKitFormBoundarycxx5HWeNkwYhbvvq"
+                    },
+                    {
+                        "name": "Accept",
+                        "value": "*/*"
+                    },
+                    {
+                        "name": "Origin",
+                        "value": "http://local.theplant:8800"
+                    },
+                    {
+                        "name": "Referer",
+                        "value": "http://local.theplant:8800/samples/publish/with-publish-products"
+                    },
+                    {
+                        "name": "Accept-Encoding",
+                        "value": "gzip, deflate"
+                    },
+                    {
+                        "name": "Accept-Language",
+                        "value": "zh-CN,zh;q=0.9,en;q=0.8"
+                    },
+                    {
+                        "name": "Cookie",
+                        "value": "menuState={\"activeMenuURL\":\"basics/publish.html\",\"scrollTop\":213}; _gid=GA1.2.488615216.1716877970; _ga_T4L00Y3EM7=GS1.1.1716877970.12.1.1716878676.59.0.0; _ga=GA1.2.114363727.1715697980; _gat_gtag_UA_149605708_1=1"
+                    },
+                    {
+                        "name": "Connection",
+                        "value": "keep-alive"
+                    }
+                ]
+            },
+            "body": {
+                "text": "------WebKitFormBoundarycxx5HWeNkwYhbvvq--\r\n",
+                "charset": null
+            }
+        },
+        "response": {
+            "status": 200,
+            "sizes": {
+                "headers": 127,
+                "body": 1668
+            },
+            "mimeType": "application/json",
+            "charset": "utf-8",
+            "contentEncoding": null,
+            "header": {
+                "firstLine": "HTTP/1.1 200 OK",
+                "headers": [
+                    {
+                        "name": "Content-Type",
+                        "value": "application/json; charset=utf-8"
+                    },
+                    {
+                        "name": "Date",
+                        "value": "Tue, 28 May 2024 06:44:42 GMT"
+                    },
+                    {
+                        "name": "Content-Length",
+                        "value": "1668"
+                    },
+                    {
+                        "name": "Proxy-Connection",
+                        "value": "keep-alive"
+                    }
+                ]
+            },
+            "body": {
+                "text": "{\"body\":\"\",\"pushState\":null,\"updatePortals\":[{\"name\":\"publish_PortalSchedulePublishDialog\",\"body\":\"\\n\\u003cgo-plaid-scope :init='{schedulePublishDialog:true}' v-slot='{locals}'\\u003e\\n\\u003cv-dialog :max-width='\\\"480px\\\"' v-model='locals.schedulePublishDialog'\\u003e\\n\\u003cv-card\\u003e\\n\\u003cv-card-title\\u003eSchedule Publish Time\\u003c/v-card-title\\u003e\\n\\n\\u003cv-card-text\\u003e\\n\\u003cv-row\\u003e\\n\\u003cv-col :cols='6'\\u003e\\n\\u003cvx-datetimepicker v-model='form[\\\"ScheduledStartAt\\\"]' v-assign='[form, {\\\"ScheduledStartAt\\\":\\\"\\\"}]' :label='\\\"Start at\\\"' :timePickerProps='{\\\"format\\\":\\\"24hr\\\",\\\"scrollable\\\":true,\\\"use-seconds\\\":false,\\\"no-title\\\":false}' :clearText='\\\"Clear\\\"' :okText='\\\"OK\\\"'\\u003e\\u003c/vx-datetimepicker\\u003e\\n\\u003c/v-col\\u003e\\n\\n\\u003cv-col :cols='6'\\u003e\\n\\u003cvx-datetimepicker v-model='form[\\\"ScheduledEndAt\\\"]' v-assign='[form, {\\\"ScheduledEndAt\\\":\\\"\\\"}]' :label='\\\"End at\\\"' :timePickerProps='{\\\"format\\\":\\\"24hr\\\",\\\"scrollable\\\":true,\\\"use-seconds\\\":false,\\\"no-title\\\":false}' :clearText='\\\"Clear\\\"' :okText='\\\"OK\\\"'\\u003e\\u003c/vx-datetimepicker\\u003e\\n\\u003c/v-col\\u003e\\n\\u003c/v-row\\u003e\\n\\u003c/v-card-text\\u003e\\n\\n\\u003cv-card-actions\\u003e\\n\\u003cv-spacer\\u003e\\u003c/v-spacer\\u003e\\n\\n\\u003cv-btn color='primary' :disabled='isFetching' :loading='isFetching' @click='plaid().vars(vars).locals(locals).form(form).eventFunc(\\\"publish_eventSchedulePublish\\\").query(\\\"id\\\", \\\"6_2024-05-28-v01\\\").query(\\\"overlay\\\", \\\"dialog\\\").url(\\\"/samples/publish/with-publish-products\\\").go()'\\u003eUpdate\\u003c/v-btn\\u003e\\n\\u003c/v-card-actions\\u003e\\n\\u003c/v-card\\u003e\\n\\u003c/v-dialog\\u003e\\n\\u003c/go-plaid-scope\\u003e\\n\"}]}\n",
+                "charset": "utf-8"
+            }
+        }
+    },
+    {
+        "status": "COMPLETE",
+        "method": "POST",
+        "protocolVersion": "HTTP/1.1",
+        "scheme": "http",
+        "host": "local.theplant",
+        "port": 8800,
+        "actualPort": 8800,
+        "path": "/samples/publish/with-publish-products",
+        "query": "__execute_event__=publish_eventSchedulePublish&id=6_2024-05-28-v01&overlay=dialog",
+        "tunnel": false,
+        "keptAlive": true,
+        "webSocket": false,
+        "remoteAddress": "local.theplant/127.0.0.1",
+        "clientAddress": "/127.0.0.1",
+        "clientPort": 64824,
+        "times": {
+            "start": "2024-05-28T14:45:06.442+08:00",
+            "requestBegin": "2024-05-28T14:45:06.444+08:00",
+            "requestComplete": "2024-05-28T14:45:06.445+08:00",
+            "responseBegin": "2024-05-28T14:45:06.457+08:00",
+            "end": "2024-05-28T14:45:06.457+08:00"
+        },
+        "durations": {
+            "total": 13,
+            "dns": null,
+            "connect": null,
+            "ssl": null,
+            "request": 1,
+            "response": 0,
+            "latency": 12
+        },
+        "speeds": {
+            "overall": 104461,
+            "request": 1127000,
+            "response": 0
+        },
+        "totalSize": 1358,
+        "request": {
+            "sizes": {
+                "headers": 847,
+                "body": 280
+            },
+            "mimeType": "multipart/form-data",
+            "charset": null,
+            "contentEncoding": null,
+            "header": {
+                "firstLine": "POST /samples/publish/with-publish-products?__execute_event__=publish_eventSchedulePublish&id=6_2024-05-28-v01&overlay=dialog HTTP/1.1",
+                "headers": [
+                    {
+                        "name": "Host",
+                        "value": "local.theplant:8800"
+                    },
+                    {
+                        "name": "Content-Length",
+                        "value": "280"
+                    },
+                    {
+                        "name": "User-Agent",
+                        "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+                    },
+                    {
+                        "name": "Content-Type",
+                        "value": "multipart/form-data; boundary=----WebKitFormBoundaryxBPVQCwZxBWdtpc1"
+                    },
+                    {
+                        "name": "Accept",
+                        "value": "*/*"
+                    },
+                    {
+                        "name": "Origin",
+                        "value": "http://local.theplant:8800"
+                    },
+                    {
+                        "name": "Referer",
+                        "value": "http://local.theplant:8800/samples/publish/with-publish-products"
+                    },
+                    {
+                        "name": "Accept-Encoding",
+                        "value": "gzip, deflate"
+                    },
+                    {
+                        "name": "Accept-Language",
+                        "value": "zh-CN,zh;q=0.9,en;q=0.8"
+                    },
+                    {
+                        "name": "Cookie",
+                        "value": "menuState={\"activeMenuURL\":\"basics/publish.html\",\"scrollTop\":213}; _gid=GA1.2.488615216.1716877970; _ga_T4L00Y3EM7=GS1.1.1716877970.12.1.1716878676.59.0.0; _ga=GA1.2.114363727.1715697980; _gat_gtag_UA_149605708_1=1"
+                    },
+                    {
+                        "name": "Connection",
+                        "value": "keep-alive"
+                    }
+                ]
+            },
+            "body": {
+                "text": "------WebKitFormBoundaryxBPVQCwZxBWdtpc1\r\nContent-Disposition: form-data; name=\"ScheduledStartAt\"\r\n\r\n2024-05-23 00:00\r\n------WebKitFormBoundaryxBPVQCwZxBWdtpc1\r\nContent-Disposition: form-data; name=\"ScheduledEndAt\"\r\n\r\n2024-05-24 00:00\r\n------WebKitFormBoundaryxBPVQCwZxBWdtpc1--\r\n",
+                "charset": null
+            }
+        },
+        "response": {
+            "status": 200,
+            "sizes": {
+                "headers": 127,
+                "body": 104
+            },
+            "mimeType": "application/json",
+            "charset": "utf-8",
+            "contentEncoding": null,
+            "header": {
+                "firstLine": "HTTP/1.1 200 OK",
+                "headers": [
+                    {
+                        "name": "Content-Type",
+                        "value": "application/json; charset=utf-8"
+                    },
+                    {
+                        "name": "Date",
+                        "value": "Tue, 28 May 2024 06:45:06 GMT"
+                    },
+                    {
+                        "name": "Content-Length",
+                        "value": "104"
+                    },
+                    {
+                        "name": "Proxy-Connection",
+                        "value": "keep-alive"
+                    }
+                ]
+            },
+            "body": {
+                "text": "{\"body\":\"\",\"pushState\":null,\"updatePortals\":[{\"name\":\"publish_PortalSchedulePublishDialog\",\"body\":\"\"}]}\n",
+                "charset": "utf-8"
+            }
+        }
+    },
+    {
+        "status": "COMPLETE",
+        "method": "POST",
+        "protocolVersion": "HTTP/1.1",
+        "scheme": "http",
+        "host": "local.theplant",
+        "port": 8800,
+        "actualPort": 8800,
+        "path": "/samples/publish/with-publish-products",
+        "query": "__execute_event__=publish_eventSchedulePublishDialog&id=6_2024-05-28-v01&overlay=dialog",
+        "tunnel": false,
+        "keptAlive": true,
+        "webSocket": false,
+        "remoteAddress": "local.theplant/127.0.0.1",
+        "clientAddress": "/127.0.0.1",
+        "clientPort": 64824,
+        "times": {
+            "start": "2024-05-28T14:45:15.170+08:00",
+            "requestBegin": "2024-05-28T14:45:15.173+08:00",
+            "requestComplete": "2024-05-28T14:45:15.173+08:00",
+            "responseBegin": "2024-05-28T14:45:15.177+08:00",
+            "end": "2024-05-28T14:45:15.185+08:00"
+        },
+        "durations": {
+            "total": 12,
+            "dns": null,
+            "connect": null,
+            "ssl": null,
+            "request": 0,
+            "response": 8,
+            "latency": 4
+        },
+        "speeds": {
+            "overall": 246666,
+            "request": 0,
+            "response": 228375
+        },
+        "totalSize": 2960,
+        "request": {
+            "sizes": {
+                "headers": 853,
+                "body": 280
+            },
+            "mimeType": "multipart/form-data",
+            "charset": null,
+            "contentEncoding": null,
+            "header": {
+                "firstLine": "POST /samples/publish/with-publish-products?__execute_event__=publish_eventSchedulePublishDialog&id=6_2024-05-28-v01&overlay=dialog HTTP/1.1",
+                "headers": [
+                    {
+                        "name": "Host",
+                        "value": "local.theplant:8800"
+                    },
+                    {
+                        "name": "Content-Length",
+                        "value": "280"
+                    },
+                    {
+                        "name": "User-Agent",
+                        "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+                    },
+                    {
+                        "name": "Content-Type",
+                        "value": "multipart/form-data; boundary=----WebKitFormBoundaryHwKk25a3RBMmYRyZ"
+                    },
+                    {
+                        "name": "Accept",
+                        "value": "*/*"
+                    },
+                    {
+                        "name": "Origin",
+                        "value": "http://local.theplant:8800"
+                    },
+                    {
+                        "name": "Referer",
+                        "value": "http://local.theplant:8800/samples/publish/with-publish-products"
+                    },
+                    {
+                        "name": "Accept-Encoding",
+                        "value": "gzip, deflate"
+                    },
+                    {
+                        "name": "Accept-Language",
+                        "value": "zh-CN,zh;q=0.9,en;q=0.8"
+                    },
+                    {
+                        "name": "Cookie",
+                        "value": "menuState={\"activeMenuURL\":\"basics/publish.html\",\"scrollTop\":213}; _gid=GA1.2.488615216.1716877970; _ga_T4L00Y3EM7=GS1.1.1716877970.12.1.1716878676.59.0.0; _ga=GA1.2.114363727.1715697980; _gat_gtag_UA_149605708_1=1"
+                    },
+                    {
+                        "name": "Connection",
+                        "value": "keep-alive"
+                    }
+                ]
+            },
+            "body": {
+                "text": "------WebKitFormBoundaryHwKk25a3RBMmYRyZ\r\nContent-Disposition: form-data; name=\"ScheduledStartAt\"\r\n\r\n2024-05-23 00:00\r\n------WebKitFormBoundaryHwKk25a3RBMmYRyZ\r\nContent-Disposition: form-data; name=\"ScheduledEndAt\"\r\n\r\n2024-05-24 00:00\r\n------WebKitFormBoundaryHwKk25a3RBMmYRyZ--\r\n",
+                "charset": null
+            }
+        },
+        "response": {
+            "status": 200,
+            "sizes": {
+                "headers": 127,
+                "body": 1700
+            },
+            "mimeType": "application/json",
+            "charset": "utf-8",
+            "contentEncoding": null,
+            "header": {
+                "firstLine": "HTTP/1.1 200 OK",
+                "headers": [
+                    {
+                        "name": "Content-Type",
+                        "value": "application/json; charset=utf-8"
+                    },
+                    {
+                        "name": "Date",
+                        "value": "Tue, 28 May 2024 06:45:15 GMT"
+                    },
+                    {
+                        "name": "Content-Length",
+                        "value": "1700"
+                    },
+                    {
+                        "name": "Proxy-Connection",
+                        "value": "keep-alive"
+                    }
+                ]
+            },
+            "body": {
+                "text": "{\"body\":\"\",\"pushState\":null,\"updatePortals\":[{\"name\":\"publish_PortalSchedulePublishDialog\",\"body\":\"\\n\\u003cgo-plaid-scope :init='{schedulePublishDialog:true}' v-slot='{locals}'\\u003e\\n\\u003cv-dialog :max-width='\\\"480px\\\"' v-model='locals.schedulePublishDialog'\\u003e\\n\\u003cv-card\\u003e\\n\\u003cv-card-title\\u003eSchedule Publish Time\\u003c/v-card-title\\u003e\\n\\n\\u003cv-card-text\\u003e\\n\\u003cv-row\\u003e\\n\\u003cv-col :cols='6'\\u003e\\n\\u003cvx-datetimepicker v-model='form[\\\"ScheduledStartAt\\\"]' v-assign='[form, {\\\"ScheduledStartAt\\\":\\\"2024-05-23 00:00\\\"}]' :label='\\\"Start at\\\"' :timePickerProps='{\\\"format\\\":\\\"24hr\\\",\\\"scrollable\\\":true,\\\"use-seconds\\\":false,\\\"no-title\\\":false}' :clearText='\\\"Clear\\\"' :okText='\\\"OK\\\"'\\u003e\\u003c/vx-datetimepicker\\u003e\\n\\u003c/v-col\\u003e\\n\\n\\u003cv-col :cols='6'\\u003e\\n\\u003cvx-datetimepicker v-model='form[\\\"ScheduledEndAt\\\"]' v-assign='[form, {\\\"ScheduledEndAt\\\":\\\"2024-05-24 00:00\\\"}]' :label='\\\"End at\\\"' :timePickerProps='{\\\"format\\\":\\\"24hr\\\",\\\"scrollable\\\":true,\\\"use-seconds\\\":false,\\\"no-title\\\":false}' :clearText='\\\"Clear\\\"' :okText='\\\"OK\\\"'\\u003e\\u003c/vx-datetimepicker\\u003e\\n\\u003c/v-col\\u003e\\n\\u003c/v-row\\u003e\\n\\u003c/v-card-text\\u003e\\n\\n\\u003cv-card-actions\\u003e\\n\\u003cv-spacer\\u003e\\u003c/v-spacer\\u003e\\n\\n\\u003cv-btn color='primary' :disabled='isFetching' :loading='isFetching' @click='plaid().vars(vars).locals(locals).form(form).eventFunc(\\\"publish_eventSchedulePublish\\\").query(\\\"id\\\", \\\"6_2024-05-28-v01\\\").query(\\\"overlay\\\", \\\"dialog\\\").url(\\\"/samples/publish/with-publish-products\\\").go()'\\u003eUpdate\\u003c/v-btn\\u003e\\n\\u003c/v-card-actions\\u003e\\n\\u003c/v-card\\u003e\\n\\u003c/v-dialog\\u003e\\n\\u003c/go-plaid-scope\\u003e\\n\"}]}\n",
+                "charset": "utf-8"
+            }
+        }
+    },
+    {
+        "status": "COMPLETE",
+        "method": "POST",
+        "protocolVersion": "HTTP/1.1",
+        "scheme": "http",
+        "host": "local.theplant",
+        "port": 8800,
+        "actualPort": 8800,
+        "path": "/samples/publish/with-publish-products",
+        "query": "__execute_event__=publish_eventSchedulePublish&id=6_2024-05-28-v01&overlay=dialog",
+        "tunnel": false,
+        "keptAlive": true,
+        "webSocket": false,
+        "remoteAddress": "local.theplant/127.0.0.1",
+        "clientAddress": "/127.0.0.1",
+        "clientPort": 64824,
+        "times": {
+            "start": "2024-05-28T14:45:30.694+08:00",
+            "requestBegin": "2024-05-28T14:45:30.697+08:00",
+            "requestComplete": "2024-05-28T14:45:30.699+08:00",
+            "responseBegin": "2024-05-28T14:45:30.714+08:00",
+            "end": "2024-05-28T14:45:30.719+08:00"
+        },
+        "durations": {
+            "total": 22,
+            "dns": null,
+            "connect": null,
+            "ssl": null,
+            "request": 2,
+            "response": 5,
+            "latency": 15
+        },
+        "speeds": {
+            "overall": 61727,
+            "request": 563500,
+            "response": 46200
+        },
+        "totalSize": 1358,
+        "request": {
+            "sizes": {
+                "headers": 847,
+                "body": 280
+            },
+            "mimeType": "multipart/form-data",
+            "charset": null,
+            "contentEncoding": null,
+            "header": {
+                "firstLine": "POST /samples/publish/with-publish-products?__execute_event__=publish_eventSchedulePublish&id=6_2024-05-28-v01&overlay=dialog HTTP/1.1",
+                "headers": [
+                    {
+                        "name": "Host",
+                        "value": "local.theplant:8800"
+                    },
+                    {
+                        "name": "Content-Length",
+                        "value": "280"
+                    },
+                    {
+                        "name": "User-Agent",
+                        "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+                    },
+                    {
+                        "name": "Content-Type",
+                        "value": "multipart/form-data; boundary=----WebKitFormBoundary5jP0UbEgv4QhiB9b"
+                    },
+                    {
+                        "name": "Accept",
+                        "value": "*/*"
+                    },
+                    {
+                        "name": "Origin",
+                        "value": "http://local.theplant:8800"
+                    },
+                    {
+                        "name": "Referer",
+                        "value": "http://local.theplant:8800/samples/publish/with-publish-products"
+                    },
+                    {
+                        "name": "Accept-Encoding",
+                        "value": "gzip, deflate"
+                    },
+                    {
+                        "name": "Accept-Language",
+                        "value": "zh-CN,zh;q=0.9,en;q=0.8"
+                    },
+                    {
+                        "name": "Cookie",
+                        "value": "menuState={\"activeMenuURL\":\"basics/publish.html\",\"scrollTop\":213}; _gid=GA1.2.488615216.1716877970; _ga_T4L00Y3EM7=GS1.1.1716877970.12.1.1716878676.59.0.0; _ga=GA1.2.114363727.1715697980; _gat_gtag_UA_149605708_1=1"
+                    },
+                    {
+                        "name": "Connection",
+                        "value": "keep-alive"
+                    }
+                ]
+            },
+            "body": {
+                "text": "------WebKitFormBoundary5jP0UbEgv4QhiB9b\r\nContent-Disposition: form-data; name=\"ScheduledStartAt\"\r\n\r\n2024-05-30 00:00\r\n------WebKitFormBoundary5jP0UbEgv4QhiB9b\r\nContent-Disposition: form-data; name=\"ScheduledEndAt\"\r\n\r\n2024-05-31 00:00\r\n------WebKitFormBoundary5jP0UbEgv4QhiB9b--\r\n",
+                "charset": null
+            }
+        },
+        "response": {
+            "status": 200,
+            "sizes": {
+                "headers": 127,
+                "body": 104
+            },
+            "mimeType": "application/json",
+            "charset": "utf-8",
+            "contentEncoding": null,
+            "header": {
+                "firstLine": "HTTP/1.1 200 OK",
+                "headers": [
+                    {
+                        "name": "Content-Type",
+                        "value": "application/json; charset=utf-8"
+                    },
+                    {
+                        "name": "Date",
+                        "value": "Tue, 28 May 2024 06:45:30 GMT"
+                    },
+                    {
+                        "name": "Content-Length",
+                        "value": "104"
+                    },
+                    {
+                        "name": "Proxy-Connection",
+                        "value": "keep-alive"
+                    }
+                ]
+            },
+            "body": {
+                "text": "{\"body\":\"\",\"pushState\":null,\"updatePortals\":[{\"name\":\"publish_PortalSchedulePublishDialog\",\"body\":\"\"}]}\n",
+                "charset": "utf-8"
+            }
+        }
+    },
+    {
+        "status": "COMPLETE",
+        "method": "POST",
+        "protocolVersion": "HTTP/1.1",
+        "scheme": "http",
+        "host": "local.theplant",
+        "port": 8800,
+        "actualPort": 8800,
+        "path": "/samples/publish/with-publish-products",
+        "query": "__execute_event__=publish_eventSchedulePublishDialog&id=6_2024-05-28-v01&overlay=dialog",
+        "tunnel": false,
+        "keptAlive": true,
+        "webSocket": false,
+        "remoteAddress": "local.theplant/127.0.0.1",
+        "clientAddress": "/127.0.0.1",
+        "clientPort": 64824,
+        "times": {
+            "start": "2024-05-28T14:45:32.854+08:00",
+            "requestBegin": "2024-05-28T14:45:32.857+08:00",
+            "requestComplete": "2024-05-28T14:45:32.858+08:00",
+            "responseBegin": "2024-05-28T14:45:32.862+08:00",
+            "end": "2024-05-28T14:45:32.863+08:00"
+        },
+        "durations": {
+            "total": 6,
+            "dns": null,
+            "connect": null,
+            "ssl": null,
+            "request": 1,
+            "response": 1,
+            "latency": 4
+        },
+        "speeds": {
+            "overall": 493333,
+            "request": 1133000,
+            "response": 1827000
+        },
+        "totalSize": 2960,
+        "request": {
+            "sizes": {
+                "headers": 853,
+                "body": 280
+            },
+            "mimeType": "multipart/form-data",
+            "charset": null,
+            "contentEncoding": null,
+            "header": {
+                "firstLine": "POST /samples/publish/with-publish-products?__execute_event__=publish_eventSchedulePublishDialog&id=6_2024-05-28-v01&overlay=dialog HTTP/1.1",
+                "headers": [
+                    {
+                        "name": "Host",
+                        "value": "local.theplant:8800"
+                    },
+                    {
+                        "name": "Content-Length",
+                        "value": "280"
+                    },
+                    {
+                        "name": "User-Agent",
+                        "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+                    },
+                    {
+                        "name": "Content-Type",
+                        "value": "multipart/form-data; boundary=----WebKitFormBoundaryRRhh6DFHljtArRoT"
+                    },
+                    {
+                        "name": "Accept",
+                        "value": "*/*"
+                    },
+                    {
+                        "name": "Origin",
+                        "value": "http://local.theplant:8800"
+                    },
+                    {
+                        "name": "Referer",
+                        "value": "http://local.theplant:8800/samples/publish/with-publish-products"
+                    },
+                    {
+                        "name": "Accept-Encoding",
+                        "value": "gzip, deflate"
+                    },
+                    {
+                        "name": "Accept-Language",
+                        "value": "zh-CN,zh;q=0.9,en;q=0.8"
+                    },
+                    {
+                        "name": "Cookie",
+                        "value": "menuState={\"activeMenuURL\":\"basics/publish.html\",\"scrollTop\":213}; _gid=GA1.2.488615216.1716877970; _ga_T4L00Y3EM7=GS1.1.1716877970.12.1.1716878676.59.0.0; _ga=GA1.2.114363727.1715697980; _gat_gtag_UA_149605708_1=1"
+                    },
+                    {
+                        "name": "Connection",
+                        "value": "keep-alive"
+                    }
+                ]
+            },
+            "body": {
+                "text": "------WebKitFormBoundaryRRhh6DFHljtArRoT\r\nContent-Disposition: form-data; name=\"ScheduledStartAt\"\r\n\r\n2024-05-30 00:00\r\n------WebKitFormBoundaryRRhh6DFHljtArRoT\r\nContent-Disposition: form-data; name=\"ScheduledEndAt\"\r\n\r\n2024-05-31 00:00\r\n------WebKitFormBoundaryRRhh6DFHljtArRoT--\r\n",
+                "charset": null
+            }
+        },
+        "response": {
+            "status": 200,
+            "sizes": {
+                "headers": 127,
+                "body": 1700
+            },
+            "mimeType": "application/json",
+            "charset": "utf-8",
+            "contentEncoding": null,
+            "header": {
+                "firstLine": "HTTP/1.1 200 OK",
+                "headers": [
+                    {
+                        "name": "Content-Type",
+                        "value": "application/json; charset=utf-8"
+                    },
+                    {
+                        "name": "Date",
+                        "value": "Tue, 28 May 2024 06:45:32 GMT"
+                    },
+                    {
+                        "name": "Content-Length",
+                        "value": "1700"
+                    },
+                    {
+                        "name": "Proxy-Connection",
+                        "value": "keep-alive"
+                    }
+                ]
+            },
+            "body": {
+                "text": "{\"body\":\"\",\"pushState\":null,\"updatePortals\":[{\"name\":\"publish_PortalSchedulePublishDialog\",\"body\":\"\\n\\u003cgo-plaid-scope :init='{schedulePublishDialog:true}' v-slot='{locals}'\\u003e\\n\\u003cv-dialog :max-width='\\\"480px\\\"' v-model='locals.schedulePublishDialog'\\u003e\\n\\u003cv-card\\u003e\\n\\u003cv-card-title\\u003eSchedule Publish Time\\u003c/v-card-title\\u003e\\n\\n\\u003cv-card-text\\u003e\\n\\u003cv-row\\u003e\\n\\u003cv-col :cols='6'\\u003e\\n\\u003cvx-datetimepicker v-model='form[\\\"ScheduledStartAt\\\"]' v-assign='[form, {\\\"ScheduledStartAt\\\":\\\"2024-05-30 00:00\\\"}]' :label='\\\"Start at\\\"' :timePickerProps='{\\\"format\\\":\\\"24hr\\\",\\\"scrollable\\\":true,\\\"use-seconds\\\":false,\\\"no-title\\\":false}' :clearText='\\\"Clear\\\"' :okText='\\\"OK\\\"'\\u003e\\u003c/vx-datetimepicker\\u003e\\n\\u003c/v-col\\u003e\\n\\n\\u003cv-col :cols='6'\\u003e\\n\\u003cvx-datetimepicker v-model='form[\\\"ScheduledEndAt\\\"]' v-assign='[form, {\\\"ScheduledEndAt\\\":\\\"2024-05-31 00:00\\\"}]' :label='\\\"End at\\\"' :timePickerProps='{\\\"format\\\":\\\"24hr\\\",\\\"scrollable\\\":true,\\\"use-seconds\\\":false,\\\"no-title\\\":false}' :clearText='\\\"Clear\\\"' :okText='\\\"OK\\\"'\\u003e\\u003c/vx-datetimepicker\\u003e\\n\\u003c/v-col\\u003e\\n\\u003c/v-row\\u003e\\n\\u003c/v-card-text\\u003e\\n\\n\\u003cv-card-actions\\u003e\\n\\u003cv-spacer\\u003e\\u003c/v-spacer\\u003e\\n\\n\\u003cv-btn color='primary' :disabled='isFetching' :loading='isFetching' @click='plaid().vars(vars).locals(locals).form(form).eventFunc(\\\"publish_eventSchedulePublish\\\").query(\\\"id\\\", \\\"6_2024-05-28-v01\\\").query(\\\"overlay\\\", \\\"dialog\\\").url(\\\"/samples/publish/with-publish-products\\\").go()'\\u003eUpdate\\u003c/v-btn\\u003e\\n\\u003c/v-card-actions\\u003e\\n\\u003c/v-card\\u003e\\n\\u003c/v-dialog\\u003e\\n\\u003c/go-plaid-scope\\u003e\\n\"}]}\n",
+                "charset": "utf-8"
+            }
+        }
+    },
+    {
+        "status": "COMPLETE",
+        "method": "POST",
+        "protocolVersion": "HTTP/1.1",
+        "scheme": "http",
+        "host": "local.theplant",
+        "port": 8800,
+        "actualPort": 8800,
+        "path": "/samples/publish/with-publish-products",
+        "query": "__execute_event__=publish_eventSchedulePublish&id=6_2024-05-28-v01&overlay=dialog",
+        "tunnel": false,
+        "keptAlive": true,
+        "webSocket": false,
+        "remoteAddress": "local.theplant/127.0.0.1",
+        "clientAddress": "/127.0.0.1",
+        "clientPort": 64824,
+        "times": {
+            "start": "2024-05-28T14:46:26.823+08:00",
+            "requestBegin": "2024-05-28T14:46:26.829+08:00",
+            "requestComplete": "2024-05-28T14:46:26.830+08:00",
+            "responseBegin": "2024-05-28T14:46:26.834+08:00",
+            "end": "2024-05-28T14:46:26.840+08:00"
+        },
+        "durations": {
+            "total": 11,
+            "dns": null,
+            "connect": null,
+            "ssl": null,
+            "request": 1,
+            "response": 6,
+            "latency": 4
+        },
+        "speeds": {
+            "overall": 120909,
+            "request": 1099000,
+            "response": 38500
+        },
+        "totalSize": 1330,
+        "request": {
+            "sizes": {
+                "headers": 819,
+                "body": 280
+            },
+            "mimeType": "multipart/form-data",
+            "charset": null,
+            "contentEncoding": null,
+            "header": {
+                "firstLine": "POST /samples/publish/with-publish-products?__execute_event__=publish_eventSchedulePublish&id=6_2024-05-28-v01&overlay=dialog HTTP/1.1",
+                "headers": [
+                    {
+                        "name": "Host",
+                        "value": "local.theplant:8800"
+                    },
+                    {
+                        "name": "Content-Length",
+                        "value": "280"
+                    },
+                    {
+                        "name": "User-Agent",
+                        "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+                    },
+                    {
+                        "name": "Content-Type",
+                        "value": "multipart/form-data; boundary=----WebKitFormBoundarymmvmdLVzZQiH4U1l"
+                    },
+                    {
+                        "name": "Accept",
+                        "value": "*/*"
+                    },
+                    {
+                        "name": "Origin",
+                        "value": "http://local.theplant:8800"
+                    },
+                    {
+                        "name": "Referer",
+                        "value": "http://local.theplant:8800/samples/publish/with-publish-products"
+                    },
+                    {
+                        "name": "Accept-Encoding",
+                        "value": "gzip, deflate"
+                    },
+                    {
+                        "name": "Accept-Language",
+                        "value": "zh-CN,zh;q=0.9,en;q=0.8"
+                    },
+                    {
+                        "name": "Cookie",
+                        "value": "menuState={\"activeMenuURL\":\"basics/publish.html\",\"scrollTop\":213}; _gid=GA1.2.488615216.1716877970; _ga_T4L00Y3EM7=GS1.1.1716877970.12.1.1716878676.59.0.0; _ga=GA1.2.114363727.1715697980"
+                    },
+                    {
+                        "name": "Connection",
+                        "value": "keep-alive"
+                    }
+                ]
+            },
+            "body": {
+                "text": "------WebKitFormBoundarymmvmdLVzZQiH4U1l\r\nContent-Disposition: form-data; name=\"ScheduledStartAt\"\r\n\r\n2024-05-27 00:00\r\n------WebKitFormBoundarymmvmdLVzZQiH4U1l\r\nContent-Disposition: form-data; name=\"ScheduledEndAt\"\r\n\r\n2024-05-29 00:00\r\n------WebKitFormBoundarymmvmdLVzZQiH4U1l--\r\n",
+                "charset": null
+            }
+        },
+        "response": {
+            "status": 200,
+            "sizes": {
+                "headers": 127,
+                "body": 104
+            },
+            "mimeType": "application/json",
+            "charset": "utf-8",
+            "contentEncoding": null,
+            "header": {
+                "firstLine": "HTTP/1.1 200 OK",
+                "headers": [
+                    {
+                        "name": "Content-Type",
+                        "value": "application/json; charset=utf-8"
+                    },
+                    {
+                        "name": "Date",
+                        "value": "Tue, 28 May 2024 06:46:26 GMT"
+                    },
+                    {
+                        "name": "Content-Length",
+                        "value": "104"
+                    },
+                    {
+                        "name": "Proxy-Connection",
+                        "value": "keep-alive"
+                    }
+                ]
+            },
+            "body": {
+                "text": "{\"body\":\"\",\"pushState\":null,\"updatePortals\":[{\"name\":\"publish_PortalSchedulePublishDialog\",\"body\":\"\"}]}\n",
+                "charset": "utf-8"
+            }
+        }
+    },
+    {
+        "status": "COMPLETE",
+        "method": "POST",
+        "protocolVersion": "HTTP/1.1",
+        "scheme": "http",
+        "host": "local.theplant",
+        "port": 8800,
+        "actualPort": 8800,
+        "path": "/samples/publish/with-publish-products",
+        "query": "__execute_event__=publish_eventSchedulePublishDialog&id=6_2024-05-28-v01&overlay=dialog",
+        "tunnel": false,
+        "keptAlive": true,
+        "webSocket": false,
+        "remoteAddress": "local.theplant/127.0.0.1",
+        "clientAddress": "/127.0.0.1",
+        "clientPort": 64824,
+        "times": {
+            "start": "2024-05-28T14:46:29.015+08:00",
+            "requestBegin": "2024-05-28T14:46:29.019+08:00",
+            "requestComplete": "2024-05-28T14:46:29.020+08:00",
+            "responseBegin": "2024-05-28T14:46:29.023+08:00",
+            "end": "2024-05-28T14:46:29.027+08:00"
+        },
+        "durations": {
+            "total": 8,
+            "dns": null,
+            "connect": null,
+            "ssl": null,
+            "request": 1,
+            "response": 4,
+            "latency": 3
+        },
+        "speeds": {
+            "overall": 366500,
+            "request": 1105000,
+            "response": 456750
+        },
+        "totalSize": 2932,
+        "request": {
+            "sizes": {
+                "headers": 825,
+                "body": 280
+            },
+            "mimeType": "multipart/form-data",
+            "charset": null,
+            "contentEncoding": null,
+            "header": {
+                "firstLine": "POST /samples/publish/with-publish-products?__execute_event__=publish_eventSchedulePublishDialog&id=6_2024-05-28-v01&overlay=dialog HTTP/1.1",
+                "headers": [
+                    {
+                        "name": "Host",
+                        "value": "local.theplant:8800"
+                    },
+                    {
+                        "name": "Content-Length",
+                        "value": "280"
+                    },
+                    {
+                        "name": "User-Agent",
+                        "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+                    },
+                    {
+                        "name": "Content-Type",
+                        "value": "multipart/form-data; boundary=----WebKitFormBoundary0HeO8nNGY4lYg3Dh"
+                    },
+                    {
+                        "name": "Accept",
+                        "value": "*/*"
+                    },
+                    {
+                        "name": "Origin",
+                        "value": "http://local.theplant:8800"
+                    },
+                    {
+                        "name": "Referer",
+                        "value": "http://local.theplant:8800/samples/publish/with-publish-products"
+                    },
+                    {
+                        "name": "Accept-Encoding",
+                        "value": "gzip, deflate"
+                    },
+                    {
+                        "name": "Accept-Language",
+                        "value": "zh-CN,zh;q=0.9,en;q=0.8"
+                    },
+                    {
+                        "name": "Cookie",
+                        "value": "menuState={\"activeMenuURL\":\"basics/publish.html\",\"scrollTop\":213}; _gid=GA1.2.488615216.1716877970; _ga_T4L00Y3EM7=GS1.1.1716877970.12.1.1716878676.59.0.0; _ga=GA1.2.114363727.1715697980"
+                    },
+                    {
+                        "name": "Connection",
+                        "value": "keep-alive"
+                    }
+                ]
+            },
+            "body": {
+                "text": "------WebKitFormBoundary0HeO8nNGY4lYg3Dh\r\nContent-Disposition: form-data; name=\"ScheduledStartAt\"\r\n\r\n2024-05-27 00:00\r\n------WebKitFormBoundary0HeO8nNGY4lYg3Dh\r\nContent-Disposition: form-data; name=\"ScheduledEndAt\"\r\n\r\n2024-05-29 00:00\r\n------WebKitFormBoundary0HeO8nNGY4lYg3Dh--\r\n",
+                "charset": null
+            }
+        },
+        "response": {
+            "status": 200,
+            "sizes": {
+                "headers": 127,
+                "body": 1700
+            },
+            "mimeType": "application/json",
+            "charset": "utf-8",
+            "contentEncoding": null,
+            "header": {
+                "firstLine": "HTTP/1.1 200 OK",
+                "headers": [
+                    {
+                        "name": "Content-Type",
+                        "value": "application/json; charset=utf-8"
+                    },
+                    {
+                        "name": "Date",
+                        "value": "Tue, 28 May 2024 06:46:29 GMT"
+                    },
+                    {
+                        "name": "Content-Length",
+                        "value": "1700"
+                    },
+                    {
+                        "name": "Proxy-Connection",
+                        "value": "keep-alive"
+                    }
+                ]
+            },
+            "body": {
+                "text": "{\"body\":\"\",\"pushState\":null,\"updatePortals\":[{\"name\":\"publish_PortalSchedulePublishDialog\",\"body\":\"\\n\\u003cgo-plaid-scope :init='{schedulePublishDialog:true}' v-slot='{locals}'\\u003e\\n\\u003cv-dialog :max-width='\\\"480px\\\"' v-model='locals.schedulePublishDialog'\\u003e\\n\\u003cv-card\\u003e\\n\\u003cv-card-title\\u003eSchedule Publish Time\\u003c/v-card-title\\u003e\\n\\n\\u003cv-card-text\\u003e\\n\\u003cv-row\\u003e\\n\\u003cv-col :cols='6'\\u003e\\n\\u003cvx-datetimepicker v-model='form[\\\"ScheduledStartAt\\\"]' v-assign='[form, {\\\"ScheduledStartAt\\\":\\\"2024-05-27 00:00\\\"}]' :label='\\\"Start at\\\"' :timePickerProps='{\\\"format\\\":\\\"24hr\\\",\\\"scrollable\\\":true,\\\"use-seconds\\\":false,\\\"no-title\\\":false}' :clearText='\\\"Clear\\\"' :okText='\\\"OK\\\"'\\u003e\\u003c/vx-datetimepicker\\u003e\\n\\u003c/v-col\\u003e\\n\\n\\u003cv-col :cols='6'\\u003e\\n\\u003cvx-datetimepicker v-model='form[\\\"ScheduledEndAt\\\"]' v-assign='[form, {\\\"ScheduledEndAt\\\":\\\"2024-05-29 00:00\\\"}]' :label='\\\"End at\\\"' :timePickerProps='{\\\"format\\\":\\\"24hr\\\",\\\"scrollable\\\":true,\\\"use-seconds\\\":false,\\\"no-title\\\":false}' :clearText='\\\"Clear\\\"' :okText='\\\"OK\\\"'\\u003e\\u003c/vx-datetimepicker\\u003e\\n\\u003c/v-col\\u003e\\n\\u003c/v-row\\u003e\\n\\u003c/v-card-text\\u003e\\n\\n\\u003cv-card-actions\\u003e\\n\\u003cv-spacer\\u003e\\u003c/v-spacer\\u003e\\n\\n\\u003cv-btn color='primary' :disabled='isFetching' :loading='isFetching' @click='plaid().vars(vars).locals(locals).form(form).eventFunc(\\\"publish_eventSchedulePublish\\\").query(\\\"id\\\", \\\"6_2024-05-28-v01\\\").query(\\\"overlay\\\", \\\"dialog\\\").url(\\\"/samples/publish/with-publish-products\\\").go()'\\u003eUpdate\\u003c/v-btn\\u003e\\n\\u003c/v-card-actions\\u003e\\n\\u003c/v-card\\u003e\\n\\u003c/v-dialog\\u003e\\n\\u003c/go-plaid-scope\\u003e\\n\"}]}\n",
+                "charset": "utf-8"
+            }
+        }
+    },
+    {
+        "status": "COMPLETE",
+        "method": "POST",
+        "protocolVersion": "HTTP/1.1",
+        "scheme": "http",
+        "host": "local.theplant",
+        "port": 8800,
+        "actualPort": 8800,
+        "path": "/samples/publish/with-publish-products",
+        "query": "__execute_event__=publish_eventSchedulePublish&id=6_2024-05-28-v01&overlay=dialog",
+        "tunnel": false,
+        "keptAlive": true,
+        "webSocket": false,
+        "remoteAddress": "local.theplant/127.0.0.1",
+        "clientAddress": "/127.0.0.1",
+        "clientPort": 64824,
+        "times": {
+            "start": "2024-05-28T14:47:31.930+08:00",
+            "requestBegin": "2024-05-28T14:47:31.936+08:00",
+            "requestComplete": "2024-05-28T14:47:31.938+08:00",
+            "responseBegin": "2024-05-28T14:47:31.945+08:00",
+            "end": "2024-05-28T14:47:31.948+08:00"
+        },
+        "durations": {
+            "total": 12,
+            "dns": null,
+            "connect": null,
+            "ssl": null,
+            "request": 2,
+            "response": 3,
+            "latency": 7
+        },
+        "speeds": {
+            "overall": 110833,
+            "request": 549500,
+            "response": 77000
+        },
+        "totalSize": 1330,
+        "request": {
+            "sizes": {
+                "headers": 819,
+                "body": 280
+            },
+            "mimeType": "multipart/form-data",
+            "charset": null,
+            "contentEncoding": null,
+            "header": {
+                "firstLine": "POST /samples/publish/with-publish-products?__execute_event__=publish_eventSchedulePublish&id=6_2024-05-28-v01&overlay=dialog HTTP/1.1",
+                "headers": [
+                    {
+                        "name": "Host",
+                        "value": "local.theplant:8800"
+                    },
+                    {
+                        "name": "Content-Length",
+                        "value": "280"
+                    },
+                    {
+                        "name": "User-Agent",
+                        "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+                    },
+                    {
+                        "name": "Content-Type",
+                        "value": "multipart/form-data; boundary=----WebKitFormBoundaryH4q1U3VnJB1FquhE"
+                    },
+                    {
+                        "name": "Accept",
+                        "value": "*/*"
+                    },
+                    {
+                        "name": "Origin",
+                        "value": "http://local.theplant:8800"
+                    },
+                    {
+                        "name": "Referer",
+                        "value": "http://local.theplant:8800/samples/publish/with-publish-products"
+                    },
+                    {
+                        "name": "Accept-Encoding",
+                        "value": "gzip, deflate"
+                    },
+                    {
+                        "name": "Accept-Language",
+                        "value": "zh-CN,zh;q=0.9,en;q=0.8"
+                    },
+                    {
+                        "name": "Cookie",
+                        "value": "menuState={\"activeMenuURL\":\"basics/publish.html\",\"scrollTop\":213}; _gid=GA1.2.488615216.1716877970; _ga_T4L00Y3EM7=GS1.1.1716877970.12.1.1716878676.59.0.0; _ga=GA1.2.114363727.1715697980"
+                    },
+                    {
+                        "name": "Connection",
+                        "value": "keep-alive"
+                    }
+                ]
+            },
+            "body": {
+                "text": "------WebKitFormBoundaryH4q1U3VnJB1FquhE\r\nContent-Disposition: form-data; name=\"ScheduledStartAt\"\r\n\r\n2024-05-25 00:00\r\n------WebKitFormBoundaryH4q1U3VnJB1FquhE\r\nContent-Disposition: form-data; name=\"ScheduledEndAt\"\r\n\r\n2024-05-24 00:00\r\n------WebKitFormBoundaryH4q1U3VnJB1FquhE--\r\n",
+                "charset": null
+            }
+        },
+        "response": {
+            "status": 200,
+            "sizes": {
+                "headers": 127,
+                "body": 104
+            },
+            "mimeType": "application/json",
+            "charset": "utf-8",
+            "contentEncoding": null,
+            "header": {
+                "firstLine": "HTTP/1.1 200 OK",
+                "headers": [
+                    {
+                        "name": "Content-Type",
+                        "value": "application/json; charset=utf-8"
+                    },
+                    {
+                        "name": "Date",
+                        "value": "Tue, 28 May 2024 06:47:31 GMT"
+                    },
+                    {
+                        "name": "Content-Length",
+                        "value": "104"
+                    },
+                    {
+                        "name": "Proxy-Connection",
+                        "value": "keep-alive"
+                    }
+                ]
+            },
+            "body": {
+                "text": "{\"body\":\"\",\"pushState\":null,\"updatePortals\":[{\"name\":\"publish_PortalSchedulePublishDialog\",\"body\":\"\"}]}\n",
+                "charset": "utf-8"
+            }
+        }
+    }
+]
