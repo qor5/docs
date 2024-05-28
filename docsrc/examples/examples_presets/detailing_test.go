@@ -26,15 +26,32 @@ INSERT INTO public.notes (id, source_type, source_id, content, created_at, updat
 
 func TestPresetsDetailing(t *testing.T) {
 	pb := presets.New().DataOperator(gorm2op.DataOperator(TestDB))
-	PresetsDetailPageCards(pb, TestDB)
+	PresetsDetailInlineEditDetails(pb, TestDB)
 
 	cases := []multipartestutils.TestCase{
 		{
 			Name:  "detail page show",
 			Debug: true,
+			HandlerMaker: func() http.Handler {
+				pb1 := presets.New().DataOperator(gorm2op.DataOperator(TestDB))
+				PresetsDetailPageCards(pb1, TestDB)
+				return pb1
+			},
 			ReqFunc: func() *http.Request {
 				detailData.TruncatePut(SqlDB)
-				return httptest.NewRequest("GET", "/samples/presets-detail-page-cards/customers?__execute_event__=presets_DetailingDrawer&id=12", nil)
+				return httptest.NewRequest("GET",
+					PresetsDetailPageCardsPath+"/customers?__execute_event__=presets_DetailingDrawer&id=12", nil)
+			},
+			ExpectPortalUpdate0ContainsInOrder: []string{"Felix 1"},
+		},
+
+		{
+			Name:  "detail switchable page detail show",
+			Debug: true,
+			ReqFunc: func() *http.Request {
+				detailData.TruncatePut(SqlDB)
+				return httptest.NewRequest("GET",
+					PresetsDetailInlineEditDetailsPath+"/customers?__execute_event__=presets_DetailingDrawer&id=12", nil)
 			},
 			ExpectPortalUpdate0ContainsInOrder: []string{"Felix 1"},
 		},

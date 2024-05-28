@@ -1,0 +1,61 @@
+package examples_presets
+
+import (
+	"fmt"
+
+	"github.com/qor5/admin/v3/presets"
+	"github.com/qor5/admin/v3/presets/gorm2op"
+	vx "github.com/qor5/ui/v3/vuetifyx"
+	"github.com/qor5/web/v3"
+	h "github.com/theplant/htmlgo"
+	"gorm.io/gorm"
+)
+
+func PresetsDetailInlineEditDetails(b *presets.Builder, db *gorm.DB) (
+	cust *presets.ModelBuilder,
+	cl *presets.ListingBuilder,
+	ce *presets.EditingBuilder,
+	dp *presets.DetailingBuilder,
+) {
+	err := db.AutoMigrate(&Customer{}, &CreditCard{}, &Note{})
+	if err != nil {
+		panic(err)
+	}
+	b.DataOperator(gorm2op.DataOperator(db))
+
+	cust = b.Model(&Customer{})
+	b.URIPrefix(PresetsDetailInlineEditDetailsPath)
+	dp = cust.Detailing("Details").Drawer(true)
+	dp.Field("Details").
+		SetSwitchable(true).
+		ShowComponentFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) h.HTMLComponent {
+			cu := obj.(*Customer)
+			cusID := fmt.Sprint(cu.ID)
+
+			var termAgreed string
+			if cu.TermAgreedAt != nil {
+				termAgreed = cu.TermAgreedAt.Format("Jan 02,15:04 PM")
+			}
+
+			detail := vx.DetailInfo(
+				vx.DetailColumn(
+					vx.DetailField(vx.OptionalText(cu.Name).ZeroLabel("No Name")).Label("Name"),
+					vx.DetailField(vx.OptionalText(cu.Email).ZeroLabel("No Email")).Label("Email"),
+					vx.DetailField(vx.OptionalText(cusID).ZeroLabel("No ID")).Label("ID"),
+					vx.DetailField(vx.OptionalText(cu.CreatedAt.Format("Jan 02,15:04 PM")).ZeroLabel("")).Label("Created"),
+					vx.DetailField(vx.OptionalText(termAgreed).ZeroLabel("Not Agreed Yet")).Label("Terms Agreed"),
+				).Header("ACCOUNT INFORMATION"),
+				vx.DetailColumn(
+					vx.DetailField(h.RawHTML(cu.Description)).Label("Description"),
+				).Header("DETAILS"),
+			)
+			return detail
+		}).
+		Editing("Name", "Email", "Description").
+		EditComponentFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) h.HTMLComponent {
+			return h.Div().Text("Hello")
+		})
+	return
+}
+
+const PresetsDetailInlineEditDetailsPath = "/samples/presets-detail-inline-edit-details"

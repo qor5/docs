@@ -20,7 +20,7 @@ func ExampleDB() (r *gorm.DB) {
 	if err != nil {
 		panic(err)
 	}
-	db.Logger.LogMode(logger.Info)
+	db.Logger = db.Logger.LogMode(logger.Info)
 	r = db
 	return
 }

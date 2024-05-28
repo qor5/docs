@@ -179,5 +179,12 @@ func SamplesHandler(mux mux_web_vuetify.Muxer, prefix string) {
 		examples_presets.PresetsListingCustomizationSearcherPath,
 		c26,
 	)
+
+	c27 := presets.New().AssetFunc(addGA)
+	examples_presets.PresetsDetailInlineEditDetails(c27, db)
+	mux.Handle(
+		examples_presets.PresetsDetailInlineEditDetailsPath,
+		c27,
+	)
 	return
 }
