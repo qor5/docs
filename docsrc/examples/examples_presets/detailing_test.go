@@ -2,7 +2,6 @@ package examples_presets
 
 import (
 	"net/http"
-	"net/http/httptest"
 	"testing"
 
 	"github.com/qor5/admin/v3/presets"
@@ -24,7 +23,7 @@ INSERT INTO public.notes (id, source_type, source_id, content, created_at, updat
 
 `, []string{"customers", "credit_cards", "notes"}))
 
-func TestPresetsDetailing(t *testing.T) {
+func TestPresetsDetailingWithoutEditComponentFunc(t *testing.T) {
 	pb := presets.New().DataOperator(gorm2op.DataOperator(TestDB))
 	PresetsDetailInlineEditDetails(pb, TestDB)
 
@@ -39,21 +38,53 @@ func TestPresetsDetailing(t *testing.T) {
 			},
 			ReqFunc: func() *http.Request {
 				detailData.TruncatePut(SqlDB)
-				return httptest.NewRequest("GET",
-					PresetsDetailPageCardsPath+"/customers?__execute_event__=presets_DetailingDrawer&id=12", nil)
+				return multipartestutils.NewMultipartBuilder().
+					PageURL(PresetsDetailPageCardsPath + "/customers?__execute_event__=presets_DetailingDrawer&id=12").
+					BuildEventFuncRequest()
 			},
 			ExpectPortalUpdate0ContainsInOrder: []string{"Felix 1"},
 		},
 
 		{
-			Name:  "detail switchable page detail show",
+			Name:  "page detail show",
 			Debug: true,
 			ReqFunc: func() *http.Request {
 				detailData.TruncatePut(SqlDB)
-				return httptest.NewRequest("GET",
-					PresetsDetailInlineEditDetailsPath+"/customers?__execute_event__=presets_DetailingDrawer&id=12", nil)
+				return multipartestutils.NewMultipartBuilder().
+					PageURL(PresetsDetailInlineEditDetailsPath +
+						"/customers?__execute_event__=presets_DetailingDrawer" +
+						"&id=12").
+					BuildEventFuncRequest()
 			},
 			ExpectPortalUpdate0ContainsInOrder: []string{"Felix 1"},
+		},
+
+		{
+			Name:  "page detail edit",
+			Debug: true,
+			ReqFunc: func() *http.Request {
+				detailData.TruncatePut(SqlDB)
+				return multipartestutils.NewMultipartBuilder().
+					PageURL(PresetsDetailInlineEditDetailsPath +
+						"/customers?__execute_event__=presets_Detailing_Field_Edit&detailField=Details&id=12").
+					BuildEventFuncRequest()
+			},
+			ExpectPortalUpdate0ContainsInOrder: []string{"Details.Email"},
+		},
+		{
+			Name:  "page detail update",
+			Debug: true,
+			ReqFunc: func() *http.Request {
+				detailData.TruncatePut(SqlDB)
+				return multipartestutils.NewMultipartBuilder().
+					PageURL(PresetsDetailInlineEditDetailsPath+
+						"/customers?__execute_event__=presets_Detailing_Field_Save&detailField=Details&id=12").
+					AddField("Details.Name", "123123").
+					AddField("Details.Email", "abc@example.com").
+					AddField("Details.Description", "hello description").
+					BuildEventFuncRequest()
+			},
+			ExpectPortalUpdate0ContainsInOrder: []string{"abc@example.com"},
 		},
 	}
 

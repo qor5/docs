@@ -51,10 +51,8 @@ func PresetsDetailInlineEditDetails(b *presets.Builder, db *gorm.DB) (
 			)
 			return detail
 		}).
-		Editing("Name", "Email", "Description").
-		EditComponentFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) h.HTMLComponent {
-			return h.Div().Text("Hello")
-		})
+		Editing("Name", "Email", "Description")
+
 	return
 }
 
