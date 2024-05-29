@@ -9,6 +9,9 @@ import (
 	"github.com/qor5/admin/v3/presets"
 	"github.com/qor5/admin/v3/presets/gorm2op"
 	"github.com/qor5/admin/v3/publish"
+	vx "github.com/qor5/ui/v3/vuetifyx"
+	"github.com/qor5/web/v3"
+	h "github.com/theplant/htmlgo"
 	"gorm.io/gorm"
 )
 
@@ -79,8 +82,20 @@ func PublishExample(b *presets.Builder, db *gorm.DB) {
 
 	// @snippet_begin(PublishConfigureView)
 	mb := b.Model(&WithPublishProduct{})
-	mb.Editing("Name", "Price")
-	mb.Detailing(publish.VersionsPublishBar, "Name", "Price").Drawer(true)
+	dp := mb.Detailing(publish.VersionsPublishBar, "Details").Drawer(true)
+	dp.Field("Details").
+		SetSwitchable(true).
+		ShowComponentFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) h.HTMLComponent {
+			product := obj.(*WithPublishProduct)
+			detail := vx.DetailInfo(
+				vx.DetailColumn(
+					vx.DetailField(vx.OptionalText(product.Name).ZeroLabel("No Name")).Label("Name"),
+					vx.DetailField(vx.OptionalText(fmt.Sprint(product.Price)).ZeroLabel("No Price")).Label("Price"),
+				).Header("PRODUCT INFORMATION"),
+			)
+			return detail
+		}).
+		Editing("Name", "Price")
 
 	publisher := publish.New(db, nil)
 	b.Use(publisher)
