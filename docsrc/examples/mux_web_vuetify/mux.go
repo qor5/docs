@@ -167,10 +167,7 @@ func DemoVuetifyLayout(in web.PageFunc) (out web.PageFunc) {
 		AddGA(ctx)
 
 		ctx.Injector.HeadHTML(`
-			<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono" async>
-			<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" async>
-			<link href="https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css" rel="stylesheet" async>
-			<link rel="stylesheet" href="/assets/vuetify.css">
+			<link rel="stylesheet" href="/vuetify/assets/index.css">
 			<script src='/assets/vue.js'></script>
 		`)
 
@@ -237,11 +234,7 @@ func Mux(mux *http.ServeMux, prefix string) http.Handler {
 	// @snippet_end
 
 	// @snippet_begin(VuetifyComponentsPackSample)
-	mux.Handle("/assets/vuetify.css",
-		web.PacksHandler("text/css",
-			CSSComponentsPack(),
-		),
-	)
+	HandleMaterialDesignIcons("", mux)
 	// @snippet_end
 
 	mux.HandleFunc("/favicon.ico", func(w http.ResponseWriter, r *http.Request) {

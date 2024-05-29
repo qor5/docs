@@ -27,11 +27,7 @@ func Mux(mux *http.ServeMux, prefix string) http.Handler {
 		),
 	)
 
-	mux.Handle("/assets/vuetify.css",
-		web.PacksHandler("text/css",
-			CSSComponentsPack(),
-		),
-	)
+	HandleMaterialDesignIcons(prefix, mux)
 
 	mux.HandleFunc("/favicon.ico", func(w http.ResponseWriter, r *http.Request) {
 		w.Write(assets.Favicon)
