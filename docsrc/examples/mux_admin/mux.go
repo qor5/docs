@@ -15,12 +15,14 @@ import (
 
 func Mux(mux *http.ServeMux, prefix string) http.Handler {
 	mux_web_vuetify.Mux(mux, prefix)
-	samplesMux := SamplesHandler(prefix)
+
+	im := &mux_web_vuetify.IndexMux{Mux: http.NewServeMux()}
+	SamplesHandler(im, prefix)
 
 	mux.Handle("/samples/",
 		middleware.Logger(
 			middleware.RequestID(
-				samplesMux,
+				im.Mux,
 			),
 		),
 	)
@@ -35,8 +37,7 @@ func Mux(mux *http.ServeMux, prefix string) http.Handler {
 	return mux
 }
 
-func SamplesHandler(prefix string) http.Handler {
-	mux := &mux_web_vuetify.IndexMux{Mux: http.NewServeMux()}
+func SamplesHandler(mux mux_web_vuetify.Muxer, prefix string) {
 	mux_web_vuetify.SamplesHandler(mux, prefix)
 	mux_presets.SamplesHandler(mux, prefix)
 	addGA := mux_web_vuetify.AddGA
@@ -85,6 +86,4 @@ func SamplesHandler(prefix string) http.Handler {
 	mux.Handle(
 		examples_admin.SEOExampleBasicPath,
 		c30)
-
-	return mux.Mux
 }

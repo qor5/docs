@@ -8,12 +8,16 @@ import (
 	v "github.com/qor5/ui/v3/vuetify"
 	"github.com/qor5/web/v3"
 	h "github.com/theplant/htmlgo"
+	"github.com/theplant/osenv"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 )
 
-var exampleDB *gorm.DB
+var (
+	exampleDB      *gorm.DB
+	dbParamsString = osenv.Get("DB_PARAMS", "admin example database connection string", "user=docs password=docs dbname=docs sslmode=disable host=localhost port=6532 TimeZone=Asia/Tokyo")
+)
 
 func ExampleDB() (db *gorm.DB) {
 	if exampleDB != nil {

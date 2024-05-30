@@ -21,9 +21,9 @@ type IndexMux struct {
 }
 
 func (im *IndexMux) Page(ctx *web.EventContext) (r web.PageResponse, err error) {
-	ul := Ul()
+	ul := Ol().Style("font-family: monospace;")
 	for _, p := range im.paths {
-		ul.AppendChildren(Li(A().Href(p).Text(p)))
+		ul.AppendChildren(Li(A().Href(p).Text(p).Target("_blank")))
 	}
 	r.Body = ul
 	return
