@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/qor5/docs/v3/docsrc/examples"
 	. "github.com/qor5/ui/v3/vuetify"
 	"github.com/qor5/web/v3"
 	h "github.com/theplant/htmlgo"
@@ -90,6 +91,6 @@ var VuetifyNavigationDrawerPB = web.Page(VuetifyNavigationDrawer).
 	EventFunc("showDrawer", showDrawer).
 	EventFunc("updateParentAndClose", updateParentAndClose)
 
-const VuetifyNavigationDrawerPath = "/samples/vuetify-navigation-drawer"
+var VuetifyNavigationDrawerPath = examples.URLPathByFunc(VuetifyNavigationDrawer)
 
 // @snippet_end

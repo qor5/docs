@@ -5,6 +5,7 @@ package examples_vuetifyx
 import (
 	"context"
 
+	"github.com/qor5/docs/v3/docsrc/examples"
 	"github.com/qor5/web/v3"
 	h "github.com/theplant/htmlgo"
 )
@@ -33,6 +34,6 @@ func VuetifyxDatePickers(ctx *web.EventContext) (pr web.PageResponse, err error)
 
 var DatePickersPB = web.Page(VuetifyxDatePickers)
 
-const DatePickersPath = "/samples/vuetifyx_date_pickers"
+var DatePickersPath = examples.URLPathByFunc(VuetifyxDatePickers)
 
 // @snippet_end

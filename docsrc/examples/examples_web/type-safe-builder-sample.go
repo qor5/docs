@@ -2,6 +2,7 @@ package examples_web
 
 // @snippet_begin(TypeSafeBuilderSample)
 import (
+	"github.com/qor5/docs/v3/docsrc/examples"
 	"github.com/qor5/web/v3"
 	. "github.com/theplant/htmlgo"
 )
@@ -34,13 +35,13 @@ func result(args ...HTMLComponent) HTMLComponent {
 	)
 }
 
-func TypeSafeBuilderSamplePF(ctx *web.EventContext) (pr web.PageResponse, err error) {
+func TypeSafeBuilderExample(ctx *web.EventContext) (pr web.PageResponse, err error) {
 	pr.Body = result(H5("1"), B("2"), Strong("3"))
 	return
 }
 
-var TypeSafeBuilderSamplePFPB = web.Page(TypeSafeBuilderSamplePF)
+var TypeSafeBuilderSamplePFPB = web.Page(TypeSafeBuilderExample)
 
-const TypeSafeBuilderSamplePath = "/samples/type_safe_builder_sample"
+var TypeSafeBuilderSamplePath = examples.URLPathByFunc(TypeSafeBuilderExample)
 
 // @snippet_end

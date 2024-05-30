@@ -6,6 +6,7 @@ import (
 	"sort"
 	"time"
 
+	"github.com/qor5/docs/v3/docsrc/examples"
 	. "github.com/qor5/ui/v3/vuetify"
 	"github.com/qor5/web/v3"
 	"github.com/samber/lo"
@@ -260,7 +261,7 @@ var EventHandlingPagePB = web.Page(EventHandlingPage).
 		return
 	})
 
-const (
-	EventHandlingPagePath = "/samples/event_handling"
-	EventExamplePagePath  = "/samples/event_handling/example"
+var (
+	EventHandlingPagePath = examples.URLPathByFunc(EventHandlingPage)
+	EventExamplePagePath  = examples.URLPathByFunc(ExamplePage)
 )

@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/qor5/docs/v3/docsrc/examples"
 	"github.com/qor5/web/v3"
 	. "github.com/theplant/htmlgo"
 )
@@ -43,6 +44,6 @@ func update2(ctx *web.EventContext) (er web.EventResponse, err error) {
 
 var ReloadWithFlashPB = web.Page(ReloadWithFlash).EventFunc("update2", update2)
 
-const ReloadWithFlashPath = "/samples/reload_with_flash"
+var ReloadWithFlashPath = examples.URLPathByFunc(ReloadWithFlash)
 
 // @snippet_end

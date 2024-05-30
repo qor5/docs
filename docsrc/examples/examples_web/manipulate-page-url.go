@@ -4,6 +4,7 @@ package examples_web
 import (
 	"net/url"
 
+	"github.com/qor5/docs/v3/docsrc/examples"
 	"github.com/qor5/web/v3"
 	. "github.com/theplant/htmlgo"
 )
@@ -85,6 +86,6 @@ var MultiStatePagePB = web.Page(MultiStatePage).
 	EventFunc("openPanel", openPanel).
 	EventFunc("update5", update5)
 
-const MultiStatePagePath = "/samples/multi_state_page"
+var MultiStatePagePath = examples.URLPathByFunc(MultiStatePage)
 
 // @snippet_end

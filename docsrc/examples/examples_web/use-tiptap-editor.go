@@ -2,6 +2,7 @@ package examples_web
 
 // @snippet_begin(HelloWorldTipTapSample)
 import (
+	"github.com/qor5/docs/v3/docsrc/examples"
 	"github.com/qor5/ui/v3/tiptap"
 	"github.com/qor5/web/v3"
 	. "github.com/theplant/htmlgo"
@@ -58,6 +59,6 @@ func refresh(ctx *web.EventContext) (er web.EventResponse, err error) {
 var HelloWorldTipTapPB = web.Page(HelloWorldTipTap).
 	EventFunc("refresh", refresh)
 
-const HelloWorldTipTapPath = "/samples/hello_world_tiptap"
+var HelloWorldTipTapPath = examples.URLPathByFunc(HelloWorldTipTap)
 
 // @snippet_end

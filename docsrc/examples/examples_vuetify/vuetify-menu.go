@@ -3,6 +3,7 @@ package examples_vuetify
 // @snippet_begin(VuetifyMenuSample)
 
 import (
+	"github.com/qor5/docs/v3/docsrc/examples"
 	"github.com/qor5/docs/v3/docsrc/utils"
 	. "github.com/qor5/ui/v3/vuetify"
 	"github.com/qor5/web/v3"
@@ -108,6 +109,6 @@ var HelloVuetifyMenuPB = web.Page(HelloVuetifyMenu).
 	EventFunc("submit", submit).
 	EventFunc("toggleFavored", toggleFavored)
 
-const HelloVuetifyMenuPath = "/samples/hello-vuetify-menu"
+var HelloVuetifyMenuPath = examples.URLPathByFunc(HelloVuetifyMenu)
 
 // @snippet_end

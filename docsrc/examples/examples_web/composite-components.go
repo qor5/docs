@@ -4,6 +4,7 @@ package examples_web
 import (
 	"fmt"
 
+	"github.com/qor5/docs/v3/docsrc/examples"
 	"github.com/qor5/web/v3"
 	. "github.com/theplant/htmlgo"
 )
@@ -148,7 +149,7 @@ func CompositeComponentSample1Page(ctx *web.EventContext) (pr web.PageResponse, 
 
 var CompositeComponentSample1PagePB = web.Page(CompositeComponentSample1Page)
 
-const CompositeComponentSample1PagePath = "/samples/composite-component-sample1"
+var CompositeComponentSample1PagePath = examples.URLPathByFunc(CompositeComponentSample1Page)
 
 // @snippet_end
 

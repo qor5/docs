@@ -2,6 +2,7 @@ package examples_web
 
 // @snippet_begin(HelloWorldSample)
 import (
+	"github.com/qor5/docs/v3/docsrc/examples"
 	"github.com/qor5/web/v3"
 	. "github.com/theplant/htmlgo"
 )
@@ -13,6 +14,6 @@ func HelloWorld(ctx *web.EventContext) (pr web.PageResponse, err error) {
 
 var HelloWorldPB = web.Page(HelloWorld) // this is already a http.Handler
 
-const HelloWorldPath = "/samples/hello_world"
+var HelloWorldPath = examples.URLPathByFunc(HelloWorld)
 
 // @snippet_end

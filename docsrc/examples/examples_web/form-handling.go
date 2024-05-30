@@ -6,6 +6,7 @@ import (
 	"io"
 	"mime/multipart"
 
+	"github.com/qor5/docs/v3/docsrc/examples"
 	"github.com/qor5/docs/v3/docsrc/utils"
 	"github.com/qor5/web/v3"
 	. "github.com/theplant/htmlgo"
@@ -204,6 +205,6 @@ func (m *MyData) File1Bytes() string {
 var FormHandlingPagePB = web.Page(FormHandlingPage).
 	EventFunc("checkvalue", checkvalue)
 
-const FormHandlingPagePath = "/samples/form_handling"
+var FormHandlingPagePath = examples.URLPathByFunc(FormHandlingPage)
 
 // @snippet_end

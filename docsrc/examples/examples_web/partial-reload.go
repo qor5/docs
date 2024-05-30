@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/qor5/docs/v3/docsrc/examples"
 	"github.com/qor5/web/v3"
 	. "github.com/theplant/htmlgo"
 )
@@ -106,6 +107,6 @@ var PartialReloadPagePB = web.Page(PartialReloadPage).
 	EventFunc("autoReload", autoReload).
 	EventFunc("loadData", loadData)
 
-const PartialReloadPagePath = "/samples/partial_reload"
+var PartialReloadPagePath = examples.URLPathByFunc(PartialReloadPage)
 
 // @snippet_end

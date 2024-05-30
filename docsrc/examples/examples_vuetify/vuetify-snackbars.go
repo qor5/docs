@@ -2,6 +2,7 @@ package examples_vuetify
 
 // @snippet_begin(VuetifySnackBarsSample)
 import (
+	"github.com/qor5/docs/v3/docsrc/examples"
 	. "github.com/qor5/ui/v3/vuetify"
 	"github.com/qor5/web/v3"
 	h "github.com/theplant/htmlgo"
@@ -46,6 +47,6 @@ func snackbar(pos string, color string) *web.ScopeBuilder {
 var VuetifySnackBarsPB = web.Page(VuetifySnackBars).
 	EventFunc("showSnackBar", showSnackBar)
 
-const VuetifySnackBarsPath = "/samples/vuetify-snackbars"
+var VuetifySnackBarsPath = examples.URLPathByFunc(VuetifySnackBars)
 
 // @snippet_end

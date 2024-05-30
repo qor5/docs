@@ -2,6 +2,7 @@ package examples_vuetify
 
 // @snippet_begin(VuetifyListSample)
 import (
+	"github.com/qor5/docs/v3/docsrc/examples"
 	. "github.com/qor5/ui/v3/vuetify"
 	"github.com/qor5/web/v3"
 	. "github.com/theplant/htmlgo"
@@ -91,6 +92,6 @@ func HelloVuetifyList(ctx *web.EventContext) (pr web.PageResponse, err error) {
 
 var HelloVuetifyListPB = web.Page(HelloVuetifyList)
 
-const HelloVuetifyListPath = "/samples/hello-vuetify-list"
+var HelloVuetifyListPath = examples.URLPathByFunc(HelloVuetifyList)
 
 // @snippet_end

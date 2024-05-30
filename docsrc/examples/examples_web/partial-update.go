@@ -4,6 +4,7 @@ package examples_web
 import (
 	"time"
 
+	"github.com/qor5/docs/v3/docsrc/examples"
 	"github.com/qor5/web/v3"
 	. "github.com/theplant/htmlgo"
 )
@@ -68,6 +69,6 @@ var PartialUpdatePagePB = web.Page(PartialUpdatePage).
 	EventFunc("edit1", edit1).
 	EventFunc("reload2", reload2)
 
-const PartialUpdatePagePath = "/samples/partial_update"
+var PartialUpdatePagePath = examples.URLPathByFunc(PartialUpdatePage)
 
 // @snippet_end

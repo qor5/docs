@@ -3,6 +3,7 @@ package examples_vuetifyx
 // @snippet_begin(VuetifyComponentsLinkageSelect)
 
 import (
+	"github.com/qor5/docs/v3/docsrc/examples"
 	. "github.com/qor5/ui/v3/vuetify"
 	vx "github.com/qor5/ui/v3/vuetifyx"
 	"github.com/qor5/web/v3"
@@ -54,6 +55,6 @@ func VuetifyComponentsLinkageSelect(ctx *web.EventContext) (pr web.PageResponse,
 
 var VuetifyComponentsLinkageSelectPB = web.Page(VuetifyComponentsLinkageSelect)
 
-const VuetifyComponentsLinkageSelectPath = "/samples/vuetify-components-linkage-select"
+var VuetifyComponentsLinkageSelectPath = examples.URLPathByFunc(VuetifyComponentsLinkageSelect)
 
 // @snippet_end

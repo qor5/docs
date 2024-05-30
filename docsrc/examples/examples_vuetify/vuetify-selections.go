@@ -3,6 +3,7 @@ package examples_vuetify
 // @snippet_begin(VuetifyComponentsKitchen)
 
 import (
+	"github.com/qor5/docs/v3/docsrc/examples"
 	"github.com/qor5/docs/v3/docsrc/utils"
 	. "github.com/qor5/ui/v3/vuetify"
 	"github.com/qor5/web/v3"
@@ -134,6 +135,6 @@ var VuetifyComponentsKitchenPB = web.Page(VuetifyComponentsKitchen).
 	EventFunc("removeCity", removeCity).
 	EventFunc("submit", submit2)
 
-const VuetifyComponentsKitchenPath = "/samples/vuetify-components-kitchen"
+var VuetifyComponentsKitchenPath = examples.URLPathByFunc(VuetifyComponentsKitchen)
 
 // @snippet_end

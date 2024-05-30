@@ -4,6 +4,7 @@ package examples_vuetify
 import (
 	"mime/multipart"
 
+	"github.com/qor5/docs/v3/docsrc/examples"
 	"github.com/qor5/docs/v3/docsrc/utils"
 	. "github.com/qor5/ui/v3/vuetify"
 	"github.com/qor5/web/v3"
@@ -138,4 +139,4 @@ var VuetifyBasicInputsPB = web.Page(VuetifyBasicInputs).
 
 // @snippet_end
 
-const VuetifyBasicInputsPath = "/samples/vuetify-basic-inputs"
+var VuetifyBasicInputsPath = examples.URLPathByFunc(VuetifyBasicInputs)

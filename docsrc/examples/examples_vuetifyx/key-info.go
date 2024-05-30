@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/qor5/docs/v3/docsrc/examples"
 	. "github.com/qor5/ui/v3/vuetify"
 	vx "github.com/qor5/ui/v3/vuetifyx"
 	"github.com/qor5/web/v3"
@@ -129,4 +130,4 @@ func KeyInfoDemo(ctx *web.EventContext) (pr web.PageResponse, err error) {
 
 var KeyInfoDemoPB = web.Page(KeyInfoDemo)
 
-const KeyInfoDemoPath = "/samples/key-info-demo"
+var KeyInfoDemoPath = examples.URLPathByFunc(KeyInfoDemo)

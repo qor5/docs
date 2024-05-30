@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/qor5/docs/v3/docsrc/examples"
 	. "github.com/qor5/ui/v3/vuetify"
 	"github.com/qor5/web/v3"
 	. "github.com/theplant/htmlgo"
@@ -158,6 +159,6 @@ var LazyPortalsAndReloadPB = web.Page(LazyPortalsAndReload).
 	EventFunc("reloadAB", reloadAB).
 	EventFunc("updateCD", updateCD)
 
-const LazyPortalsAndReloadPath = "/samples/lazy-portals-and-reload"
+var LazyPortalsAndReloadPath = examples.URLPathByFunc(LazyPortalsAndReload)
 
 // @snippet_end

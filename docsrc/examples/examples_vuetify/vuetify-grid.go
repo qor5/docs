@@ -3,6 +3,7 @@ package examples_vuetify
 import (
 	"fmt"
 
+	"github.com/qor5/docs/v3/docsrc/examples"
 	. "github.com/qor5/ui/v3/vuetify"
 	"github.com/qor5/web/v3"
 	h "github.com/theplant/htmlgo"
@@ -44,4 +45,4 @@ func HelloVuetifyGrid(ctx *web.EventContext) (pr web.PageResponse, err error) {
 
 var VuetifyGridPB = web.Page(HelloVuetifyGrid)
 
-const VuetifyGridPath = "/samples/vuetify-grid"
+var VuetifyGridPath = examples.URLPathByFunc(HelloVuetifyGrid)

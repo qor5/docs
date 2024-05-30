@@ -4,6 +4,7 @@ package examples_web
 import (
 	"time"
 
+	"github.com/qor5/docs/v3/docsrc/examples"
 	"github.com/qor5/web/v3"
 	. "github.com/theplant/htmlgo"
 )
@@ -29,6 +30,6 @@ const reloadEvent = "reload"
 var HelloWorldReloadPB = web.Page(HelloWorldReload).
 	EventFunc(reloadEvent, update)
 
-const HelloWorldReloadPath = "/samples/hello_world_reload"
+var HelloWorldReloadPath = examples.URLPathByFunc(HelloWorldReload)
 
 // @snippet_end

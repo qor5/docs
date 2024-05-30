@@ -1,6 +1,7 @@
 package examples_web
 
 import (
+	"github.com/qor5/docs/v3/docsrc/examples"
 	"github.com/qor5/docs/v3/docsrc/utils"
 	. "github.com/qor5/ui/v3/vuetify"
 	"github.com/qor5/web/v3"
@@ -8,7 +9,7 @@ import (
 )
 
 // @snippet_begin(WebScopeUseLocalsSample1)
-func UseLocals(ctx *web.EventContext) (pr web.PageResponse, err error) {
+func WebScopeUseLocals(ctx *web.EventContext) (pr web.PageResponse, err error) {
 	pr.Body = VContainer(
 		VIcon("home"),
 		VBtn("Test Can Not Change Other Scope").
@@ -53,14 +54,14 @@ if (locals.btnLabel == "Add") {
 	return
 }
 
-var UseLocalsPB = web.Page(UseLocals)
+var UseLocalsPB = web.Page(WebScopeUseLocals)
 
 // @snippet_end
 
 // @snippet_begin(WebScopeUsePlaidFormSample1)
 var materialID, materialName, rawMaterialID, rawMaterialName, countryID, countryName, productName string
 
-func UsePlaidForm(ctx *web.EventContext) (pr web.PageResponse, err error) {
+func WebScopeUseForm(ctx *web.EventContext) (pr web.PageResponse, err error) {
 	pr.Body = Div(
 		H3("Form Content"),
 		utils.PrettyFormAsJSON(ctx),
@@ -171,12 +172,12 @@ func updateValue(ctx *web.EventContext) (er web.EventResponse, err error) {
 	return
 }
 
-var UsePlaidFormPB = web.Page(UsePlaidForm).
+var UsePlaidFormPB = web.Page(WebScopeUseForm).
 	EventFunc("updateValue", updateValue)
 
 // @snippet_end
 
-const (
-	WebScopeUseLocalsPagePath    = "/samples/web-scope-use-locals"
-	WebScopeUsePlaidFormPagePath = "/samples/web-scope-use-plaid-form"
+var (
+	WebScopeUseLocalsPath = examples.URLPathByFunc(WebScopeUseLocals)
+	WebScopeUseFormPath   = examples.URLPathByFunc(WebScopeUseForm)
 )

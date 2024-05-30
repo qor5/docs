@@ -2,6 +2,7 @@ package examples_web
 
 // @snippet_begin(ShortCutSample)
 import (
+	"github.com/qor5/docs/v3/docsrc/examples"
 	. "github.com/qor5/ui/v3/vuetify"
 	"github.com/qor5/web/v3"
 	h "github.com/theplant/htmlgo"
@@ -42,6 +43,6 @@ func ShortCutSample(ctx *web.EventContext) (pr web.PageResponse, err error) {
 
 var ShortCutSamplePB = web.Page(ShortCutSample)
 
-const ShortCutSamplePath = "/samples/shortcut-sample"
+var ShortCutSamplePath = examples.URLPathByFunc(ShortCutSample)
 
 // @snippet_end

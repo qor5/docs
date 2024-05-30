@@ -304,12 +304,12 @@ func SamplesHandler(mux examples.Muxer, prefix string) {
 	)
 
 	mux.Handle(
-		examples_web.WebScopeUseLocalsPagePath,
+		examples_web.WebScopeUseLocalsPath,
 		examples_web.UseLocalsPB.Wrap(DemoVuetifyLayout),
 	)
 
 	mux.Handle(
-		examples_web.WebScopeUsePlaidFormPagePath,
+		examples_web.WebScopeUseFormPath,
 		examples_web.UsePlaidFormPB.Wrap(demoLayout),
 	)
 

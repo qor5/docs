@@ -3,6 +3,7 @@ package examples_vuetify
 // @snippet_begin(VuetifyVariantSubForm)
 
 import (
+	"github.com/qor5/docs/v3/docsrc/examples"
 	"github.com/qor5/docs/v3/docsrc/utils"
 	. "github.com/qor5/ui/v3/vuetify"
 	"github.com/qor5/web/v3"
@@ -111,6 +112,6 @@ var VuetifyVariantSubFormPB = web.Page(VuetifyVariantSubForm).
 	EventFunc("switchForm", switchForm).
 	EventFunc("submit", submit1)
 
-const VuetifyVariantSubFormPath = "/samples/vuetify-variant-sub-form"
+var VuetifyVariantSubFormPath = examples.URLPathByFunc(VuetifyVariantSubForm)
 
 // @snippet_end

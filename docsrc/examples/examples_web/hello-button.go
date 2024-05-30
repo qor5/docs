@@ -1,6 +1,7 @@
 package examples_web
 
 import (
+	"github.com/qor5/docs/v3/docsrc/examples"
 	"github.com/qor5/web/v3"
 	. "github.com/theplant/htmlgo"
 )
@@ -43,4 +44,4 @@ func reload(ctx *web.EventContext) (r web.EventResponse, err error) {
 var HelloButtonPB = web.Page(HelloButton).
 	EventFunc("reload", reload)
 
-const HelloButtonPath = "/samples/hello_button"
+var HelloButtonPath = examples.URLPathByFunc(HelloButton)
