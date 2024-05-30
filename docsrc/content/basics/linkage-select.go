@@ -1,6 +1,7 @@
 package basics
 
 import (
+	"github.com/qor5/docs/v3/docsrc/examples"
 	"github.com/qor5/docs/v3/docsrc/examples/examples_presets"
 	"github.com/qor5/docs/v3/docsrc/examples/examples_vuetifyx"
 	"github.com/qor5/docs/v3/docsrc/generated"
@@ -19,6 +20,6 @@ LinkageSelect is a component for multi-level linkage select.
 ### Filter intergation
     `),
 	ch.Code(generated.LinkageSelectFilterItem).Language("go"),
-	utils.DemoWithSnippetLocation("LinkageSelect Filter Item", examples_presets.PresetsLinkageSelectFilterItemPath+"/addresses", generated.LinkageSelectFilterItemLocation),
+	utils.DemoWithSnippetLocation("LinkageSelect Filter Item", examples.URLPathByFunc(examples_presets.PresetsLinkageSelectFilterItem)+"/addresses", generated.LinkageSelectFilterItemLocation),
 ).Title("Linkage Select").
 	Slug("vuetify-components/linkage-select")

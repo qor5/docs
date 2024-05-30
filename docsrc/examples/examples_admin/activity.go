@@ -2,7 +2,7 @@ package examples_admin
 
 import (
 	"context"
-	"github.com/qor5/docs/v3/docsrc/examples"
+
 	"github.com/qor5/web/v3"
 	. "github.com/theplant/htmlgo"
 	"gorm.io/gorm"
@@ -14,7 +14,7 @@ import (
 
 func ActivityExample(b *presets.Builder, db *gorm.DB) {
 	// @snippet_begin(NewActivitySample)
-	b.DataOperator(gorm2op.DataOperator(db)).URIPrefix(examples.SampleURLPathByFunc(ActivityExample))
+	b.DataOperator(gorm2op.DataOperator(db))
 
 	activityBuilder := activity.New(db)
 	b.Use(activityBuilder)

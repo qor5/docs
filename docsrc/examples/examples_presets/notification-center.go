@@ -10,9 +10,13 @@ import (
 	"gorm.io/gorm"
 )
 
-func PresetsNotificationCenterSample(b *presets.Builder, db *gorm.DB) {
-	b.URIPrefix(NotificationCenterSamplePath).
-		DataOperator(gorm2op.DataOperator(db))
+func PresetsNotificationCenterSample(b *presets.Builder, db *gorm.DB) (
+	mb *presets.ModelBuilder,
+	cl *presets.ListingBuilder,
+	ce *presets.EditingBuilder,
+	dp *presets.DetailingBuilder,
+) {
+	b.DataOperator(gorm2op.DataOperator(db))
 
 	db.AutoMigrate(&Page{})
 	b.Model(&Page{})
@@ -42,4 +46,3 @@ func NotifierCount() func(ctx *web.EventContext) int {
 }
 
 // @snippet_end
-const NotificationCenterSamplePath = "/samples/notification_center"

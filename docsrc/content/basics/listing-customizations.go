@@ -1,6 +1,7 @@
 package basics
 
 import (
+	"github.com/qor5/docs/v3/docsrc/examples"
 	"github.com/qor5/docs/v3/docsrc/examples/examples_presets"
 	"github.com/qor5/docs/v3/docsrc/generated"
 	"github.com/qor5/docs/v3/docsrc/utils"
@@ -72,7 +73,7 @@ Later do an bulk update data for all of them.
 Here is how to use it:
 `),
 	ch.Code(generated.PresetsListingCustomizationBulkActionsSample).Language("go"),
-	utils.DemoWithSnippetLocation("Presets Listing Bulk Actions", examples_presets.PresetsListingCustomizationBulkActionsPath+"/customers", generated.PresetsListingCustomizationBulkActionsSampleLocation),
+	utils.DemoWithSnippetLocation("Presets Listing Bulk Actions", examples.URLPathByFunc(examples_presets.PresetsListingCustomizationBulkActions)+"/customers", generated.PresetsListingCustomizationBulkActionsSampleLocation),
 	Markdown(`
 - ~ComponentFunc~ of the bulk action configure the component that will show to user to input after user clicked the bulk action button
 - ~UpdateFunc~ configure the logic that the bulk action execute
@@ -87,6 +88,6 @@ You can process the data displayed on the listing page here based on context or 
 In the following example, the listing page only displays approved customers.
 `),
 	ch.Code(generated.PresetsListingCustomizationSearcherSample).Language("go"),
-	utils.DemoWithSnippetLocation("Search Func", examples_presets.PresetsListingCustomizationSearcherPath+"/customers", generated.PresetsListingCustomizationSearcherSampleLocation),
+	utils.DemoWithSnippetLocation("Search Func", examples.URLPathByFunc(examples_presets.PresetsListingCustomizationSearcher)+"/customers", generated.PresetsListingCustomizationSearcherSampleLocation),
 ).Title("Listing Customizations").
 	Slug("basics/listing-customizations")

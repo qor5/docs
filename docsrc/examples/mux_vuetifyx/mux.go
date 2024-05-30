@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/qor5/docs/v3/docsrc/assets"
+	"github.com/qor5/docs/v3/docsrc/examples"
 	"github.com/qor5/docs/v3/docsrc/examples/examples_vuetifyx"
 	"github.com/qor5/docs/v3/docsrc/examples/mux_web_vuetify"
 	. "github.com/qor5/ui/v3/vuetify"
@@ -37,7 +38,7 @@ func Mux(mux *http.ServeMux, prefix string) http.Handler {
 	return mux
 }
 
-func SamplesHandler(mux mux_web_vuetify.Muxer, prefix string) {
+func SamplesHandler(mux examples.Muxer, prefix string) {
 	mux.Handle(
 		examples_vuetifyx.VuetifyComponentsLinkageSelectPath,
 		examples_vuetifyx.VuetifyComponentsLinkageSelectPB.Wrap(mux_web_vuetify.DemoVuetifyLayout),

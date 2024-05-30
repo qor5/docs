@@ -31,8 +31,7 @@ func PresetsDetailPageTopNotes(b *presets.Builder, db *gorm.DB) (
 	ce *presets.EditingBuilder,
 	dp *presets.DetailingBuilder,
 ) {
-	cust, cl, ce = PresetsEditingCustomizationValidation(b, db)
-	b.URIPrefix(PresetsDetailPageTopNotesPath)
+	cust, cl, ce, dp = PresetsEditingCustomizationValidation(b, db)
 	err := db.AutoMigrate(&Note{})
 	if err != nil {
 		panic(err)
@@ -102,8 +101,6 @@ func PresetsDetailPageTopNotes(b *presets.Builder, db *gorm.DB) (
 	return
 }
 
-const PresetsDetailPageTopNotesPath = "/samples/presets-detail-page-top-notes"
-
 // @snippet_end
 
 // @snippet_begin(PresetsDetailPageDetailsSample)
@@ -115,7 +112,6 @@ func PresetsDetailPageDetails(b *presets.Builder, db *gorm.DB) (
 	dp *presets.DetailingBuilder,
 ) {
 	cust, cl, ce, dp = PresetsDetailPageTopNotes(b, db)
-	b.URIPrefix(PresetsDetailPageDetailsPath)
 	err := db.AutoMigrate(&CreditCard{})
 	if err != nil {
 		panic(err)
@@ -222,7 +218,6 @@ func PresetsDetailPageCards(b *presets.Builder, db *gorm.DB) (
 	dp *presets.DetailingBuilder,
 ) {
 	cust, cl, ce, dp = PresetsDetailPageDetails(b, db)
-	b.URIPrefix(PresetsDetailPageCardsPath)
 	err := db.AutoMigrate(&CreditCard{})
 	if err != nil {
 		panic(err)

@@ -1,6 +1,7 @@
 package basics
 
 import (
+	"github.com/qor5/docs/v3/docsrc/examples"
 	"github.com/qor5/docs/v3/docsrc/examples/examples_presets"
 	"github.com/qor5/docs/v3/docsrc/generated"
 	"github.com/qor5/docs/v3/docsrc/utils"
@@ -15,7 +16,7 @@ Assume we have a ~status~ filed in Post. It has 2 possible values, "draft" and "
 
 `),
 	ch.Code(generated.FilterSample).Language("go"),
-	utils.DemoWithSnippetLocation("Basic filter", examples_presets.PresetsBasicFilterPath+"/posts", generated.FilterSampleLocation),
+	utils.DemoWithSnippetLocation("Basic filter", examples.URLPathByFunc(examples_presets.PresetsBasicFilter)+"/posts", generated.FilterSampleLocation),
 
 	Markdown(`
 ### QOR5 now supports 7 types of filter option.

@@ -22,9 +22,10 @@ import (
 var assets embed.FS
 
 func PresetsEditingCustomizationDescription(b *presets.Builder, db *gorm.DB) (
-	cust *presets.ModelBuilder,
+	mb *presets.ModelBuilder,
 	cl *presets.ListingBuilder,
 	ce *presets.EditingBuilder,
+	dp *presets.DetailingBuilder,
 ) {
 	js, _ := assets.ReadFile("assets/fontcolor.min.js")
 	richeditor.Plugins = []string{"alignment", "table", "video", "imageinsert", "fontcolor"}
@@ -32,8 +33,7 @@ func PresetsEditingCustomizationDescription(b *presets.Builder, db *gorm.DB) (
 	b.ExtraAsset("/redactor.js", "text/javascript", richeditor.JSComponentsPack())
 	b.ExtraAsset("/redactor.css", "text/css", richeditor.CSSComponentsPack())
 
-	cust, cl, ce = PresetsListingCustomizationBulkActions(b, db)
-	b.URIPrefix(PresetsEditingCustomizationDescriptionPath)
+	mb, cl, ce, _ = PresetsListingCustomizationBulkActions(b, db)
 
 	ce.Only("Name", "CompanyID", "Description")
 
@@ -42,8 +42,6 @@ func PresetsEditingCustomizationDescription(b *presets.Builder, db *gorm.DB) (
 	})
 	return
 }
-
-const PresetsEditingCustomizationDescriptionPath = "/samples/presets-editing-customization-description"
 
 // @snippet_end
 
@@ -58,17 +56,17 @@ type Product struct {
 }
 
 func PresetsEditingCustomizationFileType(b *presets.Builder, db *gorm.DB) (
-	cust *presets.ModelBuilder,
+	mb *presets.ModelBuilder,
 	cl *presets.ListingBuilder,
 	ce *presets.EditingBuilder,
+	dp *presets.DetailingBuilder,
 ) {
-	cust, cl, ce = PresetsEditingCustomizationDescription(b, db)
+	mb, cl, ce, dp = PresetsEditingCustomizationDescription(b, db)
 	err := db.AutoMigrate(&Product{})
 	if err != nil {
 		panic(err)
 	}
 
-	b.URIPrefix(PresetsEditingCustomizationFileTypePath)
 	b.FieldDefaults(presets.WRITE).
 		FieldType(MyFile("")).
 		ComponentFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) h.HTMLComponent {
@@ -116,24 +114,22 @@ func PresetsEditingCustomizationFileType(b *presets.Builder, db *gorm.DB) (
 			return
 		})
 
-	mb := b.Model(&Product{})
-	mb.Editing("Title", "MainImage")
+	pmb := b.Model(&Product{})
+	pmb.Editing("Title", "MainImage")
 	return
 }
-
-const PresetsEditingCustomizationFileTypePath = "/samples/presets-editing-customization-file-type"
 
 // @snippet_end
 
 // @snippet_begin(PresetsEditingCustomizationValidationSample)
 
 func PresetsEditingCustomizationValidation(b *presets.Builder, db *gorm.DB) (
-	cust *presets.ModelBuilder,
+	mb *presets.ModelBuilder,
 	cl *presets.ListingBuilder,
 	ce *presets.EditingBuilder,
+	dp *presets.DetailingBuilder,
 ) {
-	cust, cl, ce = PresetsEditingCustomizationDescription(b, db)
-	b.URIPrefix(PresetsEditingCustomizationValidationPath)
+	mb, cl, ce, _ = PresetsEditingCustomizationDescription(b, db)
 
 	ce.ValidateFunc(func(obj interface{}, ctx *web.EventContext) (err web.ValidationErrors) {
 		cus := obj.(*Customer)
@@ -145,15 +141,18 @@ func PresetsEditingCustomizationValidation(b *presets.Builder, db *gorm.DB) (
 	return
 }
 
-const PresetsEditingCustomizationValidationPath = "/samples/presets-editing-customization-validation"
-
 // @snippet_end
 
 // @snippet_begin(PresetsEditingCustomizationTabsSample)
 
-func PresetsEditingCustomizationTabs(b *presets.Builder, db *gorm.DB) {
-	b.URIPrefix(PresetsEditingCustomizationTabsPath).DataOperator(gorm2op.DataOperator(db))
-	mb := b.Model(&Company{})
+func PresetsEditingCustomizationTabs(b *presets.Builder, db *gorm.DB) (
+	mb *presets.ModelBuilder,
+	cl *presets.ListingBuilder,
+	ce *presets.EditingBuilder,
+	dp *presets.DetailingBuilder,
+) {
+	b.DataOperator(gorm2op.DataOperator(db))
+	mb = b.Model(&Company{})
 	mb.Listing("ID", "Name")
 	mb.Editing().AppendTabsPanelFunc(func(obj interface{}, ctx *web.EventContext) (tab, content h.HTMLComponent) {
 		c := obj.(*Company)
@@ -163,8 +162,7 @@ func PresetsEditingCustomizationTabs(b *presets.Builder, db *gorm.DB) {
 		).Value("2").Class("pa-4")
 		return
 	})
+	return
 }
 
 // @snippet_end
-
-const PresetsEditingCustomizationTabsPath = "/samples/presets_editing_customization_tabs"

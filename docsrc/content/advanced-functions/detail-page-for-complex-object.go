@@ -1,6 +1,7 @@
 package advanced_functions
 
 import (
+	"github.com/qor5/docs/v3/docsrc/examples"
 	"github.com/qor5/docs/v3/docsrc/examples/examples_presets"
 	"github.com/qor5/docs/v3/docsrc/generated"
 	"github.com/qor5/docs/v3/docsrc/utils"
@@ -17,7 +18,7 @@ and as the main data model of your system, It's better to have detail page for t
 You can add all kinds of operations conveniently.
 `),
 	ch.Code(generated.PresetsDetailPageTopNotesSample).Language("go"),
-	utils.DemoWithSnippetLocation("Presets Detail Page Top Notes", examples_presets.PresetsDetailPageTopNotesPath+"/customers", generated.PresetsDetailPageTopNotesSampleLocation),
+	utils.DemoWithSnippetLocation("Presets Detail Page Top Notes", examples.URLPathByFunc(examples_presets.PresetsDetailPageTopNotes)+"/customers", generated.PresetsDetailPageTopNotesSampleLocation),
 	Markdown(`
 - The name of detailing fields are just a place holder for decide ordering
 - ~CellComponentFunc~ customize how the cell display

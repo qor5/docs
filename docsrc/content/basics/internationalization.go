@@ -3,6 +3,7 @@ package basics
 import (
 	"path"
 
+	"github.com/qor5/docs/v3/docsrc/examples"
 	"github.com/qor5/docs/v3/docsrc/examples/examples_admin"
 	"github.com/qor5/docs/v3/docsrc/generated"
 	"github.com/qor5/docs/v3/docsrc/utils"
@@ -21,7 +22,7 @@ based on the user's preferences.
 	h.Br(),
 	utils.Demo(
 		"I18n",
-		path.Join(examples_admin.InternationalizationExamplePath, "/home"),
+		path.Join(examples.URLPathByFunc(examples_admin.InternationalizationExample), "/home"),
 		"examples/examples_admin/internationalization.go",
 	),
 	docgo.Markdown(`

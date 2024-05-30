@@ -5,6 +5,7 @@ import (
 	"github.com/qor5/ui/v3/vuetify"
 	"github.com/qor5/web/v3"
 	h "github.com/theplant/htmlgo"
+	"gorm.io/gorm"
 )
 
 type (
@@ -13,7 +14,12 @@ type (
 	book  struct{}
 )
 
-func PresetsOrderMenu(b *presets.Builder) {
+func PresetsOrderMenu(b *presets.Builder, db *gorm.DB) (
+	mb *presets.ModelBuilder,
+	cl *presets.ListingBuilder,
+	ce *presets.EditingBuilder,
+	dp *presets.DetailingBuilder,
+) {
 	b.Model(&music{}).Listing().PageFunc(func(ctx *web.EventContext) (r web.PageResponse, err error) {
 		r.Body = vuetify.VContainer(
 			h.Div(
@@ -39,17 +45,21 @@ func PresetsOrderMenu(b *presets.Builder) {
 		return
 	})
 	// @snippet_begin(MenuOrderSample)
-	b.URIPrefix(PresetsMenuOrderPath).
-		MenuOrder(
-			"books",
-			"videos",
-			"musics",
-		)
+	b.MenuOrder(
+		"books",
+		"videos",
+		"musics",
+	)
 	// @snippet_end
+	return
 }
 
-func PresetsGroupMenu(b *presets.Builder) {
-	b.URIPrefix(PresetsMenuGroupPath)
+func PresetsGroupMenu(b *presets.Builder, db *gorm.DB) (
+	mb *presets.ModelBuilder,
+	cl *presets.ListingBuilder,
+	ce *presets.EditingBuilder,
+	dp *presets.DetailingBuilder,
+) {
 	b.Model(&music{}).Listing().PageFunc(func(ctx *web.EventContext) (r web.PageResponse, err error) {
 		r.Body = vuetify.VContainer(
 			h.Div(
@@ -67,7 +77,7 @@ func PresetsGroupMenu(b *presets.Builder) {
 		return
 	})
 	// @snippet_begin(MenuGroupSample)
-	mb := b.Model(&book{}).MenuIcon("mdi-book")
+	mb = b.Model(&book{}).MenuIcon("mdi-book")
 
 	mb.Listing().PageFunc(func(ctx *web.EventContext) (r web.PageResponse, err error) {
 		r.Body = vuetify.VContainer(
@@ -86,9 +96,5 @@ func PresetsGroupMenu(b *presets.Builder) {
 		).Icon("mdi-video"),
 	)
 	// @snippet_end
+	return
 }
-
-const (
-	PresetsMenuOrderPath = "/samples/menu_order"
-	PresetsMenuGroupPath = "/samples/menu_group"
-)

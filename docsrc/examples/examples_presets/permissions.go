@@ -29,7 +29,6 @@ func PresetsPermissions(b *presets.Builder, db *gorm.DB) (
 	dp *presets.DetailingBuilder,
 ) {
 	cust, cl, ce, dp = PresetsDetailPageCards(b, db)
-	b.URIPrefix(PresetsPermissionsPath)
 
 	b.ProfileFunc(func(ctx *web.EventContext) h.HTMLComponent {
 		return VMenu(
@@ -78,7 +77,5 @@ func PresetsPermissions(b *presets.Builder, db *gorm.DB) (
 	b.Model(&Group{})
 	return
 }
-
-const PresetsPermissionsPath = "/samples/presets-permissions"
 
 // @snippet_end

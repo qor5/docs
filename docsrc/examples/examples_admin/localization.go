@@ -38,18 +38,15 @@ func (lm *L10nModel) PrimaryColumnValuesBySlug(slug string) map[string]string {
 
 // @snippet_end
 
-func LocalizationExampleMock(b *presets.Builder) {
-	DB := ExampleDB()
-
-	if err := DB.AutoMigrate(&L10nModel{}); err != nil {
+func LocalizationExample(b *presets.Builder, db *gorm.DB) {
+	if err := db.AutoMigrate(&L10nModel{}); err != nil {
 		panic(err)
 	}
 
-	b.URIPrefix(LocalizationExamplePath).
-		DataOperator(gorm2op.DataOperator(DB))
+	b.DataOperator(gorm2op.DataOperator(db))
 
 	// @snippet_begin(L10nBuilderExample)
-	l10nBuilder := l10n.New(DB)
+	l10nBuilder := l10n.New(db)
 	l10nBuilder.
 		RegisterLocales("International", "international", "International").
 		RegisterLocales("China", "cn", "China").
@@ -67,5 +64,3 @@ func LocalizationExampleMock(b *presets.Builder) {
 	// @snippet_end
 	// @snippet_end
 }
-
-const LocalizationExamplePath = "/samples/l10n"

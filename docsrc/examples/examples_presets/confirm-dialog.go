@@ -11,7 +11,12 @@ import (
 
 type confirmDialog struct{}
 
-func PresetsConfirmDialog(b *presets.Builder, db *gorm.DB) {
+func PresetsConfirmDialog(b *presets.Builder, db *gorm.DB) (
+	mb *presets.ModelBuilder,
+	cl *presets.ListingBuilder,
+	ce *presets.EditingBuilder,
+	dp *presets.DetailingBuilder,
+) {
 	_ = []interface{}{
 		// @snippet_begin(OpenConfirmDialog)
 		presets.OpenConfirmDialog,
@@ -27,10 +32,9 @@ func PresetsConfirmDialog(b *presets.Builder, db *gorm.DB) {
 		// @snippet_end
 	}
 
-	b.URIPrefix(PresetsConfirmDialogPath).
-		DataOperator(gorm2op.DataOperator(db))
+	b.DataOperator(gorm2op.DataOperator(db))
 
-	mb := b.Model(&confirmDialog{}).
+	mb = b.Model(&confirmDialog{}).
 		URIName("confirm-dialog").
 		Label("Confirm Dialog")
 
@@ -50,6 +54,5 @@ func PresetsConfirmDialog(b *presets.Builder, db *gorm.DB) {
 		).Class("ma-8")
 		return r, nil
 	})
+	return
 }
-
-const PresetsConfirmDialogPath = "/samples/confirm_dialog"

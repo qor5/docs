@@ -25,7 +25,6 @@ func PresetsDetailInlineEditDetails(b *presets.Builder, db *gorm.DB) (
 	b.DataOperator(gorm2op.DataOperator(db))
 
 	cust = b.Model(&Customer{})
-	b.URIPrefix(PresetsDetailInlineEditDetailsPath)
 	dp = cust.Detailing("Details").Drawer(true)
 	dp.Field("Details").
 		SetSwitchable(true).
@@ -57,8 +56,6 @@ func PresetsDetailInlineEditDetails(b *presets.Builder, db *gorm.DB) (
 	return
 }
 
-const PresetsDetailInlineEditDetailsPath = "/samples/presets-detail-inline-edit-details"
-
 func PresetsDetailInlineEditInspectTables(b *presets.Builder, db *gorm.DB) (
 	cust *presets.ModelBuilder,
 	cl *presets.ListingBuilder,
@@ -72,7 +69,6 @@ func PresetsDetailInlineEditInspectTables(b *presets.Builder, db *gorm.DB) (
 	b.DataOperator(gorm2op.DataOperator(db))
 
 	cust = b.Model(&Customer{})
-	b.URIPrefix(PresetsDetailInlineEditDetailsPath)
 	// This should inspect Notes attributes, When it is a list, It should show a standard table in detail page
 	dp = cust.Detailing("CreditCards").Drawer(true)
 
@@ -92,7 +88,7 @@ func PresetsDetailInlineEditDetailsInspectShowFields(b *presets.Builder, db *gor
 	b.DataOperator(gorm2op.DataOperator(db))
 
 	cust = b.Model(&Customer{})
-	b.URIPrefix(examples.SampleURLPathByFunc(PresetsDetailInlineEditDetailsInspectShowFields))
+	b.URIPrefix(examples.URLPathByFunc(PresetsDetailInlineEditDetailsInspectShowFields))
 	dp = cust.Detailing("Details", "CreditCards").Drawer(true)
 	dp.WrapFetchFunc(func(in presets.FetchFunc) presets.FetchFunc {
 		return func(obj interface{}, id string, ctx *web.EventContext) (r interface{}, err error) {

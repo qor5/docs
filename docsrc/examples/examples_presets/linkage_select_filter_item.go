@@ -10,11 +10,15 @@ import (
 	"gorm.io/gorm"
 )
 
-func PresetsLinkageSelectFilterItem(b *presets.Builder, db *gorm.DB) {
-	b.URIPrefix(PresetsLinkageSelectFilterItemPath).
-		DataOperator(gorm2op.DataOperator(db))
+func PresetsLinkageSelectFilterItem(b *presets.Builder, db *gorm.DB) (
+	mb *presets.ModelBuilder,
+	cl *presets.ListingBuilder,
+	ce *presets.EditingBuilder,
+	dp *presets.DetailingBuilder,
+) {
+	b.DataOperator(gorm2op.DataOperator(db))
 
-	mb := b.Model(&Address{})
+	mb = b.Model(&Address{})
 
 	eb := mb.Editing("ProvinceCityDistrict")
 
@@ -51,6 +55,7 @@ func PresetsLinkageSelectFilterItem(b *presets.Builder, db *gorm.DB) {
 			},
 		}
 	})
+	return
 }
 
 func getLinkageProvinceCityDistrictLabels() []string {
@@ -84,5 +89,3 @@ func getLinkageProvinceCityDistrictItems() [][]*vx.LinkageSelectItem {
 }
 
 // @snippet_end
-
-const PresetsLinkageSelectFilterItemPath = "/samples/linkage_select_filter_item"

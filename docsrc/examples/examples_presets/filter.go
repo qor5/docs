@@ -24,9 +24,13 @@ type Post struct {
 	CategoryID uint
 }
 
-func PresetsBasicFilter(b *presets.Builder, db *gorm.DB) {
-	b.URIPrefix(PresetsBasicFilterPath).
-		DataOperator(gorm2op.DataOperator(db))
+func PresetsBasicFilter(b *presets.Builder, db *gorm.DB) (
+	mb *presets.ModelBuilder,
+	cl *presets.ListingBuilder,
+	ce *presets.EditingBuilder,
+	dp *presets.DetailingBuilder,
+) {
+	b.DataOperator(gorm2op.DataOperator(db))
 	err := db.AutoMigrate(&Post{})
 	if err != nil {
 		panic(err)
@@ -57,8 +61,7 @@ func PresetsBasicFilter(b *presets.Builder, db *gorm.DB) {
 			},
 		}
 	})
+	return
 }
 
 // @snippet_end
-
-const PresetsBasicFilterPath = "/samples/basic_filter"

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"path"
 
+	"github.com/qor5/docs/v3/docsrc/examples"
 	"github.com/qor5/docs/v3/docsrc/examples/examples_admin"
 	"github.com/qor5/docs/v3/docsrc/generated"
 	"github.com/qor5/docs/v3/docsrc/utils"
@@ -32,7 +33,7 @@ Once registered with QOR Admin, Worker will provide a Workers section in the nav
 	ch.Code(generated.WorkerExample).Language("go"),
 	utils.DemoWithSnippetLocation(
 		"Worker",
-		path.Join(examples_admin.WorkerExamplePath, "/workers"),
+		path.Join(examples.URLPathByFunc(examples_admin.WorkerExample), "/workers"),
 		generated.WorkerExampleLocation,
 	),
 	Markdown(`
@@ -42,7 +43,7 @@ Action Worker is used to visualize the progress of long-running actions.
 	ch.Code(generated.ActionWorkerExample).Language("go"),
 	utils.DemoWithSnippetLocation(
 		"Action Worker",
-		path.Join(examples_admin.ActionWorkerExamplePath, "/example-resources"),
+		path.Join(examples.URLPathByFunc(examples_admin.ActionWorkerExample), "/example-resources"),
 		generated.ActionWorkerExampleLocation,
 	),
 ).Slug("basics/worker").Title("Worker")

@@ -21,8 +21,7 @@ func SEOExampleBasic(b *presets.Builder, db *gorm.DB) {
 		panic(err)
 	}
 
-	b.URIPrefix(SEOExampleBasicPath).
-		DataOperator(gorm2op.DataOperator(db))
+	b.DataOperator(gorm2op.DataOperator(db))
 
 	b.Model(&SEOPost{})
 
@@ -39,7 +38,5 @@ func SEOExampleBasic(b *presets.Builder, db *gorm.DB) {
 		).
 		RegisterSettingVariables("Test")
 
-	seob.Install(b)
+	b.Use(seob)
 }
-
-const SEOExampleBasicPath = "/samples/seo_basic"

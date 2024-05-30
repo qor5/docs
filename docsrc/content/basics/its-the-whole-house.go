@@ -19,9 +19,8 @@ flexible API to enrich features along the way.
 	utils.DemoWithSnippetLocation("Presets Hello World", examples_presets.PresetsHelloWorldPath+"/customers", generated.PresetHelloWorldSampleLocation),
 	Markdown(`
 And this ~*presets.Builder~ instance is actually also a ~http.Handler~, So that we can mount it
-to the http serve mux directly like this:
+to the http serve mux directly
 `),
-	ch.Code(generated.MountPresetHelloWorldSample).Language("go"),
 	Markdown(`
 With ~b.Model(&Customer{})~:
 

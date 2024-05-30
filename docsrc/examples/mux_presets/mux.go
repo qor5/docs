@@ -6,183 +6,35 @@ import (
 	"github.com/qor5/admin/v3/presets"
 	"github.com/qor5/docs/v3/docsrc/examples"
 	"github.com/qor5/docs/v3/docsrc/examples/examples_presets"
-	"github.com/qor5/docs/v3/docsrc/examples/mux_web_vuetify"
 	"gorm.io/gorm"
 )
 
-func SamplesHandler(mux mux_web_vuetify.Muxer, prefix string) {
+func SamplesHandler(mux examples.Muxer, prefix string) {
 	db := examples.ExampleDB()
-	addGA := mux_web_vuetify.AddGA
-	// @snippet_begin(MountPresetHelloWorldSample)
-	c00 := presets.New().AssetFunc(addGA)
-	examples_presets.PresetsHelloWorld(c00, db)
-	mux.Handle(
-		examples_presets.PresetsHelloWorldPath,
-		c00,
-	)
-	// @snippet_end
-
-	c01 := presets.New().AssetFunc(addGA)
-	examples_presets.PresetsListingCustomizationFields(c01, db)
-	mux.Handle(
-		examples_presets.PresetsListingCustomizationFieldsPath,
-		c01,
-	)
-
-	c02 := presets.New().AssetFunc(addGA)
-	examples_presets.PresetsListingCustomizationFilters(c02, db)
-	mux.Handle(
-		examples_presets.PresetsListingCustomizationFiltersPath,
-		c02,
-	)
-
-	c03 := presets.New().AssetFunc(addGA)
-	examples_presets.PresetsListingCustomizationTabs(c03, db)
-	mux.Handle(
-		examples_presets.PresetsListingCustomizationTabsPath,
-		c03,
-	)
-
-	c04 := presets.New().AssetFunc(addGA)
-	examples_presets.PresetsListingCustomizationBulkActions(c04, db)
-	mux.Handle(
-		examples_presets.PresetsListingCustomizationBulkActionsPath,
-		c04,
-	)
-
-	c05 := presets.New().AssetFunc(addGA)
-	examples_presets.PresetsEditingCustomizationDescription(c05, db)
-	mux.Handle(
-		examples_presets.PresetsEditingCustomizationDescriptionPath,
-		c05,
-	)
-
-	c06 := presets.New().AssetFunc(addGA)
-	examples_presets.PresetsEditingCustomizationFileType(c06, db)
-	mux.Handle(
-		examples_presets.PresetsEditingCustomizationFileTypePath,
-		c06,
-	)
-
-	c07 := presets.New().AssetFunc(addGA)
-	examples_presets.PresetsEditingCustomizationValidation(c07, db)
-	mux.Handle(
-		examples_presets.PresetsEditingCustomizationValidationPath,
-		c07,
-	)
-
-	c08 := presets.New().AssetFunc(addGA)
-	examples_presets.PresetsDetailPageTopNotes(c08, db)
-	mux.Handle(
-		examples_presets.PresetsDetailPageTopNotesPath,
-		c08,
-	)
-
-	c09 := presets.New().AssetFunc(addGA)
-	examples_presets.PresetsDetailPageDetails(c09, db)
-	mux.Handle(
-		examples_presets.PresetsDetailPageDetailsPath,
-		c09,
-	)
-
-	c10 := presets.New().AssetFunc(addGA)
-	examples_presets.PresetsDetailPageCards(c10, db)
-	mux.Handle(
-		examples_presets.PresetsDetailPageCardsPath,
-		c10,
-	)
-
-	c11 := presets.New().AssetFunc(addGA)
-	examples_presets.PresetsPermissions(c11, db)
-	mux.Handle(
-		examples_presets.PresetsPermissionsPath,
-		c11,
-	)
-
-	c12 := presets.New().AssetFunc(addGA)
-	examples_presets.PresetsModelBuilderExtensions(c12, db)
-	mux.Handle(
-		examples_presets.PresetsModelBuilderExtensionsPath,
-		c12,
-	)
-
-	c13 := presets.New().AssetFunc(addGA)
-	examples_presets.PresetsBasicFilter(c13, db)
-	mux.Handle(
-		examples_presets.PresetsBasicFilterPath,
-		c13,
-	)
-
-	c14 := presets.New().AssetFunc(addGA)
-	examples_presets.PresetsNotificationCenterSample(c14, db)
-	mux.Handle(
-		examples_presets.NotificationCenterSamplePath,
-		c14,
-	)
-
-	c15 := presets.New().AssetFunc(addGA)
-	examples_presets.PresetsLinkageSelectFilterItem(c15, db)
-	mux.Handle(
-		examples_presets.PresetsLinkageSelectFilterItemPath,
-		c15,
-	)
-
-	c17 := presets.New().AssetFunc(addGA)
-	examples_presets.PresetsBrandTitle(c17)
-	mux.Handle(
-		examples_presets.PresetsBrandTitlePath,
-		c17,
-	)
-
-	c18 := presets.New().AssetFunc(addGA)
-	examples_presets.PresetsBrandFunc(c18)
-	mux.Handle(
-		examples_presets.PresetsBrandFuncPath,
-		c18,
-	)
-
-	c19 := presets.New().AssetFunc(addGA)
-	examples_presets.PresetsProfile(c19)
-	mux.Handle(
-		examples_presets.PresetsProfilePath,
-		c19,
-	)
-
-	c20 := presets.New().AssetFunc(addGA)
-	examples_presets.PresetsOrderMenu(c20)
-	mux.Handle(
-		examples_presets.PresetsMenuOrderPath,
-		c20,
-	)
-
-	c21 := presets.New().AssetFunc(addGA)
-	examples_presets.PresetsGroupMenu(c21)
-	mux.Handle(
-		examples_presets.PresetsMenuGroupPath,
-		c21,
-	)
-
-	c22 := presets.New().AssetFunc(addGA)
-	examples_presets.PresetsConfirmDialog(c22, db)
-	mux.Handle(
-		examples_presets.PresetsConfirmDialogPath,
-		c22,
-	)
-
-	c25 := presets.New().AssetFunc(addGA)
-	examples_presets.PresetsEditingCustomizationTabs(c25, db)
-	mux.Handle(
-		examples_presets.PresetsEditingCustomizationTabsPath,
-		c25,
-	)
-
-	c26 := presets.New().AssetFunc(addGA)
-	examples_presets.PresetsListingCustomizationSearcher(c26, db)
-	mux.Handle(
-		examples_presets.PresetsListingCustomizationSearcherPath,
-		c26,
-	)
-
+	addExample(mux, db, examples_presets.PresetsHelloWorld)
+	addExample(mux, db, examples_presets.PresetsListingCustomizationFields)
+	addExample(mux, db, examples_presets.PresetsListingCustomizationFilters)
+	addExample(mux, db, examples_presets.PresetsListingCustomizationTabs)
+	addExample(mux, db, examples_presets.PresetsListingCustomizationBulkActions)
+	addExample(mux, db, examples_presets.PresetsEditingCustomizationDescription)
+	addExample(mux, db, examples_presets.PresetsEditingCustomizationFileType)
+	addExample(mux, db, examples_presets.PresetsEditingCustomizationValidation)
+	addExample(mux, db, examples_presets.PresetsDetailPageTopNotes)
+	addExample(mux, db, examples_presets.PresetsDetailPageDetails)
+	addExample(mux, db, examples_presets.PresetsDetailPageCards)
+	addExample(mux, db, examples_presets.PresetsPermissions)
+	addExample(mux, db, examples_presets.PresetsModelBuilderExtensions)
+	addExample(mux, db, examples_presets.PresetsBasicFilter)
+	addExample(mux, db, examples_presets.PresetsNotificationCenterSample)
+	addExample(mux, db, examples_presets.PresetsLinkageSelectFilterItem)
+	addExample(mux, db, examples_presets.PresetsBrandTitle)
+	addExample(mux, db, examples_presets.PresetsBrandFunc)
+	addExample(mux, db, examples_presets.PresetsProfile)
+	addExample(mux, db, examples_presets.PresetsOrderMenu)
+	addExample(mux, db, examples_presets.PresetsGroupMenu)
+	addExample(mux, db, examples_presets.PresetsConfirmDialog)
+	addExample(mux, db, examples_presets.PresetsEditingCustomizationTabs)
+	addExample(mux, db, examples_presets.PresetsListingCustomizationSearcher)
 	addExample(mux, db, examples_presets.PresetsDetailInlineEditDetails)
 	addExample(mux, db, examples_presets.PresetsDetailInlineEditInspectTables)
 	return
@@ -195,11 +47,11 @@ type exampleFunc func(b *presets.Builder, db *gorm.DB) (
 	dp *presets.DetailingBuilder,
 )
 
-func addExample(mux mux_web_vuetify.Muxer, db *gorm.DB, f exampleFunc) {
-	p := presets.New().AssetFunc(mux_web_vuetify.AddGA)
+func addExample(mux examples.Muxer, db *gorm.DB, f exampleFunc) {
+	path := examples.URLPathByFunc(f)
+	p := presets.New().AssetFunc(examples.AddGA).URIPrefix(path)
 	f(p, db)
-	path := examples.SampleURLPathByFunc(f)
-	fmt.Println("mounting path: ", path)
+	fmt.Println("Example mounting at: ", path)
 	mux.Handle(
 		path,
 		p,

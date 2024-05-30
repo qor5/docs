@@ -69,14 +69,12 @@ type video struct {
 	Description string
 }
 
-func InternationalizationExample(b *presets.Builder) {
-	DB := ExampleDB()
-
-	if err := DB.AutoMigrate(&video{}); err != nil {
+func InternationalizationExample(b *presets.Builder, db *gorm.DB) {
+	if err := db.AutoMigrate(&video{}); err != nil {
 		panic(err)
 	}
 
-	b.URIPrefix(InternationalizationExamplePath).DataOperator(gorm2op.DataOperator(DB)).
+	b.DataOperator(gorm2op.DataOperator(db)).
 		BrandFunc(func(ctx *web.EventContext) h.HTMLComponent {
 			msgr := i18n.MustGetModuleMessages(ctx.R, I18nExampleKey, Messages_en_US).(*Messages)
 
@@ -120,5 +118,3 @@ func InternationalizationExample(b *presets.Builder) {
 		})
 	// @snippet_end
 }
-
-const InternationalizationExamplePath = "/samples/i18n"

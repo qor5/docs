@@ -5,11 +5,17 @@ import (
 	. "github.com/qor5/ui/v3/vuetify"
 	"github.com/qor5/web/v3"
 	h "github.com/theplant/htmlgo"
+	"gorm.io/gorm"
 )
 
 // @snippet_begin(ProfileSample)
-func PresetsProfile(b *presets.Builder) {
-	b.URIPrefix(PresetsProfilePath).BrandTitle("Admin").
+func PresetsProfile(b *presets.Builder, db *gorm.DB) (
+	mb *presets.ModelBuilder,
+	cl *presets.ListingBuilder,
+	ce *presets.EditingBuilder,
+	dp *presets.DetailingBuilder,
+) {
+	b.BrandTitle("Admin").
 		ProfileFunc(func(ctx *web.EventContext) h.HTMLComponent {
 			// Demo
 			name := "QOR5"
@@ -64,8 +70,7 @@ func PresetsProfile(b *presets.Builder) {
 		r.Body = VContainer()
 		return
 	})
+	return
 }
 
 // @snippet_end
-
-const PresetsProfilePath = "/samples/profile"

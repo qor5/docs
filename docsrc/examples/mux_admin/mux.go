@@ -1,13 +1,12 @@
 package mux_admin
 
 import (
-	"github.com/qor5/docs/v3/docsrc/examples"
 	"net/http"
 
 	"github.com/go-chi/chi/v5/middleware"
-	"github.com/qor5/admin/v3/presets"
 	"github.com/qor5/docs/v3/docsrc"
 	"github.com/qor5/docs/v3/docsrc/assets"
+	"github.com/qor5/docs/v3/docsrc/examples"
 	"github.com/qor5/docs/v3/docsrc/examples/examples_admin"
 	"github.com/qor5/docs/v3/docsrc/examples/mux_presets"
 	"github.com/qor5/docs/v3/docsrc/examples/mux_web_vuetify"
@@ -38,61 +37,16 @@ func Mux(mux *http.ServeMux, prefix string) http.Handler {
 	return mux
 }
 
-func SamplesHandler(mux mux_web_vuetify.Muxer, prefix string) {
+func SamplesHandler(mux examples.Muxer, prefix string) {
 	mux_web_vuetify.SamplesHandler(mux, prefix)
 	mux_presets.SamplesHandler(mux, prefix)
-	addGA := mux_web_vuetify.AddGA
 
-	c22 := presets.New().AssetFunc(addGA)
-	examples_admin.ListingSample(c22)
-	mux.Handle(
-		examples_admin.ListingSamplePath,
-		c22,
-	)
-
-	c23 := presets.New().AssetFunc(addGA)
-	examples_admin.WorkerExampleMock(c23)
-	mux.Handle(
-		examples_admin.WorkerExamplePath,
-		c23,
-	)
-
-	c24 := presets.New().AssetFunc(addGA)
-	examples_admin.ActionWorkerExampleMock(c24)
-	mux.Handle(
-		examples_admin.ActionWorkerExamplePath,
-		c24,
-	)
-
-	c27 := presets.New().AssetFunc(addGA)
-	examples_admin.InternationalizationExample(c27)
-	mux.Handle(
-		examples_admin.InternationalizationExamplePath,
-		c27)
-	c28 := presets.New().AssetFunc(addGA)
-	examples_admin.LocalizationExampleMock(c28)
-	mux.Handle(
-		examples_admin.LocalizationExamplePath,
-		c28,
-	)
-
-	c29 := presets.New().AssetFunc(addGA)
-	examples_admin.PublishExample(c29, examples_admin.ExampleDB())
-	mux.Handle(
-		examples_admin.PublishExamplePath,
-		c29)
-
-	c30 := presets.New().AssetFunc(addGA)
-	examples_admin.SEOExampleBasic(c30, examples_admin.ExampleDB())
-	mux.Handle(
-		examples_admin.SEOExampleBasicPath,
-		c30)
-
-	c31 := presets.New().AssetFunc(addGA)
-	examples_admin.ActivityExample(c31, examples_admin.ExampleDB())
-	mux.Handle(
-		examples.SampleURLPathByFunc(examples_admin.ActivityExample),
-		c31)
-
-	return mux.Mux
+	examples.AddPresetExample(mux, examples_admin.ListingExample)
+	examples.AddPresetExample(mux, examples_admin.WorkerExample)
+	examples.AddPresetExample(mux, examples_admin.ActionWorkerExample)
+	examples.AddPresetExample(mux, examples_admin.InternationalizationExample)
+	examples.AddPresetExample(mux, examples_admin.LocalizationExample)
+	examples.AddPresetExample(mux, examples_admin.PublishExample)
+	examples.AddPresetExample(mux, examples_admin.SEOExampleBasic)
+	examples.AddPresetExample(mux, examples_admin.ActivityExample)
 }

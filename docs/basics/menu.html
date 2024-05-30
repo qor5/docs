@@ -230,13 +230,13 @@
 <h2 id="menu-order">Menu order</h2>
 <p>Sorting menus is very simple, use <code>MenuOrder</code> to sort menus as you want by <strong>slug name</strong> .</p>
 
-<highlightjs :language='"go"' :code='"b.URIPrefix(PresetsMenuOrderPath).\n\tMenuOrder(\n\t\t\"books\",\n\t\t\"videos\",\n\t\t\"musics\",\n\t)"'></highlightjs>
+<highlightjs :language='"go"' :code='"b.MenuOrder(\n\t\"books\",\n\t\"videos\",\n\t\"musics\",\n)"'></highlightjs>
 
 <div>
 <div class='demo'>
-<a href='/samples/menu_order/books' target='_blank'>Check the demo</a>
+<a href='/samples/presets-order-menu/books' target='_blank'>Check the demo</a>
  | 
-<a href='https://github.com/qor5/docs/tree/vue3/docsrc/examples/examples_presets/menu.go#L41-L48' target='_blank'>Source on GitHub</a>
+<a href='https://github.com/qor5/docs/tree/vue3/docsrc/examples/examples_presets/menu.go#L47-L53' target='_blank'>Source on GitHub</a>
 </div>
 </div>
 <h2 id="menu-group-and-icon">Menu group and icon</h2>
@@ -244,13 +244,13 @@
 <p>Use <code>MenuIcon</code> on <code>ModelBuilder</code> can set the item icon, and set menu group icon by <code>Icon</code> following <code>MenuGroup</code>.</p>
 <p>Icon strings can be found at <a href="https://fonts.google.com/icons">https://fonts.google.com/icons</a>.</p>
 
-<highlightjs :language='"go"' :code='"mb := b.Model(\u0026book{}).MenuIcon(\"mdi-book\")\n\nmb.Listing().PageFunc(func(ctx *web.EventContext) (r web.PageResponse, err error) {\n\tr.Body = vuetify.VContainer(\n\t\th.Div(\n\t\t\th.H1(\"book\"),\n\t\t).Class(\"text-center mt-8\"),\n\t)\n\treturn\n})\n\nb.MenuOrder(\n\t\"books\",\n\tb.MenuGroup(\"Media\").SubItems(\n\t\t\"videos\",\n\t\t\"musics\",\n\t).Icon(\"mdi-video\"),\n)"'></highlightjs>
+<highlightjs :language='"go"' :code='"mb = b.Model(\u0026book{}).MenuIcon(\"mdi-book\")\n\nmb.Listing().PageFunc(func(ctx *web.EventContext) (r web.PageResponse, err error) {\n\tr.Body = vuetify.VContainer(\n\t\th.Div(\n\t\t\th.H1(\"book\"),\n\t\t).Class(\"text-center mt-8\"),\n\t)\n\treturn\n})\n\nb.MenuOrder(\n\t\"books\",\n\tb.MenuGroup(\"Media\").SubItems(\n\t\t\"videos\",\n\t\t\"musics\",\n\t).Icon(\"mdi-video\"),\n)"'></highlightjs>
 
 <div>
 <div class='demo'>
-<a href='/samples/menu_group/videos' target='_blank'>Check the demo</a>
+<a href='/samples/presets-group-menu/videos' target='_blank'>Check the demo</a>
  | 
-<a href='https://github.com/qor5/docs/tree/vue3/docsrc/examples/examples_presets/menu.go#L69-L88' target='_blank'>Source on GitHub</a>
+<a href='https://github.com/qor5/docs/tree/vue3/docsrc/examples/examples_presets/menu.go#L79-L98' target='_blank'>Source on GitHub</a>
 </div>
 </div>
 </div>

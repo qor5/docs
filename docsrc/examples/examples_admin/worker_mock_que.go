@@ -11,16 +11,14 @@ import (
 	"github.com/qor5/admin/v3/presets/gorm2op"
 	"github.com/qor5/admin/v3/worker"
 	"github.com/qor5/admin/v3/worker/mock"
+	"gorm.io/gorm"
 )
 
-func WorkerExampleMock(b *presets.Builder) {
-	DB := ExampleDB()
+func WorkerExample(b *presets.Builder, db *gorm.DB) {
+	b.DataOperator(gorm2op.DataOperator(db))
 
-	b.URIPrefix(WorkerExamplePath).
-		DataOperator(gorm2op.DataOperator(DB))
-
-	wb := worker.NewWithQueue(DB, Que)
-	wb.Install(b)
+	wb := worker.NewWithQueue(db, Que)
+	b.Use(wb)
 	addJobs(wb)
 	wb.Listen()
 }

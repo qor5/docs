@@ -19,9 +19,6 @@ var (
 	dbParamsString = osenv.Get("DB_PARAMS", "admin example database connection string", "user=docs password=docs dbname=docs sslmode=disable host=localhost port=6532 TimeZone=Asia/Tokyo")
 )
 
-// export DB_PARAMS="user=docs password=docs dbname=docs sslmode=disable host=localhost port=6532 TimeZone=Asia/Tokyo"
-var dbParamsString = osenv.Get("DB_PARAMS", "admin example database connection string", "user=docs password=docs dbname=docs sslmode=disable host=localhost port=6532 TimeZone=Asia/Tokyo")
-
 func ExampleDB() (db *gorm.DB) {
 	if exampleDB != nil {
 		return exampleDB
@@ -42,8 +39,6 @@ func ExampleDB() (db *gorm.DB) {
 	}
 	return
 }
-
-const ListingSamplePath = "/samples/listing"
 
 // @snippet_begin(PresetsListingSample)
 
@@ -68,11 +63,9 @@ type Category struct {
 	CreatedAt time.Time
 }
 
-func ListingSample(b *presets.Builder) {
-	db := ExampleDB()
-
+func ListingExample(b *presets.Builder, db *gorm.DB) {
 	// Setup the project name, ORM and Homepage
-	b.URIPrefix(ListingSamplePath).DataOperator(gorm2op.DataOperator(db))
+	b.DataOperator(gorm2op.DataOperator(db))
 
 	// Register Post into the builder
 	// Use m to customize the model, Or config more models here.

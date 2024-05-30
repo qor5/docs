@@ -2,9 +2,9 @@ package mux_web_vuetify
 
 import (
 	"net/http"
-	"strings"
 
 	"github.com/qor5/docs/v3/docsrc/assets"
+	"github.com/qor5/docs/v3/docsrc/examples"
 	"github.com/qor5/docs/v3/docsrc/examples/examples_vuetify"
 	"github.com/qor5/docs/v3/docsrc/examples/examples_vuetifyx"
 	"github.com/qor5/docs/v3/docsrc/examples/examples_web"
@@ -35,27 +35,10 @@ func (im *IndexMux) Handle(pattern string, handler http.Handler) {
 	im.Mux.Handle(pattern+"/", handler)
 }
 
-func AddGA(ctx *web.EventContext) {
-	if strings.Index(ctx.R.Host, "localhost") >= 0 {
-		return
-	}
-	ctx.Injector.HeadHTML(`
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-149605708-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-149605708-1');
-</script>
-`)
-}
-
 // @snippet_begin(DemoLayoutSample)
 func demoLayout(in web.PageFunc) (out web.PageFunc) {
 	return func(ctx *web.EventContext) (pr web.PageResponse, err error) {
-		AddGA(ctx)
+		examples.AddGA(ctx)
 
 		ctx.Injector.HeadHTML(`
 			<script src='/assets/vue.js'></script>
@@ -89,7 +72,7 @@ func demoLayout(in web.PageFunc) (out web.PageFunc) {
 // @snippet_begin(TipTapLayoutSample)
 func tiptapLayout(in web.PageFunc) (out web.PageFunc) {
 	return func(ctx *web.EventContext) (pr web.PageResponse, err error) {
-		AddGA(ctx)
+		examples.AddGA(ctx)
 
 		ctx.Injector.HeadHTML(`
 			<link rel="stylesheet" href="/assets/tiptap.css">
@@ -125,7 +108,7 @@ func tiptapLayout(in web.PageFunc) (out web.PageFunc) {
 // @snippet_begin(DemoBootstrapLayoutSample)
 func demoBootstrapLayout(in web.PageFunc) (out web.PageFunc) {
 	return func(ctx *web.EventContext) (pr web.PageResponse, err error) {
-		AddGA(ctx)
+		examples.AddGA(ctx)
 
 		ctx.Injector.HeadHTML(`
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -164,7 +147,7 @@ func demoBootstrapLayout(in web.PageFunc) (out web.PageFunc) {
 // @snippet_begin(DemoVuetifyLayoutSample)
 func DemoVuetifyLayout(in web.PageFunc) (out web.PageFunc) {
 	return func(ctx *web.EventContext) (pr web.PageResponse, err error) {
-		AddGA(ctx)
+		examples.AddGA(ctx)
 
 		ctx.Injector.HeadHTML(`
 			<link rel="stylesheet" href="/vuetify/assets/index.css">
@@ -245,11 +228,7 @@ func Mux(mux *http.ServeMux, prefix string) http.Handler {
 	return mux
 }
 
-type Muxer interface {
-	Handle(pattern string, handler http.Handler)
-}
-
-func SamplesHandler(mux Muxer, prefix string) {
+func SamplesHandler(mux examples.Muxer, prefix string) {
 	emptyUb := web.New().LayoutFunc(web.NoopLayoutFunc)
 
 	mux.Handle(examples_web.TypeSafeBuilderSamplePath, examples_web.TypeSafeBuilderSamplePFPB.Builder(emptyUb))

@@ -40,7 +40,12 @@ type Address struct {
 	District string
 }
 
-func PresetsHelloWorld(b *presets.Builder, db *gorm.DB) (m *presets.ModelBuilder) {
+func PresetsHelloWorld(b *presets.Builder, db *gorm.DB) (
+	mb *presets.ModelBuilder,
+	cl *presets.ListingBuilder,
+	ce *presets.EditingBuilder,
+	dp *presets.DetailingBuilder,
+) {
 	err := db.AutoMigrate(
 		&Customer{},
 		&Company{},
@@ -50,9 +55,8 @@ func PresetsHelloWorld(b *presets.Builder, db *gorm.DB) (m *presets.ModelBuilder
 		panic(err)
 	}
 
-	b.URIPrefix(PresetsHelloWorldPath).
-		DataOperator(gorm2op.DataOperator(db))
-	m = b.Model(&Customer{})
+	b.DataOperator(gorm2op.DataOperator(db))
+	mb = b.Model(&Customer{})
 
 	return
 }
@@ -69,18 +73,18 @@ type Company struct {
 }
 
 func PresetsListingCustomizationFields(b *presets.Builder, db *gorm.DB) (
-	cust *presets.ModelBuilder,
+	mb *presets.ModelBuilder,
 	cl *presets.ListingBuilder,
 	ce *presets.EditingBuilder,
+	dp *presets.DetailingBuilder,
 ) {
 	b.I18n().
 		SupportLanguages(language.English, language.SimplifiedChinese).
 		RegisterForModule(language.SimplifiedChinese, presets.ModelsI18nModuleKey, Messages_zh_CN)
 
-	cust = PresetsHelloWorld(b, db)
-	b.URIPrefix(PresetsListingCustomizationFieldsPath)
+	mb, cl, ce, dp = PresetsHelloWorld(b, db)
 
-	cl = cust.Listing("ID", "Name", "Company", "Email").
+	cl = mb.Listing("ID", "Name", "Company", "Email").
 		SearchColumns("name", "email").SelectableColumns(true)
 	cl.Field("Company").ComponentFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) h.HTMLComponent {
 		c := obj.(*Customer)
@@ -113,9 +117,9 @@ func PresetsListingCustomizationFields(b *presets.Builder, db *gorm.DB) (
 		)
 	})
 
-	ce = cust.Editing("Name", "CompanyID")
+	ce = mb.Editing("Name", "CompanyID")
 
-	cust.RegisterEventFunc("updateCompanyList", func(ctx *web.EventContext) (r web.EventResponse, err error) {
+	mb.RegisterEventFunc("updateCompanyList", func(ctx *web.EventContext) (r web.EventResponse, err error) {
 		companyID := ctx.ParamAsInt(presets.ParamOverlayUpdateID)
 		r.UpdatePortals = append(r.UpdatePortals, &web.PortalUpdate{
 			Name: "companyListPortal",
@@ -173,11 +177,12 @@ const PresetsListingCustomizationFieldsPath = "/samples/presets_listing_customiz
 // @snippet_begin(PresetsListingCustomizationFiltersSample)
 
 func PresetsListingCustomizationFilters(b *presets.Builder, db *gorm.DB) (
-	cust *presets.ModelBuilder,
+	mb *presets.ModelBuilder,
 	cl *presets.ListingBuilder,
 	ce *presets.EditingBuilder,
+	dp *presets.DetailingBuilder,
 ) {
-	cust, cl, ce = PresetsListingCustomizationFields(b, db)
+	mb, cl, ce, dp = PresetsListingCustomizationFields(b, db)
 	b.URIPrefix(PresetsListingCustomizationFiltersPath)
 
 	cl.FilterDataFunc(func(ctx *web.EventContext) vuetifyx.FilterData {
@@ -228,12 +233,12 @@ const PresetsListingCustomizationFiltersPath = "/samples/presets-listing-customi
 // @snippet_begin(PresetsListingCustomizationTabsSample)
 
 func PresetsListingCustomizationTabs(b *presets.Builder, db *gorm.DB) (
-	cust *presets.ModelBuilder,
+	mb *presets.ModelBuilder,
 	cl *presets.ListingBuilder,
 	ce *presets.EditingBuilder,
+	dp *presets.DetailingBuilder,
 ) {
-	cust, cl, ce = PresetsListingCustomizationFilters(b, db)
-	b.URIPrefix(PresetsListingCustomizationTabsPath)
+	mb, cl, ce, dp = PresetsListingCustomizationFilters(b, db)
 
 	cl.FilterTabsFunc(func(ctx *web.EventContext) []*presets.FilterTab {
 		var c Company
@@ -267,12 +272,12 @@ const PresetsListingCustomizationTabsPath = "/samples/presets-listing-customizat
 // @snippet_begin(PresetsListingCustomizationBulkActionsSample)
 
 func PresetsListingCustomizationBulkActions(b *presets.Builder, db *gorm.DB) (
-	cust *presets.ModelBuilder,
+	mb *presets.ModelBuilder,
 	cl *presets.ListingBuilder,
 	ce *presets.EditingBuilder,
+	dp *presets.DetailingBuilder,
 ) {
-	cust, cl, ce = PresetsListingCustomizationTabs(b, db)
-	b.URIPrefix(PresetsListingCustomizationBulkActionsPath)
+	mb, cl, ce, _ = PresetsListingCustomizationTabs(b, db)
 
 	cl.BulkAction("Approve").Label("Approve").
 		UpdateFunc(func(selectedIds []string, ctx *web.EventContext) (err error) {
@@ -314,22 +319,24 @@ func PresetsListingCustomizationBulkActions(b *presets.Builder, db *gorm.DB) (
 	return
 }
 
-const PresetsListingCustomizationBulkActionsPath = "/samples/presets-listing-customization-bulk-actions"
-
 // @snippet_end
 
 // @snippet_begin(PresetsListingCustomizationSearcherSample)
 
-func PresetsListingCustomizationSearcher(b *presets.Builder, db *gorm.DB) {
-	b.URIPrefix(PresetsListingCustomizationSearcherPath).DataOperator(gorm2op.DataOperator(db))
-	mb := b.Model(&Customer{})
+func PresetsListingCustomizationSearcher(b *presets.Builder, db *gorm.DB) (
+	mb *presets.ModelBuilder,
+	cl *presets.ListingBuilder,
+	ce *presets.EditingBuilder,
+	dp *presets.DetailingBuilder,
+) {
+	b.DataOperator(gorm2op.DataOperator(db))
+	mb = b.Model(&Customer{})
 	mb.Listing().SearchFunc(func(model interface{}, params *presets.SearchParams, ctx *web.EventContext) (r interface{}, totalCount int, err error) {
 		// only display approved customers
 		qdb := db.Where("approved_at IS NOT NULL")
 		return gorm2op.DataOperator(qdb).Search(model, params, ctx)
 	})
+	return
 }
 
 // @snippet_end
-
-const PresetsListingCustomizationSearcherPath = "/samples/presets_listing_customization_searcher"

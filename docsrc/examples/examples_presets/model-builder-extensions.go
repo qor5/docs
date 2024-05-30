@@ -15,9 +15,11 @@ import (
 
 func PresetsModelBuilderExtensions(b *presets.Builder, db *gorm.DB) (
 	mb *presets.ModelBuilder,
+	cl *presets.ListingBuilder,
+	ce *presets.EditingBuilder,
+	dp *presets.DetailingBuilder,
 ) {
-	mb = PresetsHelloWorld(b, db)
-	b.URIPrefix(PresetsModelBuilderExtensionsPath)
+	mb, cl, ce, dp = PresetsHelloWorld(b, db)
 	mb.LayoutConfig(&presets.LayoutConfig{SearchBoxInvisible: true})
 
 	eb := mb.Editing("Actions", "Name").ActionsFunc(func(obj interface{}, ctx *web.EventContext) h.HTMLComponent {
@@ -71,7 +73,5 @@ func changeNameEventFunc(mb *presets.ModelBuilder) web.EventFunc {
 		return
 	}
 }
-
-const PresetsModelBuilderExtensionsPath = "/samples/presets-model-builder-extensions"
 
 // @snippet_end
