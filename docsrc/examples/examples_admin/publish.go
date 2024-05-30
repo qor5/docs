@@ -70,7 +70,7 @@ func (p *WithPublishProduct) GetUnPublishActions(db *gorm.DB, ctx context.Contex
 }
 
 // @snippet_end
-
+// TODO: eque
 func PublishExample(b *presets.Builder, db *gorm.DB) {
 	err := db.AutoMigrate(&WithPublishProduct{})
 	if err != nil {

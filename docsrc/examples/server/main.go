@@ -13,7 +13,7 @@ import (
 )
 
 var (
-	dbParamsString = osenv.Get("DB_PARAMS", "database connection string", "")
+	dbParamsString = osenv.Get("DB_PARAMS", "database connection string", "user=docs password=docs dbname=docs sslmode=disable host=localhost port=6532 TimeZone=Asia/Tokyo")
 	port           = osenv.Get("PORT", "The port to serve on", "8800")
 	envString      = osenv.Get("ENV", "environment flag", "development")
 )

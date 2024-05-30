@@ -1,6 +1,7 @@
 package mux_admin
 
 import (
+	"github.com/qor5/docs/v3/docsrc/examples"
 	"net/http"
 
 	"github.com/go-chi/chi/v5/middleware"
@@ -86,4 +87,12 @@ func SamplesHandler(mux mux_web_vuetify.Muxer, prefix string) {
 	mux.Handle(
 		examples_admin.SEOExampleBasicPath,
 		c30)
+
+	c31 := presets.New().AssetFunc(addGA)
+	examples_admin.ActivityExample(c31, examples_admin.ExampleDB())
+	mux.Handle(
+		examples.SampleURLPathByFunc(examples_admin.ActivityExample),
+		c31)
+
+	return mux.Mux
 }

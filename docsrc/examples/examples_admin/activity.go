@@ -2,28 +2,41 @@ package examples_admin
 
 import (
 	"context"
+	"github.com/qor5/docs/v3/docsrc/examples"
+	"github.com/qor5/web/v3"
+	. "github.com/theplant/htmlgo"
+	"gorm.io/gorm"
 
 	"github.com/qor5/admin/v3/activity"
 	"github.com/qor5/admin/v3/presets"
 	"github.com/qor5/admin/v3/presets/gorm2op"
 )
 
-func NewActivitySample() {
+func ActivityExample(b *presets.Builder, db *gorm.DB) {
 	// @snippet_begin(NewActivitySample)
-	db := ExampleDB()
-	presetsBuilder := presets.New().DataOperator(gorm2op.DataOperator(db))
+	b.DataOperator(gorm2op.DataOperator(db)).URIPrefix(examples.SampleURLPathByFunc(ActivityExample))
 
 	activityBuilder := activity.New(db)
-	presetsBuilder.Use(activityBuilder)
+	b.Use(activityBuilder)
 	// @snippet_end
 
 	// @snippet_begin(ActivityRegisterPresetsModelsSample)
-	type Product struct {
+	type WithActivityProduct struct {
+		gorm.Model
 		Title string
 		Code  string
 		Price float64
 	}
-	productModel := presetsBuilder.Model(&Product{})
+	err := db.AutoMigrate(&WithActivityProduct{})
+	if err != nil {
+		panic(err)
+	}
+	productModel := b.Model(&WithActivityProduct{}).Use(activityBuilder)
+
+	bt := productModel.Detailing("Content", activity.Timeline).Drawer(true)
+	bt.Field("Content").SetSwitchable(true).ShowComponentFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) HTMLComponent {
+		return Div().Text("text")
+	}).Editing("Title", "Code", "Price")
 
 	activityBuilder.RegisterModel(productModel).EnableActivityInfoTab().AddKeys("Title").AddIgnoredFields("Code").SkipDelete()
 	// @snippet_end
@@ -31,8 +44,8 @@ func NewActivitySample() {
 	// @snippet_begin(ActivityRecordLogSample)
 	currentCtx := context.WithValue(context.Background(), activity.CreatorContextKey, "user1")
 
-	activityBuilder.AddRecords("Publish", currentCtx, &Product{Title: "Product 1", Code: "P1", Price: 100})
+	activityBuilder.AddRecords("Publish", currentCtx, &WithActivityProduct{Title: "Product 1", Code: "P1", Price: 100})
 
-	activityBuilder.AddRecords("Update Price", currentCtx, &Product{Title: "Product 1", Code: "P1", Price: 200})
+	activityBuilder.AddRecords("Update Price", currentCtx, &WithActivityProduct{Title: "Product 1", Code: "P1", Price: 200})
 	// @snippet_end
 }
