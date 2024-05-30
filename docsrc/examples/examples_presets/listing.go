@@ -29,6 +29,8 @@ type Customer struct {
 	ApprovedAt      *time.Time
 	TermAgreedAt    *time.Time
 	ApprovalComment string
+	CreditCards     []*CreditCard `gorm:"-"`
+	Notes           []*Note       `gorm:"-"`
 }
 
 type Address struct {

@@ -5,6 +5,7 @@ import (
 
 	"github.com/qor5/admin/v3/presets"
 	"github.com/qor5/admin/v3/presets/gorm2op"
+	"github.com/qor5/docs/v3/docsrc/examples"
 	vx "github.com/qor5/ui/v3/vuetifyx"
 	"github.com/qor5/web/v3"
 	h "github.com/theplant/htmlgo"
@@ -57,3 +58,66 @@ func PresetsDetailInlineEditDetails(b *presets.Builder, db *gorm.DB) (
 }
 
 const PresetsDetailInlineEditDetailsPath = "/samples/presets-detail-inline-edit-details"
+
+func PresetsDetailInlineEditInspectTables(b *presets.Builder, db *gorm.DB) (
+	cust *presets.ModelBuilder,
+	cl *presets.ListingBuilder,
+	ce *presets.EditingBuilder,
+	dp *presets.DetailingBuilder,
+) {
+	err := db.AutoMigrate(&Customer{}, &CreditCard{}, &Note{})
+	if err != nil {
+		panic(err)
+	}
+	b.DataOperator(gorm2op.DataOperator(db))
+
+	cust = b.Model(&Customer{})
+	b.URIPrefix(PresetsDetailInlineEditDetailsPath)
+	// This should inspect Notes attributes, When it is a list, It should show a standard table in detail page
+	dp = cust.Detailing("CreditCards").Drawer(true)
+
+	return
+}
+
+func PresetsDetailInlineEditDetailsInspectShowFields(b *presets.Builder, db *gorm.DB) (
+	cust *presets.ModelBuilder,
+	cl *presets.ListingBuilder,
+	ce *presets.EditingBuilder,
+	dp *presets.DetailingBuilder,
+) {
+	err := db.AutoMigrate(&Customer{}, &CreditCard{}, &Note{})
+	if err != nil {
+		panic(err)
+	}
+	b.DataOperator(gorm2op.DataOperator(db))
+
+	cust = b.Model(&Customer{})
+	b.URIPrefix(examples.SampleURLPathByFunc(PresetsDetailInlineEditDetailsInspectShowFields))
+	dp = cust.Detailing("Details", "CreditCards").Drawer(true)
+	dp.WrapFetchFunc(func(in presets.FetchFunc) presets.FetchFunc {
+		return func(obj interface{}, id string, ctx *web.EventContext) (r interface{}, err error) {
+			var cus Customer
+			db.Find(&cus)
+
+			var cc []*CreditCard
+			db.Find(&cc)
+			cus.CreditCards = cc
+			r = cus
+			return
+		}
+	})
+	dp.Field("Details").
+		Editing("Name", "Email2", "Description")
+
+	dp.Field("Email2").ComponentFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) h.HTMLComponent {
+		return h.Div().Text("abc")
+	})
+
+	ccm := b.Model(&CreditCard{}).InMenu(false)
+	ccm.Editing("Number")
+	l := ccm.Listing("Name")
+	l.Field("Name").ComponentFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) h.HTMLComponent {
+		return h.Div()
+	})
+	return
+}

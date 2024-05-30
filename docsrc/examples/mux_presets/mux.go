@@ -1,10 +1,13 @@
 package mux_presets
 
 import (
+	"fmt"
+
 	"github.com/qor5/admin/v3/presets"
 	"github.com/qor5/docs/v3/docsrc/examples"
 	"github.com/qor5/docs/v3/docsrc/examples/examples_presets"
 	"github.com/qor5/docs/v3/docsrc/examples/mux_web_vuetify"
+	"gorm.io/gorm"
 )
 
 func SamplesHandler(mux mux_web_vuetify.Muxer, prefix string) {
@@ -180,11 +183,25 @@ func SamplesHandler(mux mux_web_vuetify.Muxer, prefix string) {
 		c26,
 	)
 
-	c27 := presets.New().AssetFunc(addGA)
-	examples_presets.PresetsDetailInlineEditDetails(c27, db)
-	mux.Handle(
-		examples_presets.PresetsDetailInlineEditDetailsPath,
-		c27,
-	)
+	addExample(mux, db, examples_presets.PresetsDetailInlineEditDetails)
+	addExample(mux, db, examples_presets.PresetsDetailInlineEditInspectTables)
 	return
+}
+
+type exampleFunc func(b *presets.Builder, db *gorm.DB) (
+	cust *presets.ModelBuilder,
+	cl *presets.ListingBuilder,
+	ce *presets.EditingBuilder,
+	dp *presets.DetailingBuilder,
+)
+
+func addExample(mux mux_web_vuetify.Muxer, db *gorm.DB, f exampleFunc) {
+	p := presets.New().AssetFunc(mux_web_vuetify.AddGA)
+	f(p, db)
+	path := examples.SampleURLPathByFunc(f)
+	fmt.Println("mounting path: ", path)
+	mux.Handle(
+		path,
+		p,
+	)
 }
