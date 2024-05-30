@@ -5,22 +5,16 @@ import (
 
 	"github.com/qor5/admin/v3/activity"
 	"github.com/qor5/admin/v3/presets"
-	"github.com/theplant/osenv"
-	"gorm.io/driver/postgres"
-	"gorm.io/gorm"
+	"github.com/qor5/admin/v3/presets/gorm2op"
 )
-
-var dbParamsString = osenv.Get("DB_PARAMS", "admin example database connection string", "")
 
 func NewActivitySample() {
 	// @snippet_begin(NewActivitySample)
-	presetsBuilder := presets.New()
-	db, err := gorm.Open(postgres.Open(dbParamsString), &gorm.Config{})
-	if err != nil {
-		panic(err)
-	}
+	db := ExampleDB()
+	presetsBuilder := presets.New().DataOperator(gorm2op.DataOperator(db))
+
 	activityBuilder := activity.New(db)
-	activityBuilder.Install(presetsBuilder)
+	presetsBuilder.Use(activityBuilder)
 	// @snippet_end
 
 	// @snippet_begin(ActivityRegisterPresetsModelsSample)

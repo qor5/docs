@@ -5,14 +5,15 @@ go 1.22.3
 require (
 	github.com/fatih/color v1.16.0
 	github.com/go-chi/chi/v5 v5.0.12
+	github.com/iancoleman/strcase v0.3.0
 	github.com/manifoldco/promptui v0.9.0
 	github.com/markbates/goth v1.80.0
 	github.com/ory/ladon v1.3.0
 	github.com/qor/oss v0.0.0-20230717083721-c04686f83630
 	github.com/qor5/admin/v3 v3.0.1-0.20240424102851-d75759576158
-	github.com/qor5/ui/v3 v3.0.1-0.20240524013545-782b2a42c4da
-	github.com/qor5/web/v3 v3.0.1-0.20240524024727-eeafb73657ae
-	github.com/qor5/x/v3 v3.0.1-0.20240524053613-e27975834223
+	github.com/qor5/ui/v3 v3.0.2
+	github.com/qor5/web/v3 v3.0.2
+	github.com/qor5/x/v3 v3.0.2
 	github.com/samber/lo v1.39.0
 	github.com/shurcooL/sanitized_anchor_name v1.0.0
 	github.com/stretchr/testify v1.9.0
@@ -65,7 +66,6 @@ require (
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/hashicorp/golang-lru v1.0.2 // indirect
-	github.com/iancoleman/strcase v0.3.0 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20231201235250-de7065d80cb9 // indirect
 	github.com/jackc/pgx/v5 v5.6.0 // indirect
