@@ -217,7 +217,7 @@ func Mux(mux *http.ServeMux, prefix string) http.Handler {
 	// @snippet_end
 
 	// @snippet_begin(VuetifyComponentsPackSample)
-	HandleMaterialDesignIcons("", mux)
+	HandleMaterialDesignIcons(prefix, mux)
 	// @snippet_end
 
 	mux.HandleFunc("/favicon.ico", func(w http.ResponseWriter, r *http.Request) {

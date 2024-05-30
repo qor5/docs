@@ -77,8 +77,7 @@ func PublishExample(b *presets.Builder, db *gorm.DB) {
 		panic(err)
 	}
 
-	b.URIPrefix(PublishExamplePath).
-		DataOperator(gorm2op.DataOperator(db))
+	b.DataOperator(gorm2op.DataOperator(db))
 
 	// @snippet_begin(PublishConfigureView)
 	mb := b.Model(&WithPublishProduct{})
@@ -104,5 +103,3 @@ func PublishExample(b *presets.Builder, db *gorm.DB) {
 	go publish.RunPublisher(db, nil, publisher)
 	// @snippet_end
 }
-
-const PublishExamplePath = "/samples/publish"

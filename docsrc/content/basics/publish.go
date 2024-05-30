@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"path"
 
+	"github.com/qor5/docs/v3/docsrc/examples"
 	"github.com/qor5/docs/v3/docsrc/examples/examples_admin"
 	"github.com/qor5/docs/v3/docsrc/generated"
 	"github.com/qor5/docs/v3/docsrc/utils"
@@ -36,7 +37,7 @@ Implement the publish interfaces if there is a need to publish content to storag
 	ch.Code(generated.PublishImplementPublishInterfaces).Language("go"),
 	utils.DemoWithSnippetLocation(
 		"Publish",
-		path.Join(examples_admin.PublishExamplePath, "/with-publish-products"),
+		path.Join(examples.URLPathByFunc(examples_admin.PublishExample), "/with-publish-products"),
 		generated.PublishImplementPublishInterfacesLocation,
 	),
 	Markdown(fmt.Sprintf(`
