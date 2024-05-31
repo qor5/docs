@@ -39,7 +39,7 @@ func TestPresetsDetailingWithoutEditComponentFunc(t *testing.T) {
 			ReqFunc: func() *http.Request {
 				detailData.TruncatePut(SqlDB)
 				return multipartestutils.NewMultipartBuilder().
-					PageURL(PresetsDetailPageCardsPath + "/customers?__execute_event__=presets_DetailingDrawer&id=12").
+					PageURL("/customers?__execute_event__=presets_DetailingDrawer&id=12").
 					BuildEventFuncRequest()
 			},
 			ExpectPortalUpdate0ContainsInOrder: []string{"Felix 1"},
@@ -51,8 +51,7 @@ func TestPresetsDetailingWithoutEditComponentFunc(t *testing.T) {
 			ReqFunc: func() *http.Request {
 				detailData.TruncatePut(SqlDB)
 				return multipartestutils.NewMultipartBuilder().
-					PageURL(PresetsDetailInlineEditDetailsPath +
-						"/customers?__execute_event__=presets_DetailingDrawer" +
+					PageURL("/customers?__execute_event__=presets_DetailingDrawer" +
 						"&id=12").
 					BuildEventFuncRequest()
 			},
@@ -65,8 +64,7 @@ func TestPresetsDetailingWithoutEditComponentFunc(t *testing.T) {
 			ReqFunc: func() *http.Request {
 				detailData.TruncatePut(SqlDB)
 				return multipartestutils.NewMultipartBuilder().
-					PageURL(PresetsDetailInlineEditDetailsPath +
-						"/customers?__execute_event__=presets_Detailing_Field_Edit&detailField=Details&id=12").
+					PageURL("/customers?__execute_event__=presets_Detailing_Field_Edit&detailField=Details&id=12").
 					BuildEventFuncRequest()
 			},
 			ExpectPortalUpdate0ContainsInOrder: []string{"Details.Email"},
@@ -77,8 +75,7 @@ func TestPresetsDetailingWithoutEditComponentFunc(t *testing.T) {
 			ReqFunc: func() *http.Request {
 				detailData.TruncatePut(SqlDB)
 				return multipartestutils.NewMultipartBuilder().
-					PageURL(PresetsDetailInlineEditDetailsPath+
-						"/customers?__execute_event__=presets_Detailing_Field_Save&detailField=Details&id=12").
+					PageURL("/customers?__execute_event__=presets_Detailing_Field_Save&detailField=Details&id=12").
 					AddField("Details.Name", "123123").
 					AddField("Details.Email", "abc@example.com").
 					AddField("Details.Description", "hello description").

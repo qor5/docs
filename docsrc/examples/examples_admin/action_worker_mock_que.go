@@ -22,5 +22,3 @@ func ActionWorkerExample(b *presets.Builder, db *gorm.DB) {
 	addActionJobs(mb, wb)
 	wb.Listen()
 }
-
-const ActionWorkerExamplePath = "/samples/action_worker"

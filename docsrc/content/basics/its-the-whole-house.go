@@ -1,6 +1,7 @@
 package basics
 
 import (
+	"github.com/qor5/docs/v3/docsrc/examples"
 	"github.com/qor5/docs/v3/docsrc/examples/examples_presets"
 	"github.com/qor5/docs/v3/docsrc/generated"
 	"github.com/qor5/docs/v3/docsrc/utils"
@@ -16,7 +17,7 @@ flexible API to enrich features along the way.
 
 `),
 	ch.Code(generated.PresetHelloWorldSample).Language("go"),
-	utils.DemoWithSnippetLocation("Presets Hello World", examples_presets.PresetsHelloWorldPath+"/customers", generated.PresetHelloWorldSampleLocation),
+	utils.DemoWithSnippetLocation("Presets Hello World", examples.URLPathByFunc(examples_presets.PresetsHelloWorld)+"/customers", generated.PresetHelloWorldSampleLocation),
 	Markdown(`
 And this ~*presets.Builder~ instance is actually also a ~http.Handler~, So that we can mount it
 to the http serve mux directly

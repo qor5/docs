@@ -21,7 +21,7 @@ columns rarely fit the needs for any real application.
 Here is how do we change the columns of the list and how to we change the content display of a columns.
 `),
 	ch.Code(generated.PresetsListingCustomizationFieldsSample).Language("go"),
-	utils.DemoWithSnippetLocation("Presets Listing Customization Fields", examples_presets.PresetsListingCustomizationFieldsPath+"/customers", generated.PresetsListingCustomizationFieldsSampleLocation),
+	utils.DemoWithSnippetLocation("Presets Listing Customization Fields", examples.URLPathByFunc(examples_presets.PresetsListingCustomizationFields)+"/customers", generated.PresetsListingCustomizationFieldsSampleLocation),
 	Markdown(`
 What we did with above code:
 
@@ -39,7 +39,7 @@ What we did with above code:
 Here we continue to add filters for the list
 `),
 	ch.Code(generated.PresetsListingCustomizationFiltersSample).Language("go"),
-	utils.DemoWithSnippetLocation("Presets Listing Filters", examples_presets.PresetsListingCustomizationFiltersPath+"/customers", generated.PresetsListingCustomizationFiltersSampleLocation),
+	utils.DemoWithSnippetLocation("Presets Listing Filters", examples.URLPathByFunc(examples_presets.PresetsListingCustomizationFilters)+"/customers", generated.PresetsListingCustomizationFiltersSampleLocation),
 	Markdown(`
 ~FilterDataFunc~ of ~presets.ListingBuilder~ setup to have the filter menu or not.
 And how it will combine the sql conditions when doing query. the filter menu will
@@ -60,7 +60,7 @@ You can think it as a short cut that used very frequently to filter something in
 use the pop up panel of filter.
 `),
 	ch.Code(generated.PresetsListingCustomizationTabsSample).Language("go"),
-	utils.DemoWithSnippetLocation("Presets Listing Filter Tabs", examples_presets.PresetsListingCustomizationTabsPath+"/customers", generated.PresetsListingCustomizationTabsSampleLocation),
+	utils.DemoWithSnippetLocation("Presets Listing Filter Tabs", examples.URLPathByFunc(examples_presets.PresetsListingCustomizationTabs)+"/customers", generated.PresetsListingCustomizationTabsSampleLocation),
 	Markdown(`
 ~Query~ string name must be from the Filter's item configuration key field.
 `),

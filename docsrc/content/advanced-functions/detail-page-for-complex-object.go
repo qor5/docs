@@ -33,7 +33,8 @@ A ~vx.DetailInfo~ component is used for display main detail field of the model.
 And you can add any actions to the detail page with ease:
 `),
 	ch.Code(generated.PresetsDetailPageDetailsSample).Language("go"),
-	utils.DemoWithSnippetLocation("Presets Detail Page Details", examples_presets.PresetsDetailPageDetailsPath+"/customers", generated.PresetsDetailPageDetailsSampleLocation),
+	utils.DemoWithSnippetLocation("Presets Detail Page Details", examples.URLPathByFunc(examples_presets.
+		PresetsDetailPageDetails)+"/customers", generated.PresetsDetailPageDetailsSampleLocation),
 	Markdown(`
 - The ~vx.Card~ Actions links to two event functions: Agree Terms, and Update Details
 - Agree Terms show a drawer popup that edit the ~term_agreed_at~ field

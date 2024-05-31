@@ -194,8 +194,6 @@ func PresetsDetailPageDetails(b *presets.Builder, db *gorm.DB) (
 	return
 }
 
-const PresetsDetailPageDetailsPath = "/samples/presets-detail-page-details"
-
 // @snippet_end
 
 // @snippet_begin(PresetsDetailPageCardsSample)

@@ -23,8 +23,6 @@ func WorkerExample(b *presets.Builder, db *gorm.DB) {
 	wb.Listen()
 }
 
-const WorkerExamplePath = "/samples/worker"
-
 var Que = &mock.QueueMock{
 	AddFunc: func(ctx context.Context, job worker.QueJobInterface) error {
 		jobInfo, err := job.GetJobInfo()

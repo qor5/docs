@@ -61,8 +61,6 @@ func PresetsHelloWorld(b *presets.Builder, db *gorm.DB) (
 	return
 }
 
-const PresetsHelloWorldPath = "/samples/presets_hello_world"
-
 // @snippet_end
 
 // @snippet_begin(PresetsListingCustomizationFieldsSample)
@@ -101,7 +99,7 @@ func PresetsListingCustomizationFields(b *presets.Builder, db *gorm.DB) (
 				Attr("@click",
 					web.POST().EventFunc(actions.Edit).
 						Query(presets.ParamID, fmt.Sprint(comp.ID)).
-						URL(PresetsListingCustomizationFieldsPath+"/companies").
+						URL("companies").
 						Go()),
 			h.Text("-"),
 			h.A().Text("(Open in Dialog)").
@@ -111,7 +109,7 @@ func PresetsListingCustomizationFields(b *presets.Builder, db *gorm.DB) (
 					web.POST().EventFunc(actions.Edit).
 						Query(presets.ParamID, fmt.Sprint(comp.ID)).
 						Query(presets.ParamOverlay, actions.Dialog).
-						URL(PresetsListingCustomizationFieldsPath+"/companies").
+						URL("companies").
 						Go(),
 				),
 		)
@@ -160,7 +158,7 @@ func companyList(ctx *web.EventContext, db *gorm.DB, companyID int) h.HTMLCompon
 			Class("text-decoration-none", "text-blue").
 			Href("javascript:void(0)").Attr("@click",
 			web.POST().
-				URL(PresetsListingCustomizationFieldsPath+"/companies").
+				URL("companies").
 				EventFunc(actions.New).
 				Query(presets.ParamOverlay, actions.Dialog).
 				Query(presets.ParamOverlayAfterUpdateScript,
@@ -169,8 +167,6 @@ func companyList(ctx *web.EventContext, db *gorm.DB, companyID int) h.HTMLCompon
 		),
 	)
 }
-
-const PresetsListingCustomizationFieldsPath = "/samples/presets_listing_customization_fields"
 
 // @snippet_end
 
@@ -183,7 +179,6 @@ func PresetsListingCustomizationFilters(b *presets.Builder, db *gorm.DB) (
 	dp *presets.DetailingBuilder,
 ) {
 	mb, cl, ce, dp = PresetsListingCustomizationFields(b, db)
-	b.URIPrefix(PresetsListingCustomizationFiltersPath)
 
 	cl.FilterDataFunc(func(ctx *web.EventContext) vuetifyx.FilterData {
 		msgr := i18n.MustGetModuleMessages(ctx.R, presets.ModelsI18nModuleKey, Messages_en_US).(*Messages)
@@ -226,8 +221,6 @@ func PresetsListingCustomizationFilters(b *presets.Builder, db *gorm.DB) (
 	return
 }
 
-const PresetsListingCustomizationFiltersPath = "/samples/presets-listing-customization-filters"
-
 // @snippet_end
 
 // @snippet_begin(PresetsListingCustomizationTabsSample)
@@ -264,8 +257,6 @@ func PresetsListingCustomizationTabs(b *presets.Builder, db *gorm.DB) (
 	})
 	return
 }
-
-const PresetsListingCustomizationTabsPath = "/samples/presets-listing-customization-tabs"
 
 // @snippet_end
 
