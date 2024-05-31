@@ -41,6 +41,13 @@ func TestFlowPublish(t *testing.T) {
 }
 
 func flowPublish(t *testing.T, f *FlowPublish) {
+	// Add a new resource to test whether the current case will be affected
+	flowNew(t, &FlowNew{
+		Flow:  f.Flow,
+		Name:  "TheTroublemakerProduct",
+		Price: 1031,
+	})
+
 	id, ver := MustIDVersion(f.ID)
 	db := f.db.Where("id = ? AND version = ?", id, ver)
 

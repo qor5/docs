@@ -37,6 +37,13 @@ func TestFlowDeleteVersion(t *testing.T) {
 }
 
 func flowDeleteVersion(t *testing.T, f *FlowDeleteVersion) {
+	// Add a new resource to test whether the current case will be affected
+	flowNew(t, &FlowNew{
+		Flow:  f.Flow,
+		Name:  "TheTroublemakerProduct",
+		Price: 1031,
+	})
+
 	displayID := "1_2024-05-31-v01"
 	id, _ := MustIDVersion(displayID)
 

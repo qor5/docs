@@ -123,6 +123,13 @@ func scheduledTimeFormat(t *time.Time) string {
 }
 
 func flowSchedule(t *testing.T, f *FlowSchedule) {
+	// Add a new resource to test whether the current case will be affected
+	flowNew(t, &FlowNew{
+		Flow:  f.Flow,
+		Name:  "TheTroublemakerProduct",
+		Price: 1031,
+	})
+
 	id, ver := MustIDVersion(f.ID)
 	db := f.db.Where("id = ? AND version = ?", id, ver)
 

@@ -41,6 +41,13 @@ func TestFlowDuplicate(t *testing.T) {
 }
 
 func flowDuplicate(t *testing.T, f *FlowDuplicate) {
+	// Add a new resource to test whether the current case will be affected
+	flowNew(t, &FlowNew{
+		Flow:  f.Flow,
+		Name:  "TheTroublemakerProduct",
+		Price: 1031,
+	})
+
 	oid, over := MustIDVersion(f.ID)
 
 	// ensure old exists
