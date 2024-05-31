@@ -90,6 +90,12 @@ func TestFlowSchedule(t *testing.T) {
 			endAt:   time.Now().AddDate(0, 0, 2),
 			online:  true,
 		},
+		{
+			desc:    "(online) now < start < end",
+			startAt: time.Now().AddDate(0, 0, 1), // start will be ignore
+			endAt:   time.Now().AddDate(0, 0, 2),
+			online:  true,
+		},
 	}
 	for _, c := range cases {
 		t.Run(c.desc, func(t *testing.T) {
@@ -146,7 +152,11 @@ func flowSchedule(t *testing.T, f *FlowSchedule) {
 
 		var m examples_admin.WithPublishProduct
 		require.NoError(t, db.First(&m).Error)
-		assert.Equal(t, scheduledTimeFormat(&f.ScheduledStartAt), scheduledTimeFormat(m.ScheduledStartAt))
+		if m.Status.Status == publish.StatusOnline {
+			assert.Equal(t, "", scheduledTimeFormat(m.ScheduledStartAt))
+		} else {
+			assert.Equal(t, scheduledTimeFormat(&f.ScheduledStartAt), scheduledTimeFormat(m.ScheduledStartAt))
+		}
 		assert.Equal(t, scheduledTimeFormat(&f.ScheduledEndAt), scheduledTimeFormat(m.ScheduledEndAt))
 
 		// flowSchedule_Step03_Event_presets_ReloadList(t, f)
