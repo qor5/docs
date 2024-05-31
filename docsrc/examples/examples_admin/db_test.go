@@ -6,6 +6,7 @@ import (
 
 	"github.com/theplant/testenv"
 	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
 )
 
 var (
@@ -20,6 +21,7 @@ func TestMain(m *testing.M) {
 	}
 	defer env.TearDown()
 	TestDB = env.DB
+	TestDB.Logger = TestDB.Logger.LogMode(logger.Info)
 	SqlDB, _ = TestDB.DB()
 	m.Run()
 }

@@ -36,13 +36,13 @@ func TestSEOExampleBasic(t *testing.T) {
 			ReqFunc: func() *http.Request {
 				seoData.TruncatePut(SqlDB)
 				req := multipartestutils.NewMultipartBuilder().
-					PageURL("/seo-posts?__execute_event__=presets_Detailing_Field_Save&detailField=SEODetailCard&id=1").
+					PageURL("/seo-posts?__execute_event__=presets_Detailing_Field_Save&detailField=SEO&id=1").
 					AddField("Seo.EnabledCustomize", "true").
-					AddField("Seo.Title", "123").
+					AddField("Seo.Title", "My seo title").
 					BuildEventFuncRequest()
 				return req
 			},
-			ExpectPortalUpdate0ContainsInOrder: []string{`eventFunc("createNoteEvent")`},
+			ExpectPortalUpdate0ContainsInOrder: []string{`My seo title`},
 		},
 	}
 
