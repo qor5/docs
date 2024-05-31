@@ -72,7 +72,7 @@ func EnsureCurrentDisplayID(displayID string) testflow.ValidatorFunc {
 
 var reListContent = regexp.MustCompile(`<tr[\s\S]+?<td>[\s\S]+?<v-radio :model-value='([^']+)'\s*:true-value='([^']+)'[\s\S]+?</v-radio>\s*([^<]+)?\s*</div>[\s\S]+?</tr>`)
 
-func EnsureListDisplay(selectID string, dislayModels []*examples_admin.WithPublishProduct) testflow.ValidatorFunc {
+func EnsureVersionListDisplay(selectID string, dislayModels []*examples_admin.WithPublishProduct) testflow.ValidatorFunc {
 	return testflow.Combine(
 		// Ensure list head display
 		testflow.ContainsInOrderAtUpdatePortal(0,

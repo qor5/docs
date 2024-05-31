@@ -70,7 +70,7 @@ func flowNew(t *testing.T, f *FlowNew) {
 
 func flowNew_Step00_Event_presets_New(t *testing.T, f *FlowNew) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/samples/publish/with-publish-products").
+		PageURL("/with-publish-products").
 		EventFunc("presets_New").
 		BuildEventFuncRequest()
 
@@ -98,7 +98,7 @@ func flowNew_Step00_Event_presets_New(t *testing.T, f *FlowNew) *testflow.Then {
 
 func flowNew_Step01_Event_presets_Update(t *testing.T, f *FlowNew) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/samples/publish/with-publish-products").
+		PageURL("/with-publish-products").
 		EventFunc("presets_Update").
 		AddField("Name", f.Name).
 		AddField("Price", fmt.Sprint(f.Price)).
@@ -127,7 +127,7 @@ func flowNew_Step01_Event_presets_Update(t *testing.T, f *FlowNew) *testflow.The
 
 func flowNew_Step02_Event___reload__(t *testing.T, f *FlowNew) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/samples/publish/with-publish-products").
+		PageURL("/with-publish-products").
 		EventFunc("__reload__").
 		BuildEventFuncRequest()
 

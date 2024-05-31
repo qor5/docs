@@ -124,7 +124,7 @@ func flowSchedule(t *testing.T, f *FlowSchedule) {
 
 func flowSchedule_Step00_Event_presets_DetailingDrawer(t *testing.T, f *FlowSchedule) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/samples/publish/with-publish-products").
+		PageURL("/with-publish-products").
 		EventFunc("presets_DetailingDrawer").
 		Query("id", f.ID).
 		BuildEventFuncRequest()
@@ -153,7 +153,7 @@ func flowSchedule_Step00_Event_presets_DetailingDrawer(t *testing.T, f *FlowSche
 
 func flowSchedule_Step01_Event_publish_eventSchedulePublishDialog(t *testing.T, f *FlowSchedule) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/samples/publish/with-publish-products").
+		PageURL("/with-publish-products").
 		EventFunc("publish_eventSchedulePublishDialog").
 		Query("id", f.ID).
 		Query("overlay", "dialog").
@@ -181,7 +181,7 @@ func flowSchedule_Step01_Event_publish_eventSchedulePublishDialog(t *testing.T, 
 
 func flowSchedule_Step02_Event_publish_eventSchedulePublish(t *testing.T, f *FlowSchedule) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/samples/publish/with-publish-products").
+		PageURL("/with-publish-products").
 		EventFunc("publish_eventSchedulePublish").
 		Query("id", f.ID).
 		Query("overlay", "dialog").

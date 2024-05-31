@@ -31,7 +31,7 @@ func TestPublish(t *testing.T) {
 			Debug: true,
 			ReqFunc: func() *http.Request {
 				publishData.TruncatePut(dbr)
-				return httptest.NewRequest("GET", "/samples/publish/with-publish-products", nil)
+				return httptest.NewRequest("GET", "/with-publish-products", nil)
 			},
 			ExpectPageBodyContainsInOrder: []string{"Hello Product"},
 		},
@@ -54,12 +54,12 @@ func TestPublish(t *testing.T) {
 			ReqFunc: func() *http.Request {
 				publishData.TruncatePut(dbr)
 				req := multipartestutils.NewMultipartBuilder().
-					PageURL("/samples/publish/with-publish-products?__execute_event__=presets_New").
+					PageURL("/with-publish-products?__execute_event__=presets_New").
 					BuildEventFuncRequest()
 				return req
 			},
 			ExpectPortalUpdate0ContainsInOrder: []string{"Price"},
-			ExpectPortalUpdate0NotContains:     []string{`"/samples/publish/with-publish-products-version-list-dialog"`},
+			ExpectPortalUpdate0NotContains:     []string{`"/with-publish-products-version-list-dialog"`},
 		},
 		{
 			Name:  "Create should have first version",
@@ -67,7 +67,7 @@ func TestPublish(t *testing.T) {
 			ReqFunc: func() *http.Request {
 				emptyData.TruncatePut(dbr)
 				req := multipartestutils.NewMultipartBuilder().
-					PageURL("/samples/publish/with-publish-products?__execute_event__=presets_Update").
+					PageURL("/with-publish-products?__execute_event__=presets_Update").
 					AddField("Name", "123321").
 					AddField("Price", "200").
 					BuildEventFuncRequest()
@@ -87,7 +87,7 @@ func TestPublish(t *testing.T) {
 			ReqFunc: func() *http.Request {
 				publishData.TruncatePut(dbr)
 				req := multipartestutils.NewMultipartBuilder().
-					PageURL("/samples/publish/with-publish-products?__execute_event__=presets_Edit&id=1_2024-05-20-v01").
+					PageURL("/with-publish-products?__execute_event__=presets_Edit&id=1_2024-05-20-v01").
 					BuildEventFuncRequest()
 				return req
 			},
@@ -99,7 +99,7 @@ func TestPublish(t *testing.T) {
 			ReqFunc: func() *http.Request {
 				publishData.TruncatePut(dbr)
 				req := multipartestutils.NewMultipartBuilder().
-					PageURL("/samples/publish/with-publish-products?__execute_event__=presets_DetailingDrawer&id=1_2024-05-20-v01").
+					PageURL("/with-publish-products?__execute_event__=presets_DetailingDrawer&id=1_2024-05-20-v01").
 					BuildEventFuncRequest()
 				return req
 			},

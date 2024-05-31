@@ -7,7 +7,7 @@
         "host": "local.theplant",
         "port": 8800,
         "actualPort": 8800,
-        "path": "/samples/publish/with-publish-products",
+        "path": "/samples/publish-example/with-publish-products",
         "query": "__execute_event__=presets_DetailingDrawer&id=6_2024-05-28-v01",
         "tunnel": false,
         "keptAlive": true,
@@ -46,7 +46,7 @@
             "charset": null,
             "contentEncoding": null,
             "header": {
-                "firstLine": "POST /samples/publish/with-publish-products?__execute_event__=presets_DetailingDrawer&id=6_2024-05-28-v01 HTTP/1.1",
+                "firstLine": "POST /samples/publish-example/with-publish-products?__execute_event__=presets_DetailingDrawer&id=6_2024-05-28-v01 HTTP/1.1",
                 "headers": [
                     {
                         "name": "Host",
@@ -74,7 +74,7 @@
                     },
                     {
                         "name": "Referer",
-                        "value": "http://local.theplant:8800/samples/publish/with-publish-products"
+                        "value": "http://local.theplant:8800/samples/publish-example/with-publish-products"
                     },
                     {
                         "name": "Accept-Encoding",
@@ -130,7 +130,7 @@
                 ]
             },
             "body": {
-                "text": "{\"body\":\"\",\"pushState\":null,\"updatePortals\":[{\"name\":\"presets_RightDrawerPortalName\",\"body\":\"\\n\\u003cv-navigation-drawer v-model='vars.presetsRightDrawer' :location='\\\"right\\\"' :temporary='true' :width='\\\"600\\\"' :height='\\\"100%\\\"' class='v-navigation-drawer--temporary'\\u003e\\n\\u003cglobal-events @keyup.esc='vars.presetsRightDrawer = false'\\u003e\\u003c/global-events\\u003e\\n\\n\\u003cgo-plaid-portal :visible='true' :form='form' :locals='locals' portal-name='presets_RightDrawerContentPortalName'\\u003e\\n\\u003cgo-plaid-scope v-slot='{ form }'\\u003e\\n\\u003cv-layout\\u003e\\n\\u003cv-app-bar color='white' :elevation='0'\\u003e\\n\\u003cv-app-bar-title class='pl-2'\\u003e\\n\\u003cdiv class='d-flex'\\u003eWithPublishProduct 6_2024-05-28-v01\\u003c/div\\u003e\\n\\u003c/v-app-bar-title\\u003e\\n\\n\\u003cv-btn :icon='\\\"mdi-close\\\"' @click.stop='vars.presetsRightDrawer = false'\\u003e\\u003c/v-btn\\u003e\\n\\u003c/v-app-bar\\u003e\\n\\n\\u003cv-main\\u003e\\n\\u003cv-sheet class='pa-2'\\u003e\\n\\u003cv-card :flat='true' class='pa-1'\\u003e\\n\\u003cv-container :fluid='true'\\u003e\\n\\u003cgo-plaid-scope v-slot='{form}'\\u003e\\n\\u003cgo-plaid-scope v-slot=' { locals } ' :init='{action: \\\"\\\", commonConfirmDialog: false }'\\u003e\\n\\u003cdiv class='w-100 d-inline-flex'\\u003e\\n\\u003cv-chip :label='true' :variant='\\\"outlined\\\"' style='height:40px;' v-on:click='vars.publish_VarCurrentDisplayID ||= \\u0026#39;\\u0026#39;; plaid().vars(vars).locals(locals).form(form).eventFunc(\\\"presets_OpenListingDialog\\\").url(\\\"/samples/publish/with-publish-products-version-list-dialog\\\").query(\\\"select_id\\\", \\\"6_2024-05-28-v01\\\").go().then(function(r){ vars.publish_VarCurrentDisplayID = \\\"6_2024-05-28-v01\\\" })' :append-icon='\\\"mdi-chevron-down\\\"' class='w-100'\\u003e2024-05-28-v01\\n\\u003cv-chip :label='true' color='warning' :size='\\\"small\\\"' class='px-1 mx-1 ml-2'\\u003eDraft\\u003c/v-chip\\u003e\\n\\u003c/v-chip\\u003e\\n\\n\\u003cv-btn :prepend-icon='\\\"mdi-file-document-multiple\\\"' :height='40' :variant='\\\"outlined\\\"' @click='locals.action=\\\"publish_EventDuplicateVersion\\\";locals.commonConfirmDialog = true' class='ml-2'\\u003eDuplicate\\u003c/v-btn\\u003e\\n\\n\\u003cdiv\\u003e\\n\\u003cv-btn @click='locals.action=\\\"publish_EventPublish\\\";locals.commonConfirmDialog = true' :rounded='\\\"0\\\"' :variant='\\\"flat\\\"' color='primary' :height='40' class='rounded-s ml-2'\\u003ePublish\\u003c/v-btn\\u003e\\n\\u003c/div\\u003e\\n\\n\\u003cv-dialog :max-width='\\\"600px\\\"' v-model='locals.commonConfirmDialog'\\u003e\\n\\u003cv-card\\u003e\\n\\u003cv-card-title\\u003eAre you sure?\\u003c/v-card-title\\u003e\\n\\n\\u003cv-card-actions\\u003e\\n\\u003cv-spacer\\u003e\\u003c/v-spacer\\u003e\\n\\n\\u003cv-btn :variant='\\\"flat\\\"' v-on:click='locals.commonConfirmDialog = false' class='ml-2'\\u003eCancel\\u003c/v-btn\\u003e\\n\\n\\u003cv-btn color='primary' :variant='\\\"flat\\\"' theme='dark' @click='plaid().vars(vars).locals(locals).form(form).eventFunc(locals.action).query(\\\"id\\\", \\\"6_2024-05-28-v01\\\").go()'\\u003eOK\\u003c/v-btn\\u003e\\n\\u003c/v-card-actions\\u003e\\n\\u003c/v-card\\u003e\\n\\u003c/v-dialog\\u003e\\n\\n\\u003cv-btn :rounded='\\\"0\\\"' :variant='\\\"flat\\\"' color='primary' :height='40' @click='plaid().vars(vars).locals(locals).form(form).method(\\\"POST\\\").eventFunc(\\\"publish_eventSchedulePublishDialog\\\").query(\\\"overlay\\\", \\\"dialog\\\").query(\\\"id\\\", \\\"6_2024-05-28-v01\\\").url(\\\"/samples/publish/with-publish-products\\\").go()' class='ml-1 rounded-e'\\u003e\\n\\u003cv-icon :icon='\\\"mdi-alarm\\\"' :size='\\\"x-large\\\"'\\u003e\\u003c/v-icon\\u003e\\n\\u003c/v-btn\\u003e\\n\\n\\u003cgo-plaid-portal :visible='true' :form='form' :locals='locals' portal-name='publish_PortalSchedulePublishDialog'\\u003e\\u003c/go-plaid-portal\\u003e\\n\\u003c/div\\u003e\\n\\u003c/go-plaid-scope\\u003e\\n\\n\\u003cdiv class='mb-4'\\u003e\\n\\u003clabel class='v-label theme--light text-caption'\\u003eName\\u003c/label\\u003e\\n\\n\\u003cdiv class='pt-1'\\u003eFirstProduct\\u003c/div\\u003e\\n\\u003c/div\\u003e\\n\\n\\u003cdiv class='mb-4'\\u003e\\n\\u003clabel class='v-label theme--light text-caption'\\u003ePrice\\u003c/label\\u003e\\n\\n\\u003cdiv class='pt-1'\\u003e456\\u003c/div\\u003e\\n\\u003c/div\\u003e\\n\\u003c/go-plaid-scope\\u003e\\n\\u003c/v-container\\u003e\\n\\u003c/v-card\\u003e\\n\\u003c/v-sheet\\u003e\\n\\u003c/v-main\\u003e\\n\\u003c/v-layout\\u003e\\n\\u003c/go-plaid-scope\\u003e\\n\\u003c/go-plaid-portal\\u003e\\n\\u003c/v-navigation-drawer\\u003e\\n\"}],\"runScript\":\"setTimeout(function(){ vars.presetsRightDrawer = true }, 100)\"}\n",
+                "text": "{\"body\":\"\",\"pushState\":null,\"updatePortals\":[{\"name\":\"presets_RightDrawerPortalName\",\"body\":\"\\n\\u003cv-navigation-drawer v-model='vars.presetsRightDrawer' :location='\\\"right\\\"' :temporary='true' :width='\\\"600\\\"' :height='\\\"100%\\\"' class='v-navigation-drawer--temporary'\\u003e\\n\\u003cglobal-events @keyup.esc='vars.presetsRightDrawer = false'\\u003e\\u003c/global-events\\u003e\\n\\n\\u003cgo-plaid-portal :visible='true' :form='form' :locals='locals' portal-name='presets_RightDrawerContentPortalName'\\u003e\\n\\u003cgo-plaid-scope v-slot='{ form }'\\u003e\\n\\u003cv-layout\\u003e\\n\\u003cv-app-bar color='white' :elevation='0'\\u003e\\n\\u003cv-app-bar-title class='pl-2'\\u003e\\n\\u003cdiv class='d-flex'\\u003eWithPublishProduct 6_2024-05-28-v01\\u003c/div\\u003e\\n\\u003c/v-app-bar-title\\u003e\\n\\n\\u003cv-btn :icon='\\\"mdi-close\\\"' @click.stop='vars.presetsRightDrawer = false'\\u003e\\u003c/v-btn\\u003e\\n\\u003c/v-app-bar\\u003e\\n\\n\\u003cv-main\\u003e\\n\\u003cv-sheet class='pa-2'\\u003e\\n\\u003cv-card :flat='true' class='pa-1'\\u003e\\n\\u003cv-container :fluid='true'\\u003e\\n\\u003cgo-plaid-scope v-slot='{form}'\\u003e\\n\\u003cgo-plaid-scope v-slot=' { locals } ' :init='{action: \\\"\\\", commonConfirmDialog: false }'\\u003e\\n\\u003cdiv class='w-100 d-inline-flex'\\u003e\\n\\u003cv-chip :label='true' :variant='\\\"outlined\\\"' style='height:40px;' v-on:click='vars.publish_VarCurrentDisplayID ||= \\u0026#39;\\u0026#39;; plaid().vars(vars).locals(locals).form(form).eventFunc(\\\"presets_OpenListingDialog\\\").url(\\\"/samples/publish-example/with-publish-products-version-list-dialog\\\").query(\\\"select_id\\\", \\\"6_2024-05-28-v01\\\").go().then(function(r){ vars.publish_VarCurrentDisplayID = \\\"6_2024-05-28-v01\\\" })' :append-icon='\\\"mdi-chevron-down\\\"' class='w-100'\\u003e2024-05-28-v01\\n\\u003cv-chip :label='true' color='warning' :size='\\\"small\\\"' class='px-1 mx-1 ml-2'\\u003eDraft\\u003c/v-chip\\u003e\\n\\u003c/v-chip\\u003e\\n\\n\\u003cv-btn :prepend-icon='\\\"mdi-file-document-multiple\\\"' :height='40' :variant='\\\"outlined\\\"' @click='locals.action=\\\"publish_EventDuplicateVersion\\\";locals.commonConfirmDialog = true' class='ml-2'\\u003eDuplicate\\u003c/v-btn\\u003e\\n\\n\\u003cdiv\\u003e\\n\\u003cv-btn @click='locals.action=\\\"publish_EventPublish\\\";locals.commonConfirmDialog = true' :rounded='\\\"0\\\"' :variant='\\\"flat\\\"' color='primary' :height='40' class='rounded-s ml-2'\\u003ePublish\\u003c/v-btn\\u003e\\n\\u003c/div\\u003e\\n\\n\\u003cv-dialog :max-width='\\\"600px\\\"' v-model='locals.commonConfirmDialog'\\u003e\\n\\u003cv-card\\u003e\\n\\u003cv-card-title\\u003eAre you sure?\\u003c/v-card-title\\u003e\\n\\n\\u003cv-card-actions\\u003e\\n\\u003cv-spacer\\u003e\\u003c/v-spacer\\u003e\\n\\n\\u003cv-btn :variant='\\\"flat\\\"' v-on:click='locals.commonConfirmDialog = false' class='ml-2'\\u003eCancel\\u003c/v-btn\\u003e\\n\\n\\u003cv-btn color='primary' :variant='\\\"flat\\\"' theme='dark' @click='plaid().vars(vars).locals(locals).form(form).eventFunc(locals.action).query(\\\"id\\\", \\\"6_2024-05-28-v01\\\").go()'\\u003eOK\\u003c/v-btn\\u003e\\n\\u003c/v-card-actions\\u003e\\n\\u003c/v-card\\u003e\\n\\u003c/v-dialog\\u003e\\n\\n\\u003cv-btn :rounded='\\\"0\\\"' :variant='\\\"flat\\\"' color='primary' :height='40' @click='plaid().vars(vars).locals(locals).form(form).method(\\\"POST\\\").eventFunc(\\\"publish_eventSchedulePublishDialog\\\").query(\\\"overlay\\\", \\\"dialog\\\").query(\\\"id\\\", \\\"6_2024-05-28-v01\\\").url(\\\"/samples/publish-example/with-publish-products\\\").go()' class='ml-1 rounded-e'\\u003e\\n\\u003cv-icon :icon='\\\"mdi-alarm\\\"' :size='\\\"x-large\\\"'\\u003e\\u003c/v-icon\\u003e\\n\\u003c/v-btn\\u003e\\n\\n\\u003cgo-plaid-portal :visible='true' :form='form' :locals='locals' portal-name='publish_PortalSchedulePublishDialog'\\u003e\\u003c/go-plaid-portal\\u003e\\n\\u003c/div\\u003e\\n\\u003c/go-plaid-scope\\u003e\\n\\n\\u003cdiv class='mb-4'\\u003e\\n\\u003clabel class='v-label theme--light text-caption'\\u003eName\\u003c/label\\u003e\\n\\n\\u003cdiv class='pt-1'\\u003eFirstProduct\\u003c/div\\u003e\\n\\u003c/div\\u003e\\n\\n\\u003cdiv class='mb-4'\\u003e\\n\\u003clabel class='v-label theme--light text-caption'\\u003ePrice\\u003c/label\\u003e\\n\\n\\u003cdiv class='pt-1'\\u003e456\\u003c/div\\u003e\\n\\u003c/div\\u003e\\n\\u003c/go-plaid-scope\\u003e\\n\\u003c/v-container\\u003e\\n\\u003c/v-card\\u003e\\n\\u003c/v-sheet\\u003e\\n\\u003c/v-main\\u003e\\n\\u003c/v-layout\\u003e\\n\\u003c/go-plaid-scope\\u003e\\n\\u003c/go-plaid-portal\\u003e\\n\\u003c/v-navigation-drawer\\u003e\\n\"}],\"runScript\":\"setTimeout(function(){ vars.presetsRightDrawer = true }, 100)\"}\n",
                 "charset": "utf-8"
             }
         }
@@ -143,7 +143,7 @@
         "host": "local.theplant",
         "port": 8800,
         "actualPort": 8800,
-        "path": "/samples/publish/with-publish-products",
+        "path": "/samples/publish-example/with-publish-products",
         "query": "__execute_event__=publish_eventSchedulePublishDialog&id=6_2024-05-28-v01&overlay=dialog",
         "tunnel": false,
         "keptAlive": true,
@@ -182,7 +182,7 @@
             "charset": null,
             "contentEncoding": null,
             "header": {
-                "firstLine": "POST /samples/publish/with-publish-products?__execute_event__=publish_eventSchedulePublishDialog&id=6_2024-05-28-v01&overlay=dialog HTTP/1.1",
+                "firstLine": "POST /samples/publish-example/with-publish-products?__execute_event__=publish_eventSchedulePublishDialog&id=6_2024-05-28-v01&overlay=dialog HTTP/1.1",
                 "headers": [
                     {
                         "name": "Host",
@@ -210,7 +210,7 @@
                     },
                     {
                         "name": "Referer",
-                        "value": "http://local.theplant:8800/samples/publish/with-publish-products"
+                        "value": "http://local.theplant:8800/samples/publish-example/with-publish-products"
                     },
                     {
                         "name": "Accept-Encoding",
@@ -266,7 +266,7 @@
                 ]
             },
             "body": {
-                "text": "{\"body\":\"\",\"pushState\":null,\"updatePortals\":[{\"name\":\"publish_PortalSchedulePublishDialog\",\"body\":\"\\n\\u003cgo-plaid-scope :init='{schedulePublishDialog:true}' v-slot='{locals}'\\u003e\\n\\u003cv-dialog :max-width='\\\"480px\\\"' v-model='locals.schedulePublishDialog'\\u003e\\n\\u003cv-card\\u003e\\n\\u003cv-card-title\\u003eSchedule Publish Time\\u003c/v-card-title\\u003e\\n\\n\\u003cv-card-text\\u003e\\n\\u003cv-row\\u003e\\n\\u003cv-col :cols='6'\\u003e\\n\\u003cvx-datetimepicker v-model='form[\\\"ScheduledStartAt\\\"]' v-assign='[form, {\\\"ScheduledStartAt\\\":\\\"\\\"}]' :label='\\\"Start at\\\"' :timePickerProps='{\\\"format\\\":\\\"24hr\\\",\\\"scrollable\\\":true,\\\"use-seconds\\\":false,\\\"no-title\\\":false}' :clearText='\\\"Clear\\\"' :okText='\\\"OK\\\"'\\u003e\\u003c/vx-datetimepicker\\u003e\\n\\u003c/v-col\\u003e\\n\\n\\u003cv-col :cols='6'\\u003e\\n\\u003cvx-datetimepicker v-model='form[\\\"ScheduledEndAt\\\"]' v-assign='[form, {\\\"ScheduledEndAt\\\":\\\"\\\"}]' :label='\\\"End at\\\"' :timePickerProps='{\\\"format\\\":\\\"24hr\\\",\\\"scrollable\\\":true,\\\"use-seconds\\\":false,\\\"no-title\\\":false}' :clearText='\\\"Clear\\\"' :okText='\\\"OK\\\"'\\u003e\\u003c/vx-datetimepicker\\u003e\\n\\u003c/v-col\\u003e\\n\\u003c/v-row\\u003e\\n\\u003c/v-card-text\\u003e\\n\\n\\u003cv-card-actions\\u003e\\n\\u003cv-spacer\\u003e\\u003c/v-spacer\\u003e\\n\\n\\u003cv-btn color='primary' :disabled='isFetching' :loading='isFetching' @click='plaid().vars(vars).locals(locals).form(form).eventFunc(\\\"publish_eventSchedulePublish\\\").query(\\\"id\\\", \\\"6_2024-05-28-v01\\\").query(\\\"overlay\\\", \\\"dialog\\\").url(\\\"/samples/publish/with-publish-products\\\").go()'\\u003eUpdate\\u003c/v-btn\\u003e\\n\\u003c/v-card-actions\\u003e\\n\\u003c/v-card\\u003e\\n\\u003c/v-dialog\\u003e\\n\\u003c/go-plaid-scope\\u003e\\n\"}]}\n",
+                "text": "{\"body\":\"\",\"pushState\":null,\"updatePortals\":[{\"name\":\"publish_PortalSchedulePublishDialog\",\"body\":\"\\n\\u003cgo-plaid-scope :init='{schedulePublishDialog:true}' v-slot='{locals}'\\u003e\\n\\u003cv-dialog :max-width='\\\"480px\\\"' v-model='locals.schedulePublishDialog'\\u003e\\n\\u003cv-card\\u003e\\n\\u003cv-card-title\\u003eSchedule Publish Time\\u003c/v-card-title\\u003e\\n\\n\\u003cv-card-text\\u003e\\n\\u003cv-row\\u003e\\n\\u003cv-col :cols='6'\\u003e\\n\\u003cvx-datetimepicker v-model='form[\\\"ScheduledStartAt\\\"]' v-assign='[form, {\\\"ScheduledStartAt\\\":\\\"\\\"}]' :label='\\\"Start at\\\"' :timePickerProps='{\\\"format\\\":\\\"24hr\\\",\\\"scrollable\\\":true,\\\"use-seconds\\\":false,\\\"no-title\\\":false}' :clearText='\\\"Clear\\\"' :okText='\\\"OK\\\"'\\u003e\\u003c/vx-datetimepicker\\u003e\\n\\u003c/v-col\\u003e\\n\\n\\u003cv-col :cols='6'\\u003e\\n\\u003cvx-datetimepicker v-model='form[\\\"ScheduledEndAt\\\"]' v-assign='[form, {\\\"ScheduledEndAt\\\":\\\"\\\"}]' :label='\\\"End at\\\"' :timePickerProps='{\\\"format\\\":\\\"24hr\\\",\\\"scrollable\\\":true,\\\"use-seconds\\\":false,\\\"no-title\\\":false}' :clearText='\\\"Clear\\\"' :okText='\\\"OK\\\"'\\u003e\\u003c/vx-datetimepicker\\u003e\\n\\u003c/v-col\\u003e\\n\\u003c/v-row\\u003e\\n\\u003c/v-card-text\\u003e\\n\\n\\u003cv-card-actions\\u003e\\n\\u003cv-spacer\\u003e\\u003c/v-spacer\\u003e\\n\\n\\u003cv-btn color='primary' :disabled='isFetching' :loading='isFetching' @click='plaid().vars(vars).locals(locals).form(form).eventFunc(\\\"publish_eventSchedulePublish\\\").query(\\\"id\\\", \\\"6_2024-05-28-v01\\\").query(\\\"overlay\\\", \\\"dialog\\\").url(\\\"/samples/publish-example/with-publish-products\\\").go()'\\u003eUpdate\\u003c/v-btn\\u003e\\n\\u003c/v-card-actions\\u003e\\n\\u003c/v-card\\u003e\\n\\u003c/v-dialog\\u003e\\n\\u003c/go-plaid-scope\\u003e\\n\"}]}\n",
                 "charset": "utf-8"
             }
         }
@@ -279,7 +279,7 @@
         "host": "local.theplant",
         "port": 8800,
         "actualPort": 8800,
-        "path": "/samples/publish/with-publish-products",
+        "path": "/samples/publish-example/with-publish-products",
         "query": "__execute_event__=publish_eventSchedulePublish&id=6_2024-05-28-v01&overlay=dialog",
         "tunnel": false,
         "keptAlive": true,
@@ -318,7 +318,7 @@
             "charset": null,
             "contentEncoding": null,
             "header": {
-                "firstLine": "POST /samples/publish/with-publish-products?__execute_event__=publish_eventSchedulePublish&id=6_2024-05-28-v01&overlay=dialog HTTP/1.1",
+                "firstLine": "POST /samples/publish-example/with-publish-products?__execute_event__=publish_eventSchedulePublish&id=6_2024-05-28-v01&overlay=dialog HTTP/1.1",
                 "headers": [
                     {
                         "name": "Host",
@@ -346,7 +346,7 @@
                     },
                     {
                         "name": "Referer",
-                        "value": "http://local.theplant:8800/samples/publish/with-publish-products"
+                        "value": "http://local.theplant:8800/samples/publish-example/with-publish-products"
                     },
                     {
                         "name": "Accept-Encoding",
@@ -415,7 +415,7 @@
         "host": "local.theplant",
         "port": 8800,
         "actualPort": 8800,
-        "path": "/samples/publish/with-publish-products",
+        "path": "/samples/publish-example/with-publish-products",
         "query": "__execute_event__=publish_eventSchedulePublishDialog&id=6_2024-05-28-v01&overlay=dialog",
         "tunnel": false,
         "keptAlive": true,
@@ -454,7 +454,7 @@
             "charset": null,
             "contentEncoding": null,
             "header": {
-                "firstLine": "POST /samples/publish/with-publish-products?__execute_event__=publish_eventSchedulePublishDialog&id=6_2024-05-28-v01&overlay=dialog HTTP/1.1",
+                "firstLine": "POST /samples/publish-example/with-publish-products?__execute_event__=publish_eventSchedulePublishDialog&id=6_2024-05-28-v01&overlay=dialog HTTP/1.1",
                 "headers": [
                     {
                         "name": "Host",
@@ -482,7 +482,7 @@
                     },
                     {
                         "name": "Referer",
-                        "value": "http://local.theplant:8800/samples/publish/with-publish-products"
+                        "value": "http://local.theplant:8800/samples/publish-example/with-publish-products"
                     },
                     {
                         "name": "Accept-Encoding",
@@ -538,7 +538,7 @@
                 ]
             },
             "body": {
-                "text": "{\"body\":\"\",\"pushState\":null,\"updatePortals\":[{\"name\":\"publish_PortalSchedulePublishDialog\",\"body\":\"\\n\\u003cgo-plaid-scope :init='{schedulePublishDialog:true}' v-slot='{locals}'\\u003e\\n\\u003cv-dialog :max-width='\\\"480px\\\"' v-model='locals.schedulePublishDialog'\\u003e\\n\\u003cv-card\\u003e\\n\\u003cv-card-title\\u003eSchedule Publish Time\\u003c/v-card-title\\u003e\\n\\n\\u003cv-card-text\\u003e\\n\\u003cv-row\\u003e\\n\\u003cv-col :cols='6'\\u003e\\n\\u003cvx-datetimepicker v-model='form[\\\"ScheduledStartAt\\\"]' v-assign='[form, {\\\"ScheduledStartAt\\\":\\\"2024-05-23 00:00\\\"}]' :label='\\\"Start at\\\"' :timePickerProps='{\\\"format\\\":\\\"24hr\\\",\\\"scrollable\\\":true,\\\"use-seconds\\\":false,\\\"no-title\\\":false}' :clearText='\\\"Clear\\\"' :okText='\\\"OK\\\"'\\u003e\\u003c/vx-datetimepicker\\u003e\\n\\u003c/v-col\\u003e\\n\\n\\u003cv-col :cols='6'\\u003e\\n\\u003cvx-datetimepicker v-model='form[\\\"ScheduledEndAt\\\"]' v-assign='[form, {\\\"ScheduledEndAt\\\":\\\"2024-05-24 00:00\\\"}]' :label='\\\"End at\\\"' :timePickerProps='{\\\"format\\\":\\\"24hr\\\",\\\"scrollable\\\":true,\\\"use-seconds\\\":false,\\\"no-title\\\":false}' :clearText='\\\"Clear\\\"' :okText='\\\"OK\\\"'\\u003e\\u003c/vx-datetimepicker\\u003e\\n\\u003c/v-col\\u003e\\n\\u003c/v-row\\u003e\\n\\u003c/v-card-text\\u003e\\n\\n\\u003cv-card-actions\\u003e\\n\\u003cv-spacer\\u003e\\u003c/v-spacer\\u003e\\n\\n\\u003cv-btn color='primary' :disabled='isFetching' :loading='isFetching' @click='plaid().vars(vars).locals(locals).form(form).eventFunc(\\\"publish_eventSchedulePublish\\\").query(\\\"id\\\", \\\"6_2024-05-28-v01\\\").query(\\\"overlay\\\", \\\"dialog\\\").url(\\\"/samples/publish/with-publish-products\\\").go()'\\u003eUpdate\\u003c/v-btn\\u003e\\n\\u003c/v-card-actions\\u003e\\n\\u003c/v-card\\u003e\\n\\u003c/v-dialog\\u003e\\n\\u003c/go-plaid-scope\\u003e\\n\"}]}\n",
+                "text": "{\"body\":\"\",\"pushState\":null,\"updatePortals\":[{\"name\":\"publish_PortalSchedulePublishDialog\",\"body\":\"\\n\\u003cgo-plaid-scope :init='{schedulePublishDialog:true}' v-slot='{locals}'\\u003e\\n\\u003cv-dialog :max-width='\\\"480px\\\"' v-model='locals.schedulePublishDialog'\\u003e\\n\\u003cv-card\\u003e\\n\\u003cv-card-title\\u003eSchedule Publish Time\\u003c/v-card-title\\u003e\\n\\n\\u003cv-card-text\\u003e\\n\\u003cv-row\\u003e\\n\\u003cv-col :cols='6'\\u003e\\n\\u003cvx-datetimepicker v-model='form[\\\"ScheduledStartAt\\\"]' v-assign='[form, {\\\"ScheduledStartAt\\\":\\\"2024-05-23 00:00\\\"}]' :label='\\\"Start at\\\"' :timePickerProps='{\\\"format\\\":\\\"24hr\\\",\\\"scrollable\\\":true,\\\"use-seconds\\\":false,\\\"no-title\\\":false}' :clearText='\\\"Clear\\\"' :okText='\\\"OK\\\"'\\u003e\\u003c/vx-datetimepicker\\u003e\\n\\u003c/v-col\\u003e\\n\\n\\u003cv-col :cols='6'\\u003e\\n\\u003cvx-datetimepicker v-model='form[\\\"ScheduledEndAt\\\"]' v-assign='[form, {\\\"ScheduledEndAt\\\":\\\"2024-05-24 00:00\\\"}]' :label='\\\"End at\\\"' :timePickerProps='{\\\"format\\\":\\\"24hr\\\",\\\"scrollable\\\":true,\\\"use-seconds\\\":false,\\\"no-title\\\":false}' :clearText='\\\"Clear\\\"' :okText='\\\"OK\\\"'\\u003e\\u003c/vx-datetimepicker\\u003e\\n\\u003c/v-col\\u003e\\n\\u003c/v-row\\u003e\\n\\u003c/v-card-text\\u003e\\n\\n\\u003cv-card-actions\\u003e\\n\\u003cv-spacer\\u003e\\u003c/v-spacer\\u003e\\n\\n\\u003cv-btn color='primary' :disabled='isFetching' :loading='isFetching' @click='plaid().vars(vars).locals(locals).form(form).eventFunc(\\\"publish_eventSchedulePublish\\\").query(\\\"id\\\", \\\"6_2024-05-28-v01\\\").query(\\\"overlay\\\", \\\"dialog\\\").url(\\\"/samples/publish-example/with-publish-products\\\").go()'\\u003eUpdate\\u003c/v-btn\\u003e\\n\\u003c/v-card-actions\\u003e\\n\\u003c/v-card\\u003e\\n\\u003c/v-dialog\\u003e\\n\\u003c/go-plaid-scope\\u003e\\n\"}]}\n",
                 "charset": "utf-8"
             }
         }
@@ -551,7 +551,7 @@
         "host": "local.theplant",
         "port": 8800,
         "actualPort": 8800,
-        "path": "/samples/publish/with-publish-products",
+        "path": "/samples/publish-example/with-publish-products",
         "query": "__execute_event__=publish_eventSchedulePublish&id=6_2024-05-28-v01&overlay=dialog",
         "tunnel": false,
         "keptAlive": true,
@@ -590,7 +590,7 @@
             "charset": null,
             "contentEncoding": null,
             "header": {
-                "firstLine": "POST /samples/publish/with-publish-products?__execute_event__=publish_eventSchedulePublish&id=6_2024-05-28-v01&overlay=dialog HTTP/1.1",
+                "firstLine": "POST /samples/publish-example/with-publish-products?__execute_event__=publish_eventSchedulePublish&id=6_2024-05-28-v01&overlay=dialog HTTP/1.1",
                 "headers": [
                     {
                         "name": "Host",
@@ -618,7 +618,7 @@
                     },
                     {
                         "name": "Referer",
-                        "value": "http://local.theplant:8800/samples/publish/with-publish-products"
+                        "value": "http://local.theplant:8800/samples/publish-example/with-publish-products"
                     },
                     {
                         "name": "Accept-Encoding",
@@ -687,7 +687,7 @@
         "host": "local.theplant",
         "port": 8800,
         "actualPort": 8800,
-        "path": "/samples/publish/with-publish-products",
+        "path": "/samples/publish-example/with-publish-products",
         "query": "__execute_event__=publish_eventSchedulePublishDialog&id=6_2024-05-28-v01&overlay=dialog",
         "tunnel": false,
         "keptAlive": true,
@@ -726,7 +726,7 @@
             "charset": null,
             "contentEncoding": null,
             "header": {
-                "firstLine": "POST /samples/publish/with-publish-products?__execute_event__=publish_eventSchedulePublishDialog&id=6_2024-05-28-v01&overlay=dialog HTTP/1.1",
+                "firstLine": "POST /samples/publish-example/with-publish-products?__execute_event__=publish_eventSchedulePublishDialog&id=6_2024-05-28-v01&overlay=dialog HTTP/1.1",
                 "headers": [
                     {
                         "name": "Host",
@@ -754,7 +754,7 @@
                     },
                     {
                         "name": "Referer",
-                        "value": "http://local.theplant:8800/samples/publish/with-publish-products"
+                        "value": "http://local.theplant:8800/samples/publish-example/with-publish-products"
                     },
                     {
                         "name": "Accept-Encoding",
@@ -810,7 +810,7 @@
                 ]
             },
             "body": {
-                "text": "{\"body\":\"\",\"pushState\":null,\"updatePortals\":[{\"name\":\"publish_PortalSchedulePublishDialog\",\"body\":\"\\n\\u003cgo-plaid-scope :init='{schedulePublishDialog:true}' v-slot='{locals}'\\u003e\\n\\u003cv-dialog :max-width='\\\"480px\\\"' v-model='locals.schedulePublishDialog'\\u003e\\n\\u003cv-card\\u003e\\n\\u003cv-card-title\\u003eSchedule Publish Time\\u003c/v-card-title\\u003e\\n\\n\\u003cv-card-text\\u003e\\n\\u003cv-row\\u003e\\n\\u003cv-col :cols='6'\\u003e\\n\\u003cvx-datetimepicker v-model='form[\\\"ScheduledStartAt\\\"]' v-assign='[form, {\\\"ScheduledStartAt\\\":\\\"2024-05-30 00:00\\\"}]' :label='\\\"Start at\\\"' :timePickerProps='{\\\"format\\\":\\\"24hr\\\",\\\"scrollable\\\":true,\\\"use-seconds\\\":false,\\\"no-title\\\":false}' :clearText='\\\"Clear\\\"' :okText='\\\"OK\\\"'\\u003e\\u003c/vx-datetimepicker\\u003e\\n\\u003c/v-col\\u003e\\n\\n\\u003cv-col :cols='6'\\u003e\\n\\u003cvx-datetimepicker v-model='form[\\\"ScheduledEndAt\\\"]' v-assign='[form, {\\\"ScheduledEndAt\\\":\\\"2024-05-31 00:00\\\"}]' :label='\\\"End at\\\"' :timePickerProps='{\\\"format\\\":\\\"24hr\\\",\\\"scrollable\\\":true,\\\"use-seconds\\\":false,\\\"no-title\\\":false}' :clearText='\\\"Clear\\\"' :okText='\\\"OK\\\"'\\u003e\\u003c/vx-datetimepicker\\u003e\\n\\u003c/v-col\\u003e\\n\\u003c/v-row\\u003e\\n\\u003c/v-card-text\\u003e\\n\\n\\u003cv-card-actions\\u003e\\n\\u003cv-spacer\\u003e\\u003c/v-spacer\\u003e\\n\\n\\u003cv-btn color='primary' :disabled='isFetching' :loading='isFetching' @click='plaid().vars(vars).locals(locals).form(form).eventFunc(\\\"publish_eventSchedulePublish\\\").query(\\\"id\\\", \\\"6_2024-05-28-v01\\\").query(\\\"overlay\\\", \\\"dialog\\\").url(\\\"/samples/publish/with-publish-products\\\").go()'\\u003eUpdate\\u003c/v-btn\\u003e\\n\\u003c/v-card-actions\\u003e\\n\\u003c/v-card\\u003e\\n\\u003c/v-dialog\\u003e\\n\\u003c/go-plaid-scope\\u003e\\n\"}]}\n",
+                "text": "{\"body\":\"\",\"pushState\":null,\"updatePortals\":[{\"name\":\"publish_PortalSchedulePublishDialog\",\"body\":\"\\n\\u003cgo-plaid-scope :init='{schedulePublishDialog:true}' v-slot='{locals}'\\u003e\\n\\u003cv-dialog :max-width='\\\"480px\\\"' v-model='locals.schedulePublishDialog'\\u003e\\n\\u003cv-card\\u003e\\n\\u003cv-card-title\\u003eSchedule Publish Time\\u003c/v-card-title\\u003e\\n\\n\\u003cv-card-text\\u003e\\n\\u003cv-row\\u003e\\n\\u003cv-col :cols='6'\\u003e\\n\\u003cvx-datetimepicker v-model='form[\\\"ScheduledStartAt\\\"]' v-assign='[form, {\\\"ScheduledStartAt\\\":\\\"2024-05-30 00:00\\\"}]' :label='\\\"Start at\\\"' :timePickerProps='{\\\"format\\\":\\\"24hr\\\",\\\"scrollable\\\":true,\\\"use-seconds\\\":false,\\\"no-title\\\":false}' :clearText='\\\"Clear\\\"' :okText='\\\"OK\\\"'\\u003e\\u003c/vx-datetimepicker\\u003e\\n\\u003c/v-col\\u003e\\n\\n\\u003cv-col :cols='6'\\u003e\\n\\u003cvx-datetimepicker v-model='form[\\\"ScheduledEndAt\\\"]' v-assign='[form, {\\\"ScheduledEndAt\\\":\\\"2024-05-31 00:00\\\"}]' :label='\\\"End at\\\"' :timePickerProps='{\\\"format\\\":\\\"24hr\\\",\\\"scrollable\\\":true,\\\"use-seconds\\\":false,\\\"no-title\\\":false}' :clearText='\\\"Clear\\\"' :okText='\\\"OK\\\"'\\u003e\\u003c/vx-datetimepicker\\u003e\\n\\u003c/v-col\\u003e\\n\\u003c/v-row\\u003e\\n\\u003c/v-card-text\\u003e\\n\\n\\u003cv-card-actions\\u003e\\n\\u003cv-spacer\\u003e\\u003c/v-spacer\\u003e\\n\\n\\u003cv-btn color='primary' :disabled='isFetching' :loading='isFetching' @click='plaid().vars(vars).locals(locals).form(form).eventFunc(\\\"publish_eventSchedulePublish\\\").query(\\\"id\\\", \\\"6_2024-05-28-v01\\\").query(\\\"overlay\\\", \\\"dialog\\\").url(\\\"/samples/publish-example/with-publish-products\\\").go()'\\u003eUpdate\\u003c/v-btn\\u003e\\n\\u003c/v-card-actions\\u003e\\n\\u003c/v-card\\u003e\\n\\u003c/v-dialog\\u003e\\n\\u003c/go-plaid-scope\\u003e\\n\"}]}\n",
                 "charset": "utf-8"
             }
         }
@@ -823,7 +823,7 @@
         "host": "local.theplant",
         "port": 8800,
         "actualPort": 8800,
-        "path": "/samples/publish/with-publish-products",
+        "path": "/samples/publish-example/with-publish-products",
         "query": "__execute_event__=publish_eventSchedulePublish&id=6_2024-05-28-v01&overlay=dialog",
         "tunnel": false,
         "keptAlive": true,
@@ -862,7 +862,7 @@
             "charset": null,
             "contentEncoding": null,
             "header": {
-                "firstLine": "POST /samples/publish/with-publish-products?__execute_event__=publish_eventSchedulePublish&id=6_2024-05-28-v01&overlay=dialog HTTP/1.1",
+                "firstLine": "POST /samples/publish-example/with-publish-products?__execute_event__=publish_eventSchedulePublish&id=6_2024-05-28-v01&overlay=dialog HTTP/1.1",
                 "headers": [
                     {
                         "name": "Host",
@@ -890,7 +890,7 @@
                     },
                     {
                         "name": "Referer",
-                        "value": "http://local.theplant:8800/samples/publish/with-publish-products"
+                        "value": "http://local.theplant:8800/samples/publish-example/with-publish-products"
                     },
                     {
                         "name": "Accept-Encoding",
@@ -959,7 +959,7 @@
         "host": "local.theplant",
         "port": 8800,
         "actualPort": 8800,
-        "path": "/samples/publish/with-publish-products",
+        "path": "/samples/publish-example/with-publish-products",
         "query": "__execute_event__=publish_eventSchedulePublishDialog&id=6_2024-05-28-v01&overlay=dialog",
         "tunnel": false,
         "keptAlive": true,
@@ -998,7 +998,7 @@
             "charset": null,
             "contentEncoding": null,
             "header": {
-                "firstLine": "POST /samples/publish/with-publish-products?__execute_event__=publish_eventSchedulePublishDialog&id=6_2024-05-28-v01&overlay=dialog HTTP/1.1",
+                "firstLine": "POST /samples/publish-example/with-publish-products?__execute_event__=publish_eventSchedulePublishDialog&id=6_2024-05-28-v01&overlay=dialog HTTP/1.1",
                 "headers": [
                     {
                         "name": "Host",
@@ -1026,7 +1026,7 @@
                     },
                     {
                         "name": "Referer",
-                        "value": "http://local.theplant:8800/samples/publish/with-publish-products"
+                        "value": "http://local.theplant:8800/samples/publish-example/with-publish-products"
                     },
                     {
                         "name": "Accept-Encoding",
@@ -1082,7 +1082,7 @@
                 ]
             },
             "body": {
-                "text": "{\"body\":\"\",\"pushState\":null,\"updatePortals\":[{\"name\":\"publish_PortalSchedulePublishDialog\",\"body\":\"\\n\\u003cgo-plaid-scope :init='{schedulePublishDialog:true}' v-slot='{locals}'\\u003e\\n\\u003cv-dialog :max-width='\\\"480px\\\"' v-model='locals.schedulePublishDialog'\\u003e\\n\\u003cv-card\\u003e\\n\\u003cv-card-title\\u003eSchedule Publish Time\\u003c/v-card-title\\u003e\\n\\n\\u003cv-card-text\\u003e\\n\\u003cv-row\\u003e\\n\\u003cv-col :cols='6'\\u003e\\n\\u003cvx-datetimepicker v-model='form[\\\"ScheduledStartAt\\\"]' v-assign='[form, {\\\"ScheduledStartAt\\\":\\\"2024-05-27 00:00\\\"}]' :label='\\\"Start at\\\"' :timePickerProps='{\\\"format\\\":\\\"24hr\\\",\\\"scrollable\\\":true,\\\"use-seconds\\\":false,\\\"no-title\\\":false}' :clearText='\\\"Clear\\\"' :okText='\\\"OK\\\"'\\u003e\\u003c/vx-datetimepicker\\u003e\\n\\u003c/v-col\\u003e\\n\\n\\u003cv-col :cols='6'\\u003e\\n\\u003cvx-datetimepicker v-model='form[\\\"ScheduledEndAt\\\"]' v-assign='[form, {\\\"ScheduledEndAt\\\":\\\"2024-05-29 00:00\\\"}]' :label='\\\"End at\\\"' :timePickerProps='{\\\"format\\\":\\\"24hr\\\",\\\"scrollable\\\":true,\\\"use-seconds\\\":false,\\\"no-title\\\":false}' :clearText='\\\"Clear\\\"' :okText='\\\"OK\\\"'\\u003e\\u003c/vx-datetimepicker\\u003e\\n\\u003c/v-col\\u003e\\n\\u003c/v-row\\u003e\\n\\u003c/v-card-text\\u003e\\n\\n\\u003cv-card-actions\\u003e\\n\\u003cv-spacer\\u003e\\u003c/v-spacer\\u003e\\n\\n\\u003cv-btn color='primary' :disabled='isFetching' :loading='isFetching' @click='plaid().vars(vars).locals(locals).form(form).eventFunc(\\\"publish_eventSchedulePublish\\\").query(\\\"id\\\", \\\"6_2024-05-28-v01\\\").query(\\\"overlay\\\", \\\"dialog\\\").url(\\\"/samples/publish/with-publish-products\\\").go()'\\u003eUpdate\\u003c/v-btn\\u003e\\n\\u003c/v-card-actions\\u003e\\n\\u003c/v-card\\u003e\\n\\u003c/v-dialog\\u003e\\n\\u003c/go-plaid-scope\\u003e\\n\"}]}\n",
+                "text": "{\"body\":\"\",\"pushState\":null,\"updatePortals\":[{\"name\":\"publish_PortalSchedulePublishDialog\",\"body\":\"\\n\\u003cgo-plaid-scope :init='{schedulePublishDialog:true}' v-slot='{locals}'\\u003e\\n\\u003cv-dialog :max-width='\\\"480px\\\"' v-model='locals.schedulePublishDialog'\\u003e\\n\\u003cv-card\\u003e\\n\\u003cv-card-title\\u003eSchedule Publish Time\\u003c/v-card-title\\u003e\\n\\n\\u003cv-card-text\\u003e\\n\\u003cv-row\\u003e\\n\\u003cv-col :cols='6'\\u003e\\n\\u003cvx-datetimepicker v-model='form[\\\"ScheduledStartAt\\\"]' v-assign='[form, {\\\"ScheduledStartAt\\\":\\\"2024-05-27 00:00\\\"}]' :label='\\\"Start at\\\"' :timePickerProps='{\\\"format\\\":\\\"24hr\\\",\\\"scrollable\\\":true,\\\"use-seconds\\\":false,\\\"no-title\\\":false}' :clearText='\\\"Clear\\\"' :okText='\\\"OK\\\"'\\u003e\\u003c/vx-datetimepicker\\u003e\\n\\u003c/v-col\\u003e\\n\\n\\u003cv-col :cols='6'\\u003e\\n\\u003cvx-datetimepicker v-model='form[\\\"ScheduledEndAt\\\"]' v-assign='[form, {\\\"ScheduledEndAt\\\":\\\"2024-05-29 00:00\\\"}]' :label='\\\"End at\\\"' :timePickerProps='{\\\"format\\\":\\\"24hr\\\",\\\"scrollable\\\":true,\\\"use-seconds\\\":false,\\\"no-title\\\":false}' :clearText='\\\"Clear\\\"' :okText='\\\"OK\\\"'\\u003e\\u003c/vx-datetimepicker\\u003e\\n\\u003c/v-col\\u003e\\n\\u003c/v-row\\u003e\\n\\u003c/v-card-text\\u003e\\n\\n\\u003cv-card-actions\\u003e\\n\\u003cv-spacer\\u003e\\u003c/v-spacer\\u003e\\n\\n\\u003cv-btn color='primary' :disabled='isFetching' :loading='isFetching' @click='plaid().vars(vars).locals(locals).form(form).eventFunc(\\\"publish_eventSchedulePublish\\\").query(\\\"id\\\", \\\"6_2024-05-28-v01\\\").query(\\\"overlay\\\", \\\"dialog\\\").url(\\\"/samples/publish-example/with-publish-products\\\").go()'\\u003eUpdate\\u003c/v-btn\\u003e\\n\\u003c/v-card-actions\\u003e\\n\\u003c/v-card\\u003e\\n\\u003c/v-dialog\\u003e\\n\\u003c/go-plaid-scope\\u003e\\n\"}]}\n",
                 "charset": "utf-8"
             }
         }
@@ -1095,7 +1095,7 @@
         "host": "local.theplant",
         "port": 8800,
         "actualPort": 8800,
-        "path": "/samples/publish/with-publish-products",
+        "path": "/samples/publish-example/with-publish-products",
         "query": "__execute_event__=publish_eventSchedulePublish&id=6_2024-05-28-v01&overlay=dialog",
         "tunnel": false,
         "keptAlive": true,
@@ -1134,7 +1134,7 @@
             "charset": null,
             "contentEncoding": null,
             "header": {
-                "firstLine": "POST /samples/publish/with-publish-products?__execute_event__=publish_eventSchedulePublish&id=6_2024-05-28-v01&overlay=dialog HTTP/1.1",
+                "firstLine": "POST /samples/publish-example/with-publish-products?__execute_event__=publish_eventSchedulePublish&id=6_2024-05-28-v01&overlay=dialog HTTP/1.1",
                 "headers": [
                     {
                         "name": "Host",
@@ -1162,7 +1162,7 @@
                     },
                     {
                         "name": "Referer",
-                        "value": "http://local.theplant:8800/samples/publish/with-publish-products"
+                        "value": "http://local.theplant:8800/samples/publish-example/with-publish-products"
                     },
                     {
                         "name": "Accept-Encoding",

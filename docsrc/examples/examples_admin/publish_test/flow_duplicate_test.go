@@ -88,7 +88,7 @@ func flowDuplicate(t *testing.T, f *FlowDuplicate) {
 
 func flowDuplicate_Step00_Event_presets_DetailingDrawer(t *testing.T, f *FlowDuplicate) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/samples/publish/with-publish-products").
+		PageURL("/with-publish-products").
 		EventFunc("presets_DetailingDrawer").
 		Query("id", f.ID).
 		BuildEventFuncRequest()
@@ -116,7 +116,7 @@ func flowDuplicate_Step00_Event_presets_DetailingDrawer(t *testing.T, f *FlowDup
 
 func flowDuplicate_Step01_Event_publish_EventDuplicateVersion(t *testing.T, f *FlowDuplicate) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/samples/publish/with-publish-products").
+		PageURL("/with-publish-products").
 		EventFunc("publish_EventDuplicateVersion").
 		Query("id", f.ID).
 		BuildEventFuncRequest()
@@ -140,7 +140,7 @@ func flowDuplicate_Step01_Event_publish_EventDuplicateVersion(t *testing.T, f *F
 
 func flowDuplicate_Step02_Event___reload__(t *testing.T, f *FlowDuplicate) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/samples/publish/with-publish-products").
+		PageURL("/with-publish-products").
 		EventFunc("__reload__").
 		BuildEventFuncRequest()
 
@@ -163,7 +163,7 @@ func flowDuplicate_Step02_Event___reload__(t *testing.T, f *FlowDuplicate) *test
 
 func flowDuplicate_Step03_Event_presets_DetailingDrawer(t *testing.T, f *FlowDuplicate) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/samples/publish/with-publish-products").
+		PageURL("/with-publish-products").
 		EventFunc("presets_DetailingDrawer").
 		Query("id", f.DuplicateID).
 		BuildEventFuncRequest()
