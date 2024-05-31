@@ -23,8 +23,9 @@ func SEOExampleBasic(b *presets.Builder, db *gorm.DB) {
 
 	b.DataOperator(gorm2op.DataOperator(db))
 
-	b.Model(&SEOPost{})
-
+	mb := b.Model(&SEOPost{})
+	dp := mb.Detailing("Title", seo.DetailCard).Drawer(true)
+	_ = dp
 	seob := seo.New(db)
 	seob.RegisterSEO("Post", &SEOPost{}).
 		RegisterContextVariable(
@@ -39,4 +40,5 @@ func SEOExampleBasic(b *presets.Builder, db *gorm.DB) {
 		RegisterSettingVariables("Test")
 
 	b.Use(seob)
+	mb.Use(seob)
 }
