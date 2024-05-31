@@ -74,7 +74,6 @@ func flowPublish(t *testing.T, f *FlowPublish) {
 		assert.True(t, m.ActualEndAt == nil)
 		// TODO: What about changes to the schedule data?
 
-		// TODO: Ensure no other data has been modified
 		prev = m
 	}
 
@@ -91,7 +90,6 @@ func flowPublish(t *testing.T, f *FlowPublish) {
 		assert.True(t, m.ActualEndAt == nil)
 		// TODO: What about changes to the schedule data?
 
-		// TODO: Ensure no other data has been modified
 		prev = m
 	}
 
@@ -106,7 +104,6 @@ func flowPublish(t *testing.T, f *FlowPublish) {
 		assert.True(t, m.ActualEndAt.After(previous))
 		// TODO: What about changes to the schedule data?
 
-		// TODO: Ensure no other data has been modified
 		prev = m
 	}
 

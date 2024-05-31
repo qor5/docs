@@ -15,6 +15,11 @@
 6. 选中最老的版本并确认显示，然后再删除，以测试其在无更老版本切换的时候是否会切换和显示最新版本
 7. 删除所有版本，测试其是否会直接返回至资源列表页
 
+## Schedule
+1. n < s < e ，成功
+2. s < e < n ，报错
+3. 两个记录即可，其他的情况复用前俩记录即可
+
 ```
 # gen command
 sh $GOPATH/src/github.com/qor5/admin/utils/testflow/gentool/gen.sh ./sample ./patch ./_backup .
