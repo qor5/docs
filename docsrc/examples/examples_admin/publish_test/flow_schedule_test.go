@@ -282,6 +282,34 @@ func flowSchedule_Step03_Event_presets_ReloadList(t *testing.T, f *FlowSchedule)
 	return testflow.NewThen(t, w, r)
 }
 
+func flowSchedule_Step04_Event_publish_eventSchedulePublishDialog(t *testing.T, f *FlowSchedule) *testflow.Then {
+	r := multipartestutils.NewMultipartBuilder().
+		PageURL("/samples/publish-example/with-publish-products").
+		EventFunc("publish_eventSchedulePublishDialog").
+		Query("id", f.ID).
+		Query("overlay", "dialog").
+		AddField("ScheduledStartAt", scheduledTimeFormat(&f.ScheduledStartAt)).
+		AddField("ScheduledEndAt", scheduledTimeFormat(&f.ScheduledEndAt)).
+		BuildEventFuncRequest()
+
+	w := httptest.NewRecorder()
+	f.h.ServeHTTP(w, r)
+
+	var resp multipartestutils.TestEventResponse
+	require.NoError(t, json.Unmarshal(w.Body.Bytes(), &resp))
+	assert.Empty(t, resp.PageTitle)
+	assert.False(t, resp.Reload)
+	assert.Nil(t, resp.PushState)
+	assert.Empty(t, resp.RedirectURL)
+	assert.Empty(t, resp.ReloadPortals)
+	assert.Len(t, resp.UpdatePortals, 1)
+	assert.Equal(t, "publish_PortalSchedulePublishDialog", resp.UpdatePortals[0].Name)
+	assert.Nil(t, resp.Data)
+	assert.Empty(t, resp.RunScript)
+
+	return testflow.NewThen(t, w, r)
+}
+
 func flowSchedule_Step05_Event_publish_eventSchedulePublish(t *testing.T, f *FlowSchedule) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
 		PageURL("/samples/publish-example/with-publish-products").

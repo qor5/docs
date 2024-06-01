@@ -172,7 +172,32 @@ func flowPublish_Step01_Event_publish_EventPublish(t *testing.T, f *FlowPublish)
 }
 
 func flowPublish_Step02_Event_presets_DetailingDrawer(t *testing.T, f *FlowPublish) *testflow.Then {
-	return flowPublish_Step00_Event_presets_DetailingDrawer(t, f)
+	r := multipartestutils.NewMultipartBuilder().
+		PageURL("/samples/publish-example/with-publish-products").
+		EventFunc("presets_DetailingDrawer").
+		Query("id", f.ID).
+		BuildEventFuncRequest()
+
+	w := httptest.NewRecorder()
+	f.h.ServeHTTP(w, r)
+
+	var resp multipartestutils.TestEventResponse
+	require.NoError(t, json.Unmarshal(w.Body.Bytes(), &resp))
+	assert.Empty(t, resp.PageTitle)
+	assert.False(t, resp.Reload)
+	assert.Nil(t, resp.PushState)
+	assert.Empty(t, resp.RedirectURL)
+	assert.Empty(t, resp.ReloadPortals)
+	assert.Len(t, resp.UpdatePortals, 1)
+	assert.Equal(t, "presets_RightDrawerPortalName", resp.UpdatePortals[0].Name)
+	assert.Nil(t, resp.Data)
+	assert.Equal(t, "setTimeout(function(){ vars.presetsRightDrawer = true }, 100)", resp.RunScript)
+
+	testflow.Validate(t, w, r,
+		testflow.OpenRightDrawer("WithPublishProduct "+f.ID),
+	)
+
+	return testflow.NewThen(t, w, r)
 }
 
 func flowPublish_Step03_Event_publish_EventRepublish(t *testing.T, f *FlowPublish) *testflow.Then {
@@ -200,7 +225,32 @@ func flowPublish_Step03_Event_publish_EventRepublish(t *testing.T, f *FlowPublis
 }
 
 func flowPublish_Step04_Event_presets_DetailingDrawer(t *testing.T, f *FlowPublish) *testflow.Then {
-	return flowPublish_Step00_Event_presets_DetailingDrawer(t, f)
+	r := multipartestutils.NewMultipartBuilder().
+		PageURL("/samples/publish-example/with-publish-products").
+		EventFunc("presets_DetailingDrawer").
+		Query("id", f.ID).
+		BuildEventFuncRequest()
+
+	w := httptest.NewRecorder()
+	f.h.ServeHTTP(w, r)
+
+	var resp multipartestutils.TestEventResponse
+	require.NoError(t, json.Unmarshal(w.Body.Bytes(), &resp))
+	assert.Empty(t, resp.PageTitle)
+	assert.False(t, resp.Reload)
+	assert.Nil(t, resp.PushState)
+	assert.Empty(t, resp.RedirectURL)
+	assert.Empty(t, resp.ReloadPortals)
+	assert.Len(t, resp.UpdatePortals, 1)
+	assert.Equal(t, "presets_RightDrawerPortalName", resp.UpdatePortals[0].Name)
+	assert.Nil(t, resp.Data)
+	assert.Equal(t, "setTimeout(function(){ vars.presetsRightDrawer = true }, 100)", resp.RunScript)
+
+	testflow.Validate(t, w, r,
+		testflow.OpenRightDrawer("WithPublishProduct "+f.ID),
+	)
+
+	return testflow.NewThen(t, w, r)
 }
 
 func flowPublish_Step05_Event_publish_EventUnpublish(t *testing.T, f *FlowPublish) *testflow.Then {
@@ -228,5 +278,30 @@ func flowPublish_Step05_Event_publish_EventUnpublish(t *testing.T, f *FlowPublis
 }
 
 func flowPublish_Step06_Event_presets_DetailingDrawer(t *testing.T, f *FlowPublish) *testflow.Then {
-	return flowPublish_Step00_Event_presets_DetailingDrawer(t, f)
+	r := multipartestutils.NewMultipartBuilder().
+		PageURL("/samples/publish-example/with-publish-products").
+		EventFunc("presets_DetailingDrawer").
+		Query("id", f.ID).
+		BuildEventFuncRequest()
+
+	w := httptest.NewRecorder()
+	f.h.ServeHTTP(w, r)
+
+	var resp multipartestutils.TestEventResponse
+	require.NoError(t, json.Unmarshal(w.Body.Bytes(), &resp))
+	assert.Empty(t, resp.PageTitle)
+	assert.False(t, resp.Reload)
+	assert.Nil(t, resp.PushState)
+	assert.Empty(t, resp.RedirectURL)
+	assert.Empty(t, resp.ReloadPortals)
+	assert.Len(t, resp.UpdatePortals, 1)
+	assert.Equal(t, "presets_RightDrawerPortalName", resp.UpdatePortals[0].Name)
+	assert.Nil(t, resp.Data)
+	assert.Equal(t, "setTimeout(function(){ vars.presetsRightDrawer = true }, 100)", resp.RunScript)
+
+	testflow.Validate(t, w, r,
+		testflow.OpenRightDrawer("WithPublishProduct "+f.ID),
+	)
+
+	return testflow.NewThen(t, w, r)
 }
