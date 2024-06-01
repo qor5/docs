@@ -157,7 +157,7 @@ func flowDeleteVersion(t *testing.T, f *FlowDeleteVersion) {
 
 func flowDeleteVersion_Step00_Event_presets_DetailingDrawer(t *testing.T, f *FlowDeleteVersion) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/with-publish-products").
+		PageURL("/samples/publish-example/with-publish-products").
 		EventFunc("presets_DetailingDrawer").
 		Query("id", "1_2024-05-31-v01").
 		BuildEventFuncRequest()
@@ -186,7 +186,7 @@ func flowDeleteVersion_Step00_Event_presets_DetailingDrawer(t *testing.T, f *Flo
 
 func flowDeleteVersion_Step01_Event_presets_OpenListingDialog(t *testing.T, f *FlowDeleteVersion) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/with-publish-products-version-list-dialog").
+		PageURL("/samples/publish-example/with-publish-products-version-list-dialog").
 		EventFunc("presets_OpenListingDialog").
 		Query("select_id", "1_2024-05-31-v01").
 		BuildEventFuncRequest()
@@ -211,7 +211,7 @@ func flowDeleteVersion_Step01_Event_presets_OpenListingDialog(t *testing.T, f *F
 
 func flowDeleteVersion_Step02_Event_publish_eventDeleteVersionDialog(t *testing.T, f *FlowDeleteVersion) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/with-publish-products-version-list-dialog").
+		PageURL("/samples/publish-example/with-publish-products-version-list-dialog").
 		EventFunc("publish_eventDeleteVersionDialog").
 		Query("current_display_id", "1_2024-05-31-v01").
 		Query("id", "1_2024-05-26-v06").
@@ -240,7 +240,7 @@ func flowDeleteVersion_Step02_Event_publish_eventDeleteVersionDialog(t *testing.
 
 func flowDeleteVersion_Step03_Event_publish_eventDeleteVersion(t *testing.T, f *FlowDeleteVersion) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/with-publish-products-version-list-dialog").
+		PageURL("/samples/publish-example/with-publish-products-version-list-dialog").
 		EventFunc("publish_eventDeleteVersion").
 		Query("current_display_id", "1_2024-05-31-v01").
 		Query("id", "1_2024-05-26-v06").
@@ -261,14 +261,14 @@ func flowDeleteVersion_Step03_Event_publish_eventDeleteVersion(t *testing.T, f *
 	assert.Empty(t, resp.ReloadPortals)
 	assert.Empty(t, resp.UpdatePortals)
 	assert.Nil(t, resp.Data)
-	assert.Equal(t, "plaid().vars(vars).locals(locals).form(form).url(\"/with-publish-products-version-list-dialog\").queries({\"select_id\":[\"1_2024-05-31-v01\"]}).eventFunc(\"presets_UpdateListingDialog\").go()", resp.RunScript)
+	assert.Equal(t, "plaid().vars(vars).locals(locals).form(form).url(\"/samples/publish-example/with-publish-products-version-list-dialog\").queries({\"select_id\":[\"1_2024-05-31-v01\"]}).eventFunc(\"presets_UpdateListingDialog\").go()", resp.RunScript)
 
 	return testflow.NewThen(t, w, r)
 }
 
 func flowDeleteVersion_Step04_Event_presets_UpdateListingDialog(t *testing.T, f *FlowDeleteVersion) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/with-publish-products-version-list-dialog").
+		PageURL("/samples/publish-example/with-publish-products-version-list-dialog").
 		EventFunc("presets_UpdateListingDialog").
 		Query("select_id", "1_2024-05-31-v01").
 		BuildEventFuncRequest()
@@ -293,7 +293,7 @@ func flowDeleteVersion_Step04_Event_presets_UpdateListingDialog(t *testing.T, f 
 
 func flowDeleteVersion_Step05_Event_presets_UpdateListingDialog(t *testing.T, f *FlowDeleteVersion) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/with-publish-products-version-list-dialog").
+		PageURL("/samples/publish-example/with-publish-products-version-list-dialog").
 		EventFunc("presets_UpdateListingDialog").
 		Query("select_id", "1_2024-05-26-v04").
 		BuildEventFuncRequest()
@@ -318,7 +318,7 @@ func flowDeleteVersion_Step05_Event_presets_UpdateListingDialog(t *testing.T, f 
 
 func flowDeleteVersion_Step06_Event_publish_eventDeleteVersionDialog(t *testing.T, f *FlowDeleteVersion) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/with-publish-products-version-list-dialog").
+		PageURL("/samples/publish-example/with-publish-products-version-list-dialog").
 		EventFunc("publish_eventDeleteVersionDialog").
 		Query("current_display_id", "1_2024-05-31-v01").
 		Query("id", "1_2024-05-26-v04").
@@ -347,7 +347,7 @@ func flowDeleteVersion_Step06_Event_publish_eventDeleteVersionDialog(t *testing.
 
 func flowDeleteVersion_Step07_Event_publish_eventDeleteVersion(t *testing.T, f *FlowDeleteVersion) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/with-publish-products-version-list-dialog").
+		PageURL("/samples/publish-example/with-publish-products-version-list-dialog").
 		EventFunc("publish_eventDeleteVersion").
 		Query("current_display_id", "1_2024-05-31-v01").
 		Query("id", "1_2024-05-26-v04").
@@ -368,14 +368,14 @@ func flowDeleteVersion_Step07_Event_publish_eventDeleteVersion(t *testing.T, f *
 	assert.Empty(t, resp.ReloadPortals)
 	assert.Empty(t, resp.UpdatePortals)
 	assert.Nil(t, resp.Data)
-	assert.Equal(t, "plaid().vars(vars).locals(locals).form(form).url(\"/with-publish-products-version-list-dialog\").queries({\"select_id\":[\"1_2024-05-31-v01\"]}).eventFunc(\"presets_UpdateListingDialog\").go()", resp.RunScript)
+	assert.Equal(t, "plaid().vars(vars).locals(locals).form(form).url(\"/samples/publish-example/with-publish-products-version-list-dialog\").queries({\"select_id\":[\"1_2024-05-31-v01\"]}).eventFunc(\"presets_UpdateListingDialog\").go()", resp.RunScript)
 
 	return testflow.NewThen(t, w, r)
 }
 
 func flowDeleteVersion_Step08_Event_presets_UpdateListingDialog(t *testing.T, f *FlowDeleteVersion) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/with-publish-products-version-list-dialog").
+		PageURL("/samples/publish-example/with-publish-products-version-list-dialog").
 		EventFunc("presets_UpdateListingDialog").
 		Query("select_id", "1_2024-05-31-v01").
 		BuildEventFuncRequest()
@@ -400,7 +400,7 @@ func flowDeleteVersion_Step08_Event_presets_UpdateListingDialog(t *testing.T, f 
 
 func flowDeleteVersion_Step09_Event_presets_UpdateListingDialog(t *testing.T, f *FlowDeleteVersion) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/with-publish-products-version-list-dialog").
+		PageURL("/samples/publish-example/with-publish-products-version-list-dialog").
 		EventFunc("presets_UpdateListingDialog").
 		Query("select_id", "1_2024-05-26-v03").
 		BuildEventFuncRequest()
@@ -425,7 +425,7 @@ func flowDeleteVersion_Step09_Event_presets_UpdateListingDialog(t *testing.T, f 
 
 func flowDeleteVersion_Step10_Event_publish_eventDeleteVersionDialog(t *testing.T, f *FlowDeleteVersion) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/with-publish-products-version-list-dialog").
+		PageURL("/samples/publish-example/with-publish-products-version-list-dialog").
 		EventFunc("publish_eventDeleteVersionDialog").
 		Query("current_display_id", "1_2024-05-31-v01").
 		Query("id", "1_2024-05-31-v01").
@@ -454,7 +454,7 @@ func flowDeleteVersion_Step10_Event_publish_eventDeleteVersionDialog(t *testing.
 
 func flowDeleteVersion_Step11_Event_publish_eventDeleteVersion(t *testing.T, f *FlowDeleteVersion) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/with-publish-products-version-list-dialog").
+		PageURL("/samples/publish-example/with-publish-products-version-list-dialog").
 		EventFunc("publish_eventDeleteVersion").
 		Query("current_display_id", "1_2024-05-31-v01").
 		Query("id", "1_2024-05-31-v01").
@@ -475,14 +475,14 @@ func flowDeleteVersion_Step11_Event_publish_eventDeleteVersion(t *testing.T, f *
 	assert.Empty(t, resp.ReloadPortals)
 	assert.Empty(t, resp.UpdatePortals)
 	assert.Nil(t, resp.Data)
-	assert.Equal(t, "vars.publish_VarCurrentDisplayID = \"1_2024-05-26-v05\"; vars.presetsRightDrawer = false; plaid().vars(vars).locals(locals).form(form).eventFunc(\"presets_DetailingDrawer\").query(\"id\", \"1_2024-05-26-v05\").go(); plaid().vars(vars).locals(locals).form(form).url(\"/with-publish-products-version-list-dialog\").queries({\"select_id\":[\"1_2024-05-26-v03\"]}).eventFunc(\"presets_UpdateListingDialog\").go()", resp.RunScript)
+	assert.Equal(t, "vars.publish_VarCurrentDisplayID = \"1_2024-05-26-v05\"; vars.presetsRightDrawer = false; plaid().vars(vars).locals(locals).form(form).eventFunc(\"presets_DetailingDrawer\").query(\"id\", \"1_2024-05-26-v05\").go(); plaid().vars(vars).locals(locals).form(form).url(\"/samples/publish-example/with-publish-products-version-list-dialog\").queries({\"select_id\":[\"1_2024-05-26-v03\"]}).eventFunc(\"presets_UpdateListingDialog\").go()", resp.RunScript)
 
 	return testflow.NewThen(t, w, r)
 }
 
 func flowDeleteVersion_Step12_Event_presets_DetailingDrawer(t *testing.T, f *FlowDeleteVersion) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/with-publish-products").
+		PageURL("/samples/publish-example/with-publish-products").
 		EventFunc("presets_DetailingDrawer").
 		Query("id", "1_2024-05-26-v05").
 		BuildEventFuncRequest()
@@ -511,7 +511,7 @@ func flowDeleteVersion_Step12_Event_presets_DetailingDrawer(t *testing.T, f *Flo
 
 func flowDeleteVersion_Step13_Event_presets_UpdateListingDialog(t *testing.T, f *FlowDeleteVersion) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/with-publish-products-version-list-dialog").
+		PageURL("/samples/publish-example/with-publish-products-version-list-dialog").
 		EventFunc("presets_UpdateListingDialog").
 		Query("select_id", "1_2024-05-26-v03").
 		BuildEventFuncRequest()
@@ -536,7 +536,7 @@ func flowDeleteVersion_Step13_Event_presets_UpdateListingDialog(t *testing.T, f 
 
 func flowDeleteVersion_Step14_Event_publish_eventSelectVersion(t *testing.T, f *FlowDeleteVersion) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/with-publish-products").
+		PageURL("/samples/publish-example/with-publish-products").
 		EventFunc("publish_eventSelectVersion").
 		Query("select_id", "1_2024-05-26-v03").
 		BuildEventFuncRequest()
@@ -560,7 +560,7 @@ func flowDeleteVersion_Step14_Event_publish_eventSelectVersion(t *testing.T, f *
 
 func flowDeleteVersion_Step15_Event_presets_DetailingDrawer(t *testing.T, f *FlowDeleteVersion) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/with-publish-products").
+		PageURL("/samples/publish-example/with-publish-products").
 		EventFunc("presets_DetailingDrawer").
 		Query("id", "1_2024-05-26-v03").
 		BuildEventFuncRequest()
@@ -589,7 +589,7 @@ func flowDeleteVersion_Step15_Event_presets_DetailingDrawer(t *testing.T, f *Flo
 
 func flowDeleteVersion_Step16_Event_presets_OpenListingDialog(t *testing.T, f *FlowDeleteVersion) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/with-publish-products-version-list-dialog").
+		PageURL("/samples/publish-example/with-publish-products-version-list-dialog").
 		EventFunc("presets_OpenListingDialog").
 		Query("select_id", "1_2024-05-26-v03").
 		BuildEventFuncRequest()
@@ -614,7 +614,7 @@ func flowDeleteVersion_Step16_Event_presets_OpenListingDialog(t *testing.T, f *F
 
 func flowDeleteVersion_Step17_Event_publish_eventDeleteVersionDialog(t *testing.T, f *FlowDeleteVersion) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/with-publish-products-version-list-dialog").
+		PageURL("/samples/publish-example/with-publish-products-version-list-dialog").
 		EventFunc("publish_eventDeleteVersionDialog").
 		Query("current_display_id", "1_2024-05-26-v03").
 		Query("id", "1_2024-05-26-v03").
@@ -643,7 +643,7 @@ func flowDeleteVersion_Step17_Event_publish_eventDeleteVersionDialog(t *testing.
 
 func flowDeleteVersion_Step18_Event_publish_eventDeleteVersion(t *testing.T, f *FlowDeleteVersion) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/with-publish-products-version-list-dialog").
+		PageURL("/samples/publish-example/with-publish-products-version-list-dialog").
 		EventFunc("publish_eventDeleteVersion").
 		Query("current_display_id", "1_2024-05-26-v03").
 		Query("id", "1_2024-05-26-v03").
@@ -664,14 +664,14 @@ func flowDeleteVersion_Step18_Event_publish_eventDeleteVersion(t *testing.T, f *
 	assert.Empty(t, resp.ReloadPortals)
 	assert.Empty(t, resp.UpdatePortals)
 	assert.Nil(t, resp.Data)
-	assert.Equal(t, "vars.publish_VarCurrentDisplayID = \"1_2024-05-26-v02\"; vars.presetsRightDrawer = false; plaid().vars(vars).locals(locals).form(form).eventFunc(\"presets_DetailingDrawer\").query(\"id\", \"1_2024-05-26-v02\").go(); plaid().vars(vars).locals(locals).form(form).url(\"/with-publish-products-version-list-dialog\").queries({\"select_id\":[\"1_2024-05-26-v02\"]}).eventFunc(\"presets_UpdateListingDialog\").go()", resp.RunScript)
+	assert.Equal(t, "vars.publish_VarCurrentDisplayID = \"1_2024-05-26-v02\"; vars.presetsRightDrawer = false; plaid().vars(vars).locals(locals).form(form).eventFunc(\"presets_DetailingDrawer\").query(\"id\", \"1_2024-05-26-v02\").go(); plaid().vars(vars).locals(locals).form(form).url(\"/samples/publish-example/with-publish-products-version-list-dialog\").queries({\"select_id\":[\"1_2024-05-26-v02\"]}).eventFunc(\"presets_UpdateListingDialog\").go()", resp.RunScript)
 
 	return testflow.NewThen(t, w, r)
 }
 
 func flowDeleteVersion_Step19_Event_presets_DetailingDrawer(t *testing.T, f *FlowDeleteVersion) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/with-publish-products").
+		PageURL("/samples/publish-example/with-publish-products").
 		EventFunc("presets_DetailingDrawer").
 		Query("id", "1_2024-05-26-v02").
 		BuildEventFuncRequest()
@@ -700,7 +700,7 @@ func flowDeleteVersion_Step19_Event_presets_DetailingDrawer(t *testing.T, f *Flo
 
 func flowDeleteVersion_Step20_Event_presets_UpdateListingDialog(t *testing.T, f *FlowDeleteVersion) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/with-publish-products-version-list-dialog").
+		PageURL("/samples/publish-example/with-publish-products-version-list-dialog").
 		EventFunc("presets_UpdateListingDialog").
 		Query("select_id", "1_2024-05-26-v02").
 		BuildEventFuncRequest()
@@ -725,7 +725,7 @@ func flowDeleteVersion_Step20_Event_presets_UpdateListingDialog(t *testing.T, f 
 
 func flowDeleteVersion_Step21_Event_presets_UpdateListingDialog(t *testing.T, f *FlowDeleteVersion) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/with-publish-products-version-list-dialog").
+		PageURL("/samples/publish-example/with-publish-products-version-list-dialog").
 		EventFunc("presets_UpdateListingDialog").
 		Query("select_id", "1_2024-05-26-v01").
 		BuildEventFuncRequest()
@@ -750,7 +750,7 @@ func flowDeleteVersion_Step21_Event_presets_UpdateListingDialog(t *testing.T, f 
 
 func flowDeleteVersion_Step22_Event_publish_eventSelectVersion(t *testing.T, f *FlowDeleteVersion) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/with-publish-products").
+		PageURL("/samples/publish-example/with-publish-products").
 		EventFunc("publish_eventSelectVersion").
 		Query("select_id", "1_2024-05-26-v01").
 		BuildEventFuncRequest()
@@ -774,7 +774,7 @@ func flowDeleteVersion_Step22_Event_publish_eventSelectVersion(t *testing.T, f *
 
 func flowDeleteVersion_Step23_Event_presets_DetailingDrawer(t *testing.T, f *FlowDeleteVersion) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/with-publish-products").
+		PageURL("/samples/publish-example/with-publish-products").
 		EventFunc("presets_DetailingDrawer").
 		Query("id", "1_2024-05-26-v01").
 		BuildEventFuncRequest()
@@ -803,7 +803,7 @@ func flowDeleteVersion_Step23_Event_presets_DetailingDrawer(t *testing.T, f *Flo
 
 func flowDeleteVersion_Step24_Event_presets_OpenListingDialog(t *testing.T, f *FlowDeleteVersion) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/with-publish-products-version-list-dialog").
+		PageURL("/samples/publish-example/with-publish-products-version-list-dialog").
 		EventFunc("presets_OpenListingDialog").
 		Query("select_id", "1_2024-05-26-v01").
 		BuildEventFuncRequest()
@@ -828,7 +828,7 @@ func flowDeleteVersion_Step24_Event_presets_OpenListingDialog(t *testing.T, f *F
 
 func flowDeleteVersion_Step25_Event_publish_eventDeleteVersionDialog(t *testing.T, f *FlowDeleteVersion) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/with-publish-products-version-list-dialog").
+		PageURL("/samples/publish-example/with-publish-products-version-list-dialog").
 		EventFunc("publish_eventDeleteVersionDialog").
 		Query("current_display_id", "1_2024-05-26-v01").
 		Query("id", "1_2024-05-26-v01").
@@ -857,7 +857,7 @@ func flowDeleteVersion_Step25_Event_publish_eventDeleteVersionDialog(t *testing.
 
 func flowDeleteVersion_Step26_Event_publish_eventDeleteVersion(t *testing.T, f *FlowDeleteVersion) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/with-publish-products-version-list-dialog").
+		PageURL("/samples/publish-example/with-publish-products-version-list-dialog").
 		EventFunc("publish_eventDeleteVersion").
 		Query("current_display_id", "1_2024-05-26-v01").
 		Query("id", "1_2024-05-26-v01").
@@ -878,14 +878,14 @@ func flowDeleteVersion_Step26_Event_publish_eventDeleteVersion(t *testing.T, f *
 	assert.Empty(t, resp.ReloadPortals)
 	assert.Empty(t, resp.UpdatePortals)
 	assert.Nil(t, resp.Data)
-	assert.Equal(t, "vars.publish_VarCurrentDisplayID = \"1_2024-05-26-v05\"; vars.presetsRightDrawer = false; plaid().vars(vars).locals(locals).form(form).eventFunc(\"presets_DetailingDrawer\").query(\"id\", \"1_2024-05-26-v05\").go(); plaid().vars(vars).locals(locals).form(form).url(\"/with-publish-products-version-list-dialog\").queries({\"select_id\":[\"1_2024-05-26-v05\"]}).eventFunc(\"presets_UpdateListingDialog\").go()", resp.RunScript)
+	assert.Equal(t, "vars.publish_VarCurrentDisplayID = \"1_2024-05-26-v05\"; vars.presetsRightDrawer = false; plaid().vars(vars).locals(locals).form(form).eventFunc(\"presets_DetailingDrawer\").query(\"id\", \"1_2024-05-26-v05\").go(); plaid().vars(vars).locals(locals).form(form).url(\"/samples/publish-example/with-publish-products-version-list-dialog\").queries({\"select_id\":[\"1_2024-05-26-v05\"]}).eventFunc(\"presets_UpdateListingDialog\").go()", resp.RunScript)
 
 	return testflow.NewThen(t, w, r)
 }
 
 func flowDeleteVersion_Step27_Event_presets_DetailingDrawer(t *testing.T, f *FlowDeleteVersion) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/with-publish-products").
+		PageURL("/samples/publish-example/with-publish-products").
 		EventFunc("presets_DetailingDrawer").
 		Query("id", "1_2024-05-26-v05").
 		BuildEventFuncRequest()
@@ -914,7 +914,7 @@ func flowDeleteVersion_Step27_Event_presets_DetailingDrawer(t *testing.T, f *Flo
 
 func flowDeleteVersion_Step28_Event_presets_UpdateListingDialog(t *testing.T, f *FlowDeleteVersion) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/with-publish-products-version-list-dialog").
+		PageURL("/samples/publish-example/with-publish-products-version-list-dialog").
 		EventFunc("presets_UpdateListingDialog").
 		Query("select_id", "1_2024-05-26-v05").
 		BuildEventFuncRequest()
@@ -939,7 +939,7 @@ func flowDeleteVersion_Step28_Event_presets_UpdateListingDialog(t *testing.T, f 
 
 func flowDeleteVersion_Step29_Event_publish_eventDeleteVersionDialog(t *testing.T, f *FlowDeleteVersion) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/with-publish-products-version-list-dialog").
+		PageURL("/samples/publish-example/with-publish-products-version-list-dialog").
 		EventFunc("publish_eventDeleteVersionDialog").
 		Query("current_display_id", "1_2024-05-26-v05").
 		Query("id", "1_2024-05-26-v02").
@@ -968,7 +968,7 @@ func flowDeleteVersion_Step29_Event_publish_eventDeleteVersionDialog(t *testing.
 
 func flowDeleteVersion_Step30_Event_publish_eventDeleteVersion(t *testing.T, f *FlowDeleteVersion) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/with-publish-products-version-list-dialog").
+		PageURL("/samples/publish-example/with-publish-products-version-list-dialog").
 		EventFunc("publish_eventDeleteVersion").
 		Query("current_display_id", "1_2024-05-26-v05").
 		Query("id", "1_2024-05-26-v02").
@@ -989,14 +989,14 @@ func flowDeleteVersion_Step30_Event_publish_eventDeleteVersion(t *testing.T, f *
 	assert.Empty(t, resp.ReloadPortals)
 	assert.Empty(t, resp.UpdatePortals)
 	assert.Nil(t, resp.Data)
-	assert.Equal(t, "plaid().vars(vars).locals(locals).form(form).url(\"/with-publish-products-version-list-dialog\").queries({\"select_id\":[\"1_2024-05-26-v05\"]}).eventFunc(\"presets_UpdateListingDialog\").go()", resp.RunScript)
+	assert.Equal(t, "plaid().vars(vars).locals(locals).form(form).url(\"/samples/publish-example/with-publish-products-version-list-dialog\").queries({\"select_id\":[\"1_2024-05-26-v05\"]}).eventFunc(\"presets_UpdateListingDialog\").go()", resp.RunScript)
 
 	return testflow.NewThen(t, w, r)
 }
 
 func flowDeleteVersion_Step31_Event_presets_UpdateListingDialog(t *testing.T, f *FlowDeleteVersion) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/with-publish-products-version-list-dialog").
+		PageURL("/samples/publish-example/with-publish-products-version-list-dialog").
 		EventFunc("presets_UpdateListingDialog").
 		Query("select_id", "1_2024-05-26-v05").
 		BuildEventFuncRequest()
@@ -1021,7 +1021,7 @@ func flowDeleteVersion_Step31_Event_presets_UpdateListingDialog(t *testing.T, f 
 
 func flowDeleteVersion_Step32_Event_publish_eventDeleteVersionDialog(t *testing.T, f *FlowDeleteVersion) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/with-publish-products-version-list-dialog").
+		PageURL("/samples/publish-example/with-publish-products-version-list-dialog").
 		EventFunc("publish_eventDeleteVersionDialog").
 		Query("current_display_id", "1_2024-05-26-v05").
 		Query("id", "1_2024-05-26-v05").
@@ -1050,7 +1050,7 @@ func flowDeleteVersion_Step32_Event_publish_eventDeleteVersionDialog(t *testing.
 
 func flowDeleteVersion_Step33_Event_publish_eventDeleteVersion(t *testing.T, f *FlowDeleteVersion) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/with-publish-products-version-list-dialog").
+		PageURL("/samples/publish-example/with-publish-products-version-list-dialog").
 		EventFunc("publish_eventDeleteVersion").
 		Query("current_display_id", "1_2024-05-26-v05").
 		Query("id", "1_2024-05-26-v05").
@@ -1068,7 +1068,7 @@ func flowDeleteVersion_Step33_Event_publish_eventDeleteVersion(t *testing.T, f *
 	assert.False(t, resp.Reload)
 	assert.NotNil(t, resp.PushState)
 	assert.False(t, resp.PushState.MyMergeQuery)
-	assert.Equal(t, "/with-publish-products", resp.PushState.MyURL)
+	assert.Equal(t, "/samples/publish-example/with-publish-products", resp.PushState.MyURL)
 	assert.Empty(t, resp.PushState.MyStringQuery)
 	assert.Empty(t, resp.PushState.MyClearMergeQueryKeys)
 	assert.Empty(t, resp.RedirectURL)
@@ -1082,7 +1082,7 @@ func flowDeleteVersion_Step33_Event_publish_eventDeleteVersion(t *testing.T, f *
 
 func flowDeleteVersion_Step34_Event___reload__(t *testing.T, f *FlowDeleteVersion) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/with-publish-products").
+		PageURL("/samples/publish-example/with-publish-products").
 		EventFunc("__reload__").
 		BuildEventFuncRequest()
 

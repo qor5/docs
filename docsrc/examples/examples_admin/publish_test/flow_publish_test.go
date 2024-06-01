@@ -120,7 +120,7 @@ func flowPublish(t *testing.T, f *FlowPublish) {
 
 func flowPublish_Step00_Event_presets_DetailingDrawer(t *testing.T, f *FlowPublish) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/with-publish-products").
+		PageURL("/samples/publish-example/with-publish-products").
 		EventFunc("presets_DetailingDrawer").
 		Query("id", f.ID).
 		BuildEventFuncRequest()
@@ -149,7 +149,7 @@ func flowPublish_Step00_Event_presets_DetailingDrawer(t *testing.T, f *FlowPubli
 
 func flowPublish_Step01_Event_publish_EventPublish(t *testing.T, f *FlowPublish) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/with-publish-products").
+		PageURL("/samples/publish-example/with-publish-products").
 		EventFunc("publish_EventPublish").
 		Query("id", f.ID).
 		BuildEventFuncRequest()
@@ -177,7 +177,7 @@ func flowPublish_Step02_Event_presets_DetailingDrawer(t *testing.T, f *FlowPubli
 
 func flowPublish_Step03_Event_publish_EventRepublish(t *testing.T, f *FlowPublish) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/with-publish-products").
+		PageURL("/samples/publish-example/with-publish-products").
 		EventFunc("publish_EventRepublish").
 		Query("id", f.ID).
 		BuildEventFuncRequest()
@@ -205,7 +205,7 @@ func flowPublish_Step04_Event_presets_DetailingDrawer(t *testing.T, f *FlowPubli
 
 func flowPublish_Step05_Event_publish_EventUnpublish(t *testing.T, f *FlowPublish) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/with-publish-products").
+		PageURL("/samples/publish-example/with-publish-products").
 		EventFunc("publish_EventUnpublish").
 		Query("id", f.ID).
 		BuildEventFuncRequest()

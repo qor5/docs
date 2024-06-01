@@ -117,7 +117,7 @@ func flowVersionDialog(t *testing.T, f *FlowVersionDialog) {
 
 func flowVersionDialog_Step00_Event_presets_DetailingDrawer(t *testing.T, f *FlowVersionDialog) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/with-publish-products").
+		PageURL("/samples/publish-example/with-publish-products").
 		EventFunc("presets_DetailingDrawer").
 		Query("id", "1_2024-05-26-v06").
 		BuildEventFuncRequest()
@@ -146,7 +146,7 @@ func flowVersionDialog_Step00_Event_presets_DetailingDrawer(t *testing.T, f *Flo
 
 func flowVersionDialog_Step01_Event_presets_OpenListingDialog(t *testing.T, f *FlowVersionDialog) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/with-publish-products-version-list-dialog").
+		PageURL("/samples/publish-example/with-publish-products-version-list-dialog").
 		EventFunc("presets_OpenListingDialog").
 		Query("select_id", "1_2024-05-26-v06").
 		BuildEventFuncRequest()
@@ -171,7 +171,7 @@ func flowVersionDialog_Step01_Event_presets_OpenListingDialog(t *testing.T, f *F
 
 func flowVersionDialog_Step02_Event_presets_UpdateListingDialog(t *testing.T, f *FlowVersionDialog) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/with-publish-products-version-list-dialog").
+		PageURL("/samples/publish-example/with-publish-products-version-list-dialog").
 		EventFunc("presets_UpdateListingDialog").
 		Query("select_id", "1_2024-05-26-v05").
 		BuildEventFuncRequest()
@@ -196,7 +196,7 @@ func flowVersionDialog_Step02_Event_presets_UpdateListingDialog(t *testing.T, f 
 
 func flowVersionDialog_Step03_Event_presets_UpdateListingDialog(t *testing.T, f *FlowVersionDialog) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/with-publish-products-version-list-dialog").
+		PageURL("/samples/publish-example/with-publish-products-version-list-dialog").
 		EventFunc("presets_UpdateListingDialog").
 		Query("active_filter_tab", "named_versions").
 		Query("f_named_versions", "1").
@@ -223,7 +223,7 @@ func flowVersionDialog_Step03_Event_presets_UpdateListingDialog(t *testing.T, f 
 
 func flowVersionDialog_Step04_Event_presets_UpdateListingDialog(t *testing.T, f *FlowVersionDialog) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/with-publish-products-version-list-dialog").
+		PageURL("/samples/publish-example/with-publish-products-version-list-dialog").
 		EventFunc("presets_UpdateListingDialog").
 		Query("active_filter_tab", "named_versions").
 		Query("f_named_versions", "1").
@@ -251,7 +251,7 @@ func flowVersionDialog_Step04_Event_presets_UpdateListingDialog(t *testing.T, f 
 
 func flowVersionDialog_Step05_Event_presets_UpdateListingDialog(t *testing.T, f *FlowVersionDialog) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/with-publish-products-version-list-dialog").
+		PageURL("/samples/publish-example/with-publish-products-version-list-dialog").
 		EventFunc("presets_UpdateListingDialog").
 		Query("active_filter_tab", "named_versions").
 		Query("f_named_versions", "1").
@@ -280,7 +280,7 @@ func flowVersionDialog_Step05_Event_presets_UpdateListingDialog(t *testing.T, f 
 
 func flowVersionDialog_Step06_Event_presets_UpdateListingDialog(t *testing.T, f *FlowVersionDialog) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/with-publish-products-version-list-dialog").
+		PageURL("/samples/publish-example/with-publish-products-version-list-dialog").
 		EventFunc("presets_UpdateListingDialog").
 		Query("active_filter_tab", "named_versions").
 		Query("f_named_versions", "1").
@@ -309,7 +309,7 @@ func flowVersionDialog_Step06_Event_presets_UpdateListingDialog(t *testing.T, f 
 
 func flowVersionDialog_Step07_Event_presets_UpdateListingDialog(t *testing.T, f *FlowVersionDialog) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/with-publish-products-version-list-dialog").
+		PageURL("/samples/publish-example/with-publish-products-version-list-dialog").
 		EventFunc("presets_UpdateListingDialog").
 		Query("active_filter_tab", "named_versions").
 		Query("f_named_versions", "1").
@@ -338,7 +338,7 @@ func flowVersionDialog_Step07_Event_presets_UpdateListingDialog(t *testing.T, f 
 
 func flowVersionDialog_Step08_Event_publish_eventSelectVersion(t *testing.T, f *FlowVersionDialog) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/with-publish-products").
+		PageURL("/samples/publish-example/with-publish-products").
 		EventFunc("publish_eventSelectVersion").
 		Query("select_id", "1_2024-05-26-v06").
 		BuildEventFuncRequest()
@@ -362,7 +362,7 @@ func flowVersionDialog_Step08_Event_publish_eventSelectVersion(t *testing.T, f *
 
 func flowVersionDialog_Step09_Event_presets_OpenListingDialog(t *testing.T, f *FlowVersionDialog) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/with-publish-products-version-list-dialog").
+		PageURL("/samples/publish-example/with-publish-products-version-list-dialog").
 		EventFunc("presets_OpenListingDialog").
 		Query("select_id", "1_2024-05-26-v06").
 		BuildEventFuncRequest()
@@ -387,7 +387,7 @@ func flowVersionDialog_Step09_Event_presets_OpenListingDialog(t *testing.T, f *F
 
 func flowVersionDialog_Step10_Event_presets_UpdateListingDialog(t *testing.T, f *FlowVersionDialog) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/with-publish-products-version-list-dialog").
+		PageURL("/samples/publish-example/with-publish-products-version-list-dialog").
 		EventFunc("presets_UpdateListingDialog").
 		Query("select_id", "1_2024-05-26-v05").
 		BuildEventFuncRequest()
@@ -412,7 +412,7 @@ func flowVersionDialog_Step10_Event_presets_UpdateListingDialog(t *testing.T, f 
 
 func flowVersionDialog_Step11_Event_publish_eventSelectVersion(t *testing.T, f *FlowVersionDialog) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/with-publish-products").
+		PageURL("/samples/publish-example/with-publish-products").
 		EventFunc("publish_eventSelectVersion").
 		Query("select_id", "1_2024-05-26-v05").
 		BuildEventFuncRequest()
@@ -436,7 +436,7 @@ func flowVersionDialog_Step11_Event_publish_eventSelectVersion(t *testing.T, f *
 
 func flowVersionDialog_Step12_Event_presets_DetailingDrawer(t *testing.T, f *FlowVersionDialog) *testflow.Then {
 	r := multipartestutils.NewMultipartBuilder().
-		PageURL("/with-publish-products").
+		PageURL("/samples/publish-example/with-publish-products").
 		EventFunc("presets_DetailingDrawer").
 		Query("id", "1_2024-05-26-v05").
 		BuildEventFuncRequest()
