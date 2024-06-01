@@ -5,9 +5,11 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/qor5/docs/v3/docsrc/examples/mux_admin"
+	"github.com/qor5/docs/v3/docsrc"
+	"github.com/qor5/docs/v3/docsrc/assets"
+	"github.com/qor5/docs/v3/docsrc/examples/examples_admin"
+	"github.com/theplant/docgo"
 	"github.com/theplant/osenv"
-
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -29,10 +31,18 @@ func main() {
 	// @snippet_begin(HelloWorldMuxSample1)
 	mux := http.NewServeMux()
 	// @snippet_end
+	examples_admin.Mux(mux, "")
+
+	mux.Handle("/", docgo.New().
+		MainPageTitle("QOR5 Document").
+		Assets("/assets/", assets.Assets).
+		DocTree(docsrc.DocTree...).
+		Build(),
+	)
 
 	// @snippet_begin(HelloWorldMainSample)
 	fmt.Println("Starting docs at :" + port)
-	err = http.ListenAndServe(":"+port, mux_admin.Mux(mux, ""))
+	err = http.ListenAndServe(":"+port, mux)
 	if err != nil {
 		panic(err)
 	}

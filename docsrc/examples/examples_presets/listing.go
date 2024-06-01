@@ -6,6 +6,7 @@ import (
 	"net/url"
 	"time"
 
+	"github.com/qor5/admin/v3/media/media_library"
 	"github.com/qor5/admin/v3/presets"
 	"github.com/qor5/admin/v3/presets/actions"
 	"github.com/qor5/admin/v3/presets/gorm2op"
@@ -29,6 +30,7 @@ type Customer struct {
 	ApprovedAt      *time.Time
 	TermAgreedAt    *time.Time
 	ApprovalComment string
+	Avatar          media_library.MediaBox
 	CreditCards     []*CreditCard `gorm:"-"`
 	Notes           []*Note       `gorm:"-"`
 }

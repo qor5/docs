@@ -46,7 +46,7 @@ rm ../docs/assets.go
 function docsRestart() {
   echo "=================>"
   killall docgodocs
-  go build -o /tmp/docgodocs ./examples/server/main.go && /tmp/docgodocs
+  go build -o /tmp/docgodocs ./server/main.go && /tmp/docgodocs
 }
 
 export -f docsRestart

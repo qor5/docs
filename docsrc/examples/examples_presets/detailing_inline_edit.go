@@ -3,6 +3,7 @@ package examples_presets
 import (
 	"fmt"
 
+	"github.com/qor5/admin/v3/media"
 	"github.com/qor5/admin/v3/presets"
 	"github.com/qor5/admin/v3/presets/gorm2op"
 	"github.com/qor5/docs/v3/docsrc/examples"
@@ -22,7 +23,8 @@ func PresetsDetailInlineEditDetails(b *presets.Builder, db *gorm.DB) (
 	if err != nil {
 		panic(err)
 	}
-	b.DataOperator(gorm2op.DataOperator(db))
+	mediaBuilder := media.New(db)
+	b.DataOperator(gorm2op.DataOperator(db)).Use(mediaBuilder)
 
 	cust = b.Model(&Customer{})
 	dp = cust.Detailing("Details").Drawer(true)
@@ -51,7 +53,7 @@ func PresetsDetailInlineEditDetails(b *presets.Builder, db *gorm.DB) (
 			)
 			return detail
 		}).
-		Editing("Name", "Email", "Description")
+		Editing("Name", "Email", "Description", "Avatar")
 
 	return
 }

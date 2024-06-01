@@ -3,13 +3,12 @@ package examples_admin
 import (
 	"context"
 
-	"github.com/qor5/web/v3"
-	. "github.com/theplant/htmlgo"
-	"gorm.io/gorm"
-
 	"github.com/qor5/admin/v3/activity"
 	"github.com/qor5/admin/v3/presets"
 	"github.com/qor5/admin/v3/presets/gorm2op"
+	"github.com/qor5/web/v3"
+	. "github.com/theplant/htmlgo"
+	"gorm.io/gorm"
 )
 
 func ActivityExample(b *presets.Builder, db *gorm.DB) {

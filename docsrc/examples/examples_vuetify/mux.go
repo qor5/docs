@@ -1,12 +1,10 @@
-package mux_web_vuetify
+package examples_vuetify
 
 import (
 	"net/http"
 
 	"github.com/qor5/docs/v3/docsrc/assets"
 	"github.com/qor5/docs/v3/docsrc/examples"
-	"github.com/qor5/docs/v3/docsrc/examples/examples_vuetify"
-	"github.com/qor5/docs/v3/docsrc/examples/examples_vuetifyx"
 	"github.com/qor5/docs/v3/docsrc/examples/examples_web"
 	"github.com/qor5/ui/v3/tiptap"
 	. "github.com/qor5/ui/v3/vuetify"
@@ -319,53 +317,48 @@ func SamplesHandler(mux examples.Muxer, prefix string) {
 	)
 
 	mux.Handle(
-		examples_vuetify.HelloVuetifyListPath,
-		examples_vuetify.HelloVuetifyListPB.Wrap(DemoVuetifyLayout),
+		HelloVuetifyListPath,
+		HelloVuetifyListPB.Wrap(DemoVuetifyLayout),
 	)
 
 	mux.Handle(
-		examples_vuetify.HelloVuetifyMenuPath,
-		examples_vuetify.HelloVuetifyMenuPB.Wrap(DemoVuetifyLayout),
+		HelloVuetifyMenuPath,
+		HelloVuetifyMenuPB.Wrap(DemoVuetifyLayout),
 	)
 
 	mux.Handle(
-		examples_vuetify.VuetifyGridPath,
-		examples_vuetify.VuetifyGridPB.Wrap(DemoVuetifyLayout),
+		VuetifyGridPath,
+		VuetifyGridPB.Wrap(DemoVuetifyLayout),
 	)
 
 	mux.Handle(
-		examples_vuetify.VuetifyBasicInputsPath,
-		examples_vuetify.VuetifyBasicInputsPB.Wrap(DemoVuetifyLayout),
+		VuetifyBasicInputsPath,
+		VuetifyBasicInputsPB.Wrap(DemoVuetifyLayout),
 	)
 
 	mux.Handle(
-		examples_vuetify.VuetifyVariantSubFormPath,
-		examples_vuetify.VuetifyVariantSubFormPB.Wrap(DemoVuetifyLayout),
+		VuetifyVariantSubFormPath,
+		VuetifyVariantSubFormPB.Wrap(DemoVuetifyLayout),
 	)
 
 	mux.Handle(
-		examples_vuetify.VuetifyComponentsKitchenPath,
-		examples_vuetify.VuetifyComponentsKitchenPB.Wrap(DemoVuetifyLayout),
+		VuetifyComponentsKitchenPath,
+		VuetifyComponentsKitchenPB.Wrap(DemoVuetifyLayout),
 	)
 
 	mux.Handle(
-		examples_vuetify.VuetifyNavigationDrawerPath,
-		examples_vuetify.VuetifyNavigationDrawerPB.Wrap(DemoVuetifyLayout),
+		VuetifyNavigationDrawerPath,
+		VuetifyNavigationDrawerPB.Wrap(DemoVuetifyLayout),
 	)
 
 	mux.Handle(
-		examples_vuetify.LazyPortalsAndReloadPath,
-		examples_vuetify.LazyPortalsAndReloadPB.Wrap(DemoVuetifyLayout),
+		LazyPortalsAndReloadPath,
+		LazyPortalsAndReloadPB.Wrap(DemoVuetifyLayout),
 	)
 
 	mux.Handle(
-		examples_vuetify.VuetifySnackBarsPath,
-		examples_vuetify.VuetifySnackBarsPB.Wrap(DemoVuetifyLayout),
-	)
-
-	mux.Handle(
-		examples_vuetifyx.VuetifyComponentsLinkageSelectPath,
-		examples_vuetifyx.VuetifyComponentsLinkageSelectPB.Wrap(DemoVuetifyLayout),
+		VuetifySnackBarsPath,
+		VuetifySnackBarsPB.Wrap(DemoVuetifyLayout),
 	)
 
 	return
