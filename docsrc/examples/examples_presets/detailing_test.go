@@ -29,7 +29,7 @@ func TestPresetsDetailingWithoutEditComponentFunc(t *testing.T) {
 
 	cases := []multipartestutils.TestCase{
 		{
-			Name:  "detail page show",
+			Name:  "detail page show for completely customized",
 			Debug: true,
 			HandlerMaker: func() http.Handler {
 				pb1 := presets.New().DataOperator(gorm2op.DataOperator(TestDB))
@@ -46,7 +46,7 @@ func TestPresetsDetailingWithoutEditComponentFunc(t *testing.T) {
 		},
 
 		{
-			Name:  "page detail show",
+			Name:  "page detail show for switchable",
 			Debug: true,
 			ReqFunc: func() *http.Request {
 				detailData.TruncatePut(SqlDB)
