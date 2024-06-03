@@ -23,7 +23,7 @@ INSERT INTO public.notes (id, source_type, source_id, content, created_at, updat
 
 `, []string{"customers", "credit_cards", "notes"}))
 
-func TestPresetsDetailingWithoutEditComponentFunc(t *testing.T) {
+func TestPresetsDetailing(t *testing.T) {
 	pb := presets.New().DataOperator(gorm2op.DataOperator(TestDB))
 	PresetsDetailInlineEditDetails(pb, TestDB)
 
@@ -82,6 +82,24 @@ func TestPresetsDetailingWithoutEditComponentFunc(t *testing.T) {
 					BuildEventFuncRequest()
 			},
 			ExpectPortalUpdate0ContainsInOrder: []string{"abc@example.com"},
+		},
+
+		{
+			Name:  "page detail show for field sections",
+			Debug: true,
+			HandlerMaker: func() http.Handler {
+				pb1 := presets.New().DataOperator(gorm2op.DataOperator(TestDB))
+				PresetsDetailInlineEditFieldSections(pb1, TestDB)
+				return pb1
+			},
+			ReqFunc: func() *http.Request {
+				detailData.TruncatePut(SqlDB)
+				return multipartestutils.NewMultipartBuilder().
+					PageURL("/customers?__execute_event__=presets_DetailingDrawer" +
+						"&id=12").
+					BuildEventFuncRequest()
+			},
+			ExpectPortalUpdate0ContainsInOrder: []string{"Felix 1"},
 		},
 	}
 

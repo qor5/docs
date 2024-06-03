@@ -32,6 +32,34 @@ func PresetsDetailInlineEditDetails(b *presets.Builder, db *gorm.DB) (
 	return
 }
 
+func PresetsDetailInlineEditFieldSections(b *presets.Builder, db *gorm.DB) (
+	cust *presets.ModelBuilder,
+	cl *presets.ListingBuilder,
+	ce *presets.EditingBuilder,
+	dp *presets.DetailingBuilder,
+) {
+	err := db.AutoMigrate(&Customer{}, &CreditCard{}, &Note{})
+	if err != nil {
+		panic(err)
+	}
+	mediaBuilder := media.New(db)
+	b.DataOperator(gorm2op.DataOperator(db)).Use(mediaBuilder)
+
+	cust = b.Model(&Customer{})
+	dp = cust.Detailing("Details").Drawer(true)
+	dp.Field("Details").
+		SetSwitchable(true).
+		Editing(&presets.FieldsSection{
+			Title: "Hello",
+			Rows: [][]string{
+				{"Name", "Email"},
+				{"Description"},
+			},
+		}, "Avatar")
+
+	return
+}
+
 func PresetsDetailInlineEditInspectTables(b *presets.Builder, db *gorm.DB) (
 	cust *presets.ModelBuilder,
 	cl *presets.ListingBuilder,
