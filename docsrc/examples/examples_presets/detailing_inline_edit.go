@@ -26,7 +26,6 @@ func PresetsDetailInlineEditDetails(b *presets.Builder, db *gorm.DB) (
 	cust = b.Model(&Customer{})
 	dp = cust.Detailing("Details").Drawer(true)
 	dp.Field("Details").
-		SetSwitchable(true).
 		Editing("Name", "Email", "Description", "Avatar")
 
 	return
@@ -48,7 +47,6 @@ func PresetsDetailInlineEditFieldSections(b *presets.Builder, db *gorm.DB) (
 	cust = b.Model(&Customer{})
 	dp = cust.Detailing("Details").Drawer(true)
 	dp.Field("Details").
-		SetSwitchable(true).
 		Editing(&presets.FieldsSection{
 			Title: "Hello",
 			Rows: [][]string{

@@ -83,7 +83,6 @@ func PublishExample(b *presets.Builder, db *gorm.DB) {
 	mb := b.Model(&WithPublishProduct{})
 	dp := mb.Detailing(publish.VersionsPublishBar, "Details").Drawer(true)
 	dp.Field("Details").
-		SetSwitchable(true).
 		ShowComponentFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) h.HTMLComponent {
 			product := obj.(*WithPublishProduct)
 			detail := vx.DetailInfo(

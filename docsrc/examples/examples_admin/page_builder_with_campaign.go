@@ -53,7 +53,6 @@ func PageBuilderExample(b *presets.Builder, db *gorm.DB) {
 	)
 
 	detail.Field("CampaignDetail").
-		SetSwitchable(true).
 		ShowComponentFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) HTMLComponent {
 			return Div()
 		})
@@ -84,7 +83,6 @@ func PageBuilderExample(b *presets.Builder, db *gorm.DB) {
 	)
 
 	detail2.Field("ProductDetail").
-		SetSwitchable(true).
 		ShowComponentFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) HTMLComponent {
 			return Div()
 		})

@@ -33,9 +33,10 @@ func ActivityExample(b *presets.Builder, db *gorm.DB) {
 	productModel := b.Model(&WithActivityProduct{}).Use(activityBuilder)
 
 	bt := productModel.Detailing("Content", activity.Timeline).Drawer(true)
-	bt.Field("Content").SetSwitchable(true).ShowComponentFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) HTMLComponent {
-		return Div().Text("text")
-	}).Editing("Title", "Code", "Price")
+	bt.Field("Content").
+		ShowComponentFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) HTMLComponent {
+			return Div().Text("text")
+		}).Editing("Title", "Code", "Price")
 
 	activityBuilder.RegisterModel(productModel).EnableActivityInfoTab().AddKeys("Title").AddIgnoredFields("Code").SkipDelete()
 	// @snippet_end
