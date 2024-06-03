@@ -74,7 +74,6 @@ func flowDuplicate(t *testing.T, f *FlowDuplicate) {
 	require.NoError(t, f.db.Where("id = ? AND version = ?", nid, nver).First(&m).Error)
 
 	// for compare, change from to as expected
-	// TODO: maybe need handle multiple pkey ?
 	from.Model = gorm.Model{}
 	from.Status = publish.Status{Status: publish.StatusDraft}
 	from.Schedule = publish.Schedule{}

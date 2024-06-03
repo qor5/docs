@@ -5,7 +5,6 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
-	"time"
 
 	"github.com/qor5/admin/v3/utils/testflow"
 	"github.com/qor5/docs/v3/docsrc/examples/examples_admin"
@@ -72,45 +71,36 @@ func flowPublish(t *testing.T, f *FlowPublish) {
 	flowPublish_Step00_Event_presets_DetailingDrawer(t, f).ThenValidate(ensureVersionBarDisplay(true, false, true))
 
 	// Execute publish and ensure data is modified, internally ensures Reload
-	previous := time.Now()
-	flowPublish_Step01_Event_publish_EventPublish(t, f)
-	{
+	previous := f.db.NowFunc()
+	assertAfterPublish := func() {
 		var m examples_admin.WithPublishProduct
 		require.NoError(t, db.First(&m).Error)
 		assert.True(t, m.ActualStartAt.After(previous))
 		assert.True(t, m.ActualEndAt == nil)
-		// TODO: What about changes to the schedule data?
-
+		assert.True(t, m.ScheduledStartAt == nil)
 		prev = m
 	}
+	flowPublish_Step01_Event_publish_EventPublish(t, f)
+	assertAfterPublish()
 
 	// Open the drawer and confirm the display of online status
 	flowPublish_Step02_Event_presets_DetailingDrawer(t, f).ThenValidate(ensureVersionBarDisplay(false, true, true))
 
-	previous = time.Now()
+	previous = f.db.NowFunc()
 	flowPublish_Step03_Event_publish_EventRepublish(t, f)
-	{
-		// TODO: The logic here can be reused to some extent from the previous step
-		var m examples_admin.WithPublishProduct
-		require.NoError(t, db.First(&m).Error)
-		assert.True(t, m.ActualStartAt.After(previous))
-		assert.True(t, m.ActualEndAt == nil)
-		// TODO: What about changes to the schedule data?
-
-		prev = m
-	}
+	assertAfterPublish()
 
 	// Open the drawer and confirm the display after republishing
 	flowPublish_Step04_Event_presets_DetailingDrawer(t, f).ThenValidate(ensureVersionBarDisplay(false, true, true))
 
-	previous = time.Now()
+	previous = f.db.NowFunc()
 	flowPublish_Step05_Event_publish_EventUnpublish(t, f)
 	{
 		var m examples_admin.WithPublishProduct
 		require.NoError(t, db.First(&m).Error)
 		assert.True(t, m.ActualEndAt.After(previous))
-		// TODO: What about changes to the schedule data?
-
+		assert.True(t, m.ScheduledStartAt == nil)
+		assert.True(t, m.ScheduledEndAt == nil)
 		prev = m
 	}
 
