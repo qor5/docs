@@ -46,7 +46,7 @@ func PresetsDetailInlineEditFieldSections(b *presets.Builder, db *gorm.DB) (
 
 	cust = b.Model(&Customer{})
 	dp = cust.Detailing("Details").Drawer(true)
-	sb := dp.Field("Details").
+	sb := dp.Section("Details").
 		Editing(&presets.FieldsSection{
 			Title: "Hello",
 			Rows: [][]string{
