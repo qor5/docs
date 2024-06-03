@@ -46,7 +46,7 @@ func PresetsDetailInlineEditFieldSections(b *presets.Builder, db *gorm.DB) (
 
 	cust = b.Model(&Customer{})
 	dp = cust.Detailing("Details").Drawer(true)
-	dp.Field("Details").
+	sb := dp.Field("Details").
 		Editing(&presets.FieldsSection{
 			Title: "Hello",
 			Rows: [][]string{
@@ -54,6 +54,14 @@ func PresetsDetailInlineEditFieldSections(b *presets.Builder, db *gorm.DB) (
 				{"Description"},
 			},
 		}, "Avatar")
+
+	sb.EditingField("Name").ComponentFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) h.HTMLComponent {
+		return h.Input("").Attr(web.VField("Details."+field.Name, field.Value(obj))...)
+	})
+
+	sb.ViewingField("Email").ComponentFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) h.HTMLComponent {
+		return h.Strong(obj.(*Customer).Email)
+	})
 
 	return
 }

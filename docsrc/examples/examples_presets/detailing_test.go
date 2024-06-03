@@ -12,7 +12,7 @@ import (
 
 var detailData = gofixtures.Data(gofixtures.Sql(`
 INSERT INTO public.customers (id, name, email, description, company_id, created_at, updated_at, approved_at, 
-term_agreed_at, approval_comment) VALUES (12, 'Felix 1', '', '', 0, '2024-03-28 05:52:28.497536 +00:00', 
+term_agreed_at, approval_comment) VALUES (12, 'Felix 1', 'abc@example.com', '', 0, '2024-03-28 05:52:28.497536 +00:00', 
 '2024-03-28 05:52:28.497536 +00:00', null, null, '');
 
 INSERT INTO public.credit_cards (id, customer_id, number, expire_year_month, name, type, phone, email) VALUES (2, 12,
@@ -27,14 +27,18 @@ func TestPresetsDetailing(t *testing.T) {
 	pb := presets.New().DataOperator(gorm2op.DataOperator(TestDB))
 	PresetsDetailInlineEditDetails(pb, TestDB)
 
+	pb1 := presets.New().DataOperator(gorm2op.DataOperator(TestDB))
+	PresetsDetailInlineEditFieldSections(pb1, TestDB)
+
+	pb2 := presets.New().DataOperator(gorm2op.DataOperator(TestDB))
+	PresetsDetailPageCards(pb2, TestDB)
+
 	cases := []multipartestutils.TestCase{
 		{
 			Name:  "detail page show for completely customized",
 			Debug: true,
 			HandlerMaker: func() http.Handler {
-				pb1 := presets.New().DataOperator(gorm2op.DataOperator(TestDB))
-				PresetsDetailPageCards(pb1, TestDB)
-				return pb1
+				return pb2
 			},
 			ReqFunc: func() *http.Request {
 				detailData.TruncatePut(SqlDB)
@@ -61,13 +65,16 @@ func TestPresetsDetailing(t *testing.T) {
 		{
 			Name:  "page detail edit",
 			Debug: true,
+			HandlerMaker: func() http.Handler {
+				return pb1
+			},
 			ReqFunc: func() *http.Request {
 				detailData.TruncatePut(SqlDB)
 				return multipartestutils.NewMultipartBuilder().
 					PageURL("/customers?__execute_event__=presets_Detailing_Field_Edit&detailField=Details&id=12").
 					BuildEventFuncRequest()
 			},
-			ExpectPortalUpdate0ContainsInOrder: []string{"Details.Email"},
+			ExpectPortalUpdate0ContainsInOrder: []string{"Details.Name", "Details.Email"},
 		},
 		{
 			Name:  "page detail update",
@@ -88,8 +95,6 @@ func TestPresetsDetailing(t *testing.T) {
 			Name:  "page detail show for field sections",
 			Debug: true,
 			HandlerMaker: func() http.Handler {
-				pb1 := presets.New().DataOperator(gorm2op.DataOperator(TestDB))
-				PresetsDetailInlineEditFieldSections(pb1, TestDB)
 				return pb1
 			},
 			ReqFunc: func() *http.Request {
@@ -99,7 +104,7 @@ func TestPresetsDetailing(t *testing.T) {
 						"&id=12").
 					BuildEventFuncRequest()
 			},
-			ExpectPortalUpdate0ContainsInOrder: []string{"Felix 1"},
+			ExpectPortalUpdate0ContainsInOrder: []string{"Felix 1", "<strong>abc@example.com</strong>"},
 		},
 	}
 
