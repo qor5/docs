@@ -44,7 +44,7 @@ func PresetsDetailInlineEditDetails(b *presets.Builder, db *gorm.DB) (
 
 	cust = b.Model(&Customer{})
 	dp = cust.Detailing("Details").Drawer(true)
-	dp.Field("Details").
+	dp.Section("Details").
 		Editing("Name", "Email", "Description", "Avatar")
 
 	return
@@ -131,7 +131,7 @@ func PresetsDetailInlineEditDetailsInspectShowFields(b *presets.Builder, db *gor
 			return
 		}
 	})
-	dp.Field("Details").
+	dp.Section("Details").
 		Editing("Name", "Email2", "Description")
 
 	dp.Field("Email2").ComponentFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) h.HTMLComponent {

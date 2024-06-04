@@ -52,7 +52,7 @@ func PageBuilderExample(b *presets.Builder, db *gorm.DB) {
 		"CampaignDetail",
 	)
 
-	detail.Field("CampaignDetail").
+	detail.Section("CampaignDetail").
 		ViewComponentFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) HTMLComponent {
 			return Div()
 		})
@@ -82,7 +82,7 @@ func PageBuilderExample(b *presets.Builder, db *gorm.DB) {
 		"ProductDetail",
 	)
 
-	detail2.Field("ProductDetail").
+	detail2.Section("ProductDetail").
 		ViewComponentFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) HTMLComponent {
 			return Div()
 		})

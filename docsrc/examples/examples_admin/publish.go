@@ -70,7 +70,6 @@ func (p *WithPublishProduct) GetUnPublishActions(db *gorm.DB, ctx context.Contex
 }
 
 // @snippet_end
-// TODO: eque
 func PublishExample(b *presets.Builder, db *gorm.DB) {
 	err := db.AutoMigrate(&WithPublishProduct{})
 	if err != nil {
@@ -82,7 +81,7 @@ func PublishExample(b *presets.Builder, db *gorm.DB) {
 	// @snippet_begin(PublishConfigureView)
 	mb := b.Model(&WithPublishProduct{})
 	dp := mb.Detailing(publish.VersionsPublishBar, "Details").Drawer(true)
-	dp.Field("Details").
+	dp.Section("Details").
 		ViewComponentFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) h.HTMLComponent {
 			product := obj.(*WithPublishProduct)
 			detail := vx.DetailInfo(

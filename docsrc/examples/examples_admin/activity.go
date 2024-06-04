@@ -33,7 +33,7 @@ func ActivityExample(b *presets.Builder, db *gorm.DB) {
 	productModel := b.Model(&WithActivityProduct{}).Use(activityBuilder)
 
 	bt := productModel.Detailing("Content", activity.Timeline).Drawer(true)
-	bt.Field("Content").
+	bt.Section("Content").
 		ViewComponentFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) HTMLComponent {
 			return Div().Text("text")
 		}).Editing("Title", "Code", "Price")
