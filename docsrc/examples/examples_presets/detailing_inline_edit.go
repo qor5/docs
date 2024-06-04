@@ -10,6 +10,25 @@ import (
 	"gorm.io/gorm"
 )
 
+func PresetsDetailSimple(b *presets.Builder, db *gorm.DB) (
+	cust *presets.ModelBuilder,
+	cl *presets.ListingBuilder,
+	ce *presets.EditingBuilder,
+	dp *presets.DetailingBuilder,
+) {
+	err := db.AutoMigrate(&Customer{}, &CreditCard{}, &Note{})
+	if err != nil {
+		panic(err)
+	}
+	mediaBuilder := media.New(db)
+	b.DataOperator(gorm2op.DataOperator(db)).Use(mediaBuilder)
+
+	cust = b.Model(&Customer{})
+	dp = cust.Detailing("Name", "Email", "Description", "Avatar").Drawer(true)
+
+	return
+}
+
 func PresetsDetailInlineEditDetails(b *presets.Builder, db *gorm.DB) (
 	cust *presets.ModelBuilder,
 	cl *presets.ListingBuilder,

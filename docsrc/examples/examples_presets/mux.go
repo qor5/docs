@@ -37,6 +37,7 @@ func SamplesHandler(mux examples.Muxer, prefix string) {
 	addExample(mux, db, PresetsDetailInlineEditDetails)
 	addExample(mux, db, PresetsDetailInlineEditInspectTables)
 	addExample(mux, db, PresetsDetailInlineEditFieldSections)
+	addExample(mux, db, PresetsDetailSimple)
 	return
 }
 
