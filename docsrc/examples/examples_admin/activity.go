@@ -2,6 +2,7 @@ package examples_admin
 
 import (
 	"context"
+	"net/http"
 
 	"github.com/qor5/admin/v3/activity"
 	"github.com/qor5/admin/v3/presets"
@@ -11,7 +12,7 @@ import (
 	"gorm.io/gorm"
 )
 
-func ActivityExample(b *presets.Builder, db *gorm.DB) {
+func ActivityExample(b *presets.Builder, db *gorm.DB) http.Handler {
 	// @snippet_begin(NewActivitySample)
 	b.DataOperator(gorm2op.DataOperator(db))
 
@@ -48,4 +49,5 @@ func ActivityExample(b *presets.Builder, db *gorm.DB) {
 
 	activityBuilder.AddRecords("Update Price", currentCtx, &WithActivityProduct{Title: "Product 1", Code: "P1", Price: 200})
 	// @snippet_end
+	return b
 }

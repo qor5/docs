@@ -38,4 +38,5 @@ func SamplesHandler(mux examples.Muxer, prefix string) {
 	examples.AddPresetExample(mux, PublishExample)
 	examples.AddPresetExample(mux, SEOExampleBasic)
 	examples.AddPresetExample(mux, ActivityExample)
+	examples.AddPresetExample(mux, PageBuilderExample)
 }

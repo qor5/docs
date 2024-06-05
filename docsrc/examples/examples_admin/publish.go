@@ -3,6 +3,7 @@ package examples_admin
 import (
 	"context"
 	"fmt"
+	"net/http"
 	"strings"
 
 	"github.com/qor/oss"
@@ -70,7 +71,7 @@ func (p *WithPublishProduct) GetUnPublishActions(db *gorm.DB, ctx context.Contex
 }
 
 // @snippet_end
-func PublishExample(b *presets.Builder, db *gorm.DB) {
+func PublishExample(b *presets.Builder, db *gorm.DB) http.Handler {
 	err := db.AutoMigrate(&WithPublishProduct{})
 	if err != nil {
 		panic(err)
@@ -100,4 +101,5 @@ func PublishExample(b *presets.Builder, db *gorm.DB) {
 	// run the publisher job if Schedule is used
 	go publish.RunPublisher(db, nil, publisher)
 	// @snippet_end
+	return b
 }

@@ -38,7 +38,7 @@ func (lm *L10nModel) PrimaryColumnValuesBySlug(slug string) map[string]string {
 
 // @snippet_end
 
-func LocalizationExample(b *presets.Builder, db *gorm.DB) {
+func LocalizationExample(b *presets.Builder, db *gorm.DB) http.Handler {
 	if err := db.AutoMigrate(&L10nModel{}); err != nil {
 		panic(err)
 	}
@@ -63,4 +63,5 @@ func LocalizationExample(b *presets.Builder, db *gorm.DB) {
 	mb.Listing("ID", "Title", "Locale")
 	// @snippet_end
 	// @snippet_end
+	return b
 }

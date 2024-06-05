@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"net/http"
 	"runtime/debug"
 	"time"
 
@@ -14,13 +15,14 @@ import (
 	"gorm.io/gorm"
 )
 
-func WorkerExample(b *presets.Builder, db *gorm.DB) {
+func WorkerExample(b *presets.Builder, db *gorm.DB) http.Handler {
 	b.DataOperator(gorm2op.DataOperator(db))
 
 	wb := worker.NewWithQueue(db, Que)
 	b.Use(wb)
 	addJobs(wb)
 	wb.Listen()
+	return b
 }
 
 var Que = &mock.QueueMock{

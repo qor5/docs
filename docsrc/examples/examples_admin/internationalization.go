@@ -69,7 +69,7 @@ type video struct {
 	Description string
 }
 
-func InternationalizationExample(b *presets.Builder, db *gorm.DB) {
+func InternationalizationExample(b *presets.Builder, db *gorm.DB) http.Handler {
 	if err := db.AutoMigrate(&video{}); err != nil {
 		panic(err)
 	}
@@ -117,4 +117,5 @@ func InternationalizationExample(b *presets.Builder, db *gorm.DB) {
 			return b.I18n().GetSupportLanguages()
 		})
 	// @snippet_end
+	return b
 }

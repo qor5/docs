@@ -61,10 +61,9 @@ func AddGA(ctx *web.EventContext) {
 `)
 }
 
-func AddPresetExample(mux Muxer, f func(*presets.Builder, *gorm.DB)) {
+func AddPresetExample(mux Muxer, f func(*presets.Builder, *gorm.DB) http.Handler) {
 	path := URLPathByFunc(f)
 	fmt.Println("Examples mounting path:", path)
 	p := presets.New().AssetFunc(AddGA).URIPrefix(path)
-	f(p, ExampleDB())
-	mux.Handle(path, p)
+	mux.Handle(path, f(p, ExampleDB()))
 }

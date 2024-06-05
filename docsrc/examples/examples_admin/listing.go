@@ -1,6 +1,7 @@
 package examples_admin
 
 import (
+	"net/http"
 	"time"
 
 	"github.com/qor5/admin/v3/presets"
@@ -63,7 +64,7 @@ type Category struct {
 	CreatedAt time.Time
 }
 
-func ListingExample(b *presets.Builder, db *gorm.DB) {
+func ListingExample(b *presets.Builder, db *gorm.DB) http.Handler {
 	// Setup the project name, ORM and Homepage
 	b.DataOperator(gorm2op.DataOperator(db))
 
@@ -121,7 +122,7 @@ func ListingExample(b *presets.Builder, db *gorm.DB) {
 
 	b.Model(&Category{})
 	// Use m to customize the model, Or config more models here.
-	return
+	return b
 }
 
 // @snippet_end

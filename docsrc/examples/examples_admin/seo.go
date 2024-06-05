@@ -15,7 +15,7 @@ type SEOPost struct {
 	Seo   seo.Setting
 }
 
-func SEOExampleBasic(b *presets.Builder, db *gorm.DB) {
+func SEOExampleBasic(b *presets.Builder, db *gorm.DB) http.Handler {
 	err := db.AutoMigrate(&SEOPost{})
 	if err != nil {
 		panic(err)
@@ -41,4 +41,5 @@ func SEOExampleBasic(b *presets.Builder, db *gorm.DB) {
 
 	b.Use(seob)
 	mb.Use(seob)
+	return b
 }
