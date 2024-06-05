@@ -96,7 +96,7 @@ func newPB() Config {
 	l10nBuilder.
 		RegisterLocales("International", "International", "International").
 		RegisterLocales("China", "China", "China").
-		GetSupportLocaleCodesFromRequestFunc(func(R *http.Request) []string {
+		SupportLocalesFunc(func(R *http.Request) []string {
 			return l10nBuilder.GetSupportLocaleCodes()[:]
 		})
 	l10nBuilder.Install(b)

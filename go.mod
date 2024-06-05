@@ -24,6 +24,7 @@ require (
 	github.com/theplant/htmlgo v1.0.3
 	github.com/theplant/osenv v0.0.1
 	github.com/theplant/testenv v0.0.0-20240513012518-1c94c8c84239
+	github.com/theplant/testingutils v0.0.1
 	github.com/yosssi/gohtml v0.0.0-20201013000340-ee4748c638f4
 	golang.org/x/text v0.15.0
 	gorm.io/driver/postgres v1.5.7

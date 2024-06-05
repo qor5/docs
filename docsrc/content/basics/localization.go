@@ -25,7 +25,7 @@ Also this struct must implement ~PrimarySlug() string~ and ~PrimaryColumnValuesB
 	docgo.Markdown(`
 ## Init a l10n builder
 Register locales here.  
-You can use ~GetSupportLocaleCodesFromRequestFunc~ to determine who can use which locales.
+You can use ~SupportLocalesFunc~ to determine who can use which locales.
 `),
 	ch.Code(generated.L10nBuilderExample).Language("go"),
 	docgo.Markdown(`
