@@ -63,5 +63,5 @@ func LocalizationExample(b *presets.Builder, db *gorm.DB) http.Handler {
 	mb.Listing("ID", "Title", "Locale")
 	// @snippet_end
 	// @snippet_end
-	return b
+	return l10nBuilder.EnsureLocale(b)
 }

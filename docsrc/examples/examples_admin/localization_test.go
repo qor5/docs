@@ -19,6 +19,14 @@ INSERT INTO public.l10n_models (id, created_at, updated_at, deleted_at, title, l
 
 `, []string{"l10n_models"}))
 
+var l10nDataWithChina = gofixtures.Data(gofixtures.Sql(`
+INSERT INTO public.l10n_models (id, created_at, updated_at, deleted_at, title, locale_code) VALUES (1, 
+'2024-06-04 23:27:40.442281 +00:00', '2024-06-04 23:27:40.442281 +00:00', null, 'My model title', 'International');
+INSERT INTO public.l10n_models (id, created_at, updated_at, deleted_at, title, locale_code) VALUES (1, '2024-06-04 23:50:28.847833 +00:00', '2024-06-04 23:50:28.844069 +00:00', null, '中文标题', 'China');
+
+
+`, []string{"l10n_models"}))
+
 func TestLocalization(t *testing.T) {
 	pb := presets.New().DataOperator(gorm2op.DataOperator(TestDB))
 	LocalizationExample(pb, TestDB)
@@ -34,6 +42,15 @@ func TestLocalization(t *testing.T) {
 			ExpectPageBodyContainsInOrder: []string{"My model title", "International"},
 		},
 		{
+			Name:  "Index Page with locale code",
+			Debug: true,
+			ReqFunc: func() *http.Request {
+				l10nDataWithChina.TruncatePut(SqlDB)
+				return httptest.NewRequest("GET", "/l10n-models?locale=China", nil)
+			},
+			ExpectPageBodyContainsInOrder: []string{"中文标题", `<v-chip color='success' :variant='"flat"' :label='true' :size='"small"'>China</v-chip>`},
+		},
+		{
 			Name:  "Localize dialog",
 			Debug: true,
 			ReqFunc: func() *http.Request {
@@ -44,6 +61,38 @@ func TestLocalization(t *testing.T) {
 				return req
 			},
 			ExpectPortalUpdate0ContainsInOrder: []string{"China", "Japan"},
+		},
+		{
+			Name:  "Show detail",
+			Debug: true,
+			ReqFunc: func() *http.Request {
+				l10nDataWithChina.TruncatePut(SqlDB)
+				req := multipartestutils.NewMultipartBuilder().
+					PageURL("/l10n-models?__execute_event__=presets_Edit&id=1_China").
+					BuildEventFuncRequest()
+				return req
+			},
+			ExpectPortalUpdate0ContainsInOrder: []string{"中文标题"},
+		},
+		{
+			Name:  "Update detail",
+			Debug: true,
+			ReqFunc: func() *http.Request {
+				l10nDataWithChina.TruncatePut(SqlDB)
+				req := multipartestutils.NewMultipartBuilder().
+					PageURL("/l10n-models?__execute_event__=presets_Update&id=1_China").
+					AddField("Title", "Updated Title").
+					AddField("LocaleCode", "China").
+					BuildEventFuncRequest()
+				return req
+			},
+			EventResponseMatch: func(t *testing.T, er *multipartestutils.TestEventResponse) {
+				var m L10nModel
+				TestDB.Find(&m, "id = ? AND locale_code = ?", 1, "China")
+				if m.Title != "Updated Title" {
+					t.Errorf("title is wrong %#+v", m)
+				}
+			},
 		},
 		{
 			Name:  "Localize to China and Japan",
