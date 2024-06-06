@@ -5,8 +5,8 @@ package examples_vuetify
 import (
 	"github.com/qor5/docs/v3/docsrc/examples"
 	"github.com/qor5/docs/v3/docsrc/utils"
-	. "github.com/qor5/ui/v3/vuetify"
 	"github.com/qor5/web/v3"
+	. "github.com/qor5/x/v3/ui/vuetify"
 	h "github.com/theplant/htmlgo"
 )
 

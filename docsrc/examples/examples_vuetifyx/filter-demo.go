@@ -2,9 +2,9 @@ package examples_vuetifyx
 
 import (
 	"github.com/qor5/docs/v3/docsrc/examples"
-	. "github.com/qor5/ui/v3/vuetify"
-	"github.com/qor5/ui/v3/vuetifyx"
 	"github.com/qor5/web/v3"
+	. "github.com/qor5/x/v3/ui/vuetify"
+	"github.com/qor5/x/v3/ui/vuetifyx"
 )
 
 func FilterDemo(ctx *web.EventContext) (pr web.PageResponse, err error) {

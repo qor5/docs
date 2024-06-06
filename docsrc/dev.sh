@@ -25,7 +25,6 @@ snippetDirs=(
   ../
   $(goModPath github.com/qor5/web/v3)
   $(goModPath github.com/qor5/x/v3)
-  $(goModPath github.com/qor5/ui/v3)
   $(goModPath github.com/qor5/admin/v3)
 )
 echo "${snippetDirs[@]}"
@@ -39,7 +38,7 @@ done
 
 export DB_PARAMS="user=docs password=docs dbname=docs sslmode=disable host=localhost port=6532 TimeZone=Asia/Tokyo"
 export ENV="development"
-export GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+# export GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 go run ./build/main.go
 rm ../docs/assets.go
 

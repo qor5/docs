@@ -3,8 +3,8 @@ package examples_presets
 import (
 	"github.com/qor5/admin/v3/presets"
 	"github.com/qor5/admin/v3/presets/gorm2op"
-	"github.com/qor5/ui/v3/vuetify"
 	"github.com/qor5/web/v3"
+	"github.com/qor5/x/v3/ui/vuetify"
 	"github.com/theplant/htmlgo"
 	"gorm.io/gorm"
 )
