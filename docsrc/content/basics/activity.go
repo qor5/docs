@@ -1,7 +1,7 @@
 package basics
 
 import (
-	"github.com/qor5/docs/docsrc/generated"
+	"github.com/qor5/docs/v3/docsrc/generated"
 	. "github.com/theplant/docgo"
 	"github.com/theplant/docgo/ch"
 )
@@ -23,9 +23,9 @@ To initialize activity package with the default configuration, you need to pass 
 `),
 	ch.Code(generated.NewActivitySample).Language("go"),
 	Markdown(`
-By default, the activity package uses QOR5 login package's ~~login.UserKey~~ as the default key to fetch the current user from the context. If you want to use your own key, you can use the ~~SetCreatorContextKey~~ function.
+By default, the activity package uses QOR5 login package's ~~login.UserKey~~ as the default key to fetch the current user from the context. If you want to use your own key, you can use the ~~CreatorContextKey~~ function.
 
-Same with above, the activity package uses the db instance that passed in during initialization to perform db operations. If you need another db to do the work, you can use ~~SetDBContextKey~~ method.
+Same with above, the activity package uses the db instance that passed in during initialization to perform db operations. If you need another db to do the work, you can use ~~DBContextKey~~ method.
 
 ## Register the models that require activity tracking
 This example demonstrates how to register ~~Product~~ into the activity. The activities on the product model will be automatically recorded when it is created, updated, or deleted.
@@ -40,7 +40,7 @@ For special fields like ~~time.Time~~ or media files handled by QOR5 media_libra
 
 If you want to skip the automatic recording, you can use ~~SkipCreate~~, ~~SkipUpdate~~ and ~~SkipDelete~~ methods.
 
-The Activity package allows for displaying the activities of a record on its editing page. Simply use the ~~EnableActivityInfoTab~~ method to enable this feature. Once enabled, you can customize the format of each activity's display text using the ~~SetTabHeading~~ method. Additionally, you can make each activity a link to the corresponding record using the ~~SetLink~~ method.
+The Activity package allows for displaying the activities of a record on its editing page. Simply use the ~~EnableActivityInfoTab~~ method to enable this feature. Once enabled, you can customize the format of each activity's display text using the ~~TabHeading~~ method. Additionally, you can make each activity a link to the corresponding record using the ~~SetLink~~ method.
 
 ## Record the activity log manually
 If you register a preset model into the activity, the activity package will automatically record the activity log for CRUD operations. However, if you need to manually record the activity log for other operations or if you want to register a non-preset model, you can use the following sample code.`),

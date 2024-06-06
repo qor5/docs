@@ -15,10 +15,11 @@
 
 <body>
 <div id='app' v-cloak>
-<div v-init-context:vars='{hideAside: false}' class='flex h-screen'>
+<go-plaid-scope v-slot='{ locals }' :init='{hideAside: false}'>
+<div class='flex h-screen'>
 <div class='flex-1 flex flex-col overflow-hidden'>
 <div class='flex h-full'>
-<aside v-show='!vars.hideAside' id='menuScroller' class='flex flex-col w-80 h-full bg-gray-50 border-r border-gray-200 overflow-y-auto'>
+<aside v-if='!locals.hideAside' id='menuScroller' class='flex flex-col w-80 h-full bg-gray-50 border-r border-gray-200 overflow-y-auto'>
 <div class='h-12'><search></search></div>
 
 <ul class='px-0 py-3 mx-0 text-base font-normal list-none text-gray-700'>
@@ -33,6 +34,10 @@
 </li>
 
 <li class='cursor-default px-4 py-1 truncate break-words w-64 m-0'>Building Admin</li>
+
+<li class='m-0'>
+<a href='basics/presets-instant-crud.html' id='basics/presets-instant-crud.html' onclick='window.storeMenuState("basics/presets-instant-crud.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>presets, Instant CRUD</a>
+</li>
 
 <li class='m-0'>
 <a href='basics/listing.html' id='basics/listing.html' onclick='window.storeMenuState("basics/listing.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Listing</a>
@@ -79,10 +84,6 @@
 </li>
 
 <li class='m-0'>
-<a href='basics/notification-center.html' id='basics/notification-center.html' onclick='window.storeMenuState("basics/notification-center.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Notification Center</a>
-</li>
-
-<li class='m-0'>
 <a href='basics/shortcut.html' id='basics/shortcut.html' onclick='window.storeMenuState("basics/shortcut.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Keyboard Shortcut</a>
 </li>
 
@@ -121,23 +122,19 @@
 <li class='cursor-default px-4 py-1 truncate break-words w-64 m-0'>Web Application</li>
 
 <li class='m-0'>
-<a href='basics/page-func-and-event-func.html' id='basics/page-func-and-event-func.html' onclick='window.storeMenuState("basics/page-func-and-event-func.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Page Func and Event Func</a>
-</li>
-
-<li class='m-0'>
 <a href='advanced-functions/the-go-html-builder.html' id='advanced-functions/the-go-html-builder.html' onclick='window.storeMenuState("advanced-functions/the-go-html-builder.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>The Go HTML builder</a>
 </li>
 
 <li class='m-0'>
-<a href='presets-guide/its-the-whole-house.html' id='presets-guide/its-the-whole-house.html' onclick='window.storeMenuState("presets-guide/its-the-whole-house.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Not just scaffolding, it&#39;s the whole house</a>
-</li>
-
-<li class='m-0'>
-<a href='vuetify-components/lazy-portals.html' id='vuetify-components/lazy-portals.html' onclick='window.storeMenuState("vuetify-components/lazy-portals.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Lazy Portals</a>
+<a href='basics/page-func-and-event-func.html' id='basics/page-func-and-event-func.html' onclick='window.storeMenuState("basics/page-func-and-event-func.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Page Func and Event Func</a>
 </li>
 
 <li class='m-0'>
 <a href='basics/layout-function-and-page-injector.html' id='basics/layout-function-and-page-injector.html' onclick='window.storeMenuState("basics/layout-function-and-page-injector.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Layout Function and Page Injector</a>
+</li>
+
+<li class='m-0'>
+<a href='vuetify-components/lazy-portals.html' id='vuetify-components/lazy-portals.html' onclick='window.storeMenuState("vuetify-components/lazy-portals.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Lazy Portals</a>
 </li>
 
 <li class='m-0'>
@@ -161,7 +158,7 @@
 </li>
 
 <li class='m-0'>
-<a href='basics/scope-component.html' id='basics/scope-component.html' onclick='window.storeMenuState("basics/scope-component.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Scope Component</a>
+<a href='basics/web-scope.html' id='basics/web-scope.html' onclick='window.storeMenuState("basics/web-scope.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>web.Scope</a>
 </li>
 
 <li class='m-0'>
@@ -187,10 +184,6 @@
 </li>
 
 <li class='m-0'>
-<a href='vuetify-components/auto-complete.html' id='vuetify-components/auto-complete.html' onclick='window.storeMenuState("vuetify-components/auto-complete.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Auto Complete</a>
-</li>
-
-<li class='m-0'>
 <a href='components-guide/composite-new-component-with-go.html' id='components-guide/composite-new-component-with-go.html' onclick='window.storeMenuState("components-guide/composite-new-component-with-go.html")' class='inline-block pl-10 pr-4 py-1 truncate break-words w-64 hover:text-blue-400 text-gray-700'>Composite new Component With Go</a>
 </li>
 
@@ -210,7 +203,7 @@
 <div id='docContentBox' class='flex flex-row w-full'>
 <div class='flex flex-grow flex-col w-2/3'>
 <div class='flex flex-row'>
-<button @click='vars.hideAside = !vars.hideAside' class='w-12 h-12 p-4'>
+<button @click='locals.hideAside = !locals.hideAside' class='w-12 h-12 p-4'>
 <div class='w-4 h-4 fill-current text-gray-300'>
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" height="16px" viewBox="0 0 16 16" version="1.1">
@@ -225,38 +218,49 @@
 <div id='docMainBox' class='px-16 pb-12 pt-4 overflow-auto'>
 <h1 class='mb-8'>Introduction</h1>
 
-<div class='border-t'><p>QOR5 is a Go library designed to help developers build web applications with ease and high customization. By focusing on static typing in the Go language and minimizing the need for JavaScript or TypeScript, QOR5 streamlines the development process and encourages reusability of components.</p>
-
-<p>In QOR5, the traditional approach of using template languages for rendering HTML is discouraged. Instead, QOR5 encourages developers to write HTML <a href="/advanced-functions/the-go-html-builder.html" rel="nofollow">using static typing in the Go language</a>. This design choice provides several benefits:</p>
-
+<div class='border-t'><p>QOR5 is a powerful Go library that empowers developers to craft web applications with exceptional ease and extensive customization potential. Leveraging Go's robust static typing and minimizing the need for JavaScript or TypeScript, QOR5 delivers a highly efficient development workflow while fostering a culture of component reuse.</p>
+<h2 id="revolutionizing-html-rendering">Revolutionizing HTML Rendering</h2>
+<p>QOR5 challenges conventional wisdom by advocating against the use of template languages for HTML generation.<br />
+It instead invites developers to harness the expressive power of <a href="/advanced-functions/the-go-html-builder.html">Go's static typing to author HTML</a> directly within<br />
+the codebase. This innovative approach confers several key advantages:</p>
 <ul>
-<li><p>Improved Readability and Maintainability: By using Go&#39;s static typing, you can maintain a consistent coding style throughout the entire project, making it easier to read and maintain.</p></li>
-
-<li><p>Better Error Checking: Static typing allows for compile-time error checking, which can help catch issues before they cause problems in production.</p></li>
-
-<li><p>Enhanced Reusability: QOR5 promotes the use of components, which can be easily abstracted and reused across different parts of your application. Since components are written in Go, using third-party components from other Go packages is as simple as importing and using regular Go packages.</p></li>
-
-<li><p>Simplified Development Process: By minimizing the need for JavaScript or TypeScript, QOR5 streamlines the development process and reduces the complexity of building interactive web applications.</p></li>
+<li>
+<p><strong>Enhanced Readability and Maintainability</strong>: By embracing Go's statically typed syntax,<br />
+projects maintain a cohesive coding style, resulting in cleaner, more comprehensible code that is effortless to navigate and update.</p>
+</li>
+<li>
+<p><strong>Proactive Error Detection</strong>: The static typing inherent to Go enables rigorous compile-time checks,<br />
+catching potential issues early in the development cycle and preventing them from surfacing as production bugs.</p>
+</li>
+<li>
+<p><strong>Unmatched Reusability</strong>: QOR5 champions the modular nature of components,<br />
+which can be seamlessly abstracted and repurposed across various aspects of an application. As these components are written in pure Go, incorporating third-party libraries becomes a breeze—simply import and utilize them like any standard Go package.</p>
+</li>
+<li>
+<p><strong>Streamlined Development</strong>: By minimizing the need for JavaScript or TypeScript,<br />
+QOR5 simplifies the development process and significantly reduces the intricacies involved in creating dynamic, interactive web experiences. Developers can concentrate on delivering core functionality without being bogged down by the complexities of multiple scripting languages.</p>
+</li>
 </ul>
-
-<p>QOR5&#39;s approach to rendering HTML using Go&#39;s static typing eliminates the need for developers to learn and work with multiple template languages. This results in a more consistent and streamlined development experience, allowing developers to focus on the core functionality of their web applications.</p>
-
-<h2 id='how-is-this-document-organized'>How is this document organized
-<a href='#how-is-this-document-organized' class='anchor'></a>
-</h2>
-<p>Most of latter examples are based on the initial sample project. In another word, we will demonstrate how to build a rich functioned website by this document.</p>
-
+<h2 id="a-unified-development-experience">A Unified Development Experience</h2>
+<p>QOR5's innovative approach to HTML rendering through Go's static typing eliminates the learning curve and maintenance overhead associated with managing multiple template languages. As a result, developers enjoy a coherent, streamlined development journey that prioritizes their focus on the essence of their web applications.</p>
+<h2 id="document-structure">Document Structure</h2>
+<p>This comprehensive guide is structured to facilitate a hands-on understanding of QOR5's capabilities and practical application. It is anchored around a sample project, which serves as a tangible reference point throughout the learning process.</p>
 <ul>
-<li><p>Quick Sample Project: We will begin with a brief overview of a sample project, giving you a visual idea of QOR5&#39;s capabilities and functionalities.</p></li>
-
-<li><p>Basic Functions: In this section, we will explore the core features of QOR5, starting from listing pages to editing pages. This section covers common features found in admin websites.</p></li>
-
-<li><p>QOR5 Essentials and Advanced Functions: We will dive into the inner workings of QOR5, covering topics such as rendering pages and advanced features like partial page refreshing.</p></li>
-
-<li><p>Digging Deeper: In the final section, you will learn how to create new components for QOR5, extending its capabilities and adapting it to your specific needs.</p></li>
+<li>
+<p><strong>Quick Sample Project</strong>: Our journey commences with a concise overview of a representative sample project, visually demonstrating QOR5's versatility and feature set.</p>
+</li>
+<li>
+<p><strong>Basic Functions</strong>: This section delves into the fundamental building blocks of QOR5,<br />
+walking you through essential features ranging from list pages to edit interfaces. It equips you with the knowledge needed to implement common administrative functionalities found in modern web applications.</p>
+</li>
+<li>
+<p>QOR5 Essentials and Advanced Functions: Here, we delve beneath the surface, examining the inner workings of QOR5. Topics include sophisticated page rendering techniques and cutting-edge features such as partial page refreshing, providing you with a deeper understanding of QOR5's full potential.</p>
+</li>
+<li>
+<p><strong>Digging Deeper</strong>: In the culminating segment, you will learn how to unleash your creativity by designing and implementing custom components for QOR5. This empowering section teaches you how to extend QOR5's functionality and tailor it precisely to the unique requirements of your projects.</p>
+</li>
 </ul>
-
-<p><strong>Join the Discord community</strong>: <a href="https://discord.gg/76YPsVBE4E" rel="nofollow">https://discord.gg/76YPsVBE4E</a></p>
+<p><strong>Join the Discord community</strong>: <a href="https://discord.gg/76YPsVBE4E">https://discord.gg/76YPsVBE4E</a></p>
 </div>
 </div>
 </div>
@@ -269,6 +273,7 @@
 </div>
 </div>
 </div>
+</go-plaid-scope>
 </div>
 </body>
 </html>

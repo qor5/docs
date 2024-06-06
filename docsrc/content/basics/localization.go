@@ -3,9 +3,10 @@ package basics
 import (
 	"path"
 
-	"github.com/qor5/docs/docsrc/examples/example_basics"
-	"github.com/qor5/docs/docsrc/generated"
-	"github.com/qor5/docs/docsrc/utils"
+	"github.com/qor5/docs/v3/docsrc/examples"
+	"github.com/qor5/docs/v3/docsrc/examples/examples_admin"
+	"github.com/qor5/docs/v3/docsrc/generated"
+	"github.com/qor5/docs/v3/docsrc/utils"
 	"github.com/theplant/docgo"
 	"github.com/theplant/docgo/ch"
 )
@@ -24,7 +25,7 @@ Also this struct must implement ~PrimarySlug() string~ and ~PrimaryColumnValuesB
 	docgo.Markdown(`
 ## Init a l10n builder
 Register locales here.  
-You can use ~GetSupportLocaleCodesFromRequestFunc~ to determine who can use which locales.
+You can use ~SupportLocalesFunc~ to determine who can use which locales.
 `),
 	ch.Code(generated.L10nBuilderExample).Language("go"),
 	docgo.Markdown(`
@@ -39,9 +40,9 @@ The ~Localize~ ui will appear in the ~RowMenuItem~ under the ~Edit~ and the ~Del
 ## Full Example
 `),
 	ch.Code(generated.L10nFullExample).Language("go"),
-	utils.Demo(
+	utils.DemoWithSnippetLocation(
 		"L10n",
-		path.Join(example_basics.LocalizationExamplePath, "/l10n-models"),
-		"example_basics/localization.go",
+		path.Join(examples.URLPathByFunc(examples_admin.LocalizationExample), "/l10n-models"),
+		generated.L10nFullExampleLocation,
 	),
 ).Slug("basics/l10n").Title("Localization")

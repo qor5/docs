@@ -1,9 +1,10 @@
 package basics
 
 import (
-	"github.com/qor5/docs/docsrc/examples/e21_presents"
-	"github.com/qor5/docs/docsrc/generated"
-	"github.com/qor5/docs/docsrc/utils"
+	"github.com/qor5/docs/v3/docsrc/examples"
+	"github.com/qor5/docs/v3/docsrc/examples/examples_presets"
+	"github.com/qor5/docs/v3/docsrc/generated"
+	"github.com/qor5/docs/v3/docsrc/utils"
 	. "github.com/theplant/docgo"
 	"github.com/theplant/docgo/ch"
 )
@@ -17,7 +18,7 @@ If you want only to change the brand string, you can use ~BrandTitle~ to set the
 `),
 
 	ch.Code(generated.BrandTitleSample).Language("go"),
-	utils.Demo("Brand Title", e21_presents.PresetsBrandTitlePath+"/brands", "e21_presents/brand.go"),
+	utils.DemoWithSnippetLocation("Brand Title", examples.URLPathByFunc(examples_presets.PresetsBrandTitle)+"/brands", generated.BrandTitleSampleLocation),
 
 	Markdown(`
 ## Full customization
@@ -25,7 +26,7 @@ When you opt-in to full brand customization, you can use ~BrandFunc~ to be respo
 `),
 
 	ch.Code(generated.BrandFuncSample).Language("go"),
-	utils.Demo("Brand Func", e21_presents.PresetsBrandFuncPath+"/brands", "e21_presents/brand.go"),
+	utils.DemoWithSnippetLocation("Brand Func", examples.URLPathByFunc(examples_presets.PresetsBrandFunc)+"/brands", generated.BrandFuncSampleLocation),
 
 	Markdown(`
 ## Profile
@@ -33,6 +34,6 @@ Profile is below the brand area, where you can put the current user's informatio
 `),
 
 	ch.Code(generated.ProfileSample).Language("go"),
-	utils.Demo("Profile", e21_presents.PresetsProfilePath+"/brands", "e21_presents/profile.go"),
+	utils.DemoWithSnippetLocation("Profile", examples.URLPathByFunc(examples_presets.PresetsProfile)+"/brands", generated.ProfileSampleLocation),
 ).Title("Brand").
 	Slug("basics/brand")

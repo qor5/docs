@@ -1,9 +1,10 @@
 package basics
 
 import (
-	"github.com/qor5/docs/docsrc/examples/example_basics"
-	"github.com/qor5/docs/docsrc/generated"
-	"github.com/qor5/docs/docsrc/utils"
+	"github.com/qor5/docs/v3/docsrc/examples"
+	"github.com/qor5/docs/v3/docsrc/examples/examples_presets"
+	"github.com/qor5/docs/v3/docsrc/generated"
+	"github.com/qor5/docs/v3/docsrc/utils"
 	. "github.com/theplant/docgo"
 	"github.com/theplant/docgo/ch"
 )
@@ -15,7 +16,7 @@ Assume we have a ~status~ filed in Post. It has 2 possible values, "draft" and "
 
 `),
 	ch.Code(generated.FilterSample).Language("go"),
-	utils.Demo("Basic filter", example_basics.PresetsBasicFilterPath+"/customers", "e21_presents/filter.go"),
+	utils.DemoWithSnippetLocation("Basic filter", examples.URLPathByFunc(examples_presets.PresetsBasicFilter)+"/posts", generated.FilterSampleLocation),
 
 	Markdown(`
 ### QOR5 now supports 7 types of filter option.

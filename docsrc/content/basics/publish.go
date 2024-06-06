@@ -4,9 +4,10 @@ import (
 	"fmt"
 	"path"
 
-	"github.com/qor5/docs/docsrc/examples/example_basics"
-	"github.com/qor5/docs/docsrc/generated"
-	"github.com/qor5/docs/docsrc/utils"
+	"github.com/qor5/docs/v3/docsrc/examples"
+	"github.com/qor5/docs/v3/docsrc/examples/examples_admin"
+	"github.com/qor5/docs/v3/docsrc/generated"
+	"github.com/qor5/docs/v3/docsrc/utils"
 	. "github.com/theplant/docgo"
 	"github.com/theplant/docgo/ch"
 )
@@ -34,10 +35,10 @@ Create publisher and configure Publish view for model, and remember to display S
 Implement the publish interfaces if there is a need to publish content to storage(filesystem, AWS S3, ...)
     `),
 	ch.Code(generated.PublishImplementPublishInterfaces).Language("go"),
-	utils.Demo(
+	utils.DemoWithSnippetLocation(
 		"Publish",
-		path.Join(example_basics.PublishExamplePath, "/products"),
-		"example_basics/publish.go",
+		path.Join(examples.URLPathByFunc(examples_admin.PublishExample), "/with-publish-products"),
+		generated.PublishImplementPublishInterfacesLocation,
 	),
 	Markdown(fmt.Sprintf(`
 ## Modules

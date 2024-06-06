@@ -1,9 +1,9 @@
 package basics
 
 import (
-	"github.com/qor5/docs/docsrc/examples/e22_vuetify_variant_sub_form"
-	"github.com/qor5/docs/docsrc/generated"
-	"github.com/qor5/docs/docsrc/utils"
+	"github.com/qor5/docs/v3/docsrc/examples/examples_vuetify"
+	"github.com/qor5/docs/v3/docsrc/generated"
+	"github.com/qor5/docs/v3/docsrc/utils"
 	. "github.com/theplant/docgo"
 	"github.com/theplant/docgo/ch"
 )
@@ -15,6 +15,6 @@ VSelect changes, the form below it will change to a new form accordingly.
 By use of ~web.Portal()~ and ~VSelect~'s ~OnInput~
 `),
 	ch.Code(generated.VuetifyVariantSubForm).Language("go"),
-	utils.Demo("Vuetify Variant Sub Form", e22_vuetify_variant_sub_form.VuetifyVariantSubFormPath, "e22_vuetify_variant_sub_form/page.go"),
+	utils.DemoWithSnippetLocation("Vuetify Variant Sub Form", examples_vuetify.VuetifyVariantSubFormPath, generated.VuetifyVariantSubFormLocation),
 ).Title("Variant Sub Form").
 	Slug("vuetify-components/variant-sub-form")

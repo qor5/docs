@@ -1,9 +1,10 @@
 package advanced_functions
 
 import (
-	"github.com/qor5/docs/docsrc/examples/e21_presents"
-	"github.com/qor5/docs/docsrc/generated"
-	"github.com/qor5/docs/docsrc/utils"
+	"github.com/qor5/docs/v3/docsrc/examples"
+	"github.com/qor5/docs/v3/docsrc/examples/examples_presets"
+	"github.com/qor5/docs/v3/docsrc/generated"
+	"github.com/qor5/docs/v3/docsrc/utils"
 	. "github.com/theplant/docgo"
 	"github.com/theplant/docgo/ch"
 	. "github.com/theplant/htmlgo"
@@ -17,7 +18,7 @@ and as the main data model of your system, It's better to have detail page for t
 You can add all kinds of operations conveniently.
 `),
 	ch.Code(generated.PresetsDetailPageTopNotesSample).Language("go"),
-	utils.Demo("Presets Detail Page Top Notes", e21_presents.PresetsDetailPageTopNotesPath+"/customers", "e21_presents/detailing.go"),
+	utils.DemoWithSnippetLocation("Presets Detail Page Top Notes", examples.URLPathByFunc(examples_presets.PresetsDetailPageTopNotes)+"/customers", generated.PresetsDetailPageTopNotesSampleLocation),
 	Markdown(`
 - The name of detailing fields are just a place holder for decide ordering
 - ~CellComponentFunc~ customize how the cell display
@@ -32,9 +33,10 @@ A ~vx.DetailInfo~ component is used for display main detail field of the model.
 And you can add any actions to the detail page with ease:
 `),
 	ch.Code(generated.PresetsDetailPageDetailsSample).Language("go"),
-	utils.Demo("Presets Detail Page Details", e21_presents.PresetsDetailPageDetailsPath+"/customers", "e21_presents/detailing.go"),
+	utils.DemoWithSnippetLocation("Presets Detail Page Details", examples.URLPathByFunc(examples_presets.
+		PresetsDetailPageDetails)+"/customers", generated.PresetsDetailPageDetailsSampleLocation),
 	Markdown(`
-- The ~stripui.Card~ Actions links to two event functions: Agree Terms, and Update Details
+- The ~vx.Card~ Actions links to two event functions: Agree Terms, and Update Details
 - Agree Terms show a drawer popup that edit the ~term_agreed_at~ field
 - Update Details reuse the edit customer form
 `),
@@ -44,7 +46,7 @@ And you can add any actions to the detail page with ease:
 A ~vx.DataTable~ component is very featured rich, Here check out the row expandable example:
 `),
 	ch.Code(generated.PresetsDetailPageCardsSample).Language("go"),
-	utils.Demo("Presets Detail Page Credit Cards", e21_presents.PresetsDetailPageCardsPath+"/customers", "e21_presents/detailing.go"),
+	utils.DemoWithSnippetLocation("Presets Detail Page Credit Cards", examples_presets.PresetsDetailPageCardsPath+"/customers", generated.PresetsDetailPageCardsSampleLocation),
 	Markdown(`
 - ~RowExpandFunc~ config the content when data table row expand
 - ~cc.Editing~ setup the fields when edit

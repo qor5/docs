@@ -3,9 +3,10 @@ package basics
 import (
 	"path"
 
-	"github.com/qor5/docs/docsrc/examples/example_basics"
-	"github.com/qor5/docs/docsrc/generated"
-	"github.com/qor5/docs/docsrc/utils"
+	"github.com/qor5/docs/v3/docsrc/examples"
+	"github.com/qor5/docs/v3/docsrc/examples/examples_admin"
+	"github.com/qor5/docs/v3/docsrc/generated"
+	"github.com/qor5/docs/v3/docsrc/utils"
 	"github.com/theplant/docgo"
 	"github.com/theplant/docgo/ch"
 	h "github.com/theplant/htmlgo"
@@ -21,14 +22,14 @@ based on the user's preferences.
 	h.Br(),
 	utils.Demo(
 		"I18n",
-		path.Join(example_basics.InternationalizationExamplePath, "/home"),
-		"example_basics/internationalization.go",
+		path.Join(examples.URLPathByFunc(examples_admin.InternationalizationExample), "/home"),
+		"examples/examples_admin/internationalization.go",
 	),
 	docgo.Markdown(`
 ## Getting Started
 To use the i18n package, you first need to import it into your Go application:
 `),
-	ch.Code(`import "github.com/qor5/x/i18n"`).Language("go"),
+	ch.Code(`import "github.com/qor5/x/v3/i18n"`).Language("go"),
 	docgo.Markdown(`
 Next, create a new ~Builder~ instance using the ~New()~ function. 
 If you want to use it with QOR5, use the ~I18n()~ on ~presets.Builder~:

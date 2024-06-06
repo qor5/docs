@@ -1,9 +1,10 @@
 package basics
 
 import (
-	"github.com/qor5/docs/docsrc/examples/e21_presents"
-	"github.com/qor5/docs/docsrc/generated"
-	"github.com/qor5/docs/docsrc/utils"
+	"github.com/qor5/docs/v3/docsrc/examples"
+	"github.com/qor5/docs/v3/docsrc/examples/examples_presets"
+	"github.com/qor5/docs/v3/docsrc/generated"
+	"github.com/qor5/docs/v3/docsrc/utils"
 	. "github.com/theplant/docgo"
 	"github.com/theplant/docgo/ch"
 	. "github.com/theplant/htmlgo"
@@ -22,10 +23,10 @@ Use a customized component is as simple as add the extra asset to the preset ins
 And configure the component func on the field:
 `),
 	ch.Code(generated.PresetsEditingCustomizationDescriptionSample).Language("go"),
-	utils.Demo("Presets Editing Customization Description Field", e21_presents.PresetsEditingCustomizationDescriptionPath+"/customers", "e21_presents/editing.go"),
+	utils.DemoWithSnippetLocation("Presets Editing Customization Description Field", examples.URLPathByFunc(examples_presets.PresetsEditingCustomizationDescription)+"/customers", generated.PresetsEditingCustomizationDescriptionSampleLocation),
 	Markdown(`
-- Added the tiptap javascript and css component pack as an extra asset
-- Configure the description field to use the component func that returns the ~tiptap.TipTapEditor()~ component
+- Added the redactor javascript and css component pack as an extra asset
+- Configure the description field to use the component func that returns the ~richeditor.RichEditor~ component
 - Set the field name and value of the component
 `),
 	utils.Anchor(H2(""), "Configure field type for all models"),
@@ -33,7 +34,7 @@ And configure the component func on the field:
 Set a global field type to component func like the following:
 `),
 	ch.Code(generated.PresetsEditingCustomizationFileTypeSample).Language("go"),
-	utils.Demo("Presets Editing Customization File Type", e21_presents.PresetsEditingCustomizationFileTypePath+"/products", "e21_presents/editing.go"),
+	utils.DemoWithSnippetLocation("Presets Editing Customization File Type", examples.URLPathByFunc(examples_presets.PresetsEditingCustomizationFileType)+"/products", generated.PresetsEditingCustomizationFileTypeSampleLocation),
 	Markdown(`
 - We define ~MyFile~ to actually be a string
 - We set ~FieldDefaults~ for writing, which is the editing drawer popup to be a customized component
@@ -51,14 +52,14 @@ of how to display the edit controls, and How to save the object.
 Tabs can be added by using ~AppendTabsPanelFunc~ func on ~EditingBuilder~:
 `),
 	ch.Code(generated.PresetsEditingCustomizationTabsSample).Language("go"),
-	utils.Demo("Presets Editing Customization Tabs", e21_presents.PresetsEditingCustomizationTabsPath+"/companies", "e21_presents/editing.go"),
+	utils.DemoWithSnippetLocation("Presets Editing Customization Tabs", examples.URLPathByFunc(examples_presets.PresetsEditingCustomizationTabs)+"/companies", generated.PresetsEditingCustomizationTabsSampleLocation),
 	utils.Anchor(H2(""), "Validation"),
 	Markdown(`
 Field level validation and display on field can be added by implement ~ValidateFunc~,
 and set the ~web.ValidationErrors~ result:
 `),
 	ch.Code(generated.PresetsEditingCustomizationValidationSample).Language("go"),
-	utils.Demo("Presets Editing Customization Validation", e21_presents.PresetsEditingCustomizationValidationPath+"/customers", "e21_presents/editing.go"),
+	utils.DemoWithSnippetLocation("Presets Editing Customization Validation", examples.URLPathByFunc(examples_presets.PresetsEditingCustomizationValidation)+"/customers", generated.PresetsEditingCustomizationValidationSampleLocation),
 	Markdown(`
 - We validate the ~Name~ of the customer must be longer than 10
 - If the error happens, If will show below the field

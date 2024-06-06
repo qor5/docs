@@ -1,9 +1,9 @@
 package digging_deeper
 
 import (
-	"github.com/qor5/docs/docsrc/examples/e00_basics"
-	"github.com/qor5/docs/docsrc/generated"
-	"github.com/qor5/docs/docsrc/utils"
+	"github.com/qor5/docs/v3/docsrc/examples/examples_web"
+	"github.com/qor5/docs/v3/docsrc/generated"
+	"github.com/qor5/docs/v3/docsrc/utils"
 	. "github.com/theplant/docgo"
 	"github.com/theplant/docgo/ch"
 )
@@ -17,7 +17,7 @@ They can be composite into a new component very easy.
 This example is ported from [Bootstrap4 Navbar](https://getbootstrap.com/docs/4.3/components/navbar/):
 `),
 	ch.Code(generated.CompositeComponentSample1).Language("go"),
-	utils.Demo("Composite New Component With Go", e00_basics.CompositeComponentSample1PagePath, "e00_basics/composite-components.go"),
+	utils.DemoWithSnippetLocation("Composite New Component With Go", examples_web.CompositeComponentSample1PagePath, generated.CompositeComponentSample1Location),
 	Markdown(`
 You can see from the example, We have created ~Navbar~ and ~Carousel~ components by
 simply create Go func that returns ~htmlgo.HTMLComponent~.

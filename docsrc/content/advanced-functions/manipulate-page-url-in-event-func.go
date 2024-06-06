@@ -1,9 +1,9 @@
 package advanced_functions
 
 import (
-	"github.com/qor5/docs/docsrc/examples/e00_basics"
-	"github.com/qor5/docs/docsrc/generated"
-	"github.com/qor5/docs/docsrc/utils"
+	"github.com/qor5/docs/v3/docsrc/examples/examples_web"
+	"github.com/qor5/docs/v3/docsrc/generated"
+	"github.com/qor5/docs/v3/docsrc/utils"
 	. "github.com/theplant/docgo"
 	"github.com/theplant/docgo/ch"
 )
@@ -16,7 +16,7 @@ That can open the page to the exact state of the page being sent, Not the initia
 For example:
 `),
 	ch.Code(generated.MultiStatePageSample).Language("go"),
-	utils.Demo("Manipulate Page URL In Event Func", e00_basics.MultiStatePagePath, "e00_basics/manipulate-page-url.go"),
+	utils.DemoWithSnippetLocation("Manipulate Page URL In Event Func", examples_web.MultiStatePagePath, generated.MultiStatePageSampleLocation),
 	Markdown(`
 This page have several state that encoded in the url:
 

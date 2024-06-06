@@ -1,9 +1,10 @@
 package basics
 
 import (
-	"github.com/qor5/docs/docsrc/examples/example_basics"
-	"github.com/qor5/docs/docsrc/generated"
-	"github.com/qor5/docs/docsrc/utils"
+	"github.com/qor5/docs/v3/docsrc/examples"
+	"github.com/qor5/docs/v3/docsrc/examples/examples_admin"
+	"github.com/qor5/docs/v3/docsrc/generated"
+	"github.com/qor5/docs/v3/docsrc/utils"
 	. "github.com/theplant/docgo"
 	"github.com/theplant/docgo/ch"
 )
@@ -66,7 +67,7 @@ The ~obj~ is the ~Post~ record, and ~field~ is the ~CategoryID~ field of this ~P
 	Markdown(`
 ## Display virtual fields
 `),
-	ch.Code(`postModelBuilder.Listing("ID", "Title", "Body", "CategoryID", "VirtualValue")
+	ch.Code(`postModelBuilder.Listing("ID", "Title", "Body", "CategoryID", "VirtualField")
 postModelBuilder.Listing().Field("VirtualField").ComponentFunc(func(obj interface{}, field *presets.FieldContext, ctx *web.EventContext) h.HTMLComponent {
 	return h.Td(h.Text("virtual field"))
 })
@@ -74,12 +75,12 @@ postModelBuilder.Listing().Field("VirtualField").ComponentFunc(func(obj interfac
 
 	Markdown(`
 ## DefaultScope
-If we want to display ~Post~ with ~disabled=false~ only. Use the ~Listing().Searcher~ to apply SQL conditions.
+If we want to display ~Post~ with ~disabled=false~ only. Use the ~Listing().SearcherFunc(...)~ to apply SQL conditions.
 `),
-	ch.Code(`postModelBuilder.Listing().Searcher = func(model interface{}, params *presets.SearchParams, ctx *web.EventContext) (r interface{}, totalCount int, err error){
+	ch.Code(`postModelBuilder.Listing().SearcherFunc(func(model interface{}, params *presets.SearchParams, ctx *web.EventContext) (r interface{}, totalCount int, err error){
 	qdb := db.Where("disabled != true")
 	return gorm2op.DataOperator(qdb).Search(model, params, ctx)
-}
+})
 `),
 
 	Markdown(`
@@ -96,6 +97,6 @@ rmn.RowMenuItem("Show").ComponentFunc(func(obj interface{}, id string, ctx *web.
 ## Full Example
 `),
 	ch.Code(generated.PresetsListingSample).Language("go"),
-	utils.Demo("Presets Listing Customization Fields", example_basics.ListingSamplePath+"/posts", "example_basics/listing.go"),
+	utils.DemoWithSnippetLocation("Presets Listing Customization Fields", examples.URLPathByFunc(examples_admin.ListingExample)+"/posts", generated.PresetsListingSampleLocation),
 ).Title("Listing").
 	Slug("basics/listing")

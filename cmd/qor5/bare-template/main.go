@@ -3,14 +3,16 @@ package main
 import (
 	"log"
 	"net/http"
-	"os"
 	"time"
 
-	"github.com/qor5/web"
+	"github.com/qor5/web/v3"
 	. "github.com/theplant/htmlgo"
+	"github.com/theplant/osenv"
 )
 
 const doAction1 = "doAction1"
+
+var port = osenv.Get("PORT", "The port to serve on", "9010")
 
 func Home(ctx *web.EventContext) (r web.PageResponse, err error) {
 	r.Body = Div(
@@ -28,7 +30,6 @@ func DoAction1(ctx *web.EventContext) (r web.EventResponse, err error) {
 
 func layout(in web.PageFunc) (out web.PageFunc) {
 	return func(ctx *web.EventContext) (pr web.PageResponse, err error) {
-
 		ctx.Injector.TailHTML(`
 			<script src='/main.js'></script>
 		`)
@@ -65,10 +66,6 @@ func main() {
 	mux.Handle("/", w.Page(layout(Home)).
 		EventFuncs(doAction1, DoAction1))
 
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "9010"
-	}
 	log.Printf("Listen on %s", port)
 	log.Fatal(http.ListenAndServe(":"+port, mux))
 }

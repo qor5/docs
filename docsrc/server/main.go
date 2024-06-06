@@ -3,30 +3,46 @@ package main
 import (
 	"fmt"
 	"net/http"
-	"os"
 	"time"
 
-	"github.com/qor5/docs/docsrc"
+	"github.com/qor5/docs/v3/docsrc"
+	"github.com/qor5/docs/v3/docsrc/assets"
+	"github.com/qor5/docs/v3/docsrc/examples/examples_admin"
+	"github.com/theplant/docgo"
+	"github.com/theplant/osenv"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
-func main() {
-	port := os.Getenv("PORT")
-	if len(port) == 0 {
-		port = "8800"
-	}
+var (
+	dbParamsString = osenv.Get("DB_PARAMS", "database connection string", "user=docs password=docs dbname=docs sslmode=disable host=localhost port=6532 TimeZone=Asia/Tokyo")
+	port           = osenv.Get("PORT", "The port to serve on", "8800")
+	envString      = osenv.Get("ENV", "environment flag", "development")
+)
 
-	db, err := gorm.Open(postgres.Open(os.Getenv("DB_PARAMS")), &gorm.Config{})
+func main() {
+	db, err := gorm.Open(postgres.Open(dbParamsString), &gorm.Config{})
 	if err != nil {
 		panic(err)
 	}
 
 	go runAtMidNight(db)
 
+	// @snippet_begin(HelloWorldMuxSample1)
+	mux := http.NewServeMux()
+	// @snippet_end
+	examples_admin.Mux(mux, "")
+
+	mux.Handle("/", docgo.New().
+		MainPageTitle("QOR5 Document").
+		Assets("/assets/", assets.Assets).
+		DocTree(docsrc.DocTree...).
+		Build(),
+	)
+
 	// @snippet_begin(HelloWorldMainSample)
 	fmt.Println("Starting docs at :" + port)
-	err = http.ListenAndServe(":"+port, docsrc.Mux("/"))
+	err = http.ListenAndServe(":"+port, mux)
 	if err != nil {
 		panic(err)
 	}
@@ -34,7 +50,7 @@ func main() {
 }
 
 func runAtMidNight(db *gorm.DB) {
-	if os.Getenv("ENV") == "development" {
+	if envString == "development" {
 		return
 	}
 

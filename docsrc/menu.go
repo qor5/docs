@@ -1,12 +1,12 @@
 package docsrc
 
 import (
-	"github.com/qor5/docs/docsrc/content"
-	advanced_functions "github.com/qor5/docs/docsrc/content/advanced-functions"
-	"github.com/qor5/docs/docsrc/content/basics"
-	digging_deeper "github.com/qor5/docs/docsrc/content/digging-deeper"
-	getting_started "github.com/qor5/docs/docsrc/content/getting-started"
-	"github.com/qor5/docs/docsrc/utils"
+	"github.com/qor5/docs/v3/docsrc/content"
+	advanced_functions "github.com/qor5/docs/v3/docsrc/content/advanced-functions"
+	"github.com/qor5/docs/v3/docsrc/content/basics"
+	digging_deeper "github.com/qor5/docs/v3/docsrc/content/digging-deeper"
+	getting_started "github.com/qor5/docs/v3/docsrc/content/getting-started"
+	"github.com/qor5/docs/v3/docsrc/utils"
 	"github.com/theplant/docgo"
 )
 
@@ -21,6 +21,7 @@ var DocTree = []interface{}{
 	&docgo.DocsGroup{
 		Title: "Building Admin",
 		Docs: []*docgo.DocBuilder{
+			basics.PresetsInstantCRUD,
 			// listing
 			basics.Listing,
 			basics.ListingCustomizations,
@@ -38,7 +39,7 @@ var DocTree = []interface{}{
 			basics.Permissions,
 			basics.Role,
 			// other basics
-			basics.NotificationCenter,
+			// basics.NotificationCenter, // 历史遗产，先去除掉
 			basics.ShortCut,
 			basics.ConfirmDialog,
 			basics.Slug,
@@ -54,11 +55,10 @@ var DocTree = []interface{}{
 	&docgo.DocsGroup{
 		Title: "Web Application",
 		Docs: []*docgo.DocBuilder{
-			advanced_functions.PageFuncAndEventFunc,
 			advanced_functions.TheGoHTMLBuilder,
-			advanced_functions.ItsTheWholeHouse,
-			advanced_functions.LazyPortalsAndReload,
+			advanced_functions.PageFuncAndEventFunc,
 			advanced_functions.LayoutFunctionAndPageInjector,
+			advanced_functions.LazyPortalsAndReload,
 			advanced_functions.SwitchPagesWithPushState,
 			advanced_functions.ReloadPageWithAFlash,
 			advanced_functions.PartialRefreshWithPortal,
@@ -78,7 +78,6 @@ var DocTree = []interface{}{
 			advanced_functions.ATasteOfUsingVuetifyInGo,
 			// vuetifyx
 			basics.LinkageSelect,
-			basics.AutoComplete,
 			// build ui component
 			digging_deeper.CompositeNewComponentWithGo,
 			digging_deeper.IntegrateAHeavyVueComponent,

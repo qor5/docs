@@ -1,10 +1,9 @@
 package advanced_functions
 
 import (
-	"github.com/qor5/docs/docsrc/examples/e13_vuetify_list"
-	"github.com/qor5/docs/docsrc/examples/e14_vuetify_menu"
-	"github.com/qor5/docs/docsrc/generated"
-	"github.com/qor5/docs/docsrc/utils"
+	"github.com/qor5/docs/v3/docsrc/examples/examples_vuetify"
+	"github.com/qor5/docs/v3/docsrc/generated"
+	"github.com/qor5/docs/v3/docsrc/utils"
 	. "github.com/theplant/docgo"
 	"github.com/theplant/docgo/ch"
 	. "github.com/theplant/htmlgo"
@@ -22,7 +21,7 @@ other go package.
 This example is purely render, we didn't integrate any interaction (event func) to it.
 `),
 	ch.Code(generated.VuetifyListSample).Language("go"),
-	utils.Demo("Vuetify List", e13_vuetify_list.HelloVuetifyListPath, "e13_vuetify_list/page.go"),
+	utils.DemoWithSnippetLocation("Vuetify List", examples_vuetify.HelloVuetifyListPath, generated.VuetifyListSampleLocation),
 
 	utils.Anchor(H2(""), "Use menu, card, list, etc"),
 	Markdown(`
@@ -31,9 +30,10 @@ buttons on the menu popup.
 `),
 	ch.Code(generated.VuetifyMenuSample).Language("go"),
 	Markdown(`
-~.Attr(web.InitContextVars, "{myMenuShow: false}")~ is a special vue directive that
-we created to initialize vue context component data variables. It will initialize
-~vars.myMenuShow~ to ~false~. So that you don't need to modify javascript code to do
+~.VSlot("{ locals, form }").Init("{ myMenuShow: false }").FormInit(JSONString(fv))~ used to initialize the variables of ~web.Scope~.
+~locals~ corresponds to the ~Init~ method and ~form~ corresponds to the ~FormInit~ method.
+
+~.Init~ will initialize ~locals.myMenuShow~ to ~false~. So that you don't need to modify javascript code to do
 the initialization. It's often useful to control dialog, popups. At this example,
 We add it, So that the cancel button on the menu, could actually close the menu without
 requesting server backend.
@@ -41,6 +41,6 @@ requesting server backend.
 ~toggleFavored~ event func did an partial update only to the favorite icon button. So that it won't close the
 menu popup, but updated the button to toggle the favorite icon.
 `),
-	utils.Demo("Vuetify Menu", e14_vuetify_menu.HelloVuetifyMenuPath, "e14_vuetify_menu/page.go"),
+	utils.DemoWithSnippetLocation("Vuetify Menu", examples_vuetify.HelloVuetifyMenuPath, generated.VuetifyMenuSampleLocation),
 ).Title("A Taste of using Vuetify in Go").
 	Slug("vuetify-components/a-taste-of-using-vuetify-in-go")

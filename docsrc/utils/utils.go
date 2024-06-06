@@ -4,9 +4,11 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/qor5/web"
+	"github.com/qor5/web/v3"
 	"github.com/shurcooL/sanitized_anchor_name"
+	"github.com/sunfmin/snippetgo/parse"
 	. "github.com/theplant/htmlgo"
+	"github.com/theplant/osenv"
 )
 
 func Anchor(h *HTMLTagBuilder, text string) HTMLComponent {
@@ -25,22 +27,37 @@ type Example struct {
 
 var LiveExamples []*Example
 
+var envGitBranch = osenv.Get("GIT_BRANCH", "demo source code link git branch", "main")
+
+func DemoWithSnippetLocation(title string, demoPath string, location parse.Location) HTMLComponent {
+	return Demo(title, demoPath, fmt.Sprintf("%s#L%d-L%d", location.File, location.StartLine, location.EndLine))
+}
+
 func Demo(title string, demoPath string, sourcePath string) HTMLComponent {
+	if sourcePath != "" {
+		sourcePath = fmt.Sprintf("https://github.com/qor5/docs/tree/%s/docsrc/%s", envGitBranch, sourcePath)
+	}
 	ex := &Example{
 		Title:      title,
 		DemoPath:   demoPath,
-		SourcePath: fmt.Sprintf("https://github.com/qor5/docs/tree/main/docsrc/examples/%s", sourcePath),
+		SourcePath: sourcePath,
 	}
 
-	LiveExamples = append(LiveExamples, ex)
+	if title != "" {
+		LiveExamples = append(LiveExamples, ex)
+	}
 
 	return Div(
 		Div(
 			A().Text("Check the demo").Href(ex.DemoPath).Target("_blank"),
-			Text(" | "),
-			A().Text("Source on GitHub").
-				Href(ex.SourcePath).
-				Target("_blank"),
+			Iff(ex.SourcePath != "", func() HTMLComponent {
+				return Components(
+					Text(" | "),
+					A().Text("Source on GitHub").
+						Href(ex.SourcePath).
+						Target("_blank"),
+				)
+			}),
 		).Class("demo"),
 	)
 }

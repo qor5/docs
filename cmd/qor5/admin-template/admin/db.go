@@ -1,18 +1,19 @@
 package admin
 
 import (
-	"os"
-
-	"github.com/qor5/docs/cmd/qor5/admin-template/models"
+	"github.com/qor5/docs/v3/cmd/qor5/admin-template/models"
+	"github.com/theplant/osenv"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 )
 
+var dbParamsString = osenv.Get("DB_PARAMS", "database connection string", "")
+
 func ConnectDB() (db *gorm.DB) {
 	var err error
 	// Create database connection
-	db, err = gorm.Open(postgres.Open(os.Getenv("DB_PARAMS")))
+	db, err = gorm.Open(postgres.Open(dbParamsString))
 	if err != nil {
 		panic(err)
 	}
