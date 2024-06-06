@@ -5,9 +5,9 @@ import (
 	"time"
 
 	"github.com/qor5/docs/v3/docsrc/examples"
-	. "github.com/qor5/ui/v3/vuetify"
-	vx "github.com/qor5/ui/v3/vuetifyx"
 	"github.com/qor5/web/v3"
+	. "github.com/qor5/x/v3/ui/vuetify"
+	vx "github.com/qor5/x/v3/ui/vuetifyx"
 	"github.com/sunfmin/reflectutils"
 	h "github.com/theplant/htmlgo"
 )

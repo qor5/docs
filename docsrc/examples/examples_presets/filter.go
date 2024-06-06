@@ -6,8 +6,8 @@ import (
 
 	"github.com/qor5/admin/v3/presets"
 	"github.com/qor5/admin/v3/presets/gorm2op"
-	"github.com/qor5/ui/v3/vuetifyx"
 	"github.com/qor5/web/v3"
+	"github.com/qor5/x/v3/ui/vuetifyx"
 	"gorm.io/gorm"
 )
 

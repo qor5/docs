@@ -6,8 +6,8 @@ import (
 
 	"github.com/qor5/admin/v3/presets"
 	"github.com/qor5/admin/v3/presets/gorm2op"
-	v "github.com/qor5/ui/v3/vuetify"
 	"github.com/qor5/web/v3"
+	v "github.com/qor5/x/v3/ui/vuetify"
 	h "github.com/theplant/htmlgo"
 	"github.com/theplant/osenv"
 	"gorm.io/driver/postgres"
