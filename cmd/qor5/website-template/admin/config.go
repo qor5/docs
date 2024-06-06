@@ -80,18 +80,16 @@ func newPB() Config {
 	)
 
 	utils.Install(b)
-	media.New(db).Install(b)
+	mediab := media.New(db)
 	ab := activity.New(db).CreatorContextKey(login.UserKey)
-	ab.Install(b)
 
 	pageBuilder := example.ConfigPageBuilder(db, "/admin/page_builder", ``, b.I18n())
 	storage := filesystem.New(PublishDir)
-	publisher := publish.New(db, storage).ContextValueFuncs(pageBuilder.ContextValueProvider)
+	publisher := publish.New(db, storage)
 
 	seoBuilder := seo.New(db)
 	l10nBuilder := l10n.New(db).Activity(ab)
 	pageBuilder.SEO(seoBuilder).Publisher(publisher).L10n(l10nBuilder).Activity(ab)
-	pageBuilder.Install(b)
 
 	l10nBuilder.
 		RegisterLocales("International", "International", "International").
@@ -99,8 +97,15 @@ func newPB() Config {
 		SupportLocalesFunc(func(R *http.Request) []string {
 			return l10nBuilder.GetSupportLocaleCodes()[:]
 		})
-	l10nBuilder.Install(b)
-	publisher.Install(b)
+
+	b.Use(
+		mediab,
+		ab,
+		pageBuilder,
+		seoBuilder,
+		l10nBuilder,
+		publisher,
+	)
 
 	b.I18n().
 		SupportLanguages(language.English, language.SimplifiedChinese).
