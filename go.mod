@@ -3,16 +3,16 @@ module github.com/qor5/docs/v3
 go 1.22.3
 
 require (
-	github.com/fatih/color v1.16.0
+	github.com/fatih/color v1.17.0
 	github.com/go-chi/chi/v5 v5.0.12
 	github.com/iancoleman/strcase v0.3.0
 	github.com/manifoldco/promptui v0.9.0
 	github.com/markbates/goth v1.80.0
 	github.com/ory/ladon v1.3.0
 	github.com/qor/oss v0.0.0-20230717083721-c04686f83630
-	github.com/qor5/admin/v3 v3.0.1-0.20240424102851-d75759576158
-	github.com/qor5/web/v3 v3.0.4-0.20240605034223-bef26c49d0cf
-	github.com/qor5/x/v3 v3.0.3
+	github.com/qor5/admin/v3 v3.0.1-0.20240606070624-5e4b9b0afe75
+	github.com/qor5/web/v3 v3.0.4
+	github.com/qor5/x/v3 v3.0.5
 	github.com/samber/lo v1.39.0
 	github.com/shurcooL/sanitized_anchor_name v1.0.0
 	github.com/stretchr/testify v1.9.0
@@ -122,8 +122,8 @@ require (
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
 
-replace github.com/qor5/web/v3 => ../web
+// replace github.com/qor5/web/v3 => ../web
 
-replace github.com/qor5/x/v3 => ../x
+// replace github.com/qor5/x/v3 => ../x
 
-replace github.com/qor5/admin/v3 => ../admin
+// replace github.com/qor5/admin/v3 => ../admin
